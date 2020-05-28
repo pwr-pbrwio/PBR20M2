@@ -12,8 +12,6 @@ for (project in projects) {
 
 classMetric <- transform(classMetric, Test=paste(Package, Class, sep="."))
 
-testMetric <- subset(classMetric, grepl("Test", classMetric$Test))
-
 outputDf <- merge(classMetric, mutationScores, by = "Test")
 
 outputDf$MutationScore[outputDf$MutationScore > 0.5] <- 1

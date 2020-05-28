@@ -11,7 +11,7 @@ file = open('mutationScoresGathered.csv', 'w', newline='')
 writer = csv.writer(file)
 
 
-writer.writerow(['Project', 'Test', 'MutationScore'])
+writer.writerow(['Project', 'PackagePath', 'MutationScore'])
 for project in os.listdir(MUTATION_RESULTS):
     for test in os.listdir(os.path.join(MUTATION_RESULTS, project)):
         path = '{}/'.format(MUTATION_RESULTS) + project + '/' + test + '/**/index.html'
