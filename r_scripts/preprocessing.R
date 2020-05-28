@@ -2,7 +2,33 @@ rawData <- read.csv("/home/mich/Desktop/outputs/output_jsoup.csv")
 mutationScores <- read.csv("/home/mich/Desktop/PBR20M2/python_scripts/mutationScoresGathered.csv")
 projects <- readLines("/home/mich/Desktop/PBR20M2/projects.csv")
 
-# Calculate McCabe min, max, mean <-- TODO
+# Calculate McCabe min, max, mean
+library(dplyr)
+classes <- unique(rawData[3])
+classes_nonEmpty <- classes [!apply(is.na(classes) | classes == "", 1, all),]
+classes_t <- t(classes_nonEmpty)
+
+rawData <- transform(rawData, MAX_CYCLO=paste(NA, sep=""))
+rawData <- transform(rawData, MIN_CYCLO=paste(NA, sep=""))
+rawData <- transform(rawData, MEAN_CYCLO=paste(NA, sep=""))
+for(i in classes_t) {
+  single_class_col = filter(rawData, Class == i)
+  cyclo_column <- single_class_col["CYCLO"]
+  cyclo_column_non_empty <- cyclo_column[!apply(is.na(cyclo_column) | cyclo_column == "", 1, all),]
+  
+  # Compute MAX_CYCLO
+  rawData[rawData$MethodSignature == "" & rawData$Class == i, "MAX_CYCLO"] <- max(cyclo_column_non_empty)
+  
+  # Compute MIN_CYCLO
+  rawData[rawData$MethodSignature == "" & rawData$Class == i, "MIN_CYCLO"] <- min(cyclo_column_non_empty)
+
+  # Compute MEAN_CYCLO
+  rawData[rawData$MethodSignature == "" & rawData$Class == i, "MEAN_CYCLO"] <- mean(cyclo_column_non_empty)
+}
+rawData[rawData == "-Inf"] <-NA
+rawData[rawData == "Inf"] <-NA
+rawData[rawData == NaN] <-NA
+
 
 classMetrics <- rawData[(rawData$MethodSignature==""),] # select data for classes only
 classMetrics <- classMetrics[!sapply(classMetrics, function(x) all(is.na(x)))] # drop all rows without any values (columns with method metrics)
