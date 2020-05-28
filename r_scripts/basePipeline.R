@@ -4,7 +4,6 @@ projects <- readLines("G:\\Studyja\\2 Stopien\\1 Semestr\\Projekt badawczo rozwo
 
 # Add Max, Min and Mean Cyclo Metric
 library(dplyr)
-data <- read.csv("H:\\Programy\\InteliJ\\outputs\\output_jsoup.csv", header=TRUE, sep = ",")
 classes <- unique(data[3])
 classes_nonEmpty <- classes # [!apply(is.na(classes) | classes == "", 1, all),]
 classes_t <- t(classes_nonEmpty)
