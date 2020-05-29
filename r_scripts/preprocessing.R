@@ -11,6 +11,10 @@ classes_t <- t(classes_nonEmpty)
 rawData <- transform(rawData, MAX_CYCLO=paste(NA, sep=""))
 rawData <- transform(rawData, MIN_CYCLO=paste(NA, sep=""))
 rawData <- transform(rawData, MEAN_CYCLO=paste(NA, sep=""))
+
+rawData$MAX_CYCLO <- as.numeric(rawData$MAX_CYCLO)
+rawData$MIN_CYCLO <- as.numeric(rawData$MIN_CYCLO)
+rawData$MEAN_CYCLO <- as.numeric(rawData$MEAN_CYCLO)
 for(i in classes_t) {
   single_class_col = filter(rawData, Class == i)
   cyclo_column <- single_class_col["CYCLO"]
