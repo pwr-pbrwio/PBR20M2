@@ -10,14 +10,14 @@ for (project in projects) {
   classMetric$Project[grepl(project, classMetric$Project)] <- project
 }
 
-classMetric <- transform(classMetric, Test=paste(Package, Class, sep="."))
+classMetric <- transform(classMetric, PackagePath=paste(Package, Class, sep="."))
 
-outputDf <- merge(classMetric, mutationScores, by = "Test")
+outputDf <- merge(classMetric, mutationScores, by = "PackagePath")
 
 outputDf$MutationScore[outputDf$MutationScore > 0.5] <- 1
 outputDf$MutationScore[outputDf$MutationScore <= 0.5] <- 0
 
-outputDf <- outputDf[ , -which(names(outputDf) %in% c("Test", "Project.x", "Package", 
+outputDf <- outputDf[ , -which(names(outputDf) %in% c("PackagePath", "Project.x", "Package", 
                                                "Class", "MethodSignature",
                                                "OuterClass", "AccessModifier",
                                                "Project.y"))]
