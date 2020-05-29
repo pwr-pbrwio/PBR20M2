@@ -1,6 +1,7 @@
-rawData <- read.csv("/home/mich/Desktop/outputs/output_jsoup.csv")
-mutationScores <- read.csv("/home/mich/Desktop/PBR20M2/python_scripts/mutationScoresGathered.csv")
-projects <- readLines("/home/mich/Desktop/PBR20M2/projects.csv")
+library(here)
+rawData <- read.csv(here("java_metrics_outoups"))
+mutationScores <- read.csv(here("python_scripts", "mutationScoresGathered.csv"))
+projects <- readLines(here("projects.csv"))
 
 # Calculate McCabe min, max, mean
 library(dplyr)
