@@ -1,7 +1,12 @@
 library(here)
-rawData <- read.csv(here("javametrics_outputs"), "output_jsoup.csv")
+rawData <- read.csv(here("javametrics_outputs", "output_jsoup.csv"))
 mutationScores <- read.csv(here("python_scripts", "mutationScoresGathered.csv"))
 projects <- readLines(here("projects.csv"))
+
+#rawDataFiles <- c()
+#for (i in list.files(path=here("javametrics_outputs"), pattern=".csv")) {
+#  rawDataFiles <- c(rawDataFiles, here("javametrics_outputs", i))
+#} <-- finish preprocessing for all files
 
 # Calculate McCabe min, max, mean
 library(dplyr)
