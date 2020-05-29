@@ -1,5 +1,5 @@
 library(here)
-rawData <- read.csv(here("java_metrics_outoups"))
+rawData <- read.csv(here("java_metrics_outoups"), here("output_jsoup.csv"))
 mutationScores <- read.csv(here("python_scripts", "mutationScoresGathered.csv"))
 projects <- readLines(here("projects.csv"))
 
