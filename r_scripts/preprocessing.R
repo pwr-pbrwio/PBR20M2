@@ -9,7 +9,6 @@ for (i in list.files(path=here("javametrics_outputs"), pattern=".csv")) {
   rawDataFiles <- c(rawDataFiles, here("javametrics_outputs", i))
 }
 
-
 # Merge columns project and class from 'mutationScores', to then merge with metrics
 mutationScores <- transform(mutationScores, ProjectClass=paste(Project, Class, sep = "."))
 mutationScores <- mutationScores[ , -which(names(mutationScores) %in% c("Project", "Class"))]
@@ -74,11 +73,13 @@ for (file in rawDataFiles) {
   finalDataFrame <- merge(classMetrics, mutationScores, by = "ProjectClass")
   
   # Divide entries into classes
-  finalDataFrame$MutationScore[finalDataFrame$MutationScore > 0.5] <- 1
-  finalDataFrame$MutationScore[finalDataFrame$MutationScore <= 0.5] <- 0
+  calculatedQuantiles <- quantile(finalDataFrame$MutationScore, probs = c(0.25, 0.75), na.rm = TRUE)
+  finalDataFrame$MutationScore[finalDataFrame$MutationScore >= calculatedQuantiles[2]] <- 1
+  finalDataFrame$MutationScore[finalDataFrame$MutationScore <= calculatedQuantiles[1]] <- 0
   
   # Drop column ProjectClass and Project to have usable data in classification
   finalDataFrame <- finalDataFrame[ , -which(names(finalDataFrame) %in% c("ProjectClass", "Project"))]
   totalData <- rbind(totalData, finalDataFrame)
 }
 write.csv(totalData, "cleanData.csv", row.names = FALSE, append = TRUE)
+
