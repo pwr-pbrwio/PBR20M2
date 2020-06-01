@@ -72,15 +72,16 @@ for (file in rawDataFiles) {
   # Merge mutation scores with metrics
   finalDataFrame <- merge(classMetrics, mutationScores, by = "ProjectClass")
   
-  # Divide entries into classes
-  calculatedQuantiles <- quantile(finalDataFrame$MutationScore, probs = c(0.25, 0.75), na.rm = TRUE)
-  finalDataFrame$MutationScore[finalDataFrame$MutationScore >= calculatedQuantiles[2]] <- 1
-  finalDataFrame$MutationScore[finalDataFrame$MutationScore <= calculatedQuantiles[1]] <- 0
-  finalDataFrame <- finalDataFrame[(rawData$MutationScore < calculatedQuantiles[2] & rawData$MutationScore > calculatedQuantiles[1]),]
-  
   # Drop column ProjectClass and Project to have usable data in classification
   finalDataFrame <- finalDataFrame[ , -which(names(finalDataFrame) %in% c("ProjectClass", "Project"))]
   totalData <- rbind(totalData, finalDataFrame)
 }
+
+# Divide entries into classes
+calculatedQuantiles <- quantile(totalData$MutationScore, probs = c(0.25, 0.75), na.rm = TRUE)
+totalData$MutationScore[totalData$MutationScore >= calculatedQuantiles[2]] <- 1
+totalData$MutationScore[totalData$MutationScore <= calculatedQuantiles[1]] <- 0
+totalData <- totalData[(totalData$MutationScore < calculatedQuantiles[2] & totalData$MutationScore > calculatedQuantiles[1]),]
+
 write.csv(totalData, "cleanData.csv", row.names = FALSE, append = TRUE)
 
