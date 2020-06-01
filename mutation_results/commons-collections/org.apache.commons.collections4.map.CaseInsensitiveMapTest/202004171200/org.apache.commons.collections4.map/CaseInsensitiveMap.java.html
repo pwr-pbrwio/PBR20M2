@@ -1,0 +1,2831 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>CaseInsensitiveMap.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.collections4.map;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.IOException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.ObjectInputStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.ObjectOutputStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.Serializable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Map;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * A case-insensitive &#60;code&#62;Map&#60;/code&#62;.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Before keys are added to the map or compared to other existing keys, they are converted</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * to all lowercase in a locale-independent fashion by using information from the Unicode</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * data file.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Null keys are supported.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The &#60;code&#62;keySet()&#60;/code&#62; method returns all lowercase keys, or nulls.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Example:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;pre&#62;&#60;code&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Map&#38;lt;String, String&#38;gt; map = new CaseInsensitiveMap&#38;lt;String, String&#38;gt;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  map.put(&#34;One&#34;, &#34;One&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  map.put(&#34;Two&#34;, &#34;Two&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  map.put(null, &#34;Three&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  map.put(&#34;one&#34;, &#34;Four&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/code&#62;&#60;/pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The example above creates a &#60;code&#62;CaseInsensitiveMap&#60;/code&#62; with three entries.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;code&#62;map.get(null)&#60;/code&#62; returns &#60;code&#62;&#34;Three&#34;&#60;/code&#62; and &#60;code&#62;map.get(&#34;ONE&#34;)&#60;/code&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * returns &#60;code&#62;&#34;Four&#34;.&#60;/code&#62;  The &#60;code&#62;Set&#60;/code&#62; returned by &#60;code&#62;keySet()&#60;/code&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * equals &#60;code&#62;{&#34;one&#34;, &#34;two&#34;, null}.&#60;/code&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;strong&#62;This map will violate the detail of various Map and map view contracts.&#60;/strong&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * As a general rule, don&#39;t compare this map to other maps. In particular, you can&#39;t</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * use decorators like {@link ListOrderedMap} on it, which silently assume that these</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contracts are fulfilled.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;strong&#62;Note that CaseInsensitiveMap is not synchronized and is not thread-safe.&#60;/strong&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * If you wish to use this map from multiple threads concurrently, you must use</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * appropriate synchronization. The simplest approach is to wrap this map</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * using {@link java.util.Collections#synchronizedMap(Map)}. This class may throw</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * exceptions when accessed by concurrent threads without synchronization.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;K&#62; the type of the keys in this map</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;V&#62; the type of the values in this map</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 3.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class CaseInsensitiveMap&#60;K, V&#62; extends AbstractHashedMap&#60;K, V&#62; implements Serializable, Cloneable {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Serialisation version */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final long serialVersionUID = -7074655917369299456L;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs a new empty map with default size and load factor.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public CaseInsensitiveMap() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_83'/>
+83
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_83'>3</a>
+<span>
+1. <init> : Substituted 16 with 17 &rarr; NO_COVERAGE<br/>
+2. <init> : Substituted 0.75 with 1.0 &rarr; NO_COVERAGE<br/>
+3. <init> : Substituted 12 with 13 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        super(DEFAULT_CAPACITY, DEFAULT_LOAD_FACTOR, DEFAULT_THRESHOLD);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_84'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs a new, empty map with the specified initial capacity.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param initialCapacity  the initial capacity</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IllegalArgumentException if the initial capacity is negative</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public CaseInsensitiveMap(final int initialCapacity) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_93'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        super(initialCapacity);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_94'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs a new, empty map with the specified initial capacity and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * load factor.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param initialCapacity  the initial capacity</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param loadFactor  the load factor</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IllegalArgumentException if the initial capacity is negative</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IllegalArgumentException if the load factor is less than zero</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public CaseInsensitiveMap(final int initialCapacity, final float loadFactor) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_106'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        super(initialCapacity, loadFactor);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_107'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructor copying elements from another map.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Keys will be converted to lower case strings, which may cause</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * some entries to be removed (if string representation of keys differ</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * only by character case).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param map  the map to copy</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if the map is null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_118'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public CaseInsensitiveMap(final Map&#60;? extends K, ? extends V&#62; map) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_120'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        super(map);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_121'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Overrides convertKey() from {@link AbstractHashedMap} to convert keys to</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * lower case.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns {@link AbstractHashedMap#NULL} if key is null.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_130'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param key  the key convert</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_131'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the converted key</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_133'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected Object convertKey(final Object key) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_135'/>
+135
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_135'>3</a>
+<span>
+1. convertKey : negated conditional &rarr; NO_COVERAGE<br/>
+2. convertKey : removed conditional - replaced equality check with false &rarr; NO_COVERAGE<br/>
+3. convertKey : removed conditional - replaced equality check with true &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        if (key != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_136'/>
+136
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_136'>2</a>
+<span>
+1. convertKey : removed call to java/lang/Object::toString &rarr; NO_COVERAGE<br/>
+2. convertKey : removed call to java/lang/String::toCharArray &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            final char[] chars = key.toString().toCharArray();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_137'/>
+137
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_137'>8</a>
+<span>
+1. convertKey : changed conditional boundary &rarr; NO_COVERAGE<br/>
+2. convertKey : Changed increment from -1 to 1 &rarr; NO_COVERAGE<br/>
+3. convertKey : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+4. convertKey : Replaced integer subtraction with addition &rarr; NO_COVERAGE<br/>
+5. convertKey : negated conditional &rarr; NO_COVERAGE<br/>
+6. convertKey : removed conditional - replaced comparison check with false &rarr; NO_COVERAGE<br/>
+7. convertKey : removed conditional - replaced comparison check with true &rarr; NO_COVERAGE<br/>
+8. convertKey : Removed increment -1 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            for (int i = chars.length - 1; i &#62;= 0; i--) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_138'/>
+138
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_138'>4</a>
+<span>
+1. convertKey : replaced call to java/lang/Character::toUpperCase with argument &rarr; NO_COVERAGE<br/>
+2. convertKey : replaced call to java/lang/Character::toLowerCase with argument &rarr; NO_COVERAGE<br/>
+3. convertKey : removed call to java/lang/Character::toUpperCase &rarr; NO_COVERAGE<br/>
+4. convertKey : removed call to java/lang/Character::toLowerCase &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                chars[i] = Character.toLowerCase(Character.toUpperCase(chars[i]));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_139'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_140'/>
+140
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_140'>3</a>
+<span>
+1. convertKey : removed call to java/lang/String::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+2. convertKey : replaced return value with null for org/apache/commons/collections4/map/CaseInsensitiveMap::convertKey &rarr; NO_COVERAGE<br/>
+3. convertKey : mutated return of Object value for org/apache/commons/collections4/map/CaseInsensitiveMap::convertKey to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            return new String(chars);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_142'/>
+142
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_142'>2</a>
+<span>
+1. convertKey : replaced return value with null for org/apache/commons/collections4/map/CaseInsensitiveMap::convertKey &rarr; NO_COVERAGE<br/>
+2. convertKey : mutated return of Object value for org/apache/commons/collections4/map/CaseInsensitiveMap::convertKey to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return AbstractHashedMap.NULL;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_147'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Clones the map without cloning the keys or values.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a shallow clone</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_150'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public CaseInsensitiveMap&#60;K, V&#62; clone() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_153'/>
+153
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_153'>4</a>
+<span>
+1. clone : removed call to org/apache/commons/collections4/map/AbstractHashedMap::clone &rarr; NO_COVERAGE<br/>
+2. clone : replaced return value with null for org/apache/commons/collections4/map/CaseInsensitiveMap::clone &rarr; NO_COVERAGE<br/>
+3. clone : mutated return of Object value for org/apache/commons/collections4/map/CaseInsensitiveMap::clone to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+4. clone : replaced call to org/apache/commons/collections4/map/AbstractHashedMap::clone with receiver &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return (CaseInsensitiveMap&#60;K, V&#62;) super.clone();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_157'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Write the map out using a custom routine.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_158'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param out  the output stream</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException if an error occurs while writing to the stream</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private void writeObject(final ObjectOutputStream out) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_163'/>
+163
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_163'>1</a>
+<span>
+1. writeObject : removed call to java/io/ObjectOutputStream::defaultWriteObject &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        out.defaultWriteObject();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_164'/>
+164
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_164'>1</a>
+<span>
+1. writeObject : removed call to org/apache/commons/collections4/map/CaseInsensitiveMap::doWriteObject &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        doWriteObject(out);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_165'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_166'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_168'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Read the map in using a custom routine.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param in the input stream</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_171'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException if an error occurs while reading from the stream</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_172'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws ClassNotFoundException if an object read from the stream can not be loaded</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_173'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_174'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_175'/>
+175
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_175'>1</a>
+<span>
+1. readObject : removed call to java/io/ObjectInputStream::defaultReadObject &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        in.defaultReadObject();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_176'/>
+176
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_176'>1</a>
+<span>
+1. readObject : removed call to org/apache/commons/collections4/map/CaseInsensitiveMap::doReadObject &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        doReadObject(in);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_177'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_178'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@4dde8976_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_179'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4dde8976_83'>83</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_83'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 16 with 17 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 0.75 with 1.0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 12 with 13 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4dde8976_135'>135</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_135'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>convertKey<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>convertKey<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>convertKey<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4dde8976_136'>136</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_136'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>convertKey<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Object::toString &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>convertKey<br/><b>Killed by : </b>none</span></span> removed call to java/lang/String::toCharArray &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4dde8976_137'>137</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_137'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>convertKey<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>convertKey<br/><b>Killed by : </b>none</span></span> Changed increment from -1 to 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>convertKey<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>convertKey<br/><b>Killed by : </b>none</span></span> Replaced integer subtraction with addition &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>convertKey<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>convertKey<br/><b>Killed by : </b>none</span></span> removed conditional - replaced comparison check with false &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>convertKey<br/><b>Killed by : </b>none</span></span> removed conditional - replaced comparison check with true &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>convertKey<br/><b>Killed by : </b>none</span></span> Removed increment -1 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4dde8976_138'>138</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_138'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>convertKey<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/Character::toUpperCase with argument &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>convertKey<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/Character::toLowerCase with argument &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>convertKey<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Character::toUpperCase &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>convertKey<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Character::toLowerCase &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4dde8976_140'>140</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_140'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>convertKey<br/><b>Killed by : </b>none</span></span> removed call to java/lang/String::&#60;init&#62; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>convertKey<br/><b>Killed by : </b>none</span></span> replaced return value with null for org/apache/commons/collections4/map/CaseInsensitiveMap::convertKey &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>convertKey<br/><b>Killed by : </b>none</span></span> mutated return of Object value for org/apache/commons/collections4/map/CaseInsensitiveMap::convertKey to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4dde8976_142'>142</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_142'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>convertKey<br/><b>Killed by : </b>none</span></span> replaced return value with null for org/apache/commons/collections4/map/CaseInsensitiveMap::convertKey &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>convertKey<br/><b>Killed by : </b>none</span></span> mutated return of Object value for org/apache/commons/collections4/map/CaseInsensitiveMap::convertKey to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4dde8976_153'>153</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_153'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>clone<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/collections4/map/AbstractHashedMap::clone &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>clone<br/><b>Killed by : </b>none</span></span> replaced return value with null for org/apache/commons/collections4/map/CaseInsensitiveMap::clone &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>clone<br/><b>Killed by : </b>none</span></span> mutated return of Object value for org/apache/commons/collections4/map/CaseInsensitiveMap::clone to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>clone<br/><b>Killed by : </b>none</span></span> replaced call to org/apache/commons/collections4/map/AbstractHashedMap::clone with receiver &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4dde8976_163'>163</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_163'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>writeObject<br/><b>Killed by : </b>none</span></span> removed call to java/io/ObjectOutputStream::defaultWriteObject &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4dde8976_164'>164</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_164'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>writeObject<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/collections4/map/CaseInsensitiveMap::doWriteObject &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4dde8976_175'>175</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_175'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>readObject<br/><b>Killed by : </b>none</span></span> removed call to java/io/ObjectInputStream::defaultReadObject &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@4dde8976_176'>176</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@4dde8976_176'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>readObject<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/collections4/map/CaseInsensitiveMap::doReadObject &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_61</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_60</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_56</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_55</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_58</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_57</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_52</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_51</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_54</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_53</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_59</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_50</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_45</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_44</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_47</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_46</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_41</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_40</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_43</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_42</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_49</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_48</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_34</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_33</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_36</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_35</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_30</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_32</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_31</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_38</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_37</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_39</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_3</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_2</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_1</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_0</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_23</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_22</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_25</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_9</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_24</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_8</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_7</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_6</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_21</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_5</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_20</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_4</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_27</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_26</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_29</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_28</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_12</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_11</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_99</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_14</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_13</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_96</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_95</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_10</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_98</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_97</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_19</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_16</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_15</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_18</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_17</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_92</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_91</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_94</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_93</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_90</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_89</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_88</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_85</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_84</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_87</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_86</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_81</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_80</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_83</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_82</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_78</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_77</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_79</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_74</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_73</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_76</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_75</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_70</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_72</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_71</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_67</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_66</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_69</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_68</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_63</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_62</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_65</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_64</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

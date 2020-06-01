@@ -1,0 +1,2588 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>ClearCaseHistoryParser.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * CDDL HEADER START</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The contents of this file are subject to the terms of the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Common Development and Distribution License (the &#34;License&#34;).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See LICENSE.txt included in this distribution for the specific</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * language governing permissions and limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * When distributing Covered Code, include this CDDL HEADER in each</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * file and include the License file at LICENSE.txt.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * If applicable, add the following below this CDDL HEADER, with the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * fields enclosed by brackets &#34;[]&#34; replaced with your own identifying</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * information: Portions Copyright [yyyy] [name of copyright owner]</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * CDDL HEADER END</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright (c) 2017, 2018 Oracle and/or its affiliates. All rights reserved.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.opengrok.indexer.history;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.BufferedReader;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.ByteArrayInputStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.File;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.IOException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.InputStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.InputStreamReader;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.text.ParseException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.ArrayList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.List;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.opengrok.indexer.util.Executor;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Parse a stream of ClearCase log comments.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_39'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>class ClearCaseHistoryParser implements Executor.StreamHandler {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private History history;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_42'/>
+42
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_42'>2</a>
+<span>
+1. <init> : removed call to org/opengrok/indexer/history/ClearCaseRepository::&#60;init&#62; &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable repository &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    private ClearCaseRepository repository = new ClearCaseRepository();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    History parse(File file, Repository repos) throws HistoryException {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_45'/>
+45
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_45'>1</a>
+<span>
+1. parse : Removed assignment to member variable repository &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        repository = (ClearCaseRepository) repos;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_47'/>
+47
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_47'>1</a>
+<span>
+1. parse : removed call to org/opengrok/indexer/history/ClearCaseRepository::getHistoryLogExecutor &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            Executor executor = repository.getHistoryLogExecutor(file);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_48'/>
+48
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_48'>2</a>
+<span>
+1. parse : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+2. parse : removed call to org/opengrok/indexer/util/Executor::exec &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            int status = executor.exec(true, this);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_50'/>
+50
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_50'>3</a>
+<span>
+1. parse : negated conditional &rarr; NO_COVERAGE<br/>
+2. parse : removed conditional - replaced equality check with false &rarr; NO_COVERAGE<br/>
+3. parse : removed conditional - replaced equality check with true &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            if (status != 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_51'/>
+51
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_51'>3</a>
+<span>
+1. parse : removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+2. parse : removed call to java/lang/StringBuilder::append &rarr; NO_COVERAGE<br/>
+3. parse : replaced call to java/lang/StringBuilder::append with receiver &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                throw new HistoryException(&#34;Failed to get history for: \&#34;&#34; +</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_52'/>
+52
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_52'>9</a>
+<span>
+1. parse : removed call to org/opengrok/indexer/history/HistoryException::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+2. parse : removed call to java/io/File::getAbsolutePath &rarr; NO_COVERAGE<br/>
+3. parse : removed call to java/lang/StringBuilder::append &rarr; NO_COVERAGE<br/>
+4. parse : removed call to java/lang/StringBuilder::append &rarr; NO_COVERAGE<br/>
+5. parse : removed call to java/lang/StringBuilder::append &rarr; NO_COVERAGE<br/>
+6. parse : removed call to java/lang/StringBuilder::toString &rarr; NO_COVERAGE<br/>
+7. parse : replaced call to java/lang/StringBuilder::append with receiver &rarr; NO_COVERAGE<br/>
+8. parse : replaced call to java/lang/StringBuilder::append with receiver &rarr; NO_COVERAGE<br/>
+9. parse : replaced call to java/lang/StringBuilder::append with receiver &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                                           file.getAbsolutePath() + &#34;\&#34; Exit code: &#34; + status);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_55'/>
+55
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_55'>2</a>
+<span>
+1. parse : replaced return value with null for org/opengrok/indexer/history/ClearCaseHistoryParser::parse &rarr; NO_COVERAGE<br/>
+2. parse : mutated return of Object value for org/opengrok/indexer/history/ClearCaseHistoryParser::parse to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            return history;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_56'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        } catch (IOException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_57'/>
+57
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_57'>3</a>
+<span>
+1. parse : removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+2. parse : removed call to java/lang/StringBuilder::append &rarr; NO_COVERAGE<br/>
+3. parse : replaced call to java/lang/StringBuilder::append with receiver &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            throw new HistoryException(&#34;Failed to get history for: \&#34;&#34; +</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_58'/>
+58
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_58'>7</a>
+<span>
+1. parse : removed call to org/opengrok/indexer/history/HistoryException::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+2. parse : removed call to java/io/File::getAbsolutePath &rarr; NO_COVERAGE<br/>
+3. parse : removed call to java/lang/StringBuilder::append &rarr; NO_COVERAGE<br/>
+4. parse : removed call to java/lang/StringBuilder::append &rarr; NO_COVERAGE<br/>
+5. parse : removed call to java/lang/StringBuilder::toString &rarr; NO_COVERAGE<br/>
+6. parse : replaced call to java/lang/StringBuilder::append with receiver &rarr; NO_COVERAGE<br/>
+7. parse : replaced call to java/lang/StringBuilder::append with receiver &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                                       file.getAbsolutePath() + &#34;\&#34;&#34;, e);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Process the output from the log command and insert the HistoryEntries</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * into the history field.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param input The output from the process</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws java.io.IOException If an error occurs while reading the stream</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void processStream(InputStream input) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_71'/>
+71
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_71'>2</a>
+<span>
+1. processStream : removed call to java/io/InputStreamReader::&#60;init&#62; &rarr; KILLED<br/>
+2. processStream : removed call to java/io/BufferedReader::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        BufferedReader in = new BufferedReader(new InputStreamReader(input));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_72'/>
+72
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_72'>1</a>
+<span>
+1. processStream : removed call to java/util/ArrayList::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        List&#60;HistoryEntry&#62; entries = new ArrayList&#60;HistoryEntry&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        String s;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_74'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        HistoryEntry entry = null;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_75'/>
+75
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_75'>4</a>
+<span>
+1. processStream : removed conditional - replaced equality check with true &rarr; TIMED_OUT<br/>
+2. processStream : negated conditional &rarr; KILLED<br/>
+3. processStream : removed call to java/io/BufferedReader::readLine &rarr; KILLED<br/>
+4. processStream : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        while ((s = in.readLine()) != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_76'/>
+76
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_76'>8</a>
+<span>
+1. processStream : negated conditional &rarr; KILLED<br/>
+2. processStream : negated conditional &rarr; KILLED<br/>
+3. processStream : removed call to java/lang/String::equals &rarr; KILLED<br/>
+4. processStream : removed call to java/lang/String::equals &rarr; KILLED<br/>
+5. processStream : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+6. processStream : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+7. processStream : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+8. processStream : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (!&#34;create version&#34;.equals(s) &#38;&#38; !&#34;create directory version&#34;.equals(s)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                // skip this history entry</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_78'/>
+78
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_78'>4</a>
+<span>
+1. processStream : negated conditional &rarr; SURVIVED<br/>
+2. processStream : removed call to java/io/BufferedReader::readLine &rarr; SURVIVED<br/>
+3. processStream : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+4. processStream : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                while ((s = in.readLine()) != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_79'/>
+79
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_79'>4</a>
+<span>
+1. processStream : negated conditional &rarr; SURVIVED<br/>
+2. processStream : removed call to java/lang/String::equals &rarr; SURVIVED<br/>
+3. processStream : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+4. processStream : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                    if (&#34;.&#34;.equals(s)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_80'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                        break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                continue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_86'/>
+86
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_86'>1</a>
+<span>
+1. processStream : removed call to org/opengrok/indexer/history/HistoryEntry::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            entry = new HistoryEntry();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_87'/>
+87
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_87'>4</a>
+<span>
+1. processStream : negated conditional &rarr; SURVIVED<br/>
+2. processStream : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+3. processStream : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+4. processStream : removed call to java/io/BufferedReader::readLine &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if ((s = in.readLine()) != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_89'/>
+89
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_89'>2</a>
+<span>
+1. processStream : removed call to org/opengrok/indexer/history/ClearCaseRepository::parse &rarr; SURVIVED<br/>
+2. processStream : removed call to org/opengrok/indexer/history/HistoryEntry::setDate &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                    entry.setDate(repository.parse(s));</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_90'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                } catch (ParseException pe) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    //</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    // Overriding processStream() thus need to comply with the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    // set of exceptions it can throw.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    //</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_95'/>
+95
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_95'>7</a>
+<span>
+1. processStream : removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+2. processStream : removed call to java/io/IOException::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+3. processStream : removed call to java/lang/StringBuilder::append &rarr; NO_COVERAGE<br/>
+4. processStream : removed call to java/lang/StringBuilder::append &rarr; NO_COVERAGE<br/>
+5. processStream : removed call to java/lang/StringBuilder::toString &rarr; NO_COVERAGE<br/>
+6. processStream : replaced call to java/lang/StringBuilder::append with receiver &rarr; NO_COVERAGE<br/>
+7. processStream : replaced call to java/lang/StringBuilder::append with receiver &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                    throw new IOException(&#34;Could not parse date: &#34; + s, pe);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_96'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_98'/>
+98
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_98'>4</a>
+<span>
+1. processStream : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. processStream : negated conditional &rarr; KILLED<br/>
+3. processStream : removed call to java/io/BufferedReader::readLine &rarr; KILLED<br/>
+4. processStream : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if ((s = in.readLine()) != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_99'/>
+99
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_99'>1</a>
+<span>
+1. processStream : removed call to org/opengrok/indexer/history/HistoryEntry::setAuthor &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                entry.setAuthor(s);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_101'/>
+101
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_101'>4</a>
+<span>
+1. processStream : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. processStream : negated conditional &rarr; KILLED<br/>
+3. processStream : removed call to java/io/BufferedReader::readLine &rarr; KILLED<br/>
+4. processStream : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if ((s = in.readLine()) != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_102'/>
+102
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_102'>4</a>
+<span>
+1. processStream : Substituted 92 with 93 &rarr; SURVIVED<br/>
+2. processStream : Substituted 47 with 48 &rarr; SURVIVED<br/>
+3. processStream : replaced call to java/lang/String::replace with receiver &rarr; SURVIVED<br/>
+4. processStream : removed call to java/lang/String::replace &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                s = s.replace(&#39;\\&#39;, &#39;/&#39;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_103'/>
+103
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_103'>1</a>
+<span>
+1. processStream : removed call to org/opengrok/indexer/history/HistoryEntry::setRevision &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                entry.setRevision(s);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_106'/>
+106
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_106'>1</a>
+<span>
+1. processStream : removed call to java/lang/StringBuffer::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            StringBuffer message = new StringBuffer();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_107'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            String glue = &#34;&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_108'/>
+108
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_108'>8</a>
+<span>
+1. processStream : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. processStream : negated conditional &rarr; KILLED<br/>
+3. processStream : negated conditional &rarr; KILLED<br/>
+4. processStream : removed call to java/io/BufferedReader::readLine &rarr; KILLED<br/>
+5. processStream : removed call to java/lang/String::equals &rarr; KILLED<br/>
+6. processStream : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+7. processStream : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+8. processStream : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            while ((s = in.readLine()) != null &#38;&#38; !&#34;.&#34;.equals(s)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_109'/>
+109
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_109'>4</a>
+<span>
+1. processStream : removed call to java/lang/String::equals &rarr; SURVIVED<br/>
+2. processStream : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+3. processStream : negated conditional &rarr; KILLED<br/>
+4. processStream : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                if (&#34;&#34;.equals(s)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    // avoid empty lines in comments</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_111'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                    continue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_113'/>
+113
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_113'>2</a>
+<span>
+1. processStream : removed call to java/lang/StringBuffer::append &rarr; SURVIVED<br/>
+2. processStream : replaced call to java/lang/StringBuffer::append with receiver &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                message.append(glue);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_114'/>
+114
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_114'>4</a>
+<span>
+1. processStream : replaced call to java/lang/String::trim with receiver &rarr; SURVIVED<br/>
+2. processStream : removed call to java/lang/String::trim &rarr; KILLED<br/>
+3. processStream : removed call to java/lang/StringBuffer::append &rarr; KILLED<br/>
+4. processStream : replaced call to java/lang/StringBuffer::append with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                message.append(s.trim());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_115'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                glue = &#34;\n&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_117'/>
+117
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_117'>2</a>
+<span>
+1. processStream : removed call to java/lang/StringBuffer::toString &rarr; KILLED<br/>
+2. processStream : removed call to org/opengrok/indexer/history/HistoryEntry::setMessage &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            entry.setMessage(message.toString());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_118'/>
+118
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_118'>2</a>
+<span>
+1. processStream : Substituted 1 with 0 &rarr; SURVIVED<br/>
+2. processStream : removed call to org/opengrok/indexer/history/HistoryEntry::setActive &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            entry.setActive(true);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_119'/>
+119
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_119'>1</a>
+<span>
+1. processStream : removed call to java/util/List::add &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            entries.add(entry);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_120'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_121'/>
+121
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_121'>2</a>
+<span>
+1. processStream : removed call to org/opengrok/indexer/history/History::&#60;init&#62; &rarr; KILLED<br/>
+2. processStream : Removed assignment to member variable history &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        history = new History();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_122'/>
+122
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_122'>1</a>
+<span>
+1. processStream : removed call to org/opengrok/indexer/history/History::setHistoryEntries &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        history.setHistoryEntries(entries);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_123'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Parse the given string.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param buffer The string to be parsed</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return The parsed history</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_130'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException if we fail to parse the buffer</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_131'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    History parse(String buffer) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_133'/>
+133
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_133'>3</a>
+<span>
+1. parse : removed call to java/io/ByteArrayInputStream::&#60;init&#62; &rarr; KILLED<br/>
+2. parse : removed call to java/lang/String::getBytes &rarr; KILLED<br/>
+3. parse : removed call to org/opengrok/indexer/history/ClearCaseHistoryParser::processStream &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        processStream(new ByteArrayInputStream(buffer.getBytes(&#34;UTF-8&#34;)));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_134'/>
+134
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_134'>2</a>
+<span>
+1. parse : replaced return value with null for org/opengrok/indexer/history/ClearCaseHistoryParser::parse &rarr; KILLED<br/>
+2. parse : mutated return of Object value for org/opengrok/indexer/history/ClearCaseHistoryParser::parse to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return history;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_135'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@18d11527_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_42'>42</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_42'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to org/opengrok/indexer/history/ClearCaseRepository::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> Removed assignment to member variable repository &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_45'>45</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_45'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> Removed assignment to member variable repository &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_47'>47</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_47'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> removed call to org/opengrok/indexer/history/ClearCaseRepository::getHistoryLogExecutor &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_48'>48</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_48'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> removed call to org/opengrok/indexer/util/Executor::exec &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_50'>50</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_50'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_51'>51</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_51'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> removed call to java/lang/StringBuilder::append &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_52'>52</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_52'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> removed call to org/opengrok/indexer/history/HistoryException::&#60;init&#62; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> removed call to java/io/File::getAbsolutePath &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> removed call to java/lang/StringBuilder::append &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> removed call to java/lang/StringBuilder::append &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> removed call to java/lang/StringBuilder::append &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> removed call to java/lang/StringBuilder::toString &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_55'>55</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_55'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> replaced return value with null for org/opengrok/indexer/history/ClearCaseHistoryParser::parse &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> mutated return of Object value for org/opengrok/indexer/history/ClearCaseHistoryParser::parse to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_57'>57</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_57'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> removed call to java/lang/StringBuilder::append &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_58'>58</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_58'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> removed call to org/opengrok/indexer/history/HistoryException::&#60;init&#62; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> removed call to java/io/File::getAbsolutePath &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> removed call to java/lang/StringBuilder::append &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> removed call to java/lang/StringBuilder::append &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> removed call to java/lang/StringBuilder::toString &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_71'>71</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_71'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to java/io/InputStreamReader::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to java/io/BufferedReader::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_72'>72</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_72'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to java/util/ArrayList::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_75'>75</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_75'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to java/io/BufferedReader::readLine &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_76'>76</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_76'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to java/lang/String::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to java/lang/String::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_78'>78</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_78'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> removed call to java/io/BufferedReader::readLine &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_79'>79</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_79'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> removed call to java/lang/String::equals &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_86'>86</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_86'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to org/opengrok/indexer/history/HistoryEntry::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_87'>87</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_87'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to java/io/BufferedReader::readLine &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_89'>89</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_89'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> removed call to org/opengrok/indexer/history/ClearCaseRepository::parse &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> removed call to org/opengrok/indexer/history/HistoryEntry::setDate &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_95'>95</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_95'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> removed call to java/io/IOException::&#60;init&#62; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> removed call to java/lang/StringBuilder::append &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> removed call to java/lang/StringBuilder::append &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> removed call to java/lang/StringBuilder::toString &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_98'>98</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_98'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to java/io/BufferedReader::readLine &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_99'>99</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_99'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to org/opengrok/indexer/history/HistoryEntry::setAuthor &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_101'>101</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_101'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to java/io/BufferedReader::readLine &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_102'>102</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_102'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> Substituted 92 with 93 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> Substituted 47 with 48 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to java/lang/String::replace &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/String::replace with receiver &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_103'>103</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_103'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to org/opengrok/indexer/history/HistoryEntry::setRevision &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_106'>106</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_106'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to java/lang/StringBuffer::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_108'>108</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_108'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to java/io/BufferedReader::readLine &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to java/lang/String::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_109'>109</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_109'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> removed call to java/lang/String::equals &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_113'>113</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_113'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> removed call to java/lang/StringBuffer::append &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/StringBuffer::append with receiver &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_114'>114</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_114'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to java/lang/String::trim &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to java/lang/StringBuffer::append &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/String::trim with receiver &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> replaced call to java/lang/StringBuffer::append with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_117'>117</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_117'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to java/lang/StringBuffer::toString &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to org/opengrok/indexer/history/HistoryEntry::setMessage &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_118'>118</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_118'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>none</span></span> removed call to org/opengrok/indexer/history/HistoryEntry::setActive &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_119'>119</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_119'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to java/util/List::add &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_121'>121</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_121'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to org/opengrok/indexer/history/History::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> Removed assignment to member variable history &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_122'>122</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_122'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>processStream<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to org/opengrok/indexer/history/History::setHistoryEntries &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_133'>133</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_133'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to java/io/ByteArrayInputStream::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to java/lang/String::getBytes &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> removed call to org/opengrok/indexer/history/ClearCaseHistoryParser::processStream &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@18d11527_134'>134</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@18d11527_134'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> replaced return value with null for org/opengrok/indexer/history/ClearCaseHistoryParser::parse &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest</span></span> mutated return of Object value for org/opengrok/indexer/history/ClearCaseHistoryParser::parse to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_61</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_60</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_56</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_55</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_58</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_57</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_52</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_51</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_54</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_53</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_59</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_50</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_45</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_44</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_47</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_46</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_41</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_40</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_43</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_42</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_49</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_48</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_34</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_33</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_36</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_35</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_30</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_32</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_31</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_38</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_37</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_39</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_3</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_2</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_1</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_0</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_23</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_22</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_25</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_9</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_24</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_8</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_7</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_6</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_21</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_5</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_20</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_4</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_27</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_26</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_29</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_28</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_12</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_11</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_99</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_14</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_13</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_96</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_95</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_10</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_98</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_97</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_19</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_16</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_15</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_18</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_17</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_92</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_91</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_94</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_93</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_90</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_89</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_88</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_85</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_84</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_87</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_86</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_81</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_80</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_83</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_82</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_78</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_77</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_79</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_74</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_73</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_76</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_75</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_70</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_72</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_71</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_67</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_66</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_69</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_68</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_63</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_62</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_65</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_64</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.opengrok.indexer.history.ClearCaseHistoryParserTest.org.opengrok.indexer.history.ClearCaseHistoryParserTest (34 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

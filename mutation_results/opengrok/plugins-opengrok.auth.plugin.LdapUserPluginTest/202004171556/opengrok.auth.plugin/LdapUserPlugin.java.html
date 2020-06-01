@@ -1,0 +1,4010 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>LdapUserPlugin.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * CDDL HEADER START</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The contents of this file are subject to the terms of the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Common Development and Distribution License (the &#34;License&#34;).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See LICENSE.txt included in this distribution for the specific</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * language governing permissions and limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * When distributing Covered Code, include this CDDL HEADER in each</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * file and include the License file at LICENSE.txt.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * If applicable, add the following below this CDDL HEADER, with the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * fields enclosed by brackets &#34;[]&#34; replaced with your own identifying</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * information: Portions Copyright [yyyy] [name of copyright owner]</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * CDDL HEADER END</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright (c) 2016, 2019 Oracle and/or its affiliates. All rights reserved.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package opengrok.auth.plugin;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Arrays;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.HashMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.HashSet;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Map;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Set;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.logging.Level;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.logging.Logger;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import javax.servlet.http.HttpServletRequest;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import opengrok.auth.entity.LdapUser;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import opengrok.auth.plugin.entity.User;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import opengrok.auth.plugin.ldap.AbstractLdapProvider;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import opengrok.auth.plugin.ldap.LdapException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.opengrok.indexer.authorization.AuthorizationException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.opengrok.indexer.configuration.Group;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.opengrok.indexer.configuration.Project;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static opengrok.auth.plugin.util.FilterUtil.expandUserFilter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Authorization plug-in to extract user&#39;s LDAP attributes.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The attributes can be then used by the other LDAP plugins down the stack.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Krystof Tulinger</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_49'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public class LdapUserPlugin extends AbstractLdapPlugin {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_51'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    private static final Logger LOGGER = Logger.getLogger(LdapUserPlugin.class.getName());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static final String SESSION_ATTR = &#34;opengrok-ldap-plugin-user&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * List of configuration names.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;ul&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;li&#62;&#60;code&#62;filter&#60;/code&#62; is LDAP filter used for searching (optional)&#60;/li&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;li&#62;&#60;code&#62;useDN&#60;/code&#62; boolean value indicating if User.username should be treated as Distinguished Name (optional, default is false)&#60;/li&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;li&#62;&#60;code&#62;attributes&#60;/code&#62; is comma separated list of LDAP attributes to be produced (mandatory)&#60;/li&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;li&#62;&#60;code&#62;instance&#60;/code&#62; integer that can be used to identify instance of this plugin by other LDAP plugins (optional, default empty)&#60;/li&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/ul&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static final String LDAP_FILTER = &#34;filter&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static final String ATTRIBUTES = &#34;attributes&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static final String USE_DN = &#34;useDN&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static final String INSTANCE = &#34;instance&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private String ldapFilter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private Boolean useDN;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private Set&#60;String&#62; attributes;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private Integer instance;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // for testing</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    void load(Map&#60;String, Object&#62; parameters, AbstractLdapProvider provider) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_76'/>
+76
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_76'>1</a>
+<span>
+1. load : removed call to opengrok/auth/plugin/AbstractLdapPlugin::load &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        super.load(provider);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_78'/>
+78
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_78'>1</a>
+<span>
+1. load : removed call to opengrok/auth/plugin/LdapUserPlugin::init &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        init(parameters);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_79'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void load(Map&#60;String, Object&#62; parameters) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_83'/>
+83
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_83'>1</a>
+<span>
+1. load : removed call to opengrok/auth/plugin/AbstractLdapPlugin::load &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        super.load(parameters);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_85'/>
+85
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_85'>1</a>
+<span>
+1. load : removed call to opengrok/auth/plugin/LdapUserPlugin::init &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        init(parameters);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_86'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private void init(Map&#60;String, Object&#62; parameters) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        String attributesVal;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_90'/>
+90
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_90'>5</a>
+<span>
+1. init : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. init : replaced call to java/util/Map::get with argument &rarr; KILLED<br/>
+3. init : negated conditional &rarr; KILLED<br/>
+4. init : removed call to java/util/Map::get &rarr; KILLED<br/>
+5. init : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if ((attributesVal = (String) parameters.get(ATTRIBUTES)) == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_91'/>
+91
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_91'>1</a>
+<span>
+1. init : removed call to java/lang/NullPointerException::&#60;init&#62; &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            throw new NullPointerException(&#34;Missing configuration parameter [&#34; + ATTRIBUTES +</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    &#34;] in the setup&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_94'/>
+94
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_94'>4</a>
+<span>
+1. init : removed call to java/util/HashSet::&#60;init&#62; &rarr; KILLED<br/>
+2. init : removed call to java/lang/String::split &rarr; KILLED<br/>
+3. init : removed call to java/util/Arrays::asList &rarr; KILLED<br/>
+4. init : Removed assignment to member variable attributes &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        attributes = new HashSet&#60;&#62;(Arrays.asList(attributesVal.split(&#34;,&#34;)));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_96'/>
+96
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_96'>3</a>
+<span>
+1. init : replaced call to java/util/Map::get with argument &rarr; KILLED<br/>
+2. init : removed call to java/util/Map::get &rarr; KILLED<br/>
+3. init : Removed assignment to member variable ldapFilter &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        ldapFilter = (String) parameters.get(LDAP_FILTER);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_98'/>
+98
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_98'>6</a>
+<span>
+1. init : negated conditional &rarr; SURVIVED<br/>
+2. init : removed call to java/util/Map::get &rarr; SURVIVED<br/>
+3. init : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+4. init : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+5. init : replaced call to java/util/Map::get with argument &rarr; KILLED<br/>
+6. init : Removed assignment to member variable useDN &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if ((useDN = (Boolean) parameters.get(USE_DN)) == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_99'/>
+99
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_99'>3</a>
+<span>
+1. init : Substituted 0 with 1 &rarr; SURVIVED<br/>
+2. init : removed call to java/lang/Boolean::valueOf &rarr; SURVIVED<br/>
+3. init : Removed assignment to member variable useDN &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            useDN = false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_102'/>
+102
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_102'>2</a>
+<span>
+1. init : replaced call to java/util/Map::get with argument &rarr; KILLED<br/>
+2. init : removed call to java/util/Map::get &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        String instance_param = (String) parameters.get(INSTANCE);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_103'/>
+103
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_103'>3</a>
+<span>
+1. init : negated conditional &rarr; KILLED<br/>
+2. init : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. init : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (instance_param != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_104'/>
+104
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_104'>3</a>
+<span>
+1. init : removed call to java/lang/Integer::parseInt &rarr; KILLED<br/>
+2. init : removed call to java/lang/Integer::valueOf &rarr; KILLED<br/>
+3. init : Removed assignment to member variable instance &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            instance = Integer.parseInt(instance_param);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_107'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        LOGGER.log(Level.FINE, &#34;LdapUser plugin loaded with filter={0}, &#34; +</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        &#34;attributes={1}, useDN={2}, instance={3}&#34;,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                new Object[]{ldapFilter, attributes, useDN, instance});</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_110'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Check if the session exists and contains all necessary fields required by</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * this plug-in.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param req the HTTP request</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return true if it does; false otherwise</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_118'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected boolean sessionExists(HttpServletRequest req) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_121'/>
+121
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_121'>7</a>
+<span>
+1. sessionExists : replaced boolean return with false for opengrok/auth/plugin/LdapUserPlugin::sessionExists &rarr; NO_COVERAGE<br/>
+2. sessionExists : replaced boolean return with true for opengrok/auth/plugin/LdapUserPlugin::sessionExists &rarr; NO_COVERAGE<br/>
+3. sessionExists : negated conditional &rarr; NO_COVERAGE<br/>
+4. sessionExists : removed call to opengrok/auth/plugin/AbstractLdapPlugin::sessionExists &rarr; NO_COVERAGE<br/>
+5. sessionExists : removed conditional - replaced equality check with false &rarr; NO_COVERAGE<br/>
+6. sessionExists : removed conditional - replaced equality check with true &rarr; NO_COVERAGE<br/>
+7. sessionExists : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return super.sessionExists(req)</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_122'/>
+122
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_122'>8</a>
+<span>
+1. sessionExists : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+2. sessionExists : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+3. sessionExists : negated conditional &rarr; NO_COVERAGE<br/>
+4. sessionExists : removed call to javax/servlet/http/HttpServletRequest::getSession &rarr; NO_COVERAGE<br/>
+5. sessionExists : removed call to opengrok/auth/plugin/LdapUserPlugin::getSessionAttrName &rarr; NO_COVERAGE<br/>
+6. sessionExists : removed call to javax/servlet/http/HttpSession::getAttribute &rarr; NO_COVERAGE<br/>
+7. sessionExists : removed conditional - replaced equality check with false &rarr; NO_COVERAGE<br/>
+8. sessionExists : removed conditional - replaced equality check with true &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                &#38;&#38; req.getSession().getAttribute(getSessionAttrName()) != null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Expand {@code User} object attribute values into the filter.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @see opengrok.auth.plugin.util.FilterUtil</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_130'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Use \% for printing the &#39;%&#39; character.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_131'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param user User object from the request (created by {@code UserPlugin})</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_133'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return replaced result</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_135'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    String expandFilter(User user) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_136'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        String filter = ldapFilter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_138'/>
+138
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_138'>2</a>
+<span>
+1. expandFilter : replaced call to opengrok/auth/plugin/util/FilterUtil::expandUserFilter with argument &rarr; KILLED<br/>
+2. expandFilter : removed call to opengrok/auth/plugin/util/FilterUtil::expandUserFilter &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        filter = expandUserFilter(user, filter);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_139'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_140'/>
+140
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_140'>3</a>
+<span>
+1. expandFilter : replaced call to java/lang/String::replaceAll with receiver &rarr; SURVIVED<br/>
+2. expandFilter : replaced call to java/lang/String::replaceAll with argument &rarr; KILLED<br/>
+3. expandFilter : removed call to java/lang/String::replaceAll &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        filter = filter.replaceAll(&#34;\\\\%&#34;, &#34;%&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_142'/>
+142
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_142'>2</a>
+<span>
+1. expandFilter : replaced return value with &#34;&#34; for opengrok/auth/plugin/LdapUserPlugin::expandFilter &rarr; KILLED<br/>
+2. expandFilter : mutated return of Object value for opengrok/auth/plugin/LdapUserPlugin::expandFilter to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return filter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void fillSession(HttpServletRequest req, User user) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_147'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        Map&#60;String, Set&#60;String&#62;&#62; records;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        </span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_149'/>
+149
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_149'>1</a>
+<span>
+1. fillSession : removed call to opengrok/auth/plugin/LdapUserPlugin::updateSession &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        updateSession(req, null);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_150'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_151'/>
+151
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_151'>4</a>
+<span>
+1. fillSession : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. fillSession : negated conditional &rarr; KILLED<br/>
+3. fillSession : removed call to opengrok/auth/plugin/LdapUserPlugin::getLdapProvider &rarr; KILLED<br/>
+4. fillSession : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (getLdapProvider() == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_152'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            LOGGER.log(Level.WARNING, &#34;cannot get LDAP provider&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_153'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_156'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        String expandedFilter = null;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_157'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        String dn = null;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_158'/>
+158
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_158'>4</a>
+<span>
+1. fillSession : removed call to java/lang/Boolean::booleanValue &rarr; SURVIVED<br/>
+2. fillSession : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+3. fillSession : negated conditional &rarr; KILLED<br/>
+4. fillSession : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (useDN) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_159'/>
+159
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_159'>1</a>
+<span>
+1. fillSession : removed call to opengrok/auth/plugin/entity/User::getUsername &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            dn = user.getUsername();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_161'/>
+161
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_161'>3</a>
+<span>
+1. fillSession : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. fillSession : negated conditional &rarr; KILLED<br/>
+3. fillSession : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (ldapFilter != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_162'/>
+162
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_162'>1</a>
+<span>
+1. fillSession : removed call to opengrok/auth/plugin/LdapUserPlugin::expandFilter &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            expandedFilter = expandFilter(user);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_164'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            AbstractLdapProvider.LdapSearchResult&#60;Map&#60;String, Set&#60;String&#62;&#62;&#62; res;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_166'/>
+166
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_166'>6</a>
+<span>
+1. fillSession : Substituted 0 with 1 &rarr; SURVIVED<br/>
+2. fillSession : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+3. fillSession : negated conditional &rarr; KILLED<br/>
+4. fillSession : removed call to opengrok/auth/plugin/LdapUserPlugin::getLdapProvider &rarr; KILLED<br/>
+5. fillSession : removed call to opengrok/auth/plugin/ldap/AbstractLdapProvider::lookupLdapContent &rarr; KILLED<br/>
+6. fillSession : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if ((res = getLdapProvider().lookupLdapContent(dn, expandedFilter,</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_167'/>
+167
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_167'>2</a>
+<span>
+1. fillSession : replaced call to java/util/Set::toArray with argument &rarr; SURVIVED<br/>
+2. fillSession : removed call to java/util/Set::toArray &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                    attributes.toArray(new String[0]))) == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_168'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                LOGGER.log(Level.WARNING, &#34;failed to get LDAP attributes &#39;&#39;{2}&#39;&#39; for user {0} &#34; +</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                                &#34;with filter &#39;&#39;{1}&#39;&#39; from LDAP provider {3}&#34;,</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_170'/>
+170
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_170'>1</a>
+<span>
+1. fillSession : removed call to opengrok/auth/plugin/LdapUserPlugin::getLdapProvider &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                        new Object[]{user, expandedFilter, attributes, getLdapProvider()});</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_171'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_172'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_173'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_174'/>
+174
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_174'>1</a>
+<span>
+1. fillSession : removed call to opengrok/auth/plugin/ldap/AbstractLdapProvider$LdapSearchResult::getAttrs &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            records = res.getAttrs();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_175'/>
+175
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_175'>4</a>
+<span>
+1. fillSession : removed call to java/lang/Boolean::booleanValue &rarr; SURVIVED<br/>
+2. fillSession : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+3. fillSession : negated conditional &rarr; KILLED<br/>
+4. fillSession : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (!useDN) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_176'/>
+176
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_176'>1</a>
+<span>
+1. fillSession : removed call to opengrok/auth/plugin/ldap/AbstractLdapProvider$LdapSearchResult::getDN &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                dn = res.getDN();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_177'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_178'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        } catch (LdapException ex) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_179'/>
+179
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_179'>1</a>
+<span>
+1. fillSession : removed call to org/opengrok/indexer/authorization/AuthorizationException::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            throw new AuthorizationException(ex);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_180'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_181'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_182'/>
+182
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_182'>4</a>
+<span>
+1. fillSession : removed call to java/util/Map::isEmpty &rarr; SURVIVED<br/>
+2. fillSession : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+3. fillSession : negated conditional &rarr; KILLED<br/>
+4. fillSession : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (records.isEmpty()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_183'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            LOGGER.log(Level.WARNING, &#34;LDAP records for user {0} are empty&#34;,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_184'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    user);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_185'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_186'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_187'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_188'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        for (String attrName : attributes) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_189'/>
+189
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_189'>15</a>
+<span>
+1. fillSession : replaced call to java/util/Map::get with argument &rarr; SURVIVED<br/>
+2. fillSession : negated conditional &rarr; SURVIVED<br/>
+3. fillSession : negated conditional &rarr; SURVIVED<br/>
+4. fillSession : negated conditional &rarr; SURVIVED<br/>
+5. fillSession : removed call to java/util/Map::containsKey &rarr; SURVIVED<br/>
+6. fillSession : removed call to java/util/Map::get &rarr; SURVIVED<br/>
+7. fillSession : removed call to java/util/Set::isEmpty &rarr; SURVIVED<br/>
+8. fillSession : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+9. fillSession : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+10. fillSession : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+11. fillSession : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+12. fillSession : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+13. fillSession : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+14. fillSession : replaced call to java/util/Map::get with argument &rarr; KILLED<br/>
+15. fillSession : removed call to java/util/Map::get &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (!records.containsKey(attrName) || records.get(attrName) == null || records.get(attrName).isEmpty()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_190'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                LOGGER.log(Level.WARNING, &#34;&#39;&#39;{0}&#39;&#39; record for user {1} is not present or empty (LDAP provider: {2})&#34;,</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_191'/>
+191
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_191'>1</a>
+<span>
+1. fillSession : removed call to opengrok/auth/plugin/LdapUserPlugin::getLdapProvider &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                        new Object[]{attrName, user, getLdapProvider()});</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_192'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_193'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_194'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_195'/>
+195
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_195'>1</a>
+<span>
+1. fillSession : removed call to java/util/HashMap::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        Map&#60;String, Set&#60;String&#62;&#62; attrSet = new HashMap&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_196'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        for (String attrName : attributes) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_197'/>
+197
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_197'>4</a>
+<span>
+1. fillSession : replaced call to java/util/Map::get with argument &rarr; SURVIVED<br/>
+2. fillSession : replaced call to java/util/Map::put with argument &rarr; SURVIVED<br/>
+3. fillSession : removed call to java/util/Map::get &rarr; SURVIVED<br/>
+4. fillSession : removed call to java/util/Map::put &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            attrSet.put(attrName, records.get(attrName));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_198'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_199'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_200'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        LOGGER.log(Level.FINEST, &#34;DN for user {0}: {1}&#34;, new Object[]{user, dn});</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_201'/>
+201
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_201'>2</a>
+<span>
+1. fillSession : removed call to opengrok/auth/entity/LdapUser::&#60;init&#62; &rarr; KILLED<br/>
+2. fillSession : removed call to opengrok/auth/plugin/LdapUserPlugin::updateSession &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        updateSession(req, new LdapUser(dn, attrSet));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_202'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_203'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_204'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_205'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Add a new user value into the session.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_206'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_207'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param req the request</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_208'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param user the new value for user</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_209'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_210'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    void updateSession(HttpServletRequest req, LdapUser user) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_211'/>
+211
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_211'>3</a>
+<span>
+1. updateSession : removed call to javax/servlet/http/HttpServletRequest::getSession &rarr; KILLED<br/>
+2. updateSession : removed call to opengrok/auth/plugin/LdapUserPlugin::getSessionAttrName &rarr; KILLED<br/>
+3. updateSession : removed call to javax/servlet/http/HttpSession::setAttribute &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        req.getSession().setAttribute(getSessionAttrName(), user);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_212'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_213'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_214'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static String getSessionAttrName(Integer instance) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_215'/>
+215
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_215'>12</a>
+<span>
+1. getSessionAttrName : removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; KILLED<br/>
+2. getSessionAttrName : replaced return value with &#34;&#34; for opengrok/auth/plugin/LdapUserPlugin::getSessionAttrName &rarr; KILLED<br/>
+3. getSessionAttrName : negated conditional &rarr; KILLED<br/>
+4. getSessionAttrName : removed call to java/lang/StringBuilder::append &rarr; KILLED<br/>
+5. getSessionAttrName : removed call to java/lang/Integer::toString &rarr; KILLED<br/>
+6. getSessionAttrName : removed call to java/lang/StringBuilder::append &rarr; KILLED<br/>
+7. getSessionAttrName : removed call to java/lang/StringBuilder::toString &rarr; KILLED<br/>
+8. getSessionAttrName : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+9. getSessionAttrName : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+10. getSessionAttrName : mutated return of Object value for opengrok/auth/plugin/LdapUserPlugin::getSessionAttrName to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+11. getSessionAttrName : replaced call to java/lang/StringBuilder::append with receiver &rarr; KILLED<br/>
+12. getSessionAttrName : replaced call to java/lang/StringBuilder::append with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return (SESSION_ATTR + (instance != null ? instance.toString() : &#34;&#34;));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_216'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_217'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_218'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private String getSessionAttrName() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_219'/>
+219
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_219'>3</a>
+<span>
+1. getSessionAttrName : replaced return value with &#34;&#34; for opengrok/auth/plugin/LdapUserPlugin::getSessionAttrName &rarr; KILLED<br/>
+2. getSessionAttrName : removed call to opengrok/auth/plugin/LdapUserPlugin::getSessionAttrName &rarr; KILLED<br/>
+3. getSessionAttrName : mutated return of Object value for opengrok/auth/plugin/LdapUserPlugin::getSessionAttrName to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return getSessionAttrName(instance);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_220'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_221'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_222'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_223'/>
+223
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_223'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean checkEntity(HttpServletRequest request, Project project) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_224'/>
+224
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_224'>11</a>
+<span>
+1. checkEntity : replaced boolean return with false for opengrok/auth/plugin/LdapUserPlugin::checkEntity &rarr; NO_COVERAGE<br/>
+2. checkEntity : replaced boolean return with true for opengrok/auth/plugin/LdapUserPlugin::checkEntity &rarr; NO_COVERAGE<br/>
+3. checkEntity : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+4. checkEntity : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+5. checkEntity : negated conditional &rarr; NO_COVERAGE<br/>
+6. checkEntity : removed call to javax/servlet/http/HttpServletRequest::getSession &rarr; NO_COVERAGE<br/>
+7. checkEntity : removed call to opengrok/auth/plugin/LdapUserPlugin::getSessionAttrName &rarr; NO_COVERAGE<br/>
+8. checkEntity : removed call to javax/servlet/http/HttpSession::getAttribute &rarr; NO_COVERAGE<br/>
+9. checkEntity : removed conditional - replaced equality check with false &rarr; NO_COVERAGE<br/>
+10. checkEntity : removed conditional - replaced equality check with true &rarr; NO_COVERAGE<br/>
+11. checkEntity : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return request.getSession().getAttribute(getSessionAttrName()) != null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_225'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_226'/>
+226
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_226'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_227'/>
+227
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_227'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_228'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean checkEntity(HttpServletRequest request, Group group) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_229'/>
+229
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_229'>11</a>
+<span>
+1. checkEntity : replaced boolean return with false for opengrok/auth/plugin/LdapUserPlugin::checkEntity &rarr; NO_COVERAGE<br/>
+2. checkEntity : replaced boolean return with true for opengrok/auth/plugin/LdapUserPlugin::checkEntity &rarr; NO_COVERAGE<br/>
+3. checkEntity : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+4. checkEntity : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+5. checkEntity : negated conditional &rarr; NO_COVERAGE<br/>
+6. checkEntity : removed call to javax/servlet/http/HttpServletRequest::getSession &rarr; NO_COVERAGE<br/>
+7. checkEntity : removed call to opengrok/auth/plugin/LdapUserPlugin::getSessionAttrName &rarr; NO_COVERAGE<br/>
+8. checkEntity : removed call to javax/servlet/http/HttpSession::getAttribute &rarr; NO_COVERAGE<br/>
+9. checkEntity : removed conditional - replaced equality check with false &rarr; NO_COVERAGE<br/>
+10. checkEntity : removed conditional - replaced equality check with true &rarr; NO_COVERAGE<br/>
+11. checkEntity : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return request.getSession().getAttribute(getSessionAttrName()) != null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_230'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@9df564f_231'/>
+231
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_231'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_76'>76</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_76'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>load<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to opengrok/auth/plugin/AbstractLdapPlugin::load &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_78'>78</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_78'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>load<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to opengrok/auth/plugin/LdapUserPlugin::init &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_83'>83</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_83'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>load<br/><b>Killed by : </b>none</span></span> removed call to opengrok/auth/plugin/AbstractLdapPlugin::load &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_85'>85</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_85'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>load<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to opengrok/auth/plugin/LdapUserPlugin::init &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_90'>90</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_90'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>init<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.loadTestNegative1(opengrok.auth.plugin.LdapUserPluginTest)</span></span> replaced call to java/util/Map::get with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>init<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>init<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to java/util/Map::get &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>init<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>init<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_91'>91</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_91'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>init<br/><b>Killed by : </b>none</span></span> removed call to java/lang/NullPointerException::&#60;init&#62; &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_94'>94</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_94'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>init<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to java/util/HashSet::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>init<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to java/lang/String::split &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>init<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to java/util/Arrays::asList &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>init<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> Removed assignment to member variable attributes &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_96'>96</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_96'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>init<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.filterTest(opengrok.auth.plugin.LdapUserPluginTest)</span></span> replaced call to java/util/Map::get with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>init<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.filterTest(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to java/util/Map::get &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>init<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.filterTest(opengrok.auth.plugin.LdapUserPluginTest)</span></span> Removed assignment to member variable ldapFilter &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_98'>98</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_98'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>init<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> replaced call to java/util/Map::get with argument &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>init<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>init<br/><b>Killed by : </b>none</span></span> removed call to java/util/Map::get &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>init<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>init<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>init<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> Removed assignment to member variable useDN &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_99'>99</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_99'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>init<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>init<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Boolean::valueOf &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>init<br/><b>Killed by : </b>none</span></span> Removed assignment to member variable useDN &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_102'>102</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_102'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>init<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> replaced call to java/util/Map::get with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>init<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to java/util/Map::get &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_103'>103</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_103'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>init<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>init<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>init<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.loadTestPositive(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_104'>104</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_104'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>init<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to java/lang/Integer::parseInt &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>init<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to java/lang/Integer::valueOf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>init<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> Removed assignment to member variable instance &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_121'>121</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_121'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>sessionExists<br/><b>Killed by : </b>none</span></span> replaced boolean return with false for opengrok/auth/plugin/LdapUserPlugin::sessionExists &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>sessionExists<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for opengrok/auth/plugin/LdapUserPlugin::sessionExists &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>sessionExists<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>sessionExists<br/><b>Killed by : </b>none</span></span> removed call to opengrok/auth/plugin/AbstractLdapPlugin::sessionExists &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>sessionExists<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>sessionExists<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>sessionExists<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_122'>122</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_122'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>sessionExists<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>sessionExists<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>sessionExists<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>sessionExists<br/><b>Killed by : </b>none</span></span> removed call to javax/servlet/http/HttpServletRequest::getSession &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>sessionExists<br/><b>Killed by : </b>none</span></span> removed call to opengrok/auth/plugin/LdapUserPlugin::getSessionAttrName &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>sessionExists<br/><b>Killed by : </b>none</span></span> removed call to javax/servlet/http/HttpSession::getAttribute &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>sessionExists<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>sessionExists<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_138'>138</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_138'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>expandFilter<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.filterTest(opengrok.auth.plugin.LdapUserPluginTest)</span></span> replaced call to opengrok/auth/plugin/util/FilterUtil::expandUserFilter with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>expandFilter<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.filterTest(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to opengrok/auth/plugin/util/FilterUtil::expandUserFilter &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_140'>140</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_140'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>expandFilter<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.filterTest(opengrok.auth.plugin.LdapUserPluginTest)</span></span> replaced call to java/lang/String::replaceAll with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>expandFilter<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.filterTest(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to java/lang/String::replaceAll &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>expandFilter<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/String::replaceAll with receiver &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_142'>142</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_142'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>expandFilter<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.filterTest(opengrok.auth.plugin.LdapUserPluginTest)</span></span> replaced return value with &#34;&#34; for opengrok/auth/plugin/LdapUserPlugin::expandFilter &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>expandFilter<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.filterTest(opengrok.auth.plugin.LdapUserPluginTest)</span></span> mutated return of Object value for opengrok/auth/plugin/LdapUserPlugin::expandFilter to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_149'>149</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_149'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> removed call to opengrok/auth/plugin/LdapUserPlugin::updateSession &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_151'>151</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_151'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to opengrok/auth/plugin/LdapUserPlugin::getLdapProvider &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_158'>158</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_158'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Boolean::booleanValue &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_159'>159</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_159'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> removed call to opengrok/auth/plugin/entity/User::getUsername &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_161'>161</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_161'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_162'>162</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_162'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> removed call to opengrok/auth/plugin/LdapUserPlugin::expandFilter &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_166'>166</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_166'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to opengrok/auth/plugin/LdapUserPlugin::getLdapProvider &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to opengrok/auth/plugin/ldap/AbstractLdapProvider::lookupLdapContent &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_167'>167</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_167'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> replaced call to java/util/Set::toArray with argument &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to java/util/Set::toArray &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_170'>170</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_170'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> removed call to opengrok/auth/plugin/LdapUserPlugin::getLdapProvider &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_174'>174</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_174'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to opengrok/auth/plugin/ldap/AbstractLdapProvider$LdapSearchResult::getAttrs &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_175'>175</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_175'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Boolean::booleanValue &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_176'>176</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_176'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to opengrok/auth/plugin/ldap/AbstractLdapProvider$LdapSearchResult::getDN &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_179'>179</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_179'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> removed call to org/opengrok/indexer/authorization/AuthorizationException::&#60;init&#62; &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_182'>182</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_182'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> removed call to java/util/Map::isEmpty &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_189'>189</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_189'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> replaced call to java/util/Map::get with argument &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> replaced call to java/util/Map::get with argument &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> removed call to java/util/Map::containsKey &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> removed call to java/util/Map::get &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to java/util/Map::get &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> removed call to java/util/Set::isEmpty &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_191'>191</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_191'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> removed call to opengrok/auth/plugin/LdapUserPlugin::getLdapProvider &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_195'>195</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_195'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to java/util/HashMap::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_197'>197</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_197'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> replaced call to java/util/Map::get with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> replaced call to java/util/Map::put with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> removed call to java/util/Map::get &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>none</span></span> removed call to java/util/Map::put &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_201'>201</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_201'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to opengrok/auth/entity/LdapUser::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fillSession<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to opengrok/auth/plugin/LdapUserPlugin::updateSession &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_211'>211</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_211'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateSession<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to javax/servlet/http/HttpServletRequest::getSession &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>updateSession<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to opengrok/auth/plugin/LdapUserPlugin::getSessionAttrName &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>updateSession<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to javax/servlet/http/HttpSession::setAttribute &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_215'>215</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_215'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getSessionAttrName<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getSessionAttrName<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> replaced return value with &#34;&#34; for opengrok/auth/plugin/LdapUserPlugin::getSessionAttrName &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getSessionAttrName<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getSessionAttrName<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to java/lang/StringBuilder::append &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getSessionAttrName<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to java/lang/Integer::toString &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getSessionAttrName<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to java/lang/StringBuilder::append &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getSessionAttrName<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to java/lang/StringBuilder::toString &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getSessionAttrName<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getSessionAttrName<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>getSessionAttrName<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> mutated return of Object value for opengrok/auth/plugin/LdapUserPlugin::getSessionAttrName to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>getSessionAttrName<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>getSessionAttrName<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_219'>219</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_219'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getSessionAttrName<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> replaced return value with &#34;&#34; for opengrok/auth/plugin/LdapUserPlugin::getSessionAttrName &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getSessionAttrName<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> removed call to opengrok/auth/plugin/LdapUserPlugin::getSessionAttrName &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getSessionAttrName<br/><b>Killed by : </b>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest)</span></span> mutated return of Object value for opengrok/auth/plugin/LdapUserPlugin::getSessionAttrName to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_224'>224</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_224'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkEntity<br/><b>Killed by : </b>none</span></span> replaced boolean return with false for opengrok/auth/plugin/LdapUserPlugin::checkEntity &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkEntity<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for opengrok/auth/plugin/LdapUserPlugin::checkEntity &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>checkEntity<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>checkEntity<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>checkEntity<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>checkEntity<br/><b>Killed by : </b>none</span></span> removed call to javax/servlet/http/HttpServletRequest::getSession &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>checkEntity<br/><b>Killed by : </b>none</span></span> removed call to opengrok/auth/plugin/LdapUserPlugin::getSessionAttrName &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>checkEntity<br/><b>Killed by : </b>none</span></span> removed call to javax/servlet/http/HttpSession::getAttribute &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>checkEntity<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>checkEntity<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>checkEntity<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@9df564f_229'>229</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@9df564f_229'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkEntity<br/><b>Killed by : </b>none</span></span> replaced boolean return with false for opengrok/auth/plugin/LdapUserPlugin::checkEntity &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkEntity<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for opengrok/auth/plugin/LdapUserPlugin::checkEntity &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>checkEntity<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>checkEntity<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>checkEntity<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>checkEntity<br/><b>Killed by : </b>none</span></span> removed call to javax/servlet/http/HttpServletRequest::getSession &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>checkEntity<br/><b>Killed by : </b>none</span></span> removed call to opengrok/auth/plugin/LdapUserPlugin::getSessionAttrName &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>checkEntity<br/><b>Killed by : </b>none</span></span> removed call to javax/servlet/http/HttpSession::getAttribute &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>checkEntity<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>checkEntity<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>checkEntity<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_61</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_60</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_56</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_55</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_58</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_57</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_52</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_51</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_54</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_53</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_59</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_50</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_45</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_44</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_47</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_46</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_41</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_40</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_43</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_42</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_49</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_48</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_34</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_33</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_36</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_35</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_30</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_32</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_31</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_38</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_37</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_39</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_3</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_2</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_1</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_0</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_23</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_22</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_25</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_9</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_24</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_8</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_7</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_6</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_21</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_5</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_20</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_4</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_27</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_26</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_29</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_28</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_12</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_11</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_99</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_14</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_13</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_96</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_95</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_10</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_98</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_97</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_19</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_16</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_15</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_18</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_17</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_92</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_91</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_94</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_93</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_90</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_89</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_88</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_85</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_84</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_87</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_86</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_81</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_80</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_83</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_82</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_78</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_77</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_79</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_74</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_73</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_76</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_75</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_70</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_72</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_71</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_67</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_66</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_69</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_68</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_63</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_62</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_65</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_64</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>opengrok.auth.plugin.LdapUserPluginTest.testFillSessionWithDnOff(opengrok.auth.plugin.LdapUserPluginTest) (610 ms)</li><li>opengrok.auth.plugin.LdapUserPluginTest.loadTestPositive(opengrok.auth.plugin.LdapUserPluginTest) (10 ms)</li><li>opengrok.auth.plugin.LdapUserPluginTest.loadTestNegative1(opengrok.auth.plugin.LdapUserPluginTest) (9 ms)</li><li>opengrok.auth.plugin.LdapUserPluginTest.testInvalidInstance(opengrok.auth.plugin.LdapUserPluginTest) (5 ms)</li><li>opengrok.auth.plugin.LdapUserPluginTest.filterTest(opengrok.auth.plugin.LdapUserPluginTest) (526 ms)</li><li>opengrok.auth.plugin.LdapUserPluginTest.testInstance(opengrok.auth.plugin.LdapUserPluginTest) (2 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

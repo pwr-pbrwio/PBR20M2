@@ -1,0 +1,4555 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>GlobalVarReferenceMap.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2011 The Closure Compiler Authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.google.javascript.jscomp;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.google.common.base.Preconditions.checkNotNull;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.google.common.base.Preconditions.checkState;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.InputId;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.Node;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.ArrayList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.HashMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.LinkedHashMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.List;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Map;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Map.Entry;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * An implementation for {@code ReferenceMap} that is specific to global scope</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * and can be used in different passes. In other words instead of relying on</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Var object it relies on the name of the variable. It also supports hot-swap</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * update of reference map for a specific script.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @see ReferenceCollectingCallback#exitScope(NodeTraversal)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>class GlobalVarReferenceMap implements ReferenceMap {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_41'/>
+41
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_41'>1</a>
+<span>
+1. <init> : Removed assignment to member variable refMap &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>  private Map&#60;String, ReferenceCollection&#62; refMap = null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final Map&#60;InputId, Integer&#62; inputOrder;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /** @param inputs The ordered list of all inputs for the compiler. */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_46'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  GlobalVarReferenceMap(Iterable&#60;CompilerInput&#62; inputs, Iterable&#60;CompilerInput&#62; externs) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_47'/>
+47
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_47'>2</a>
+<span>
+1. <init> : removed call to java/util/HashMap::&#60;init&#62; &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable inputOrder &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    inputOrder = new HashMap&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_48'/>
+48
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_48'>1</a>
+<span>
+1. <init> : Substituted 0 with 1 &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    int ind = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_49'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    for (CompilerInput extern : externs) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_50'/>
+50
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_50'>4</a>
+<span>
+1. <init> : replaced call to java/util/Map::put with argument &rarr; KILLED<br/>
+2. <init> : removed call to com/google/javascript/jscomp/CompilerInput::getInputId &rarr; KILLED<br/>
+3. <init> : removed call to java/lang/Integer::valueOf &rarr; KILLED<br/>
+4. <init> : removed call to java/util/Map::put &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      inputOrder.put(extern.getInputId(), ind);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_51'/>
+51
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_51'>2</a>
+<span>
+1. <init> : Removed increment 1 &rarr; SURVIVED<br/>
+2. <init> : Changed increment from 1 to -1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      ind++;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_52'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_53'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    for (CompilerInput input : inputs) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_54'/>
+54
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_54'>4</a>
+<span>
+1. <init> : replaced call to java/util/Map::put with argument &rarr; KILLED<br/>
+2. <init> : removed call to com/google/javascript/jscomp/CompilerInput::getInputId &rarr; KILLED<br/>
+3. <init> : removed call to java/lang/Integer::valueOf &rarr; KILLED<br/>
+4. <init> : removed call to java/util/Map::put &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      inputOrder.put(input.getInputId(), ind);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_55'/>
+55
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_55'>2</a>
+<span>
+1. <init> : Changed increment from 1 to -1 &rarr; KILLED<br/>
+2. <init> : Removed increment 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      ind++;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_56'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_57'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public ReferenceCollection getReferences(Var var) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_61'/>
+61
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_61'>4</a>
+<span>
+1. getReferences : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. getReferences : negated conditional &rarr; KILLED<br/>
+3. getReferences : removed call to com/google/javascript/jscomp/Var::isGlobal &rarr; KILLED<br/>
+4. getReferences : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (!var.isGlobal()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_62'/>
+62
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_62'>1</a>
+<span>
+1. getReferences : mutated return of Object value for com/google/javascript/jscomp/GlobalVarReferenceMap::getReferences to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      return null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_64'/>
+64
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_64'>5</a>
+<span>
+1. getReferences : replaced call to java/util/Map::get with argument &rarr; KILLED<br/>
+2. getReferences : removed call to com/google/javascript/jscomp/Var::getName &rarr; KILLED<br/>
+3. getReferences : removed call to java/util/Map::get &rarr; KILLED<br/>
+4. getReferences : replaced return value with null for com/google/javascript/jscomp/GlobalVarReferenceMap::getReferences &rarr; KILLED<br/>
+5. getReferences : mutated return of Object value for com/google/javascript/jscomp/GlobalVarReferenceMap::getReferences to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return refMap.get(var.getName());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Resets global var reference map with the new provide map.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param globalRefMap The reference map result of a</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *     {@link ReferenceCollectingCallback} pass collected from the whole AST.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private void resetGlobalVarReferences(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      Map&#60;Var, ReferenceCollection&#62; globalRefMap) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_75'/>
+75
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_75'>2</a>
+<span>
+1. resetGlobalVarReferences : removed call to java/util/LinkedHashMap::&#60;init&#62; &rarr; KILLED<br/>
+2. resetGlobalVarReferences : Removed assignment to member variable refMap &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    refMap = new LinkedHashMap&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_76'/>
+76
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_76'>1</a>
+<span>
+1. resetGlobalVarReferences : removed call to java/util/Map::entrySet &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    for (Entry&#60;Var, ReferenceCollection&#62; entry : globalRefMap.entrySet()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_77'/>
+77
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_77'>1</a>
+<span>
+1. resetGlobalVarReferences : removed call to java/util/Map$Entry::getKey &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      Var var = entry.getKey();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_78'/>
+78
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_78'>4</a>
+<span>
+1. resetGlobalVarReferences : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. resetGlobalVarReferences : negated conditional &rarr; KILLED<br/>
+3. resetGlobalVarReferences : removed call to com/google/javascript/jscomp/Var::isGlobal &rarr; KILLED<br/>
+4. resetGlobalVarReferences : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      if (var.isGlobal()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_79'/>
+79
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_79'>4</a>
+<span>
+1. resetGlobalVarReferences : replaced call to java/util/Map::put with argument &rarr; KILLED<br/>
+2. resetGlobalVarReferences : removed call to com/google/javascript/jscomp/Var::getName &rarr; KILLED<br/>
+3. resetGlobalVarReferences : removed call to java/util/Map$Entry::getValue &rarr; KILLED<br/>
+4. resetGlobalVarReferences : removed call to java/util/Map::put &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        refMap.put(var.getName(), entry.getValue());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_81'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_82'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Updates the internal reference map based on the provided parameters. If</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * {@code scriptRoot} is not SCRIPT, it basically replaces the internal map</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * with the new one, otherwise it replaces all the information associated to</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * the given script.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param refMapPatch The reference map result of a</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *     {@link ReferenceCollectingCallback} pass which might be collected from</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *     the whole AST or just a sub-tree associated to a SCRIPT node.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param root AST sub-tree root on which reference collection was done.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  void updateGlobalVarReferences(Map&#60;Var, ReferenceCollection&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      refMapPatch, Node root) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_97'/>
+97
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_97'>7</a>
+<span>
+1. updateGlobalVarReferences : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. updateGlobalVarReferences : negated conditional &rarr; KILLED<br/>
+3. updateGlobalVarReferences : negated conditional &rarr; KILLED<br/>
+4. updateGlobalVarReferences : removed call to com/google/javascript/rhino/Node::isScript &rarr; KILLED<br/>
+5. updateGlobalVarReferences : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+6. updateGlobalVarReferences : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+7. updateGlobalVarReferences : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (refMap == null || !root.isScript()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_98'/>
+98
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_98'>1</a>
+<span>
+1. updateGlobalVarReferences : removed call to com/google/javascript/jscomp/GlobalVarReferenceMap::resetGlobalVarReferences &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      resetGlobalVarReferences(refMapPatch);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_99'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_102'/>
+102
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_102'>1</a>
+<span>
+1. updateGlobalVarReferences : removed call to com/google/javascript/rhino/Node::getInputId &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    InputId inputId = root.getInputId();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_103'/>
+103
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_103'>2</a>
+<span>
+1. updateGlobalVarReferences : replaced call to com/google/common/base/Preconditions::checkNotNull with argument &rarr; SURVIVED<br/>
+2. updateGlobalVarReferences : removed call to com/google/common/base/Preconditions::checkNotNull &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    checkNotNull(inputId);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Note there are two assumptions here (i) the order of compiler inputs</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // has not changed and (ii) all references are in the order they appear</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // in AST (this is enforced in ReferenceCollectionCallback).</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_107'/>
+107
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_107'>1</a>
+<span>
+1. updateGlobalVarReferences : removed call to com/google/javascript/jscomp/GlobalVarReferenceMap::removeScriptReferences &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    removeScriptReferences(inputId);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_108'/>
+108
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_108'>1</a>
+<span>
+1. updateGlobalVarReferences : removed call to java/util/Map::entrySet &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    for (Entry&#60;Var, ReferenceCollection&#62; entry : refMapPatch.entrySet()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_109'/>
+109
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_109'>1</a>
+<span>
+1. updateGlobalVarReferences : removed call to java/util/Map$Entry::getKey &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      Var var = entry.getKey();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_110'/>
+110
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_110'>4</a>
+<span>
+1. updateGlobalVarReferences : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. updateGlobalVarReferences : negated conditional &rarr; KILLED<br/>
+3. updateGlobalVarReferences : removed call to com/google/javascript/jscomp/Var::isGlobal &rarr; KILLED<br/>
+4. updateGlobalVarReferences : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      if (var.isGlobal()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_111'/>
+111
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_111'>3</a>
+<span>
+1. updateGlobalVarReferences : removed call to com/google/javascript/jscomp/Var::getName &rarr; KILLED<br/>
+2. updateGlobalVarReferences : removed call to java/util/Map$Entry::getValue &rarr; KILLED<br/>
+3. updateGlobalVarReferences : removed call to com/google/javascript/jscomp/GlobalVarReferenceMap::replaceReferences &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        replaceReferences(var.getName(), inputId, entry.getValue());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_113'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_114'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private void removeScriptReferences(InputId inputId) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_117'/>
+117
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_117'>2</a>
+<span>
+1. removeScriptReferences : replaced call to com/google/common/base/Preconditions::checkNotNull with argument &rarr; SURVIVED<br/>
+2. removeScriptReferences : removed call to com/google/common/base/Preconditions::checkNotNull &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    checkNotNull(inputId);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_118'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_119'/>
+119
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_119'>4</a>
+<span>
+1. removeScriptReferences : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. removeScriptReferences : negated conditional &rarr; KILLED<br/>
+3. removeScriptReferences : removed call to java/util/Map::containsKey &rarr; KILLED<br/>
+4. removeScriptReferences : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (!inputOrder.containsKey(inputId)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_120'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>      return; // Input did not exist when last computed, so skip</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // TODO(bashir): If this is too slow it is not too difficult to make it</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // faster with keeping an index for variables accessed in sourceName.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_124'/>
+124
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_124'>1</a>
+<span>
+1. removeScriptReferences : removed call to java/util/Map::values &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    for (ReferenceCollection collection : refMap.values()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_125'/>
+125
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_125'>3</a>
+<span>
+1. removeScriptReferences : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. removeScriptReferences : negated conditional &rarr; KILLED<br/>
+3. removeScriptReferences : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      if (collection == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_126'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        continue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_128'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      List&#60;Reference&#62; oldRefs = collection.references;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_129'/>
+129
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_129'>1</a>
+<span>
+1. removeScriptReferences : removed call to com/google/javascript/jscomp/GlobalVarReferenceMap::findSourceRefRange &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      SourceRefRange range = findSourceRefRange(oldRefs, inputId);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_130'/>
+130
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_130'>2</a>
+<span>
+1. removeScriptReferences : removed call to java/util/ArrayList::&#60;init&#62; &rarr; KILLED<br/>
+2. removeScriptReferences : removed call to com/google/javascript/jscomp/GlobalVarReferenceMap$SourceRefRange::refsBefore &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      List&#60;Reference&#62; newRefs = new ArrayList&#60;&#62;(range.refsBefore());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_131'/>
+131
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_131'>2</a>
+<span>
+1. removeScriptReferences : removed call to com/google/javascript/jscomp/GlobalVarReferenceMap$SourceRefRange::refsAfter &rarr; KILLED<br/>
+2. removeScriptReferences : removed call to java/util/List::addAll &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      newRefs.addAll(range.refsAfter());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_132'/>
+132
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_132'>1</a>
+<span>
+1. removeScriptReferences : Removed assignment to member variable references &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      collection.references = newRefs;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_133'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_134'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_135'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private void replaceReferences(String varName, InputId inputId,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      ReferenceCollection newSourceCollection) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_138'/>
+138
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_138'>1</a>
+<span>
+1. replaceReferences : removed call to com/google/javascript/jscomp/ReferenceCollection::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    ReferenceCollection combined = new ReferenceCollection();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_139'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    List&#60;Reference&#62; combinedRefs = combined.references;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_140'/>
+140
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_140'>2</a>
+<span>
+1. replaceReferences : replaced call to java/util/Map::get with argument &rarr; KILLED<br/>
+2. replaceReferences : removed call to java/util/Map::get &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    ReferenceCollection oldCollection = refMap.get(varName);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_141'/>
+141
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_141'>2</a>
+<span>
+1. replaceReferences : replaced call to java/util/Map::put with argument &rarr; KILLED<br/>
+2. replaceReferences : removed call to java/util/Map::put &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    refMap.put(varName, combined);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_142'/>
+142
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_142'>3</a>
+<span>
+1. replaceReferences : negated conditional &rarr; KILLED<br/>
+2. replaceReferences : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. replaceReferences : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (oldCollection == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_143'/>
+143
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_143'>1</a>
+<span>
+1. replaceReferences : removed call to java/util/List::addAll &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      combinedRefs.addAll(newSourceCollection.references);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_144'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // otherwise replace previous references that are from sourceName</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_147'/>
+147
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_147'>1</a>
+<span>
+1. replaceReferences : removed call to com/google/javascript/jscomp/GlobalVarReferenceMap::findSourceRefRange &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    SourceRefRange range = findSourceRefRange(oldCollection.references,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      inputId);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_149'/>
+149
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_149'>2</a>
+<span>
+1. replaceReferences : removed call to com/google/javascript/jscomp/GlobalVarReferenceMap$SourceRefRange::refsBefore &rarr; KILLED<br/>
+2. replaceReferences : removed call to java/util/List::addAll &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    combinedRefs.addAll(range.refsBefore());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_150'/>
+150
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_150'>1</a>
+<span>
+1. replaceReferences : removed call to java/util/List::addAll &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    combinedRefs.addAll(newSourceCollection.references);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_151'/>
+151
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_151'>2</a>
+<span>
+1. replaceReferences : removed call to com/google/javascript/jscomp/GlobalVarReferenceMap$SourceRefRange::refsAfter &rarr; KILLED<br/>
+2. replaceReferences : removed call to java/util/List::addAll &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    combinedRefs.addAll(range.refsAfter());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_152'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Finds the range of references associated to {@code sourceName}. Note that</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * even if there is no sourceName references the returned information can be</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_157'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * used to decide where to insert new sourceName refs.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_158'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private SourceRefRange findSourceRefRange(List&#60;Reference&#62; refList,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      InputId inputId) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_161'/>
+161
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_161'>2</a>
+<span>
+1. findSourceRefRange : replaced call to com/google/common/base/Preconditions::checkNotNull with argument &rarr; SURVIVED<br/>
+2. findSourceRefRange : removed call to com/google/common/base/Preconditions::checkNotNull &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    checkNotNull(inputId);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // TODO(bashir): We can do binary search here, but since this is fast enough</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_164'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // right now, we just do a linear search for simplicity.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_165'/>
+165
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_165'>1</a>
+<span>
+1. findSourceRefRange : Substituted -1 with 0 &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    int lastBefore = -1;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_166'/>
+166
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_166'>1</a>
+<span>
+1. findSourceRefRange : removed call to java/util/List::size &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    int firstAfter = refList.size();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_167'/>
+167
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_167'>1</a>
+<span>
+1. findSourceRefRange : Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    int index = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_168'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_169'/>
+169
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_169'>3</a>
+<span>
+1. findSourceRefRange : removed call to com/google/javascript/rhino/InputId::getIdName &rarr; SURVIVED<br/>
+2. findSourceRefRange : removed call to com/google/common/base/Preconditions::checkState &rarr; SURVIVED<br/>
+3. findSourceRefRange : removed call to java/util/Map::containsKey &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    checkState(inputOrder.containsKey(inputId), inputId.getIdName());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_170'/>
+170
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_170'>3</a>
+<span>
+1. findSourceRefRange : replaced call to java/util/Map::get with argument &rarr; KILLED<br/>
+2. findSourceRefRange : removed call to java/util/Map::get &rarr; KILLED<br/>
+3. findSourceRefRange : removed call to java/lang/Integer::intValue &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    int sourceInputOrder = inputOrder.get(inputId);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_171'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    for (Reference ref : refList) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_172'/>
+172
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_172'>3</a>
+<span>
+1. findSourceRefRange : replaced call to com/google/common/base/Preconditions::checkNotNull with argument &rarr; SURVIVED<br/>
+2. findSourceRefRange : removed call to com/google/common/base/Preconditions::checkNotNull &rarr; SURVIVED<br/>
+3. findSourceRefRange : removed call to com/google/javascript/jscomp/Reference::getInputId &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      checkNotNull(ref.getInputId());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_173'/>
+173
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_173'>4</a>
+<span>
+1. findSourceRefRange : replaced call to java/util/Map::get with argument &rarr; KILLED<br/>
+2. findSourceRefRange : removed call to com/google/javascript/jscomp/Reference::getInputId &rarr; KILLED<br/>
+3. findSourceRefRange : removed call to java/util/Map::get &rarr; KILLED<br/>
+4. findSourceRefRange : removed call to java/lang/Integer::intValue &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      int order = inputOrder.get(ref.getInputId());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_174'/>
+174
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_174'>4</a>
+<span>
+1. findSourceRefRange : changed conditional boundary &rarr; KILLED<br/>
+2. findSourceRefRange : negated conditional &rarr; KILLED<br/>
+3. findSourceRefRange : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+4. findSourceRefRange : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (order &#60; sourceInputOrder) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_175'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        lastBefore = index;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_176'/>
+176
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_176'>4</a>
+<span>
+1. findSourceRefRange : changed conditional boundary &rarr; KILLED<br/>
+2. findSourceRefRange : negated conditional &rarr; KILLED<br/>
+3. findSourceRefRange : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+4. findSourceRefRange : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      } else if (order &#62; sourceInputOrder) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_177'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        firstAfter = index;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_178'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_179'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_180'/>
+180
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_180'>2</a>
+<span>
+1. findSourceRefRange : Changed increment from 1 to -1 &rarr; KILLED<br/>
+2. findSourceRefRange : Removed increment 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      index++;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_181'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_182'/>
+182
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_182'>3</a>
+<span>
+1. findSourceRefRange : removed call to com/google/javascript/jscomp/GlobalVarReferenceMap$SourceRefRange::&#60;init&#62; &rarr; KILLED<br/>
+2. findSourceRefRange : replaced return value with null for com/google/javascript/jscomp/GlobalVarReferenceMap::findSourceRefRange &rarr; KILLED<br/>
+3. findSourceRefRange : mutated return of Object value for com/google/javascript/jscomp/GlobalVarReferenceMap::findSourceRefRange to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return new SourceRefRange(refList, lastBefore, firstAfter);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_183'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_184'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_185'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private static class SourceRefRange {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_186'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final int lastBefore;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_187'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final int firstAfter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_188'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final List&#60;Reference&#62; refList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_189'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_190'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    SourceRefRange(List&#60;Reference&#62; refList, int lastBefore,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_191'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        int firstAfter) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_192'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      this.lastBefore = Math.max(lastBefore, -1);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_193'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      this.firstAfter = Math.min(firstAfter, refList.size());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_194'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      this.refList = refList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_195'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_196'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_197'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Note that the returned list is backed by {@code refList}! */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_198'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    List&#60;Reference&#62; refsBefore() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_199'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      return refList.subList(0, lastBefore + 1);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_200'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_201'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_202'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Note that the returned list is backed by {@code refList}! */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_203'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    List&#60;Reference&#62; refsAfter() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_204'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      return refList.subList(firstAfter, refList.size());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_205'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_206'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_207'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_208'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_209'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param globalScope a new Global Scope to replace the scope of references</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_210'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *        with.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_211'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_212'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void updateReferencesWithGlobalScope(Scope globalScope) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_213'/>
+213
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_213'>1</a>
+<span>
+1. updateReferencesWithGlobalScope : removed call to java/util/Map::values &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    for (ReferenceCollection collection : refMap.values()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_214'/>
+214
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_214'>2</a>
+<span>
+1. updateReferencesWithGlobalScope : removed call to java/util/List::size &rarr; SURVIVED<br/>
+2. updateReferencesWithGlobalScope : removed call to java/util/ArrayList::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      List&#60;Reference&#62; newRefs = new ArrayList&#60;&#62;(collection.references.size());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_215'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      for (Reference ref : collection) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_216'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // This is only ever called with compiler.getTopScope() in production, which is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_217'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // a TypedScope.  But References are only ever created with</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_218'/>
+218
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_218'>4</a>
+<span>
+1. updateReferencesWithGlobalScope : removed call to com/google/javascript/jscomp/Reference::getScope &rarr; SURVIVED<br/>
+2. updateReferencesWithGlobalScope : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+3. updateReferencesWithGlobalScope : negated conditional &rarr; KILLED<br/>
+4. updateReferencesWithGlobalScope : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (ref.getScope() != globalScope) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_219'/>
+219
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_219'>3</a>
+<span>
+1. updateReferencesWithGlobalScope : removed call to java/util/List::add &rarr; SURVIVED<br/>
+2. updateReferencesWithGlobalScope : removed call to com/google/javascript/jscomp/Reference::cloneWithNewScope &rarr; KILLED<br/>
+3. updateReferencesWithGlobalScope : replaced call to com/google/javascript/jscomp/Reference::cloneWithNewScope with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>          newRefs.add(ref.cloneWithNewScope(globalScope));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_220'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_221'/>
+221
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_221'>1</a>
+<span>
+1. updateReferencesWithGlobalScope : removed call to java/util/List::add &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>          newRefs.add(ref);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_222'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_223'/>
+223
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_223'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_224'/>
+224
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_224'>1</a>
+<span>
+1. updateReferencesWithGlobalScope : Removed assignment to member variable references &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      collection.references = newRefs;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_225'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_226'/>
+226
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_226'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_227'/>
+227
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_227'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_228'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_229'/>
+229
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_229'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * A CleanupPass implementation that will replace references to old Syntactic</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_230'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Global Scopes generated in previous compile runs with references to the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_231'/>
+231
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_231'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Global Typed Scope.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_232'/>
+232
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_232'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_233'/>
+233
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_233'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  static class GlobalVarRefCleanupPass implements HotSwapCompilerPass {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_234'/>
+234
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_234'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_235'/>
+235
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_235'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final AbstractCompiler compiler;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_236'/>
+236
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_236'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_237'/>
+237
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_237'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public GlobalVarRefCleanupPass(AbstractCompiler compiler) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_238'/>
+238
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_238'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      this.compiler = compiler;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_239'/>
+239
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_239'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_240'/>
+240
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_240'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_241'/>
+241
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_241'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_242'/>
+242
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_242'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void hotSwapScript(Node scriptRoot, Node originalRoot) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_243'/>
+243
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_243'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      GlobalVarReferenceMap refMap = compiler.getGlobalVarReferences();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_244'/>
+244
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_244'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      if (refMap != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_245'/>
+245
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_245'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // We don&#39;t have a suitable untyped scope to use, but the actual scope probably doesn&#39;t</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_246'/>
+246
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_246'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // matter, so long as it&#39;s a global scope and doesn&#39;t persist references to things that</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_247'/>
+247
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_247'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // need to be cleaned up.  So we just generate a new simple root scope.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_248'/>
+248
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_248'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        refMap.updateReferencesWithGlobalScope(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_249'/>
+249
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_249'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            Scope.createGlobalScope(compiler.getTopScope().getRootNode()));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_250'/>
+250
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_250'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_251'/>
+251
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_251'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_252'/>
+252
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_252'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_253'/>
+253
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_253'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_254'/>
+254
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_254'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void process(Node externs, Node root) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_255'/>
+255
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_255'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // GlobalVarRefCleanupPass should not do work during process.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_256'/>
+256
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_256'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_257'/>
+257
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_257'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@69f24965_258'/>
+258
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_258'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_41'>41</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_41'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Removed assignment to member variable refMap &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_47'>47</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_47'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/HashMap::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> Removed assignment to member variable inputOrder &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_48'>48</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_48'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_50'>50</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_50'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> replaced call to java/util/Map::put with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to com/google/javascript/jscomp/CompilerInput::getInputId &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/lang/Integer::valueOf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/Map::put &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_51'>51</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_51'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> Changed increment from 1 to -1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Removed increment 1 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_54'>54</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_54'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> replaced call to java/util/Map::put with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to com/google/javascript/jscomp/CompilerInput::getInputId &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/lang/Integer::valueOf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/Map::put &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_55'>55</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_55'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> Changed increment from 1 to -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> Removed increment 1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_61'>61</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_61'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to com/google/javascript/jscomp/Var::isGlobal &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getReferences<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_62'>62</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_62'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getReferences<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/jscomp/GlobalVarReferenceMap::getReferences to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_64'>64</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_64'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> replaced call to java/util/Map::get with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to com/google/javascript/jscomp/Var::getName &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/Map::get &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> replaced return value with null for com/google/javascript/jscomp/GlobalVarReferenceMap::getReferences &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/GlobalVarReferenceMap::getReferences to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_75'>75</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_75'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>resetGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/LinkedHashMap::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>resetGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> Removed assignment to member variable refMap &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_76'>76</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_76'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>resetGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/Map::entrySet &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_77'>77</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_77'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>resetGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/Map$Entry::getKey &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_78'>78</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_78'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>resetGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>resetGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to com/google/javascript/jscomp/Var::isGlobal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>resetGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>resetGlobalVarReferences<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_79'>79</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_79'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>resetGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> replaced call to java/util/Map::put with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>resetGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to com/google/javascript/jscomp/Var::getName &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>resetGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/Map$Entry::getValue &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>resetGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/Map::put &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_97'>97</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_97'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to com/google/javascript/rhino/Node::isScript &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_ResetReferences(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_98'>98</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_98'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to com/google/javascript/jscomp/GlobalVarReferenceMap::resetGlobalVarReferences &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_102'>102</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_102'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to com/google/javascript/rhino/Node::getInputId &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_103'>103</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_103'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>none</span></span> replaced call to com/google/common/base/Preconditions::checkNotNull with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/base/Preconditions::checkNotNull &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_107'>107</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_107'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to com/google/javascript/jscomp/GlobalVarReferenceMap::removeScriptReferences &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_108'>108</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_108'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/Map::entrySet &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_109'>109</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_109'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/Map$Entry::getKey &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_110'>110</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_110'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to com/google/javascript/jscomp/Var::isGlobal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_111'>111</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_111'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to com/google/javascript/jscomp/Var::getName &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/Map$Entry::getValue &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>updateGlobalVarReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to com/google/javascript/jscomp/GlobalVarReferenceMap::replaceReferences &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_117'>117</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_117'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>removeScriptReferences<br/><b>Killed by : </b>none</span></span> replaced call to com/google/common/base/Preconditions::checkNotNull with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>removeScriptReferences<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/base/Preconditions::checkNotNull &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_119'>119</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_119'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>removeScriptReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>removeScriptReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/Map::containsKey &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>removeScriptReferences<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>removeScriptReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_124'>124</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_124'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>removeScriptReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/Map::values &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_125'>125</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_125'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>removeScriptReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>removeScriptReferences<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>removeScriptReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_129'>129</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_129'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>removeScriptReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to com/google/javascript/jscomp/GlobalVarReferenceMap::findSourceRefRange &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_130'>130</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_130'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>removeScriptReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/ArrayList::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>removeScriptReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to com/google/javascript/jscomp/GlobalVarReferenceMap$SourceRefRange::refsBefore &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_131'>131</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_131'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>removeScriptReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to com/google/javascript/jscomp/GlobalVarReferenceMap$SourceRefRange::refsAfter &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>removeScriptReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/List::addAll &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_132'>132</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_132'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>removeScriptReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> Removed assignment to member variable references &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_138'>138</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_138'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>replaceReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to com/google/javascript/jscomp/ReferenceCollection::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_140'>140</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_140'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>replaceReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> replaced call to java/util/Map::get with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>replaceReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewRefs(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/Map::get &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_141'>141</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_141'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>replaceReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> replaced call to java/util/Map::put with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>replaceReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/Map::put &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_142'>142</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_142'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>replaceReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>replaceReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>replaceReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewRefs(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_143'>143</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_143'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>replaceReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/List::addAll &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_147'>147</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_147'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>replaceReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewRefs(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to com/google/javascript/jscomp/GlobalVarReferenceMap::findSourceRefRange &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_149'>149</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_149'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>replaceReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewRefs(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to com/google/javascript/jscomp/GlobalVarReferenceMap$SourceRefRange::refsBefore &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>replaceReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewRefs(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/List::addAll &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_150'>150</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_150'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>replaceReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewRefs(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/List::addAll &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_151'>151</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_151'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>replaceReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewRefs(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to com/google/javascript/jscomp/GlobalVarReferenceMap$SourceRefRange::refsAfter &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>replaceReferences<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewRefs(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/List::addAll &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_161'>161</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_161'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>none</span></span> replaced call to com/google/common/base/Preconditions::checkNotNull with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/base/Preconditions::checkNotNull &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_165'>165</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_165'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>none</span></span> Substituted -1 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_166'>166</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_166'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/List::size &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_167'>167</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_167'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_169'>169</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_169'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/Map::containsKey &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/rhino/InputId::getIdName &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/base/Preconditions::checkState &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_170'>170</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_170'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> replaced call to java/util/Map::get with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/Map::get &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/lang/Integer::intValue &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_172'>172</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_172'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>none</span></span> replaced call to com/google/common/base/Preconditions::checkNotNull with argument &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to com/google/javascript/jscomp/Reference::getInputId &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/base/Preconditions::checkNotNull &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_173'>173</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_173'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> replaced call to java/util/Map::get with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to com/google/javascript/jscomp/Reference::getInputId &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/Map::get &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/lang/Integer::intValue &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_174'>174</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_174'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_176'>176</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_176'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_180'>180</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_180'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> Changed increment from 1 to -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> Removed increment 1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_182'>182</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_182'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to com/google/javascript/jscomp/GlobalVarReferenceMap$SourceRefRange::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> replaced return value with null for com/google/javascript/jscomp/GlobalVarReferenceMap::findSourceRefRange &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>findSourceRefRange<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/GlobalVarReferenceMap::findSourceRefRange to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_213'>213</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_213'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateReferencesWithGlobalScope<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/Map::values &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_214'>214</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_214'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateReferencesWithGlobalScope<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to java/util/ArrayList::&#60;init&#62; &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>updateReferencesWithGlobalScope<br/><b>Killed by : </b>none</span></span> removed call to java/util/List::size &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_218'>218</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_218'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateReferencesWithGlobalScope<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>updateReferencesWithGlobalScope<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/Reference::getScope &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>updateReferencesWithGlobalScope<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>updateReferencesWithGlobalScope<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_219'>219</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_219'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateReferencesWithGlobalScope<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> removed call to com/google/javascript/jscomp/Reference::cloneWithNewScope &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>updateReferencesWithGlobalScope<br/><b>Killed by : </b>none</span></span> removed call to java/util/List::add &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>updateReferencesWithGlobalScope<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> replaced call to com/google/javascript/jscomp/Reference::cloneWithNewScope with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_221'>221</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_221'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateReferencesWithGlobalScope<br/><b>Killed by : </b>none</span></span> removed call to java/util/List::add &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@69f24965_224'>224</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@69f24965_224'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateReferencesWithGlobalScope<br/><b>Killed by : </b>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest)</span></span> Removed assignment to member variable references &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_61</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_60</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_56</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_55</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_58</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_57</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_52</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_51</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_54</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_53</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_59</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_50</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_45</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_44</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_47</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_46</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_41</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_40</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_43</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_42</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_49</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_48</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_34</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_33</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_36</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_35</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_30</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_32</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_31</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_38</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_37</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_39</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_3</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_2</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_1</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_0</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_23</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_22</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_25</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_9</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_24</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_8</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_7</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_6</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_21</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_5</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_20</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_4</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_27</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_26</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_29</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_28</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_12</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_11</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_99</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_14</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_13</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_96</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_95</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_10</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_98</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_97</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_19</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_16</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_15</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_18</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_17</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_92</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_91</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_94</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_93</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_90</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_89</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_88</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_85</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_84</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_87</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_86</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_81</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_80</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_83</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_82</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_78</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_77</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_79</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_74</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_73</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_76</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_75</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_70</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_72</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_71</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_67</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_66</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_69</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_68</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_63</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_62</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_65</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_64</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewVar(com.google.javascript.jscomp.GlobalVarReferenceMapTest) (1 ms)</li><li>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNoRef(com.google.javascript.jscomp.GlobalVarReferenceMapTest) (2 ms)</li><li>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_UpdateScriptNewRefs(com.google.javascript.jscomp.GlobalVarReferenceMapTest) (3 ms)</li><li>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateReferencesWithGlobalScope(com.google.javascript.jscomp.GlobalVarReferenceMapTest) (1 ms)</li><li>com.google.javascript.jscomp.GlobalVarReferenceMapTest.testUpdateGlobalVarReferences_ResetReferences(com.google.javascript.jscomp.GlobalVarReferenceMapTest) (61 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

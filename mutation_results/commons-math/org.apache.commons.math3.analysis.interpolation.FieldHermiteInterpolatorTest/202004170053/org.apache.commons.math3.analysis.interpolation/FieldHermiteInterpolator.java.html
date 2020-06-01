@@ -1,0 +1,3905 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>FieldHermiteInterpolator.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.math3.analysis.interpolation;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.ArrayList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.List;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.FieldElement;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.exception.DimensionMismatchException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.exception.MathArithmeticException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.exception.NoDataException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.exception.NullArgumentException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.exception.ZeroException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.exception.util.LocalizedFormats;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.util.MathArrays;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.util.MathUtils;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/** Polynomial interpolator using both sample values and sample derivatives.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The interpolation polynomials match all sample points, including both values</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * and provided derivatives. There is one polynomial for each component of</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the values vector. All polynomials have the same degree. The degree of the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * polynomials depends on the number of points and number of derivatives at each</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * point. For example the interpolation polynomials for n sample points without</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * any derivatives all have degree n-1. The interpolation polynomials for n</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * sample points with the two extreme points having value and first derivative</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * and the remaining points having value only all have degree n+1. The</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * interpolation polynomial for n sample points with value, first and second</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * derivative for all points all have degree 3n-1.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;T&#62; Type of the field elements.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 3.2</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class FieldHermiteInterpolator&#60;T extends FieldElement&#60;T&#62;&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Sample abscissae. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final List&#60;T&#62; abscissae;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Top diagonal of the divided differences array. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final List&#60;T[]&#62; topDiagonal;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Bottom diagonal of the divided differences array. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final List&#60;T[]&#62; bottomDiagonal;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Create an empty interpolator.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_63'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public FieldHermiteInterpolator() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_64'/>
+64
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_64'>2</a>
+<span>
+1. <init> : removed call to java/util/ArrayList::&#60;init&#62; &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable abscissae &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.abscissae      = new ArrayList&#60;T&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_65'/>
+65
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_65'>2</a>
+<span>
+1. <init> : removed call to java/util/ArrayList::&#60;init&#62; &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable topDiagonal &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.topDiagonal    = new ArrayList&#60;T[]&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_66'/>
+66
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_66'>2</a>
+<span>
+1. <init> : removed call to java/util/ArrayList::&#60;init&#62; &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable bottomDiagonal &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.bottomDiagonal = new ArrayList&#60;T[]&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_67'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Add a sample point.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This method must be called once for each sample point. It is allowed to</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * mix some calls with values only with calls with values and first</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * derivatives.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The point abscissae for all calls &#60;em&#62;must&#60;/em&#62; be different.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param x abscissa of the sample point</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param value value and derivatives of the sample point</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * (if only one row is passed, it is the value, if two rows are</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * passed the first one is the value and the second the derivative</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * and so on)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @exception ZeroException if the abscissa difference between added point</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * and a previous point is zero (i.e. the two points are at same abscissa)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @exception MathArithmeticException if the number of derivatives is larger</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * than 20, which prevents computation of a factorial</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws DimensionMismatchException if derivative structures are inconsistent</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullArgumentException if x is null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void addSamplePoint(final T x, final T[] ... value)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        throws ZeroException, MathArithmeticException,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>               DimensionMismatchException, NullArgumentException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_94'/>
+94
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_94'>1</a>
+<span>
+1. addSamplePoint : removed call to org/apache/commons/math3/util/MathUtils::checkNotNull &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        MathUtils.checkNotNull(x);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_95'/>
+95
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_95'>2</a>
+<span>
+1. addSamplePoint : removed call to org/apache/commons/math3/FieldElement::getField &rarr; KILLED<br/>
+2. addSamplePoint : removed call to org/apache/commons/math3/Field::getOne &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        T factorial = x.getField().getOne();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_96'/>
+96
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_96'>7</a>
+<span>
+1. addSamplePoint : changed conditional boundary &rarr; KILLED<br/>
+2. addSamplePoint : Changed increment from 1 to -1 &rarr; KILLED<br/>
+3. addSamplePoint : Substituted 0 with 1 &rarr; KILLED<br/>
+4. addSamplePoint : negated conditional &rarr; KILLED<br/>
+5. addSamplePoint : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+6. addSamplePoint : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+7. addSamplePoint : Removed increment 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        for (int i = 0; i &#60; value.length; ++i) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_98'/>
+98
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_98'>1</a>
+<span>
+1. addSamplePoint : removed call to [Lorg/apache/commons/math3/FieldElement;::clone &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            final T[] y = value[i].clone();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_99'/>
+99
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_99'>5</a>
+<span>
+1. addSamplePoint : changed conditional boundary &rarr; SURVIVED<br/>
+2. addSamplePoint : Substituted 1 with 0 &rarr; SURVIVED<br/>
+3. addSamplePoint : negated conditional &rarr; KILLED<br/>
+4. addSamplePoint : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+5. addSamplePoint : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (i &#62; 1) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_100'/>
+100
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_100'>1</a>
+<span>
+1. addSamplePoint : removed call to org/apache/commons/math3/FieldElement::multiply &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                factorial = factorial.multiply(i);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_101'/>
+101
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_101'>1</a>
+<span>
+1. addSamplePoint : removed call to org/apache/commons/math3/FieldElement::reciprocal &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                final T inv = factorial.reciprocal();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_102'/>
+102
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_102'>5</a>
+<span>
+1. addSamplePoint : changed conditional boundary &rarr; KILLED<br/>
+2. addSamplePoint : Substituted 0 with 1 &rarr; KILLED<br/>
+3. addSamplePoint : negated conditional &rarr; KILLED<br/>
+4. addSamplePoint : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+5. addSamplePoint : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                for (int j = 0; j &#60; y.length; ++j) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_103'/>
+103
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_103'>2</a>
+<span>
+1. addSamplePoint : replaced call to org/apache/commons/math3/FieldElement::multiply with argument &rarr; KILLED<br/>
+2. addSamplePoint : removed call to org/apache/commons/math3/FieldElement::multiply &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    y[j] = y[j].multiply(inv);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // update the bottom diagonal of the divided differences array</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_108'/>
+108
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_108'>1</a>
+<span>
+1. addSamplePoint : removed call to java/util/List::size &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            final int n = abscissae.size();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_109'/>
+109
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_109'>2</a>
+<span>
+1. addSamplePoint : Replaced integer subtraction with addition &rarr; KILLED<br/>
+2. addSamplePoint : removed call to java/util/List::add &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            bottomDiagonal.add(n - i, y);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_110'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            T[] bottom0 = y;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_111'/>
+111
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_111'>6</a>
+<span>
+1. addSamplePoint : Removed increment 1 &rarr; TIMED_OUT<br/>
+2. addSamplePoint : changed conditional boundary &rarr; KILLED<br/>
+3. addSamplePoint : Changed increment from 1 to -1 &rarr; KILLED<br/>
+4. addSamplePoint : negated conditional &rarr; KILLED<br/>
+5. addSamplePoint : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+6. addSamplePoint : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>            for (int j = i; j &#60; n; ++j) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_112'/>
+112
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_112'>4</a>
+<span>
+1. addSamplePoint : Substituted 1 with 0 &rarr; KILLED<br/>
+2. addSamplePoint : Replaced integer addition with subtraction &rarr; KILLED<br/>
+3. addSamplePoint : Replaced integer subtraction with addition &rarr; KILLED<br/>
+4. addSamplePoint : removed call to java/util/List::get &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                final T[] bottom1 = bottomDiagonal.get(n - (j + 1));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_113'/>
+113
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_113'>8</a>
+<span>
+1. addSamplePoint : removed call to java/util/List::get &rarr; SURVIVED<br/>
+2. addSamplePoint : removed call to java/lang/Object::equals &rarr; SURVIVED<br/>
+3. addSamplePoint : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+4. addSamplePoint : Substituted 1 with 0 &rarr; KILLED<br/>
+5. addSamplePoint : Replaced integer addition with subtraction &rarr; KILLED<br/>
+6. addSamplePoint : Replaced integer subtraction with addition &rarr; KILLED<br/>
+7. addSamplePoint : negated conditional &rarr; KILLED<br/>
+8. addSamplePoint : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                if (x.equals(abscissae.get(n - (j + 1)))) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_114'/>
+114
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_114'>3</a>
+<span>
+1. addSamplePoint : removed call to org/apache/commons/math3/exception/ZeroException::&#60;init&#62; &rarr; KILLED<br/>
+2. addSamplePoint : Substituted 1 with 0 &rarr; KILLED<br/>
+3. addSamplePoint : Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    throw new ZeroException(LocalizedFormats.DUPLICATED_ABSCISSA_DIVISION_BY_ZERO, x);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_116'/>
+116
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_116'>7</a>
+<span>
+1. addSamplePoint : replaced call to org/apache/commons/math3/FieldElement::subtract with argument &rarr; KILLED<br/>
+2. addSamplePoint : Substituted 1 with 0 &rarr; KILLED<br/>
+3. addSamplePoint : Replaced integer addition with subtraction &rarr; KILLED<br/>
+4. addSamplePoint : Replaced integer subtraction with addition &rarr; KILLED<br/>
+5. addSamplePoint : removed call to java/util/List::get &rarr; KILLED<br/>
+6. addSamplePoint : removed call to org/apache/commons/math3/FieldElement::subtract &rarr; KILLED<br/>
+7. addSamplePoint : removed call to org/apache/commons/math3/FieldElement::reciprocal &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                final T inv = x.subtract(abscissae.get(n - (j + 1))).reciprocal();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_117'/>
+117
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_117'>5</a>
+<span>
+1. addSamplePoint : changed conditional boundary &rarr; KILLED<br/>
+2. addSamplePoint : Substituted 0 with 1 &rarr; KILLED<br/>
+3. addSamplePoint : negated conditional &rarr; KILLED<br/>
+4. addSamplePoint : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+5. addSamplePoint : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                for (int k = 0; k &#60; y.length; ++k) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_118'/>
+118
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_118'>4</a>
+<span>
+1. addSamplePoint : replaced call to org/apache/commons/math3/FieldElement::subtract with argument &rarr; KILLED<br/>
+2. addSamplePoint : replaced call to org/apache/commons/math3/FieldElement::multiply with argument &rarr; KILLED<br/>
+3. addSamplePoint : removed call to org/apache/commons/math3/FieldElement::subtract &rarr; KILLED<br/>
+4. addSamplePoint : removed call to org/apache/commons/math3/FieldElement::multiply &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    bottom1[k] = inv.multiply(bottom0[k].subtract(bottom1[k]));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_120'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                bottom0 = bottom1;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // update the top diagonal of the divided differences array</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_124'/>
+124
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_124'>2</a>
+<span>
+1. addSamplePoint : removed call to [Lorg/apache/commons/math3/FieldElement;::clone &rarr; KILLED<br/>
+2. addSamplePoint : removed call to java/util/List::add &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            topDiagonal.add(bottom0.clone());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // update the abscissae array</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_127'/>
+127
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_127'>1</a>
+<span>
+1. addSamplePoint : removed call to java/util/List::add &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            abscissae.add(x);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_130'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_131'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_133'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Interpolate value at a specified abscissa.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param x interpolation abscissa</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_135'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return interpolated value</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @exception NoDataException if sample is empty</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullArgumentException if x is null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_138'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_139'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public T[] value(T x) throws NoDataException, NullArgumentException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // safety check</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_142'/>
+142
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_142'>1</a>
+<span>
+1. value : removed call to org/apache/commons/math3/util/MathUtils::checkNotNull &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        MathUtils.checkNotNull(x);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_143'/>
+143
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_143'>4</a>
+<span>
+1. value : negated conditional &rarr; KILLED<br/>
+2. value : removed call to java/util/List::isEmpty &rarr; KILLED<br/>
+3. value : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. value : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (abscissae.isEmpty()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_144'/>
+144
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_144'>1</a>
+<span>
+1. value : removed call to org/apache/commons/math3/exception/NoDataException::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            throw new NoDataException(LocalizedFormats.EMPTY_INTERPOLATION_SAMPLE);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_147'/>
+147
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_147'>4</a>
+<span>
+1. value : Substituted 0 with 1 &rarr; KILLED<br/>
+2. value : removed call to org/apache/commons/math3/FieldElement::getField &rarr; KILLED<br/>
+3. value : removed call to java/util/List::get &rarr; KILLED<br/>
+4. value : removed call to org/apache/commons/math3/util/MathArrays::buildArray &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        final T[] value = MathArrays.buildArray(x.getField(), topDiagonal.get(0).length);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_148'/>
+148
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_148'>2</a>
+<span>
+1. value : removed call to org/apache/commons/math3/FieldElement::getField &rarr; KILLED<br/>
+2. value : removed call to org/apache/commons/math3/Field::getOne &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        T valueCoeff = x.getField().getOne();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_149'/>
+149
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_149'>8</a>
+<span>
+1. value : Removed increment 1 &rarr; TIMED_OUT<br/>
+2. value : changed conditional boundary &rarr; KILLED<br/>
+3. value : Changed increment from 1 to -1 &rarr; KILLED<br/>
+4. value : Substituted 0 with 1 &rarr; KILLED<br/>
+5. value : negated conditional &rarr; KILLED<br/>
+6. value : removed call to java/util/List::size &rarr; KILLED<br/>
+7. value : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+8. value : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        for (int i = 0; i &#60; topDiagonal.size(); ++i) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_150'/>
+150
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_150'>1</a>
+<span>
+1. value : removed call to java/util/List::get &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            T[] dividedDifference = topDiagonal.get(i);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_151'/>
+151
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_151'>5</a>
+<span>
+1. value : changed conditional boundary &rarr; KILLED<br/>
+2. value : Substituted 0 with 1 &rarr; KILLED<br/>
+3. value : negated conditional &rarr; KILLED<br/>
+4. value : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+5. value : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            for (int k = 0; k &#60; value.length; ++k) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_152'/>
+152
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_152'>4</a>
+<span>
+1. value : replaced call to org/apache/commons/math3/FieldElement::multiply with argument &rarr; KILLED<br/>
+2. value : replaced call to org/apache/commons/math3/FieldElement::add with argument &rarr; KILLED<br/>
+3. value : removed call to org/apache/commons/math3/FieldElement::multiply &rarr; KILLED<br/>
+4. value : removed call to org/apache/commons/math3/FieldElement::add &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                value[k] = value[k].add(dividedDifference[k].multiply(valueCoeff));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_154'/>
+154
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_154'>3</a>
+<span>
+1. value : replaced call to org/apache/commons/math3/FieldElement::subtract with argument &rarr; KILLED<br/>
+2. value : removed call to java/util/List::get &rarr; KILLED<br/>
+3. value : removed call to org/apache/commons/math3/FieldElement::subtract &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            final T deltaX = x.subtract(abscissae.get(i));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_155'/>
+155
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_155'>2</a>
+<span>
+1. value : replaced call to org/apache/commons/math3/FieldElement::multiply with argument &rarr; KILLED<br/>
+2. value : removed call to org/apache/commons/math3/FieldElement::multiply &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            valueCoeff = valueCoeff.multiply(deltaX);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_157'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_158'/>
+158
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_158'>2</a>
+<span>
+1. value : replaced return value with null for org/apache/commons/math3/analysis/interpolation/FieldHermiteInterpolator::value &rarr; KILLED<br/>
+2. value : mutated return of Object value for org/apache/commons/math3/analysis/interpolation/FieldHermiteInterpolator::value to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return value;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Interpolate value and first derivatives at a specified abscissa.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param x interpolation abscissa</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_164'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param order maximum derivation order</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return interpolated value and derivatives (value in row 0,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_166'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * 1&#60;sup&#62;st&#60;/sup&#62; derivative in row 1, ... n&#60;sup&#62;th&#60;/sup&#62; derivative in row n)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @exception NoDataException if sample is empty</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_168'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullArgumentException if x is null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public T[][] derivatives(T x, int order) throws NoDataException, NullArgumentException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_171'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_172'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // safety check</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_173'/>
+173
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_173'>1</a>
+<span>
+1. derivatives : removed call to org/apache/commons/math3/util/MathUtils::checkNotNull &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        MathUtils.checkNotNull(x);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_174'/>
+174
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_174'>4</a>
+<span>
+1. derivatives : negated conditional &rarr; KILLED<br/>
+2. derivatives : removed call to java/util/List::isEmpty &rarr; KILLED<br/>
+3. derivatives : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. derivatives : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (abscissae.isEmpty()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_175'/>
+175
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_175'>1</a>
+<span>
+1. derivatives : removed call to org/apache/commons/math3/exception/NoDataException::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            throw new NoDataException(LocalizedFormats.EMPTY_INTERPOLATION_SAMPLE);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_176'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_177'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_178'/>
+178
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_178'>2</a>
+<span>
+1. derivatives : removed call to org/apache/commons/math3/FieldElement::getField &rarr; KILLED<br/>
+2. derivatives : removed call to org/apache/commons/math3/Field::getZero &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        final T zero = x.getField().getZero();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_179'/>
+179
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_179'>2</a>
+<span>
+1. derivatives : removed call to org/apache/commons/math3/FieldElement::getField &rarr; KILLED<br/>
+2. derivatives : removed call to org/apache/commons/math3/Field::getOne &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        final T one  = x.getField().getOne();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_180'/>
+180
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_180'>4</a>
+<span>
+1. derivatives : Substituted 1 with 0 &rarr; KILLED<br/>
+2. derivatives : Replaced integer addition with subtraction &rarr; KILLED<br/>
+3. derivatives : removed call to org/apache/commons/math3/FieldElement::getField &rarr; KILLED<br/>
+4. derivatives : removed call to org/apache/commons/math3/util/MathArrays::buildArray &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        final T[] tj = MathArrays.buildArray(x.getField(), order + 1);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_181'/>
+181
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_181'>1</a>
+<span>
+1. derivatives : Substituted 0 with 1 &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        tj[0] = zero;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_182'/>
+182
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_182'>6</a>
+<span>
+1. derivatives : changed conditional boundary &rarr; KILLED<br/>
+2. derivatives : Changed increment from 1 to -1 &rarr; KILLED<br/>
+3. derivatives : Substituted 0 with 1 &rarr; KILLED<br/>
+4. derivatives : negated conditional &rarr; KILLED<br/>
+5. derivatives : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+6. derivatives : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        for (int i = 0; i &#60; order; ++i) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_183'/>
+183
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_183'>4</a>
+<span>
+1. derivatives : replaced call to org/apache/commons/math3/FieldElement::add with argument &rarr; KILLED<br/>
+2. derivatives : Substituted 1 with 0 &rarr; KILLED<br/>
+3. derivatives : Replaced integer addition with subtraction &rarr; KILLED<br/>
+4. derivatives : removed call to org/apache/commons/math3/FieldElement::add &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            tj[i + 1] = tj[i].add(one);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_184'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_185'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_186'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final T[][] derivatives =</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_187'/>
+187
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_187'>6</a>
+<span>
+1. derivatives : Substituted 1 with 0 &rarr; KILLED<br/>
+2. derivatives : Substituted 0 with 1 &rarr; KILLED<br/>
+3. derivatives : Replaced integer addition with subtraction &rarr; KILLED<br/>
+4. derivatives : removed call to org/apache/commons/math3/FieldElement::getField &rarr; KILLED<br/>
+5. derivatives : removed call to java/util/List::get &rarr; KILLED<br/>
+6. derivatives : removed call to org/apache/commons/math3/util/MathArrays::buildArray &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                MathArrays.buildArray(x.getField(), order + 1, topDiagonal.get(0).length);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_188'/>
+188
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_188'>4</a>
+<span>
+1. derivatives : Substituted 1 with 0 &rarr; KILLED<br/>
+2. derivatives : Replaced integer addition with subtraction &rarr; KILLED<br/>
+3. derivatives : removed call to org/apache/commons/math3/FieldElement::getField &rarr; KILLED<br/>
+4. derivatives : removed call to org/apache/commons/math3/util/MathArrays::buildArray &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        final T[] valueCoeff = MathArrays.buildArray(x.getField(), order + 1);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_189'/>
+189
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_189'>3</a>
+<span>
+1. derivatives : Substituted 0 with 1 &rarr; KILLED<br/>
+2. derivatives : removed call to org/apache/commons/math3/FieldElement::getField &rarr; KILLED<br/>
+3. derivatives : removed call to org/apache/commons/math3/Field::getOne &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        valueCoeff[0] = x.getField().getOne();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_190'/>
+190
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_190'>8</a>
+<span>
+1. derivatives : Removed increment 1 &rarr; TIMED_OUT<br/>
+2. derivatives : changed conditional boundary &rarr; KILLED<br/>
+3. derivatives : Changed increment from 1 to -1 &rarr; KILLED<br/>
+4. derivatives : Substituted 0 with 1 &rarr; KILLED<br/>
+5. derivatives : negated conditional &rarr; KILLED<br/>
+6. derivatives : removed call to java/util/List::size &rarr; KILLED<br/>
+7. derivatives : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+8. derivatives : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        for (int i = 0; i &#60; topDiagonal.size(); ++i) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_191'/>
+191
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_191'>1</a>
+<span>
+1. derivatives : removed call to java/util/List::get &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            T[] dividedDifference = topDiagonal.get(i);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_192'/>
+192
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_192'>3</a>
+<span>
+1. derivatives : replaced call to org/apache/commons/math3/FieldElement::subtract with argument &rarr; KILLED<br/>
+2. derivatives : removed call to java/util/List::get &rarr; KILLED<br/>
+3. derivatives : removed call to org/apache/commons/math3/FieldElement::subtract &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            final T deltaX = x.subtract(abscissae.get(i));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_193'/>
+193
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_193'>6</a>
+<span>
+1. derivatives : Removed increment -1 &rarr; TIMED_OUT<br/>
+2. derivatives : changed conditional boundary &rarr; KILLED<br/>
+3. derivatives : Changed increment from -1 to 1 &rarr; KILLED<br/>
+4. derivatives : negated conditional &rarr; KILLED<br/>
+5. derivatives : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+6. derivatives : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>            for (int j = order; j &#62;= 0; --j) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_194'/>
+194
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_194'>6</a>
+<span>
+1. derivatives : changed conditional boundary &rarr; KILLED<br/>
+2. derivatives : Changed increment from 1 to -1 &rarr; KILLED<br/>
+3. derivatives : Substituted 0 with 1 &rarr; KILLED<br/>
+4. derivatives : negated conditional &rarr; KILLED<br/>
+5. derivatives : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+6. derivatives : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                for (int k = 0; k &#60; derivatives[j].length; ++k) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_195'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                    derivatives[j][k] =</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_196'/>
+196
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_196'>4</a>
+<span>
+1. derivatives : replaced call to org/apache/commons/math3/FieldElement::multiply with argument &rarr; KILLED<br/>
+2. derivatives : replaced call to org/apache/commons/math3/FieldElement::add with argument &rarr; KILLED<br/>
+3. derivatives : removed call to org/apache/commons/math3/FieldElement::multiply &rarr; KILLED<br/>
+4. derivatives : removed call to org/apache/commons/math3/FieldElement::add &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                            derivatives[j][k].add(dividedDifference[k].multiply(valueCoeff[j]));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_197'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_198'/>
+198
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_198'>2</a>
+<span>
+1. derivatives : replaced call to org/apache/commons/math3/FieldElement::multiply with argument &rarr; KILLED<br/>
+2. derivatives : removed call to org/apache/commons/math3/FieldElement::multiply &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                valueCoeff[j] = valueCoeff[j].multiply(deltaX);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_199'/>
+199
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_199'>4</a>
+<span>
+1. derivatives : changed conditional boundary &rarr; KILLED<br/>
+2. derivatives : negated conditional &rarr; KILLED<br/>
+3. derivatives : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+4. derivatives : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                if (j &#62; 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_200'/>
+200
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_200'>6</a>
+<span>
+1. derivatives : replaced call to org/apache/commons/math3/FieldElement::multiply with argument &rarr; KILLED<br/>
+2. derivatives : replaced call to org/apache/commons/math3/FieldElement::add with argument &rarr; KILLED<br/>
+3. derivatives : Substituted 1 with 0 &rarr; KILLED<br/>
+4. derivatives : Replaced integer subtraction with addition &rarr; KILLED<br/>
+5. derivatives : removed call to org/apache/commons/math3/FieldElement::multiply &rarr; KILLED<br/>
+6. derivatives : removed call to org/apache/commons/math3/FieldElement::add &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    valueCoeff[j] = valueCoeff[j].add(tj[j].multiply(valueCoeff[j - 1]));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_201'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_202'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_203'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_204'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_205'/>
+205
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_205'>2</a>
+<span>
+1. derivatives : replaced return value with null for org/apache/commons/math3/analysis/interpolation/FieldHermiteInterpolator::derivatives &rarr; KILLED<br/>
+2. derivatives : mutated return of Object value for org/apache/commons/math3/analysis/interpolation/FieldHermiteInterpolator::derivatives to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return derivatives;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_206'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_207'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_208'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5c313224_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_209'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_64'>64</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_64'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testEmptySampleDerivative(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to java/util/ArrayList::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testEmptySampleDerivative(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Removed assignment to member variable abscissae &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_65'>65</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_65'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to java/util/ArrayList::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Removed assignment to member variable topDiagonal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_66'>66</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_66'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to java/util/ArrayList::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Removed assignment to member variable bottomDiagonal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_94'>94</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_94'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/util/MathUtils::checkNotNull &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_95'>95</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_95'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::getField &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/Field::getOne &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_96'>96</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_96'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Changed increment from 1 to -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Removed increment 1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_98'>98</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_98'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to [Lorg/apache/commons/math3/FieldElement;::clone &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_99'>99</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_99'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_100'>100</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_100'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::multiply &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_101'>101</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_101'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::reciprocal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_102'>102</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_102'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_103'>103</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_103'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> replaced call to org/apache/commons/math3/FieldElement::multiply with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::multiply &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_108'>108</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_108'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to java/util/List::size &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_109'>109</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_109'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to java/util/List::add &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_111'>111</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_111'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Changed increment from 1 to -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>none</span></span> Removed increment 1 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_112'>112</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_112'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to java/util/List::get &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_113'>113</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_113'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>none</span></span> removed call to java/util/List::get &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Object::equals &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_114'>114</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_114'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testDuplicatedAbscissa(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/exception/ZeroException::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testDuplicatedAbscissa(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testDuplicatedAbscissa(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_116'>116</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_116'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> replaced call to org/apache/commons/math3/FieldElement::subtract with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to java/util/List::get &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::subtract &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::reciprocal &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_117'>117</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_117'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_118'>118</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_118'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> replaced call to org/apache/commons/math3/FieldElement::subtract with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> replaced call to org/apache/commons/math3/FieldElement::multiply with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::subtract &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::multiply &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_124'>124</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_124'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to [Lorg/apache/commons/math3/FieldElement;::clone &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to java/util/List::add &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_127'>127</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_127'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addSamplePoint<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to java/util/List::add &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_142'>142</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_142'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/util/MathUtils::checkNotNull &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_143'>143</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_143'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testEmptySampleValue(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testEmptySampleValue(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to java/util/List::isEmpty &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testEmptySampleValue(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_144'>144</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_144'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testEmptySampleValue(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/exception/NoDataException::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_147'>147</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_147'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::getField &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to java/util/List::get &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/util/MathArrays::buildArray &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_148'>148</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_148'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::getField &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/Field::getOne &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_149'>149</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_149'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Changed increment from 1 to -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to java/util/List::size &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>value<br/><b>Killed by : </b>none</span></span> Removed increment 1 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_150'>150</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_150'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to java/util/List::get &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_151'>151</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_151'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_152'>152</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_152'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> replaced call to org/apache/commons/math3/FieldElement::multiply with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> replaced call to org/apache/commons/math3/FieldElement::add with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::multiply &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::add &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_154'>154</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_154'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> replaced call to org/apache/commons/math3/FieldElement::subtract with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to java/util/List::get &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::subtract &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_155'>155</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_155'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> replaced call to org/apache/commons/math3/FieldElement::multiply with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::multiply &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_158'>158</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_158'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> replaced return value with null for org/apache/commons/math3/analysis/interpolation/FieldHermiteInterpolator::value &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> mutated return of Object value for org/apache/commons/math3/analysis/interpolation/FieldHermiteInterpolator::value to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_173'>173</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_173'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/util/MathUtils::checkNotNull &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_174'>174</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_174'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testEmptySampleDerivative(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testEmptySampleDerivative(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to java/util/List::isEmpty &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testEmptySampleDerivative(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_175'>175</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_175'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testEmptySampleDerivative(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/exception/NoDataException::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_178'>178</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_178'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::getField &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/Field::getZero &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_179'>179</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_179'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::getField &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/Field::getOne &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_180'>180</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_180'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::getField &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/util/MathArrays::buildArray &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_181'>181</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_181'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_182'>182</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_182'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Changed increment from 1 to -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testQuadratic(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testQuadratic(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testQuadratic(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_183'>183</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_183'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testQuadratic(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> replaced call to org/apache/commons/math3/FieldElement::add with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testQuadratic(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::add &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_187'>187</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_187'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::getField &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to java/util/List::get &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/util/MathArrays::buildArray &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_188'>188</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_188'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::getField &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/util/MathArrays::buildArray &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_189'>189</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_189'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testQuadratic(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::getField &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/Field::getOne &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_190'>190</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_190'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Changed increment from 1 to -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testQuadratic(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testQuadratic(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testQuadratic(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to java/util/List::size &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testQuadratic(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>none</span></span> Removed increment 1 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_191'>191</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_191'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to java/util/List::get &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_192'>192</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_192'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testQuadratic(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> replaced call to org/apache/commons/math3/FieldElement::subtract with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to java/util/List::get &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::subtract &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_193'>193</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_193'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testQuadratic(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Changed increment from -1 to 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testQuadratic(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testQuadratic(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>none</span></span> Removed increment -1 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_194'>194</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_194'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Changed increment from 1 to -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testQuadratic(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testQuadratic(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testQuadratic(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_196'>196</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_196'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> replaced call to org/apache/commons/math3/FieldElement::multiply with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testQuadratic(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> replaced call to org/apache/commons/math3/FieldElement::add with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::multiply &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::add &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_198'>198</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_198'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testQuadratic(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> replaced call to org/apache/commons/math3/FieldElement::multiply with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::multiply &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_199'>199</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_199'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testQuadratic(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_200'>200</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_200'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testQuadratic(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> replaced call to org/apache/commons/math3/FieldElement::multiply with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testQuadratic(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> replaced call to org/apache/commons/math3/FieldElement::add with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testQuadratic(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::multiply &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testQuadratic(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> removed call to org/apache/commons/math3/FieldElement::add &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5c313224_205'>205</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5c313224_205'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> replaced return value with null for org/apache/commons/math3/analysis/interpolation/FieldHermiteInterpolator::derivatives &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>derivatives<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest)</span></span> mutated return of Object value for org/apache/commons/math3/analysis/interpolation/FieldHermiteInterpolator::derivatives to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_61</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_60</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_56</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_55</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_58</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_57</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_52</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_51</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_54</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_53</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_59</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_50</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_45</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_44</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_47</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_46</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_41</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_40</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_43</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_42</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_49</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_48</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_34</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_33</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_36</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_35</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_30</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_32</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_31</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_38</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_37</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_39</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_3</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_2</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_1</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_0</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_23</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_22</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_25</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_9</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_24</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_8</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_7</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_6</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_21</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_5</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_20</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_4</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_27</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_26</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_29</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_28</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_12</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_11</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_99</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_14</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_13</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_96</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_95</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_10</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_98</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_97</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_19</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_16</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_15</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_18</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_17</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_92</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_91</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_94</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_93</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_90</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_89</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_88</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_85</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_84</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_87</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_86</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_81</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_80</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_83</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_82</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_78</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_77</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_79</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_74</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_73</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_76</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_75</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_70</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_72</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_71</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_67</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_66</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_69</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_68</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_63</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_62</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_65</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_64</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testMixedDerivatives(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest) (6 ms)</li><li>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testOnePointParabola(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest) (3 ms)</li><li>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testWikipedia(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest) (2 ms)</li><li>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testRandomPolynomialsFirstDerivative(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest) (872 ms)</li><li>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testSquareRoot(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest) (15 ms)</li><li>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testSine(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest) (17 ms)</li><li>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testQuadratic(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest) (4 ms)</li><li>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testEmptySampleDerivative(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest) (1 ms)</li><li>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testDuplicatedAbscissa(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest) (61 ms)</li><li>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testEmptySampleValue(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest) (2 ms)</li><li>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testZero(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest) (1 ms)</li><li>org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest.testRandomPolynomialsValuesOnly(org.apache.commons.math3.analysis.interpolation.FieldHermiteInterpolatorTest) (207 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

@@ -1,0 +1,5053 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>AbstractCheck.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>////////////////////////////////////////////////////////////////////////////////</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>// checkstyle: Checks Java source code for adherence to a set of rules.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>// Copyright (C) 2001-2020 the original author or authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>//</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>// This library is free software; you can redistribute it and/or</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>// modify it under the terms of the GNU Lesser General Public</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>// License as published by the Free Software Foundation; either</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>// version 2.1 of the License, or (at your option) any later version.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>//</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>// This library is distributed in the hope that it will be useful,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>// but WITHOUT ANY WARRANTY; without even the implied warranty of</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>// Lesser General Public License for more details.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>//</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>// You should have received a copy of the GNU Lesser General Public</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>// License along with this library; if not, write to the Free Software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>////////////////////////////////////////////////////////////////////////////////</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.puppycrawl.tools.checkstyle.api;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Collections;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.HashSet;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Set;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.SortedSet;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.TreeSet;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.puppycrawl.tools.checkstyle.utils.CommonUtil;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The base class for checks.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @see &#60;a href=&#34;{@docRoot}/../writingchecks.html&#34; target=&#34;_top&#34;&#62;Writing</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * your own checks&#60;/a&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @noinspection NoopMethodInAbstractClass</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_37'/>
+37
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_37'>2</a>
+<span>
+1. <init> : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+2. <init> : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>public abstract class AbstractCheck extends AbstractViolationReporter {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The check context.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @noinspection ThreadLocalNotStaticFinal</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_43'/>
+43
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_43'>9</a>
+<span>
+1. <init> : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+2. <init> : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+3. <init> : removed call to java/lang/ThreadLocal::withInitial &rarr; NO_COVERAGE<br/>
+4. <init> : Removed assignment to member variable context &rarr; NO_COVERAGE<br/>
+5. lambda$new$0 : removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck$FileContext::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+6. lambda$new$0 : Substituted 50 with 51 &rarr; NO_COVERAGE<br/>
+7. lambda$new$0 : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+8. lambda$new$0 : replaced return value with null for com/puppycrawl/tools/checkstyle/api/AbstractCheck::lambda$new$0 &rarr; NO_COVERAGE<br/>
+9. lambda$new$0 : mutated return of Object value for com/puppycrawl/tools/checkstyle/api/AbstractCheck::lambda$new$0 to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    private final ThreadLocal&#60;FileContext&#62; context = ThreadLocal.withInitial(FileContext::new);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** The tokens the check is interested in. */</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_46'/>
+46
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_46'>2</a>
+<span>
+1. <init> : removed call to java/util/HashSet::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+2. <init> : Removed assignment to member variable tokens &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    private final Set&#60;String&#62; tokens = new HashSet&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** The tab width for column reporting. */</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_49'/>
+49
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_49'>4</a>
+<span>
+1. <init> : Substituted 8 with 9 &rarr; NO_COVERAGE<br/>
+2. <init> : Substituted 2 with 3 &rarr; NO_COVERAGE<br/>
+3. <init> : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+4. <init> : Removed assignment to member variable tabWidth &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    private int tabWidth = CommonUtil.DEFAULT_TAB_WIDTH;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns the default token a check is interested in. Only used if the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * configuration for a check does not define the tokens.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the default tokens</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @see TokenTypes</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public abstract int[] getDefaultTokens();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The configurable token set.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Used to protect Checks against malicious users who specify an</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * unacceptable token set in the configuration file.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The default implementation returns the check&#39;s default tokens.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the token set this check is designed for.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @see TokenTypes</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public abstract int[] getAcceptableTokens();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The tokens that this check must be registered for.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the token set this must be registered for.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @see TokenTypes</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public abstract int[] getRequiredTokens();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Whether comment nodes are required or not.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return false as a default value.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean isCommentNodesRequired() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_81'/>
+81
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_81'>6</a>
+<span>
+1. isCommentNodesRequired : replaced boolean return with false for com/puppycrawl/tools/checkstyle/api/AbstractCheck::isCommentNodesRequired &rarr; NO_COVERAGE<br/>
+2. isCommentNodesRequired : replaced boolean return with true for com/puppycrawl/tools/checkstyle/api/AbstractCheck::isCommentNodesRequired &rarr; NO_COVERAGE<br/>
+3. isCommentNodesRequired : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+4. isCommentNodesRequired : Substituted 3 with 4 &rarr; NO_COVERAGE<br/>
+5. isCommentNodesRequired : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+6. isCommentNodesRequired : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Adds a set of tokens the check is interested in.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param strRep the string representation of the tokens interested in</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @noinspection WeakerAccess</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final void setTokens(String... strRep) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_90'/>
+90
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_90'>1</a>
+<span>
+1. setTokens : removed call to java/util/Collections::addAll &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        Collections.addAll(tokens, strRep);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_91'/>
+91
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_91'>2</a>
+<span>
+1. setTokens : Substituted 4 with 5 &rarr; NO_COVERAGE<br/>
+2. setTokens : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns the tokens registered for the check.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the set of token names</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final Set&#60;String&#62; getTokenNames() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_98'/>
+98
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_98'>6</a>
+<span>
+1. getTokenNames : replaced call to java/util/Collections::unmodifiableSet with argument &rarr; NO_COVERAGE<br/>
+2. getTokenNames : replaced return value with Collections.emptyList for com/puppycrawl/tools/checkstyle/api/AbstractCheck::getTokenNames &rarr; NO_COVERAGE<br/>
+3. getTokenNames : Substituted 5 with 6 &rarr; NO_COVERAGE<br/>
+4. getTokenNames : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+5. getTokenNames : removed call to java/util/Collections::unmodifiableSet &rarr; NO_COVERAGE<br/>
+6. getTokenNames : mutated return of Object value for com/puppycrawl/tools/checkstyle/api/AbstractCheck::getTokenNames to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return Collections.unmodifiableSet(tokens);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns the sorted set of {@link LocalizedMessage}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the sorted set of {@link LocalizedMessage}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public SortedSet&#60;LocalizedMessage&#62; getMessages() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_106'/>
+106
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_106'>7</a>
+<span>
+1. getMessages : removed call to java/util/TreeSet::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+2. getMessages : Substituted 6 with 7 &rarr; NO_COVERAGE<br/>
+3. getMessages : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+4. getMessages : removed call to java/lang/ThreadLocal::get &rarr; NO_COVERAGE<br/>
+5. getMessages : removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck$FileContext::access$000 &rarr; NO_COVERAGE<br/>
+6. getMessages : replaced return value with null for com/puppycrawl/tools/checkstyle/api/AbstractCheck::getMessages &rarr; NO_COVERAGE<br/>
+7. getMessages : mutated return of Object value for com/puppycrawl/tools/checkstyle/api/AbstractCheck::getMessages to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return new TreeSet&#60;&#62;(context.get().messages);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Clears the sorted set of {@link LocalizedMessage} of the check.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final void clearMessages() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_113'/>
+113
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_113'>3</a>
+<span>
+1. clearMessages : removed call to java/lang/ThreadLocal::get &rarr; NO_COVERAGE<br/>
+2. clearMessages : removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck$FileContext::access$000 &rarr; NO_COVERAGE<br/>
+3. clearMessages : removed call to java/util/SortedSet::clear &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        context.get().messages.clear();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_114'/>
+114
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_114'>2</a>
+<span>
+1. clearMessages : Substituted 7 with 8 &rarr; NO_COVERAGE<br/>
+2. clearMessages : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Initialize the check. This is the time to verify that the check has</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_118'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * everything required to perform it job.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void init() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // No code by default, should be overridden only by demand at subclasses</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_122'/>
+122
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_122'>2</a>
+<span>
+1. init : Substituted 8 with 9 &rarr; NO_COVERAGE<br/>
+2. init : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Destroy the check. It is being retired from service.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void destroy() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_128'/>
+128
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_128'>1</a>
+<span>
+1. destroy : removed call to java/lang/ThreadLocal::remove &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        context.remove();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_129'/>
+129
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_129'>2</a>
+<span>
+1. destroy : Substituted 9 with 10 &rarr; NO_COVERAGE<br/>
+2. destroy : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_130'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_131'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Called before the starting to process a tree. Ideal place to initialize</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_133'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * information that is to be collected whilst processing a tree.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param rootAST the root of the tree</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_135'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void beginTree(DetailAST rootAST) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // No code by default, should be overridden only by demand at subclasses</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_138'/>
+138
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_138'>2</a>
+<span>
+1. beginTree : Substituted 10 with 11 &rarr; NO_COVERAGE<br/>
+2. beginTree : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_139'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Called after finished processing a tree. Ideal place to report on</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * information collected whilst processing a tree.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param rootAST the root of the tree</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void finishTree(DetailAST rootAST) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // No code by default, should be overridden only by demand at subclasses</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_147'/>
+147
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_147'>2</a>
+<span>
+1. finishTree : Substituted 11 with 12 &rarr; NO_COVERAGE<br/>
+2. finishTree : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_150'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Called to process a token.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param ast the token to process</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void visitToken(DetailAST ast) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // No code by default, should be overridden only by demand at subclasses</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_155'/>
+155
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_155'>2</a>
+<span>
+1. visitToken : Substituted 12 with 13 &rarr; NO_COVERAGE<br/>
+2. visitToken : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_157'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_158'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Called after all the child nodes have been process.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param ast the token leaving</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void leaveToken(DetailAST ast) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // No code by default, should be overridden only by demand at subclasses</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_163'/>
+163
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_163'>2</a>
+<span>
+1. leaveToken : Substituted 13 with 14 &rarr; NO_COVERAGE<br/>
+2. leaveToken : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_164'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_166'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns the lines associated with the tree.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the file contents</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_168'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final String[] getLines() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_170'/>
+170
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_170'>7</a>
+<span>
+1. getLines : Substituted 14 with 15 &rarr; NO_COVERAGE<br/>
+2. getLines : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+3. getLines : removed call to java/lang/ThreadLocal::get &rarr; NO_COVERAGE<br/>
+4. getLines : removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck$FileContext::access$100 &rarr; NO_COVERAGE<br/>
+5. getLines : removed call to com/puppycrawl/tools/checkstyle/api/FileContents::getLines &rarr; NO_COVERAGE<br/>
+6. getLines : replaced return value with null for com/puppycrawl/tools/checkstyle/api/AbstractCheck::getLines &rarr; NO_COVERAGE<br/>
+7. getLines : mutated return of Object value for com/puppycrawl/tools/checkstyle/api/AbstractCheck::getLines to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return context.get().fileContents.getLines();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_171'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_172'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_173'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_174'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns the line associated with the tree.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_175'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param index index of the line</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_176'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the line from the file contents</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_177'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_178'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final String getLine(int index) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_179'/>
+179
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_179'>7</a>
+<span>
+1. getLine : replaced return value with &#34;&#34; for com/puppycrawl/tools/checkstyle/api/AbstractCheck::getLine &rarr; NO_COVERAGE<br/>
+2. getLine : Substituted 15 with 16 &rarr; NO_COVERAGE<br/>
+3. getLine : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+4. getLine : removed call to java/lang/ThreadLocal::get &rarr; NO_COVERAGE<br/>
+5. getLine : removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck$FileContext::access$100 &rarr; NO_COVERAGE<br/>
+6. getLine : removed call to com/puppycrawl/tools/checkstyle/api/FileContents::getLine &rarr; NO_COVERAGE<br/>
+7. getLine : mutated return of Object value for com/puppycrawl/tools/checkstyle/api/AbstractCheck::getLine to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return context.get().fileContents.getLine(index);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_180'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_181'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_182'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_183'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Set the file contents associated with the tree.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_184'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param contents the manager</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_185'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_186'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final void setFileContents(FileContents contents) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_187'/>
+187
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_187'>3</a>
+<span>
+1. setFileContents : replaced call to com/puppycrawl/tools/checkstyle/api/AbstractCheck$FileContext::access$102 with argument &rarr; NO_COVERAGE<br/>
+2. setFileContents : removed call to java/lang/ThreadLocal::get &rarr; NO_COVERAGE<br/>
+3. setFileContents : removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck$FileContext::access$102 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        context.get().fileContents = contents;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_188'/>
+188
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_188'>2</a>
+<span>
+1. setFileContents : Substituted 16 with 17 &rarr; NO_COVERAGE<br/>
+2. setFileContents : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_189'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_190'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_191'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns the file contents associated with the tree.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_192'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the file contents</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_193'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @noinspection WeakerAccess</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_194'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_195'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final FileContents getFileContents() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_196'/>
+196
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_196'>6</a>
+<span>
+1. getFileContents : Substituted 17 with 18 &rarr; NO_COVERAGE<br/>
+2. getFileContents : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+3. getFileContents : removed call to java/lang/ThreadLocal::get &rarr; NO_COVERAGE<br/>
+4. getFileContents : removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck$FileContext::access$100 &rarr; NO_COVERAGE<br/>
+5. getFileContents : replaced return value with null for com/puppycrawl/tools/checkstyle/api/AbstractCheck::getFileContents &rarr; NO_COVERAGE<br/>
+6. getFileContents : mutated return of Object value for com/puppycrawl/tools/checkstyle/api/AbstractCheck::getFileContents to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return context.get().fileContents;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_197'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_198'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_199'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_200'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Get tab width to report audit events with.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_201'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the tab width to audit events with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_202'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_203'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected final int getTabWidth() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_204'/>
+204
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_204'>4</a>
+<span>
+1. getTabWidth : Substituted 18 with 19 &rarr; NO_COVERAGE<br/>
+2. getTabWidth : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+3. getTabWidth : replaced int return with 0 for com/puppycrawl/tools/checkstyle/api/AbstractCheck::getTabWidth &rarr; NO_COVERAGE<br/>
+4. getTabWidth : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return tabWidth;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_205'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_206'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_207'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_208'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Set the tab width to report audit events with.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_209'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param tabWidth an {@code int} value</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_210'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_211'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final void setTabWidth(int tabWidth) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_212'/>
+212
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_212'>1</a>
+<span>
+1. setTabWidth : Removed assignment to member variable tabWidth &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        this.tabWidth = tabWidth;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_213'/>
+213
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_213'>2</a>
+<span>
+1. setTabWidth : Substituted 19 with 20 &rarr; NO_COVERAGE<br/>
+2. setTabWidth : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_214'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_215'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_216'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Helper method to log a LocalizedMessage.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_217'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_218'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param ast a node to get line id column numbers associated</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_219'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *             with the message</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_220'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param key key to locale message format</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_221'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param args arguments to format</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_222'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_223'/>
+223
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_223'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final void log(DetailAST ast, String key, Object... args) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_224'/>
+224
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_224'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // CommonUtil.lengthExpandedTabs returns column number considering tabulation</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_225'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // characters, it takes line from the file by line number, ast column number and tab</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_226'/>
+226
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_226'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // width as arguments. Returned value is 0-based, but user must see column number starting</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_227'/>
+227
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_227'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // from 1, that is why result of the method CommonUtil.lengthExpandedTabs</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_228'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // is increased by one.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_229'/>
+229
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_229'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_230'/>
+230
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_230'>8</a>
+<span>
+1. log : replaced call to com/puppycrawl/tools/checkstyle/utils/CommonUtil::lengthExpandedTabs with argument &rarr; NO_COVERAGE<br/>
+2. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+3. log : Substituted 20 with 21 &rarr; NO_COVERAGE<br/>
+4. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+5. log : Substituted 22 with 23 &rarr; NO_COVERAGE<br/>
+6. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+7. log : Replaced integer addition with subtraction &rarr; NO_COVERAGE<br/>
+8. log : removed call to com/puppycrawl/tools/checkstyle/utils/CommonUtil::lengthExpandedTabs &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        final int col = 1 + CommonUtil.lengthExpandedTabs(</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_231'/>
+231
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_231'>7</a>
+<span>
+1. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+2. log : Substituted 21 with 22 &rarr; NO_COVERAGE<br/>
+3. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+4. log : Replaced integer subtraction with addition &rarr; NO_COVERAGE<br/>
+5. log : removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getLines &rarr; NO_COVERAGE<br/>
+6. log : removed call to com/puppycrawl/tools/checkstyle/api/DetailAST::getLineNo &rarr; NO_COVERAGE<br/>
+7. log : removed call to com/puppycrawl/tools/checkstyle/api/DetailAST::getColumnNo &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                getLines()[ast.getLineNo() - 1], ast.getColumnNo(), tabWidth);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_232'/>
+232
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_232'>5</a>
+<span>
+1. log : Substituted 23 with 24 &rarr; NO_COVERAGE<br/>
+2. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+3. log : removed call to java/lang/ThreadLocal::get &rarr; NO_COVERAGE<br/>
+4. log : removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck$FileContext::access$000 &rarr; NO_COVERAGE<br/>
+5. log : removed call to java/util/SortedSet::add &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        context.get().messages.add(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_233'/>
+233
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_233'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                new LocalizedMessage(</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_234'/>
+234
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_234'>3</a>
+<span>
+1. log : Substituted 24 with 25 &rarr; NO_COVERAGE<br/>
+2. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+3. log : removed call to com/puppycrawl/tools/checkstyle/api/DetailAST::getLineNo &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                        ast.getLineNo(),</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_235'/>
+235
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_235'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        col,</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_236'/>
+236
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_236'>3</a>
+<span>
+1. log : Substituted 25 with 26 &rarr; NO_COVERAGE<br/>
+2. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+3. log : removed call to com/puppycrawl/tools/checkstyle/api/DetailAST::getColumnNo &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                        ast.getColumnNo(),</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_237'/>
+237
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_237'>3</a>
+<span>
+1. log : Substituted 26 with 27 &rarr; NO_COVERAGE<br/>
+2. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+3. log : removed call to com/puppycrawl/tools/checkstyle/api/DetailAST::getType &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                        ast.getType(),</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_238'/>
+238
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_238'>3</a>
+<span>
+1. log : Substituted 27 with 28 &rarr; NO_COVERAGE<br/>
+2. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+3. log : removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getMessageBundle &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                        getMessageBundle(),</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_239'/>
+239
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_239'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        key,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_240'/>
+240
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_240'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        args,</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_241'/>
+241
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_241'>3</a>
+<span>
+1. log : Substituted 28 with 29 &rarr; NO_COVERAGE<br/>
+2. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+3. log : removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getSeverityLevel &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                        getSeverityLevel(),</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_242'/>
+242
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_242'>3</a>
+<span>
+1. log : Substituted 29 with 30 &rarr; NO_COVERAGE<br/>
+2. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+3. log : removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getId &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                        getId(),</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_243'/>
+243
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_243'>3</a>
+<span>
+1. log : Substituted 30 with 31 &rarr; NO_COVERAGE<br/>
+2. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+3. log : removed call to java/lang/Object::getClass &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                        getClass(),</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_244'/>
+244
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_244'>6</a>
+<span>
+1. log : replaced call to java/util/Map::get with argument &rarr; NO_COVERAGE<br/>
+2. log : removed call to com/puppycrawl/tools/checkstyle/api/LocalizedMessage::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+3. log : Substituted 31 with 32 &rarr; NO_COVERAGE<br/>
+4. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+5. log : removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getCustomMessages &rarr; NO_COVERAGE<br/>
+6. log : removed call to java/util/Map::get &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                        getCustomMessages().get(key)));</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_245'/>
+245
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_245'>2</a>
+<span>
+1. log : Substituted 32 with 33 &rarr; NO_COVERAGE<br/>
+2. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_246'/>
+246
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_246'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_247'/>
+247
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_247'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_248'/>
+248
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_248'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final void log(int line, String key, Object... args) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_249'/>
+249
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_249'>5</a>
+<span>
+1. log : Substituted 33 with 34 &rarr; NO_COVERAGE<br/>
+2. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+3. log : removed call to java/lang/ThreadLocal::get &rarr; NO_COVERAGE<br/>
+4. log : removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck$FileContext::access$000 &rarr; NO_COVERAGE<br/>
+5. log : removed call to java/util/SortedSet::add &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        context.get().messages.add(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_250'/>
+250
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_250'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            new LocalizedMessage(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_251'/>
+251
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_251'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                line,</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_252'/>
+252
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_252'>3</a>
+<span>
+1. log : Substituted 34 with 35 &rarr; NO_COVERAGE<br/>
+2. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+3. log : removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getMessageBundle &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                getMessageBundle(),</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_253'/>
+253
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_253'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                key,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_254'/>
+254
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_254'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                args,</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_255'/>
+255
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_255'>3</a>
+<span>
+1. log : Substituted 35 with 36 &rarr; NO_COVERAGE<br/>
+2. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+3. log : removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getSeverityLevel &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                getSeverityLevel(),</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_256'/>
+256
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_256'>3</a>
+<span>
+1. log : Substituted 36 with 37 &rarr; NO_COVERAGE<br/>
+2. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+3. log : removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getId &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                getId(),</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_257'/>
+257
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_257'>3</a>
+<span>
+1. log : Substituted 37 with 38 &rarr; NO_COVERAGE<br/>
+2. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+3. log : removed call to java/lang/Object::getClass &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                getClass(),</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_258'/>
+258
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_258'>6</a>
+<span>
+1. log : replaced call to java/util/Map::get with argument &rarr; NO_COVERAGE<br/>
+2. log : removed call to com/puppycrawl/tools/checkstyle/api/LocalizedMessage::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+3. log : Substituted 38 with 39 &rarr; NO_COVERAGE<br/>
+4. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+5. log : removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getCustomMessages &rarr; NO_COVERAGE<br/>
+6. log : removed call to java/util/Map::get &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                getCustomMessages().get(key)));</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_259'/>
+259
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_259'>2</a>
+<span>
+1. log : Substituted 39 with 40 &rarr; NO_COVERAGE<br/>
+2. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_260'/>
+260
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_260'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_261'/>
+261
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_261'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_262'/>
+262
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_262'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final void log(int lineNo, int colNo, String key,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_263'/>
+263
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_263'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            Object... args) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_264'/>
+264
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_264'>8</a>
+<span>
+1. log : replaced call to com/puppycrawl/tools/checkstyle/utils/CommonUtil::lengthExpandedTabs with argument &rarr; NO_COVERAGE<br/>
+2. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+3. log : Substituted 40 with 41 &rarr; NO_COVERAGE<br/>
+4. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+5. log : Substituted 42 with 43 &rarr; NO_COVERAGE<br/>
+6. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+7. log : Replaced integer addition with subtraction &rarr; NO_COVERAGE<br/>
+8. log : removed call to com/puppycrawl/tools/checkstyle/utils/CommonUtil::lengthExpandedTabs &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        final int col = 1 + CommonUtil.lengthExpandedTabs(</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_265'/>
+265
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_265'>5</a>
+<span>
+1. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+2. log : Substituted 41 with 42 &rarr; NO_COVERAGE<br/>
+3. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+4. log : Replaced integer subtraction with addition &rarr; NO_COVERAGE<br/>
+5. log : removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getLines &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            getLines()[lineNo - 1], colNo, tabWidth);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_266'/>
+266
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_266'>5</a>
+<span>
+1. log : Substituted 43 with 44 &rarr; NO_COVERAGE<br/>
+2. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+3. log : removed call to java/lang/ThreadLocal::get &rarr; NO_COVERAGE<br/>
+4. log : removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck$FileContext::access$000 &rarr; NO_COVERAGE<br/>
+5. log : removed call to java/util/SortedSet::add &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        context.get().messages.add(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_267'/>
+267
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_267'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            new LocalizedMessage(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_268'/>
+268
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_268'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                lineNo,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_269'/>
+269
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_269'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                col,</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_270'/>
+270
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_270'>3</a>
+<span>
+1. log : Substituted 44 with 45 &rarr; NO_COVERAGE<br/>
+2. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+3. log : removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getMessageBundle &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                getMessageBundle(),</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_271'/>
+271
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_271'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                key,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_272'/>
+272
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_272'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                args,</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_273'/>
+273
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_273'>3</a>
+<span>
+1. log : Substituted 45 with 46 &rarr; NO_COVERAGE<br/>
+2. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+3. log : removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getSeverityLevel &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                getSeverityLevel(),</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_274'/>
+274
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_274'>3</a>
+<span>
+1. log : Substituted 46 with 47 &rarr; NO_COVERAGE<br/>
+2. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+3. log : removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getId &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                getId(),</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_275'/>
+275
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_275'>3</a>
+<span>
+1. log : Substituted 47 with 48 &rarr; NO_COVERAGE<br/>
+2. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+3. log : removed call to java/lang/Object::getClass &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                getClass(),</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_276'/>
+276
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_276'>6</a>
+<span>
+1. log : replaced call to java/util/Map::get with argument &rarr; NO_COVERAGE<br/>
+2. log : removed call to com/puppycrawl/tools/checkstyle/api/LocalizedMessage::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+3. log : Substituted 48 with 49 &rarr; NO_COVERAGE<br/>
+4. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+5. log : removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getCustomMessages &rarr; NO_COVERAGE<br/>
+6. log : removed call to java/util/Map::get &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                getCustomMessages().get(key)));</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_277'/>
+277
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_277'>2</a>
+<span>
+1. log : Substituted 49 with 50 &rarr; NO_COVERAGE<br/>
+2. log : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_278'/>
+278
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_278'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_279'/>
+279
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_279'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_280'/>
+280
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_280'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The actual context holder.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_281'/>
+281
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_281'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_282'/>
+282
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_282'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static class FileContext {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_283'/>
+283
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_283'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_284'/>
+284
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_284'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        /** The sorted set for collecting messages. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_285'/>
+285
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_285'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        private final SortedSet&#60;LocalizedMessage&#62; messages = new TreeSet&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_286'/>
+286
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_286'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_287'/>
+287
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_287'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        /** The current file contents. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_288'/>
+288
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_288'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        private FileContents fileContents;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_289'/>
+289
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_289'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_290'/>
+290
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_290'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_291'/>
+291
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_291'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d124d29_292'/>
+292
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_292'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_0'>0</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_0'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::$jacocoInit &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>beginTree<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::$jacocoInit &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>clearMessages<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::$jacocoInit &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>destroy<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::$jacocoInit &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>finishTree<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::$jacocoInit &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getFileContents<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::$jacocoInit &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getLine<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::$jacocoInit &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>getLines<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::$jacocoInit &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>getMessages<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::$jacocoInit &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>getTabWidth<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::$jacocoInit &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>getTokenNames<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::$jacocoInit &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>init<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::$jacocoInit &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>isCommentNodesRequired<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::$jacocoInit &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>lambda$new$0<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::$jacocoInit &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>leaveToken<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::$jacocoInit &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::$jacocoInit &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::$jacocoInit &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::$jacocoInit &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>setFileContents<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::$jacocoInit &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>setTabWidth<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::$jacocoInit &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>setTokens<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::$jacocoInit &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>visitToken<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::$jacocoInit &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_37'>37</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_37'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_43'>43</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_43'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to java/lang/ThreadLocal::withInitial &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Removed assignment to member variable context &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$new$0<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck$FileContext::&#60;init&#62; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lambda$new$0<br/><b>Killed by : </b>none</span></span> Substituted 50 with 51 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>lambda$new$0<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>lambda$new$0<br/><b>Killed by : </b>none</span></span> replaced return value with null for com/puppycrawl/tools/checkstyle/api/AbstractCheck::lambda$new$0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>lambda$new$0<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/puppycrawl/tools/checkstyle/api/AbstractCheck::lambda$new$0 to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_46'>46</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_46'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to java/util/HashSet::&#60;init&#62; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Removed assignment to member variable tokens &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_49'>49</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_49'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 8 with 9 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 2 with 3 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Removed assignment to member variable tabWidth &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_81'>81</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_81'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isCommentNodesRequired<br/><b>Killed by : </b>none</span></span> replaced boolean return with false for com/puppycrawl/tools/checkstyle/api/AbstractCheck::isCommentNodesRequired &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isCommentNodesRequired<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for com/puppycrawl/tools/checkstyle/api/AbstractCheck::isCommentNodesRequired &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isCommentNodesRequired<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isCommentNodesRequired<br/><b>Killed by : </b>none</span></span> Substituted 3 with 4 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isCommentNodesRequired<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isCommentNodesRequired<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_90'>90</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_90'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setTokens<br/><b>Killed by : </b>none</span></span> removed call to java/util/Collections::addAll &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_91'>91</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_91'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setTokens<br/><b>Killed by : </b>none</span></span> Substituted 4 with 5 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>setTokens<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_98'>98</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_98'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getTokenNames<br/><b>Killed by : </b>none</span></span> replaced call to java/util/Collections::unmodifiableSet with argument &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getTokenNames<br/><b>Killed by : </b>none</span></span> replaced return value with Collections.emptyList for com/puppycrawl/tools/checkstyle/api/AbstractCheck::getTokenNames &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getTokenNames<br/><b>Killed by : </b>none</span></span> Substituted 5 with 6 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getTokenNames<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getTokenNames<br/><b>Killed by : </b>none</span></span> removed call to java/util/Collections::unmodifiableSet &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getTokenNames<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/puppycrawl/tools/checkstyle/api/AbstractCheck::getTokenNames to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_106'>106</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_106'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getMessages<br/><b>Killed by : </b>none</span></span> removed call to java/util/TreeSet::&#60;init&#62; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getMessages<br/><b>Killed by : </b>none</span></span> Substituted 6 with 7 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getMessages<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getMessages<br/><b>Killed by : </b>none</span></span> removed call to java/lang/ThreadLocal::get &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getMessages<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck$FileContext::access$000 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getMessages<br/><b>Killed by : </b>none</span></span> replaced return value with null for com/puppycrawl/tools/checkstyle/api/AbstractCheck::getMessages &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getMessages<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/puppycrawl/tools/checkstyle/api/AbstractCheck::getMessages to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_113'>113</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_113'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>clearMessages<br/><b>Killed by : </b>none</span></span> removed call to java/lang/ThreadLocal::get &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>clearMessages<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck$FileContext::access$000 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>clearMessages<br/><b>Killed by : </b>none</span></span> removed call to java/util/SortedSet::clear &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_114'>114</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_114'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>clearMessages<br/><b>Killed by : </b>none</span></span> Substituted 7 with 8 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>clearMessages<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_122'>122</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_122'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>init<br/><b>Killed by : </b>none</span></span> Substituted 8 with 9 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>init<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_128'>128</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_128'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>destroy<br/><b>Killed by : </b>none</span></span> removed call to java/lang/ThreadLocal::remove &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_129'>129</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_129'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>destroy<br/><b>Killed by : </b>none</span></span> Substituted 9 with 10 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>destroy<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_138'>138</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_138'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>beginTree<br/><b>Killed by : </b>none</span></span> Substituted 10 with 11 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>beginTree<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_147'>147</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_147'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>finishTree<br/><b>Killed by : </b>none</span></span> Substituted 11 with 12 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>finishTree<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_155'>155</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_155'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visitToken<br/><b>Killed by : </b>none</span></span> Substituted 12 with 13 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>visitToken<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_163'>163</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_163'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>leaveToken<br/><b>Killed by : </b>none</span></span> Substituted 13 with 14 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>leaveToken<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_170'>170</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_170'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getLines<br/><b>Killed by : </b>none</span></span> Substituted 14 with 15 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getLines<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getLines<br/><b>Killed by : </b>none</span></span> removed call to java/lang/ThreadLocal::get &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getLines<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck$FileContext::access$100 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getLines<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/FileContents::getLines &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getLines<br/><b>Killed by : </b>none</span></span> replaced return value with null for com/puppycrawl/tools/checkstyle/api/AbstractCheck::getLines &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getLines<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/puppycrawl/tools/checkstyle/api/AbstractCheck::getLines to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_179'>179</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_179'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getLine<br/><b>Killed by : </b>none</span></span> replaced return value with &#34;&#34; for com/puppycrawl/tools/checkstyle/api/AbstractCheck::getLine &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getLine<br/><b>Killed by : </b>none</span></span> Substituted 15 with 16 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getLine<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getLine<br/><b>Killed by : </b>none</span></span> removed call to java/lang/ThreadLocal::get &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getLine<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck$FileContext::access$100 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getLine<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/FileContents::getLine &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>getLine<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/puppycrawl/tools/checkstyle/api/AbstractCheck::getLine to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_187'>187</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_187'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setFileContents<br/><b>Killed by : </b>none</span></span> replaced call to com/puppycrawl/tools/checkstyle/api/AbstractCheck$FileContext::access$102 with argument &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>setFileContents<br/><b>Killed by : </b>none</span></span> removed call to java/lang/ThreadLocal::get &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>setFileContents<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck$FileContext::access$102 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_188'>188</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_188'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setFileContents<br/><b>Killed by : </b>none</span></span> Substituted 16 with 17 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>setFileContents<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_196'>196</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_196'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getFileContents<br/><b>Killed by : </b>none</span></span> Substituted 17 with 18 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getFileContents<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getFileContents<br/><b>Killed by : </b>none</span></span> removed call to java/lang/ThreadLocal::get &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getFileContents<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck$FileContext::access$100 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getFileContents<br/><b>Killed by : </b>none</span></span> replaced return value with null for com/puppycrawl/tools/checkstyle/api/AbstractCheck::getFileContents &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>getFileContents<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/puppycrawl/tools/checkstyle/api/AbstractCheck::getFileContents to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_204'>204</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_204'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getTabWidth<br/><b>Killed by : </b>none</span></span> Substituted 18 with 19 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getTabWidth<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getTabWidth<br/><b>Killed by : </b>none</span></span> replaced int return with 0 for com/puppycrawl/tools/checkstyle/api/AbstractCheck::getTabWidth &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getTabWidth<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_212'>212</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_212'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setTabWidth<br/><b>Killed by : </b>none</span></span> Removed assignment to member variable tabWidth &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_213'>213</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_213'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setTabWidth<br/><b>Killed by : </b>none</span></span> Substituted 19 with 20 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>setTabWidth<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_230'>230</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_230'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> replaced call to com/puppycrawl/tools/checkstyle/utils/CommonUtil::lengthExpandedTabs with argument &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 20 with 21 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 22 with 23 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Replaced integer addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/utils/CommonUtil::lengthExpandedTabs &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_231'>231</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_231'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 21 with 22 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Replaced integer subtraction with addition &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getLines &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/DetailAST::getLineNo &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/DetailAST::getColumnNo &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_232'>232</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_232'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 23 with 24 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to java/lang/ThreadLocal::get &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck$FileContext::access$000 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to java/util/SortedSet::add &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_234'>234</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_234'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 24 with 25 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/DetailAST::getLineNo &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_236'>236</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_236'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 25 with 26 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/DetailAST::getColumnNo &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_237'>237</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_237'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 26 with 27 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/DetailAST::getType &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_238'>238</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_238'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 27 with 28 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getMessageBundle &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_241'>241</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_241'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 28 with 29 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getSeverityLevel &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_242'>242</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_242'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 29 with 30 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getId &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_243'>243</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_243'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 30 with 31 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Object::getClass &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_244'>244</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_244'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> replaced call to java/util/Map::get with argument &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/LocalizedMessage::&#60;init&#62; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 31 with 32 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getCustomMessages &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to java/util/Map::get &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_245'>245</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_245'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 32 with 33 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_249'>249</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_249'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 33 with 34 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to java/lang/ThreadLocal::get &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck$FileContext::access$000 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to java/util/SortedSet::add &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_252'>252</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_252'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 34 with 35 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getMessageBundle &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_255'>255</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_255'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 35 with 36 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getSeverityLevel &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_256'>256</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_256'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 36 with 37 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getId &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_257'>257</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_257'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 37 with 38 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Object::getClass &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_258'>258</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_258'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> replaced call to java/util/Map::get with argument &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/LocalizedMessage::&#60;init&#62; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 38 with 39 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getCustomMessages &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to java/util/Map::get &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_259'>259</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_259'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 39 with 40 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_264'>264</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_264'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> replaced call to com/puppycrawl/tools/checkstyle/utils/CommonUtil::lengthExpandedTabs with argument &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 40 with 41 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 42 with 43 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Replaced integer addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/utils/CommonUtil::lengthExpandedTabs &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_265'>265</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_265'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 41 with 42 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Replaced integer subtraction with addition &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getLines &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_266'>266</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_266'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 43 with 44 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to java/lang/ThreadLocal::get &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck$FileContext::access$000 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to java/util/SortedSet::add &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_270'>270</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_270'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 44 with 45 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getMessageBundle &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_273'>273</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_273'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 45 with 46 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getSeverityLevel &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_274'>274</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_274'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 46 with 47 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getId &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_275'>275</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_275'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 47 with 48 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Object::getClass &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_276'>276</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_276'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> replaced call to java/util/Map::get with argument &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/LocalizedMessage::&#60;init&#62; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 48 with 49 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to com/puppycrawl/tools/checkstyle/api/AbstractCheck::getCustomMessages &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> removed call to java/util/Map::get &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d124d29_277'>277</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d124d29_277'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 49 with 50 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>log<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_61</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_60</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_56</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_55</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_58</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_57</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_52</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_51</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_54</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_53</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_59</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_50</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_45</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_44</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_47</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_46</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_41</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_40</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_43</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_42</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_49</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_48</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_34</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_33</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_36</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_35</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_30</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_32</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_31</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_38</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_37</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_39</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_3</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_2</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_1</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_0</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_23</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_22</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_25</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_9</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_24</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_8</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_7</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_6</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_21</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_5</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_20</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_4</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_27</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_26</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_29</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_28</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_12</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_11</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_99</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_14</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_13</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_96</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_95</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_10</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_98</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_97</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_19</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_16</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_15</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_18</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_17</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_92</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_91</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_94</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_93</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_90</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_89</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_88</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_85</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_84</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_87</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_86</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_81</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_80</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_83</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_82</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_78</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_77</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_79</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_74</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_73</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_76</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_75</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_70</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_72</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_71</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_67</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_66</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_69</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_68</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_63</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_62</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_65</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_64</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

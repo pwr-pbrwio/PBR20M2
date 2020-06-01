@@ -1,0 +1,4130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>CheckPathsBetweenNodes.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2008 The Closure Compiler Authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.google.javascript.jscomp;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.base.Predicate;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.graph.Annotation;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.graph.DiGraph;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.graph.DiGraph.DiGraphEdge;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.graph.DiGraph.DiGraphNode;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See constructor, {@link #CheckPathsBetweenNodes(DiGraph,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * DiGraphNode, DiGraphNode, Predicate, Predicate)}, for a</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * description of this algorithm.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;N&#62; The node type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;E&#62; The edge type.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public final class CheckPathsBetweenNodes&#60;N, E&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final Predicate&#60;N&#62; nodePredicate;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final Predicate&#60;DiGraphEdge&#60;N, E&#62;&#62; edgePredicate;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final boolean inclusive;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // This algorithm works in two stages. First, the depth-first search (DFS)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // tree is calculated with A as the root. During when constructing the DFS</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // tree, back edges are recorded. A back edge is a non-tree edge (X -&#62; Y)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // where X is an descendant of Y in the DFS tree. The second step does a</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // recursive traversal of the graph. Back edges are ignored during the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // recursive traversal, thus no cycles are encountered. Any recursive branch</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // that encounters B without yet satisfying the predicate represents a path</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // from the entry node to the exit without any nodes that satisfy the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // predicate.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  //</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // The implementation of discoverBackEdges follows the DFS-Visit algorithm in</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // &#34;Introduction to Algorithms&#34; by Cormen, Leiseron, Rivest, and Stein, 2nd</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // ed., on page 541. The calculation of back edges is described on page 546.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // A non-tree edge in the DFS that connects a node to one of its ancestors.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_54'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private static final Annotation BACK_EDGE = new Annotation() {};</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_55'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private static final Annotation VISITED_EDGE = new Annotation() {};</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // Not yet visited.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_58'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private static final Annotation WHITE = null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // Being visited.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_60'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private static final Annotation GRAY = new Annotation() {};</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // Finished visiting.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_62'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private static final Annotation BLACK = new Annotation() {};</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final DiGraph&#60;N, E&#62; graph;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final DiGraphNode&#60;N, E&#62; start;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final DiGraphNode&#60;N, E&#62; end;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Given a graph G with nodes A and B, this algorithm determines if all paths</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * from A to B contain at least one node satisfying a given predicate.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Note that nodePredicate is not necessarily called for all nodes in G nor is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * edgePredicate called for all edges in G.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param graph Graph G to analyze.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param a The node A.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param b The node B.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param nodePredicate Predicate which at least one node on each path from an</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *     A node to B (inclusive) must match.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param edgePredicate Edges to consider as part of the graph. Edges in</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *     graph that don&#39;t match edgePredicate will be ignored.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param inclusive Includes node A and B in the test for the node predicate.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  CheckPathsBetweenNodes(DiGraph&#60;N, E&#62; graph, DiGraphNode&#60;N, E&#62; a,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      DiGraphNode&#60;N, E&#62; b, Predicate&#60;N&#62; nodePredicate,</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_86'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      Predicate&#60;DiGraphEdge&#60;N, E&#62;&#62; edgePredicate, boolean inclusive) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_87'/>
+87
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_87'>1</a>
+<span>
+1. <init> : Removed assignment to member variable graph &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    this.graph = graph;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_88'/>
+88
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_88'>1</a>
+<span>
+1. <init> : Removed assignment to member variable start &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    this.start = a;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_89'/>
+89
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_89'>1</a>
+<span>
+1. <init> : Removed assignment to member variable end &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    this.end = b;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_90'/>
+90
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_90'>1</a>
+<span>
+1. <init> : Removed assignment to member variable nodePredicate &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    this.nodePredicate = nodePredicate;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_91'/>
+91
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_91'>1</a>
+<span>
+1. <init> : Removed assignment to member variable edgePredicate &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    this.edgePredicate = edgePredicate;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_92'/>
+92
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_92'>1</a>
+<span>
+1. <init> : Removed assignment to member variable inclusive &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    this.inclusive = inclusive;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_93'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Inclusive check.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public CheckPathsBetweenNodes(DiGraph&#60;N, E&#62; graph, DiGraphNode&#60;N, E&#62; a,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      DiGraphNode&#60;N, E&#62; b, Predicate&#60;N&#62; nodePredicate,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      Predicate&#60;DiGraphEdge&#60;N, E&#62;&#62; edgePredicate) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_101'/>
+101
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_101'>1</a>
+<span>
+1. <init> : Substituted 1 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    this(graph, a, b, nodePredicate, edgePredicate, true);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_102'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @return true iff all paths contain at least one node that satisfy the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *     predicate</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public boolean allPathsSatisfyPredicate() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_110'/>
+110
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_110'>1</a>
+<span>
+1. allPathsSatisfyPredicate : removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::setUp &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    setUp();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_111'/>
+111
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_111'>1</a>
+<span>
+1. allPathsSatisfyPredicate : removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::checkAllPathsWithoutBackEdges &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    boolean result = checkAllPathsWithoutBackEdges(start, end);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_112'/>
+112
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_112'>1</a>
+<span>
+1. allPathsSatisfyPredicate : removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::tearDown &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    tearDown();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_113'/>
+113
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_113'>3</a>
+<span>
+1. allPathsSatisfyPredicate : replaced boolean return with false for com/google/javascript/jscomp/CheckPathsBetweenNodes::allPathsSatisfyPredicate &rarr; KILLED<br/>
+2. allPathsSatisfyPredicate : replaced boolean return with true for com/google/javascript/jscomp/CheckPathsBetweenNodes::allPathsSatisfyPredicate &rarr; KILLED<br/>
+3. allPathsSatisfyPredicate : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return result;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @return true iff some paths contain at least one node that satisfy the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_118'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *     predicate</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public boolean somePathsSatisfyPredicate() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_121'/>
+121
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_121'>1</a>
+<span>
+1. somePathsSatisfyPredicate : removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::setUp &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    setUp();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_122'/>
+122
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_122'>1</a>
+<span>
+1. somePathsSatisfyPredicate : removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::checkSomePathsWithoutBackEdges &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    boolean result = checkSomePathsWithoutBackEdges(start, end);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_123'/>
+123
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_123'>1</a>
+<span>
+1. somePathsSatisfyPredicate : removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::tearDown &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    tearDown();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_124'/>
+124
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_124'>3</a>
+<span>
+1. somePathsSatisfyPredicate : replaced boolean return with false for com/google/javascript/jscomp/CheckPathsBetweenNodes::somePathsSatisfyPredicate &rarr; KILLED<br/>
+2. somePathsSatisfyPredicate : replaced boolean return with true for com/google/javascript/jscomp/CheckPathsBetweenNodes::somePathsSatisfyPredicate &rarr; KILLED<br/>
+3. somePathsSatisfyPredicate : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return result;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private void setUp() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_128'/>
+128
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_128'>1</a>
+<span>
+1. setUp : removed call to com/google/javascript/jscomp/graph/DiGraph::pushNodeAnnotations &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    graph.pushNodeAnnotations();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_129'/>
+129
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_129'>1</a>
+<span>
+1. setUp : removed call to com/google/javascript/jscomp/graph/DiGraph::pushEdgeAnnotations &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    graph.pushEdgeAnnotations();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_130'/>
+130
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_130'>1</a>
+<span>
+1. setUp : removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::discoverBackEdges &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    discoverBackEdges(this.start);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_131'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_133'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private void tearDown() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_134'/>
+134
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_134'>1</a>
+<span>
+1. tearDown : removed call to com/google/javascript/jscomp/graph/DiGraph::popNodeAnnotations &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    graph.popNodeAnnotations();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_135'/>
+135
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_135'>1</a>
+<span>
+1. tearDown : removed call to com/google/javascript/jscomp/graph/DiGraph::popEdgeAnnotations &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    graph.popEdgeAnnotations();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_136'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_138'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private void discoverBackEdges(DiGraphNode&#60;N, E&#62; u) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_139'/>
+139
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_139'>1</a>
+<span>
+1. discoverBackEdges : removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphNode::setAnnotation &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    u.setAnnotation(GRAY);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_140'/>
+140
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_140'>1</a>
+<span>
+1. discoverBackEdges : removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphNode::getOutEdges &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    for (DiGraphEdge&#60;N, E&#62; e : u.getOutEdges()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_141'/>
+141
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_141'>4</a>
+<span>
+1. discoverBackEdges : negated conditional &rarr; SURVIVED<br/>
+2. discoverBackEdges : removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::ignoreEdge &rarr; SURVIVED<br/>
+3. discoverBackEdges : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+4. discoverBackEdges : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      if (ignoreEdge(e)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_142'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        continue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_144'/>
+144
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_144'>1</a>
+<span>
+1. discoverBackEdges : removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphEdge::getDestination &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      DiGraphNode&#60;N, E&#62; v = e.getDestination();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_145'/>
+145
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_145'>4</a>
+<span>
+1. discoverBackEdges : negated conditional &rarr; SURVIVED<br/>
+2. discoverBackEdges : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+3. discoverBackEdges : removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphNode::getAnnotation &rarr; KILLED<br/>
+4. discoverBackEdges : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      if (v.getAnnotation() == WHITE) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_146'/>
+146
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_146'>1</a>
+<span>
+1. discoverBackEdges : removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::discoverBackEdges &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        discoverBackEdges(v);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_147'/>
+147
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_147'>4</a>
+<span>
+1. discoverBackEdges : negated conditional &rarr; SURVIVED<br/>
+2. discoverBackEdges : removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphNode::getAnnotation &rarr; SURVIVED<br/>
+3. discoverBackEdges : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+4. discoverBackEdges : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      } else if (v.getAnnotation() == GRAY) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_148'/>
+148
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_148'>1</a>
+<span>
+1. discoverBackEdges : removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphEdge::setAnnotation &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        e.setAnnotation(BACK_EDGE);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_150'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_151'/>
+151
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_151'>1</a>
+<span>
+1. discoverBackEdges : removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphNode::setAnnotation &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    u.setAnnotation(BLACK);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_152'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private boolean ignoreEdge(DiGraphEdge&#60;N, E&#62; e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_155'/>
+155
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_155'>9</a>
+<span>
+1. ignoreEdge : replaced boolean return with false for com/google/javascript/jscomp/CheckPathsBetweenNodes::ignoreEdge &rarr; KILLED<br/>
+2. ignoreEdge : replaced boolean return with true for com/google/javascript/jscomp/CheckPathsBetweenNodes::ignoreEdge &rarr; KILLED<br/>
+3. ignoreEdge : Substituted 1 with 0 &rarr; KILLED<br/>
+4. ignoreEdge : Substituted 0 with 1 &rarr; KILLED<br/>
+5. ignoreEdge : negated conditional &rarr; KILLED<br/>
+6. ignoreEdge : removed call to com/google/common/base/Predicate::apply &rarr; KILLED<br/>
+7. ignoreEdge : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+8. ignoreEdge : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+9. ignoreEdge : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return !edgePredicate.apply(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_157'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_158'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Verify that all non-looping paths from {@code a} to {@code b} pass</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * through at least one node where {@code nodePredicate} is true.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private boolean checkAllPathsWithoutBackEdges(DiGraphNode&#60;N, E&#62; a,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      DiGraphNode&#60;N, E&#62; b) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_164'/>
+164
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_164'>14</a>
+<span>
+1. checkAllPathsWithoutBackEdges : negated conditional &rarr; SURVIVED<br/>
+2. checkAllPathsWithoutBackEdges : negated conditional &rarr; SURVIVED<br/>
+3. checkAllPathsWithoutBackEdges : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+4. checkAllPathsWithoutBackEdges : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+5. checkAllPathsWithoutBackEdges : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+6. checkAllPathsWithoutBackEdges : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+7. checkAllPathsWithoutBackEdges : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+8. checkAllPathsWithoutBackEdges : negated conditional &rarr; KILLED<br/>
+9. checkAllPathsWithoutBackEdges : negated conditional &rarr; KILLED<br/>
+10. checkAllPathsWithoutBackEdges : removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphNode::getValue &rarr; KILLED<br/>
+11. checkAllPathsWithoutBackEdges : removed call to com/google/common/base/Predicate::apply &rarr; KILLED<br/>
+12. checkAllPathsWithoutBackEdges : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+13. checkAllPathsWithoutBackEdges : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+14. checkAllPathsWithoutBackEdges : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (nodePredicate.apply(a.getValue()) &#38;&#38;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        (inclusive || (a != start &#38;&#38; a != end))) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_166'/>
+166
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_166'>3</a>
+<span>
+1. checkAllPathsWithoutBackEdges : replaced boolean return with false for com/google/javascript/jscomp/CheckPathsBetweenNodes::checkAllPathsWithoutBackEdges &rarr; KILLED<br/>
+2. checkAllPathsWithoutBackEdges : Substituted 1 with 0 &rarr; KILLED<br/>
+3. checkAllPathsWithoutBackEdges : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_168'/>
+168
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_168'>3</a>
+<span>
+1. checkAllPathsWithoutBackEdges : negated conditional &rarr; KILLED<br/>
+2. checkAllPathsWithoutBackEdges : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. checkAllPathsWithoutBackEdges : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (a == b) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_169'/>
+169
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_169'>3</a>
+<span>
+1. checkAllPathsWithoutBackEdges : replaced boolean return with true for com/google/javascript/jscomp/CheckPathsBetweenNodes::checkAllPathsWithoutBackEdges &rarr; KILLED<br/>
+2. checkAllPathsWithoutBackEdges : Substituted 0 with 1 &rarr; KILLED<br/>
+3. checkAllPathsWithoutBackEdges : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_171'/>
+171
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_171'>1</a>
+<span>
+1. checkAllPathsWithoutBackEdges : removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphNode::getOutEdges &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    for (DiGraphEdge&#60;N, E&#62; e : a.getOutEdges()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_172'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // Once we visited that edge once, we no longer need to</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_173'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // re-visit it again.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_174'/>
+174
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_174'>4</a>
+<span>
+1. checkAllPathsWithoutBackEdges : negated conditional &rarr; KILLED<br/>
+2. checkAllPathsWithoutBackEdges : removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphEdge::getAnnotation &rarr; KILLED<br/>
+3. checkAllPathsWithoutBackEdges : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. checkAllPathsWithoutBackEdges : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (e.getAnnotation() == VISITED_EDGE) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_175'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        continue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_176'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_177'/>
+177
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_177'>1</a>
+<span>
+1. checkAllPathsWithoutBackEdges : removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphEdge::setAnnotation &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      e.setAnnotation(VISITED_EDGE);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_178'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_179'/>
+179
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_179'>4</a>
+<span>
+1. checkAllPathsWithoutBackEdges : negated conditional &rarr; KILLED<br/>
+2. checkAllPathsWithoutBackEdges : removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::ignoreEdge &rarr; KILLED<br/>
+3. checkAllPathsWithoutBackEdges : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. checkAllPathsWithoutBackEdges : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (ignoreEdge(e)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_180'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        continue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_181'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_182'/>
+182
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_182'>4</a>
+<span>
+1. checkAllPathsWithoutBackEdges : removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphEdge::getAnnotation &rarr; SURVIVED<br/>
+2. checkAllPathsWithoutBackEdges : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+3. checkAllPathsWithoutBackEdges : negated conditional &rarr; KILLED<br/>
+4. checkAllPathsWithoutBackEdges : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      if (e.getAnnotation() == BACK_EDGE) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_183'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        continue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_184'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_185'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_186'/>
+186
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_186'>1</a>
+<span>
+1. checkAllPathsWithoutBackEdges : removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphEdge::getDestination &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      DiGraphNode&#60;N, E&#62; next = e.getDestination();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_187'/>
+187
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_187'>4</a>
+<span>
+1. checkAllPathsWithoutBackEdges : negated conditional &rarr; KILLED<br/>
+2. checkAllPathsWithoutBackEdges : removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::checkAllPathsWithoutBackEdges &rarr; KILLED<br/>
+3. checkAllPathsWithoutBackEdges : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. checkAllPathsWithoutBackEdges : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (!checkAllPathsWithoutBackEdges(next, b)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_188'/>
+188
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_188'>3</a>
+<span>
+1. checkAllPathsWithoutBackEdges : replaced boolean return with true for com/google/javascript/jscomp/CheckPathsBetweenNodes::checkAllPathsWithoutBackEdges &rarr; KILLED<br/>
+2. checkAllPathsWithoutBackEdges : Substituted 0 with 1 &rarr; KILLED<br/>
+3. checkAllPathsWithoutBackEdges : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_189'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_190'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_191'/>
+191
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_191'>3</a>
+<span>
+1. checkAllPathsWithoutBackEdges : replaced boolean return with false for com/google/javascript/jscomp/CheckPathsBetweenNodes::checkAllPathsWithoutBackEdges &rarr; KILLED<br/>
+2. checkAllPathsWithoutBackEdges : Substituted 1 with 0 &rarr; KILLED<br/>
+3. checkAllPathsWithoutBackEdges : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_192'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_193'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_194'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_195'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Verify that some non-looping paths from {@code a} to {@code b} pass</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_196'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * through at least one node where {@code nodePredicate} is true.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_197'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_198'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private boolean checkSomePathsWithoutBackEdges(DiGraphNode&#60;N, E&#62; a,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_199'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      DiGraphNode&#60;N, E&#62; b) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_200'/>
+200
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_200'>14</a>
+<span>
+1. checkSomePathsWithoutBackEdges : negated conditional &rarr; KILLED<br/>
+2. checkSomePathsWithoutBackEdges : negated conditional &rarr; KILLED<br/>
+3. checkSomePathsWithoutBackEdges : negated conditional &rarr; KILLED<br/>
+4. checkSomePathsWithoutBackEdges : negated conditional &rarr; KILLED<br/>
+5. checkSomePathsWithoutBackEdges : removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphNode::getValue &rarr; KILLED<br/>
+6. checkSomePathsWithoutBackEdges : removed call to com/google/common/base/Predicate::apply &rarr; KILLED<br/>
+7. checkSomePathsWithoutBackEdges : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+8. checkSomePathsWithoutBackEdges : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+9. checkSomePathsWithoutBackEdges : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+10. checkSomePathsWithoutBackEdges : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+11. checkSomePathsWithoutBackEdges : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+12. checkSomePathsWithoutBackEdges : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+13. checkSomePathsWithoutBackEdges : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+14. checkSomePathsWithoutBackEdges : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (nodePredicate.apply(a.getValue()) &#38;&#38;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_201'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        (inclusive || (a != start &#38;&#38; a != end))) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_202'/>
+202
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_202'>3</a>
+<span>
+1. checkSomePathsWithoutBackEdges : replaced boolean return with false for com/google/javascript/jscomp/CheckPathsBetweenNodes::checkSomePathsWithoutBackEdges &rarr; KILLED<br/>
+2. checkSomePathsWithoutBackEdges : Substituted 1 with 0 &rarr; KILLED<br/>
+3. checkSomePathsWithoutBackEdges : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_203'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_204'/>
+204
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_204'>3</a>
+<span>
+1. checkSomePathsWithoutBackEdges : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. checkSomePathsWithoutBackEdges : negated conditional &rarr; KILLED<br/>
+3. checkSomePathsWithoutBackEdges : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (a == b) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_205'/>
+205
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_205'>3</a>
+<span>
+1. checkSomePathsWithoutBackEdges : replaced boolean return with true for com/google/javascript/jscomp/CheckPathsBetweenNodes::checkSomePathsWithoutBackEdges &rarr; KILLED<br/>
+2. checkSomePathsWithoutBackEdges : Substituted 0 with 1 &rarr; KILLED<br/>
+3. checkSomePathsWithoutBackEdges : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_206'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_207'/>
+207
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_207'>1</a>
+<span>
+1. checkSomePathsWithoutBackEdges : removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphNode::getOutEdges &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    for (DiGraphEdge&#60;N, E&#62; e : a.getOutEdges()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_208'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // Once we visited that edge once, we no longer need to</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_209'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // re-visit it again.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_210'/>
+210
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_210'>4</a>
+<span>
+1. checkSomePathsWithoutBackEdges : removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphEdge::getAnnotation &rarr; SURVIVED<br/>
+2. checkSomePathsWithoutBackEdges : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+3. checkSomePathsWithoutBackEdges : negated conditional &rarr; KILLED<br/>
+4. checkSomePathsWithoutBackEdges : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      if (e.getAnnotation() == VISITED_EDGE) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_211'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        continue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_212'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_213'/>
+213
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_213'>1</a>
+<span>
+1. checkSomePathsWithoutBackEdges : removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphEdge::setAnnotation &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      e.setAnnotation(VISITED_EDGE);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_214'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_215'/>
+215
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_215'>4</a>
+<span>
+1. checkSomePathsWithoutBackEdges : removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::ignoreEdge &rarr; SURVIVED<br/>
+2. checkSomePathsWithoutBackEdges : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+3. checkSomePathsWithoutBackEdges : negated conditional &rarr; KILLED<br/>
+4. checkSomePathsWithoutBackEdges : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      if (ignoreEdge(e)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_216'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        continue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_217'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_218'/>
+218
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_218'>4</a>
+<span>
+1. checkSomePathsWithoutBackEdges : removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphEdge::getAnnotation &rarr; SURVIVED<br/>
+2. checkSomePathsWithoutBackEdges : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+3. checkSomePathsWithoutBackEdges : negated conditional &rarr; KILLED<br/>
+4. checkSomePathsWithoutBackEdges : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      if (e.getAnnotation() == BACK_EDGE) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_219'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        continue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_220'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_221'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_222'/>
+222
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_222'>1</a>
+<span>
+1. checkSomePathsWithoutBackEdges : removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphEdge::getDestination &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      DiGraphNode&#60;N, E&#62; next = e.getDestination();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_223'/>
+223
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_223'>4</a>
+<span>
+1. checkSomePathsWithoutBackEdges : negated conditional &rarr; KILLED<br/>
+2. checkSomePathsWithoutBackEdges : removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::checkSomePathsWithoutBackEdges &rarr; KILLED<br/>
+3. checkSomePathsWithoutBackEdges : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. checkSomePathsWithoutBackEdges : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (checkSomePathsWithoutBackEdges(next, b)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_224'/>
+224
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_224'>3</a>
+<span>
+1. checkSomePathsWithoutBackEdges : replaced boolean return with false for com/google/javascript/jscomp/CheckPathsBetweenNodes::checkSomePathsWithoutBackEdges &rarr; KILLED<br/>
+2. checkSomePathsWithoutBackEdges : Substituted 1 with 0 &rarr; KILLED<br/>
+3. checkSomePathsWithoutBackEdges : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_225'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_226'/>
+226
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_226'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_227'/>
+227
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_227'>3</a>
+<span>
+1. checkSomePathsWithoutBackEdges : replaced boolean return with true for com/google/javascript/jscomp/CheckPathsBetweenNodes::checkSomePathsWithoutBackEdges &rarr; KILLED<br/>
+2. checkSomePathsWithoutBackEdges : Substituted 0 with 1 &rarr; KILLED<br/>
+3. checkSomePathsWithoutBackEdges : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_228'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@56a9b662_229'/>
+229
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_229'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_87'>87</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_87'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> Removed assignment to member variable graph &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_88'>88</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_88'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> Removed assignment to member variable start &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_89'>89</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_89'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> Removed assignment to member variable end &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_90'>90</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_90'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> Removed assignment to member variable nodePredicate &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_91'>91</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_91'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> Removed assignment to member variable edgePredicate &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_92'>92</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_92'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> Removed assignment to member variable inclusive &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_101'>101</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_101'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_110'>110</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_110'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>allPathsSatisfyPredicate<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::setUp &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_111'>111</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_111'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>allPathsSatisfyPredicate<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testCycles2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::checkAllPathsWithoutBackEdges &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_112'>112</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_112'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>allPathsSatisfyPredicate<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::tearDown &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_113'>113</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_113'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>allPathsSatisfyPredicate<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testCycles2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> replaced boolean return with false for com/google/javascript/jscomp/CheckPathsBetweenNodes::allPathsSatisfyPredicate &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>allPathsSatisfyPredicate<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> replaced boolean return with true for com/google/javascript/jscomp/CheckPathsBetweenNodes::allPathsSatisfyPredicate &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>allPathsSatisfyPredicate<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_121'>121</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_121'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>somePathsSatisfyPredicate<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::setUp &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_122'>122</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_122'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>somePathsSatisfyPredicate<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::checkSomePathsWithoutBackEdges &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_123'>123</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_123'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>somePathsSatisfyPredicate<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::tearDown &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_124'>124</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_124'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>somePathsSatisfyPredicate<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> replaced boolean return with false for com/google/javascript/jscomp/CheckPathsBetweenNodes::somePathsSatisfyPredicate &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>somePathsSatisfyPredicate<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> replaced boolean return with true for com/google/javascript/jscomp/CheckPathsBetweenNodes::somePathsSatisfyPredicate &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>somePathsSatisfyPredicate<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_128'>128</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_128'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setUp<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph::pushNodeAnnotations &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_129'>129</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_129'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setUp<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph::pushEdgeAnnotations &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_130'>130</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_130'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setUp<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::discoverBackEdges &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_134'>134</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_134'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tearDown<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph::popNodeAnnotations &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_135'>135</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_135'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>tearDown<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph::popEdgeAnnotations &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_139'>139</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_139'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>discoverBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testCycles2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphNode::setAnnotation &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_140'>140</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_140'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>discoverBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphNode::getOutEdges &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_141'>141</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_141'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>discoverBackEdges<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>discoverBackEdges<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::ignoreEdge &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>discoverBackEdges<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>discoverBackEdges<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_144'>144</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_144'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>discoverBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphEdge::getDestination &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_145'>145</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_145'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>discoverBackEdges<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>discoverBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testCycles2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphNode::getAnnotation &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>discoverBackEdges<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>discoverBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testCycles2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_146'>146</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_146'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>discoverBackEdges<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::discoverBackEdges &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_147'>147</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_147'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>discoverBackEdges<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>discoverBackEdges<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphNode::getAnnotation &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>discoverBackEdges<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>discoverBackEdges<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_148'>148</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_148'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>discoverBackEdges<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphEdge::setAnnotation &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_151'>151</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_151'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>discoverBackEdges<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphNode::setAnnotation &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_155'>155</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_155'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>ignoreEdge<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSimple(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> replaced boolean return with false for com/google/javascript/jscomp/CheckPathsBetweenNodes::ignoreEdge &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>ignoreEdge<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> replaced boolean return with true for com/google/javascript/jscomp/CheckPathsBetweenNodes::ignoreEdge &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>ignoreEdge<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSimple(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>ignoreEdge<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>ignoreEdge<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>ignoreEdge<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed call to com/google/common/base/Predicate::apply &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>ignoreEdge<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSimple(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>ignoreEdge<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>ignoreEdge<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_164'>164</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_164'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testCycles2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testCycles2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphNode::getValue &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testCycles2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed call to com/google/common/base/Predicate::apply &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testCycles2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testCycles2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_166'>166</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_166'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testCycles2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> replaced boolean return with false for com/google/javascript/jscomp/CheckPathsBetweenNodes::checkAllPathsWithoutBackEdges &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testCycles2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testCycles2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_168'>168</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_168'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testManyValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testManyValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_169'>169</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_169'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> replaced boolean return with true for com/google/javascript/jscomp/CheckPathsBetweenNodes::checkAllPathsWithoutBackEdges &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_171'>171</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_171'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphNode::getOutEdges &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_174'>174</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_174'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testCycles2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphEdge::getAnnotation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testCycles2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_177'>177</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_177'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphEdge::setAnnotation &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_179'>179</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_179'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSimple(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::ignoreEdge &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSimple(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_182'>182</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_182'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphEdge::getAnnotation &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_186'>186</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_186'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphEdge::getDestination &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_187'>187</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_187'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testManyValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::checkAllPathsWithoutBackEdges &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testManyValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_188'>188</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_188'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> replaced boolean return with true for com/google/javascript/jscomp/CheckPathsBetweenNodes::checkAllPathsWithoutBackEdges &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_191'>191</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_191'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testManyValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> replaced boolean return with false for com/google/javascript/jscomp/CheckPathsBetweenNodes::checkAllPathsWithoutBackEdges &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testManyValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>checkAllPathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testManyValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_200'>200</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_200'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testNonInclusive(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testNonInclusive(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphNode::getValue &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed call to com/google/common/base/Predicate::apply &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testNonInclusive(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testNonInclusive(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testNonInclusive(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testNonInclusive(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testNonInclusive(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_202'>202</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_202'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> replaced boolean return with false for com/google/javascript/jscomp/CheckPathsBetweenNodes::checkSomePathsWithoutBackEdges &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_204'>204</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_204'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath1(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath1(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_205'>205</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_205'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath1(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> replaced boolean return with true for com/google/javascript/jscomp/CheckPathsBetweenNodes::checkSomePathsWithoutBackEdges &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath1(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath1(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_207'>207</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_207'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphNode::getOutEdges &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_210'>210</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_210'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath1(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphEdge::getAnnotation &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath1(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_213'>213</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_213'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphEdge::setAnnotation &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_215'>215</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_215'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath1(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::ignoreEdge &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath1(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_218'>218</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_218'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath1(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphEdge::getAnnotation &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath1(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_222'>222</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_222'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath1(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphEdge::getDestination &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_223'>223</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_223'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath1(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath1(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::checkSomePathsWithoutBackEdges &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath1(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath1(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_224'>224</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_224'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath1(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> replaced boolean return with false for com/google/javascript/jscomp/CheckPathsBetweenNodes::checkSomePathsWithoutBackEdges &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath1(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath1(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@56a9b662_227'>227</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@56a9b662_227'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> replaced boolean return with true for com/google/javascript/jscomp/CheckPathsBetweenNodes::checkSomePathsWithoutBackEdges &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>checkSomePathsWithoutBackEdges<br/><b>Killed by : </b>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_61</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_60</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_56</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_55</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_58</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_57</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_52</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_51</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_54</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_53</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_59</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_50</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_45</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_44</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_47</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_46</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_41</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_40</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_43</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_42</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_49</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_48</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_34</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_33</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_36</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_35</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_30</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_32</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_31</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_38</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_37</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_39</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_3</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_2</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_1</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_0</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_23</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_22</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_25</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_9</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_24</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_8</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_7</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_6</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_21</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_5</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_20</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_4</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_27</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_26</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_29</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_28</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_12</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_11</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_99</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_14</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_13</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_96</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_95</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_10</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_98</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_97</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_19</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_16</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_15</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_18</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_17</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_92</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_91</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_94</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_93</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_90</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_89</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_88</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_85</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_84</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_87</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_86</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_81</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_80</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_83</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_82</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_78</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_77</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_79</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_74</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_73</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_76</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_75</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_70</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_72</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_71</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_67</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_66</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_69</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_68</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_63</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_62</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_65</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_64</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testNonInclusive(com.google.javascript.jscomp.CheckPathsBetweenNodesTest) (2 ms)</li><li>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSimple(com.google.javascript.jscomp.CheckPathsBetweenNodesTest) (2 ms)</li><li>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath1(com.google.javascript.jscomp.CheckPathsBetweenNodesTest) (1 ms)</li><li>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testManyValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest) (2 ms)</li><li>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testCycles2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest) (1 ms)</li><li>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomeValidPaths(com.google.javascript.jscomp.CheckPathsBetweenNodesTest) (1 ms)</li><li>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePathRevisiting(com.google.javascript.jscomp.CheckPathsBetweenNodesTest) (2 ms)</li><li>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testCycles1(com.google.javascript.jscomp.CheckPathsBetweenNodesTest) (31 ms)</li><li>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testCycles3(com.google.javascript.jscomp.CheckPathsBetweenNodesTest) (1 ms)</li><li>com.google.javascript.jscomp.CheckPathsBetweenNodesTest.testSomePath2(com.google.javascript.jscomp.CheckPathsBetweenNodesTest) (2 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

@@ -1,0 +1,4029 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>SynchronizedCollection.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.collections4.collection;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.Serializable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Collection;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Iterator;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.function.Predicate;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Decorates another {@link Collection} to synchronize its behaviour</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * for a multi-threaded environment.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Iterators must be manually synchronized:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * synchronized (coll) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *   Iterator it = coll.iterator();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *   // do stuff with iterator</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * This class is Serializable from Commons Collections 3.1.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;E&#62; the type of the elements in the collection</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 3.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class SynchronizedCollection&#60;E&#62; implements Collection&#60;E&#62;, Serializable {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Serialization version */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final long serialVersionUID = 2412805092710877986L;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** The collection to decorate */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final Collection&#60;E&#62; collection;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** The object to lock on, needed for List/SortedSet views */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected final Object lock;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Factory method to create a synchronized collection.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param &#60;T&#62; the type of the elements in the collection</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param coll  the collection to decorate, must not be null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a new synchronized collection</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if collection is null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 4.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static &#60;T&#62; SynchronizedCollection&#60;T&#62; synchronizedCollection(final Collection&#60;T&#62; coll) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_63'/>
+63
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_63'>3</a>
+<span>
+1. synchronizedCollection : removed call to org/apache/commons/collections4/collection/SynchronizedCollection::&#60;init&#62; &rarr; KILLED<br/>
+2. synchronizedCollection : replaced return value with null for org/apache/commons/collections4/collection/SynchronizedCollection::synchronizedCollection &rarr; KILLED<br/>
+3. synchronizedCollection : mutated return of Object value for org/apache/commons/collections4/collection/SynchronizedCollection::synchronizedCollection to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new SynchronizedCollection&#60;&#62;(coll);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructor that wraps (not copies).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param collection  the collection to decorate, must not be null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if the collection is null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_73'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    protected SynchronizedCollection(final Collection&#60;E&#62; collection) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_74'/>
+74
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_74'>3</a>
+<span>
+1. <init> : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. <init> : negated conditional &rarr; KILLED<br/>
+3. <init> : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (collection == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_75'/>
+75
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_75'>1</a>
+<span>
+1. <init> : removed call to java/lang/NullPointerException::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            throw new NullPointerException(&#34;Collection must not be null.&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_77'/>
+77
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_77'>1</a>
+<span>
+1. <init> : Removed assignment to member variable collection &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.collection = collection;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_78'/>
+78
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_78'>1</a>
+<span>
+1. <init> : Removed assignment to member variable lock &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.lock = this;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_79'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructor that wraps (not copies).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param collection  the collection to decorate, must not be null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param lock  the lock object to use, must not be null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if the collection or lock is null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_88'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    protected SynchronizedCollection(final Collection&#60;E&#62; collection, final Object lock) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_89'/>
+89
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_89'>3</a>
+<span>
+1. <init> : negated conditional &rarr; NO_COVERAGE<br/>
+2. <init> : removed conditional - replaced equality check with false &rarr; NO_COVERAGE<br/>
+3. <init> : removed conditional - replaced equality check with true &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        if (collection == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_90'/>
+90
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_90'>1</a>
+<span>
+1. <init> : removed call to java/lang/NullPointerException::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            throw new NullPointerException(&#34;Collection must not be null.&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_92'/>
+92
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_92'>3</a>
+<span>
+1. <init> : negated conditional &rarr; NO_COVERAGE<br/>
+2. <init> : removed conditional - replaced equality check with false &rarr; NO_COVERAGE<br/>
+3. <init> : removed conditional - replaced equality check with true &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        if (lock == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_93'/>
+93
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_93'>1</a>
+<span>
+1. <init> : removed call to java/lang/NullPointerException::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            throw new NullPointerException(&#34;Lock must not be null.&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_95'/>
+95
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_95'>1</a>
+<span>
+1. <init> : Removed assignment to member variable collection &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        this.collection = collection;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_96'/>
+96
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_96'>1</a>
+<span>
+1. <init> : Removed assignment to member variable lock &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        this.lock = lock;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_97'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets the collection being decorated.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the decorated collection</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected Collection&#60;E&#62; decorated() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_105'/>
+105
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_105'>2</a>
+<span>
+1. decorated : replaced return value with Collections.emptyList for org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED<br/>
+2. decorated : mutated return of Object value for org/apache/commons/collections4/collection/SynchronizedCollection::decorated to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return collection;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean add(final E object) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_112'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        synchronized (lock) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_113'/>
+113
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_113'>5</a>
+<span>
+1. add : replaced boolean return with true for org/apache/commons/collections4/collection/SynchronizedCollection::add &rarr; SURVIVED<br/>
+2. add : replaced boolean return with false for org/apache/commons/collections4/collection/SynchronizedCollection::add &rarr; KILLED<br/>
+3. add : removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED<br/>
+4. add : removed call to java/util/Collection::add &rarr; KILLED<br/>
+5. add : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            return decorated().add(object);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_114'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_118'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean addAll(final Collection&#60;? extends E&#62; coll) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_119'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        synchronized (lock) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_120'/>
+120
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_120'>5</a>
+<span>
+1. addAll : replaced boolean return with true for org/apache/commons/collections4/collection/SynchronizedCollection::addAll &rarr; SURVIVED<br/>
+2. addAll : replaced boolean return with false for org/apache/commons/collections4/collection/SynchronizedCollection::addAll &rarr; KILLED<br/>
+3. addAll : removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED<br/>
+4. addAll : removed call to java/util/Collection::addAll &rarr; KILLED<br/>
+5. addAll : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            return decorated().addAll(coll);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_121'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void clear() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_126'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        synchronized (lock) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_127'/>
+127
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_127'>2</a>
+<span>
+1. clear : removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED<br/>
+2. clear : removed call to java/util/Collection::clear &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            decorated().clear();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_128'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_129'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_130'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_131'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean contains(final Object object) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_133'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        synchronized (lock) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_134'/>
+134
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_134'>5</a>
+<span>
+1. contains : replaced boolean return with false for org/apache/commons/collections4/collection/SynchronizedCollection::contains &rarr; KILLED<br/>
+2. contains : replaced boolean return with true for org/apache/commons/collections4/collection/SynchronizedCollection::contains &rarr; KILLED<br/>
+3. contains : removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED<br/>
+4. contains : removed call to java/util/Collection::contains &rarr; KILLED<br/>
+5. contains : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return decorated().contains(object);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_135'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_138'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_139'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean containsAll(final Collection&#60;?&#62; coll) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_140'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        synchronized (lock) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_141'/>
+141
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_141'>5</a>
+<span>
+1. containsAll : replaced boolean return with false for org/apache/commons/collections4/collection/SynchronizedCollection::containsAll &rarr; KILLED<br/>
+2. containsAll : replaced boolean return with true for org/apache/commons/collections4/collection/SynchronizedCollection::containsAll &rarr; KILLED<br/>
+3. containsAll : removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED<br/>
+4. containsAll : removed call to java/util/Collection::containsAll &rarr; KILLED<br/>
+5. containsAll : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return decorated().containsAll(coll);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_142'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean isEmpty() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_147'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        synchronized (lock) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_148'/>
+148
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_148'>5</a>
+<span>
+1. isEmpty : replaced boolean return with false for org/apache/commons/collections4/collection/SynchronizedCollection::isEmpty &rarr; KILLED<br/>
+2. isEmpty : replaced boolean return with true for org/apache/commons/collections4/collection/SynchronizedCollection::isEmpty &rarr; KILLED<br/>
+3. isEmpty : removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED<br/>
+4. isEmpty : removed call to java/util/Collection::isEmpty &rarr; KILLED<br/>
+5. isEmpty : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return decorated().isEmpty();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_149'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_150'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Iterators must be manually synchronized.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * synchronized (coll) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *   Iterator it = coll.iterator();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_157'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *   // do stuff with iterator</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_158'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return an iterator that must be manually synchronized on the collection</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_164'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Iterator&#60;E&#62; iterator() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_165'/>
+165
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_165'>4</a>
+<span>
+1. iterator : removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED<br/>
+2. iterator : removed call to java/util/Collection::iterator &rarr; KILLED<br/>
+3. iterator : replaced return value with null for org/apache/commons/collections4/collection/SynchronizedCollection::iterator &rarr; KILLED<br/>
+4. iterator : mutated return of Object value for org/apache/commons/collections4/collection/SynchronizedCollection::iterator to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return decorated().iterator();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_166'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_168'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Object[] toArray() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_170'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        synchronized (lock) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_171'/>
+171
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_171'>4</a>
+<span>
+1. toArray : removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED<br/>
+2. toArray : removed call to java/util/Collection::toArray &rarr; KILLED<br/>
+3. toArray : replaced return value with null for org/apache/commons/collections4/collection/SynchronizedCollection::toArray &rarr; KILLED<br/>
+4. toArray : mutated return of Object value for org/apache/commons/collections4/collection/SynchronizedCollection::toArray to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return decorated().toArray();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_172'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_173'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_174'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_175'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_176'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public &#60;T&#62; T[] toArray(final T[] object) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_177'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        synchronized (lock) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_178'/>
+178
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_178'>5</a>
+<span>
+1. toArray : replaced call to java/util/Collection::toArray with argument &rarr; KILLED<br/>
+2. toArray : removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED<br/>
+3. toArray : removed call to java/util/Collection::toArray &rarr; KILLED<br/>
+4. toArray : replaced return value with null for org/apache/commons/collections4/collection/SynchronizedCollection::toArray &rarr; KILLED<br/>
+5. toArray : mutated return of Object value for org/apache/commons/collections4/collection/SynchronizedCollection::toArray to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return decorated().toArray(object);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_179'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_180'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_181'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_182'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_183'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean remove(final Object object) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_184'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        synchronized (lock) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_185'/>
+185
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_185'>5</a>
+<span>
+1. remove : replaced boolean return with false for org/apache/commons/collections4/collection/SynchronizedCollection::remove &rarr; KILLED<br/>
+2. remove : replaced boolean return with true for org/apache/commons/collections4/collection/SynchronizedCollection::remove &rarr; KILLED<br/>
+3. remove : removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED<br/>
+4. remove : removed call to java/util/Collection::remove &rarr; KILLED<br/>
+5. remove : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return decorated().remove(object);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_186'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_187'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_188'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_189'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_190'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 4.4</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_191'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_192'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_193'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean removeIf(final Predicate&#60;? super E&#62; filter) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_194'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        synchronized (lock) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_195'/>
+195
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_195'>5</a>
+<span>
+1. removeIf : replaced boolean return with false for org/apache/commons/collections4/collection/SynchronizedCollection::removeIf &rarr; KILLED<br/>
+2. removeIf : replaced boolean return with true for org/apache/commons/collections4/collection/SynchronizedCollection::removeIf &rarr; KILLED<br/>
+3. removeIf : removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED<br/>
+4. removeIf : removed call to java/util/Collection::removeIf &rarr; KILLED<br/>
+5. removeIf : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return decorated().removeIf(filter);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_196'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_197'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_198'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_199'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_200'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean removeAll(final Collection&#60;?&#62; coll) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_201'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        synchronized (lock) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_202'/>
+202
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_202'>5</a>
+<span>
+1. removeAll : replaced boolean return with false for org/apache/commons/collections4/collection/SynchronizedCollection::removeAll &rarr; KILLED<br/>
+2. removeAll : replaced boolean return with true for org/apache/commons/collections4/collection/SynchronizedCollection::removeAll &rarr; KILLED<br/>
+3. removeAll : removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED<br/>
+4. removeAll : removed call to java/util/Collection::removeAll &rarr; KILLED<br/>
+5. removeAll : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return decorated().removeAll(coll);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_203'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_204'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_205'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_206'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_207'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean retainAll(final Collection&#60;?&#62; coll) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_208'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        synchronized (lock) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_209'/>
+209
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_209'>5</a>
+<span>
+1. retainAll : replaced boolean return with false for org/apache/commons/collections4/collection/SynchronizedCollection::retainAll &rarr; KILLED<br/>
+2. retainAll : replaced boolean return with true for org/apache/commons/collections4/collection/SynchronizedCollection::retainAll &rarr; KILLED<br/>
+3. retainAll : removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED<br/>
+4. retainAll : removed call to java/util/Collection::retainAll &rarr; KILLED<br/>
+5. retainAll : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return decorated().retainAll(coll);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_210'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_211'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_212'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_213'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_214'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int size() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_215'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        synchronized (lock) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_216'/>
+216
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_216'>4</a>
+<span>
+1. size : removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED<br/>
+2. size : removed call to java/util/Collection::size &rarr; KILLED<br/>
+3. size : replaced int return with 0 for org/apache/commons/collections4/collection/SynchronizedCollection::size &rarr; KILLED<br/>
+4. size : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return decorated().size();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_217'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_218'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_219'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_220'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_221'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean equals(final Object object) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_222'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        synchronized (lock) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_223'/>
+223
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_223'>2</a>
+<span>
+1. equals : negated conditional &rarr; KILLED<br/>
+2. equals : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (object == this) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_224'/>
+224
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_224'>4</a>
+<span>
+1. equals : replaced boolean return with true for org/apache/commons/collections4/collection/SynchronizedCollection::equals &rarr; SURVIVED<br/>
+2. equals : replaced boolean return with false for org/apache/commons/collections4/collection/SynchronizedCollection::equals &rarr; KILLED<br/>
+3. equals : Substituted 1 with 0 &rarr; KILLED<br/>
+4. equals : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_225'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_226'/>
+226
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_226'>12</a>
+<span>
+1. equals : replaced boolean return with false for org/apache/commons/collections4/collection/SynchronizedCollection::equals &rarr; SURVIVED<br/>
+2. equals : Substituted 1 with 0 &rarr; SURVIVED<br/>
+3. equals : removed call to java/util/Collection::equals &rarr; SURVIVED<br/>
+4. equals : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+5. equals : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+6. equals : replaced boolean return with true for org/apache/commons/collections4/collection/SynchronizedCollection::equals &rarr; KILLED<br/>
+7. equals : Substituted 0 with 1 &rarr; KILLED<br/>
+8. equals : negated conditional &rarr; KILLED<br/>
+9. equals : negated conditional &rarr; KILLED<br/>
+10. equals : removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED<br/>
+11. equals : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+12. equals : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            return object == this || decorated().equals(object);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_227'/>
+227
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_227'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_228'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_229'/>
+229
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_229'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_230'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_231'/>
+231
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_231'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int hashCode() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_232'/>
+232
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_232'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        synchronized (lock) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_233'/>
+233
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_233'>4</a>
+<span>
+1. hashCode : removed call to java/util/Collection::hashCode &rarr; SURVIVED<br/>
+2. hashCode : replaced int return with 0 for org/apache/commons/collections4/collection/SynchronizedCollection::hashCode &rarr; SURVIVED<br/>
+3. hashCode : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; SURVIVED<br/>
+4. hashCode : removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            return decorated().hashCode();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_234'/>
+234
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_234'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_235'/>
+235
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_235'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_236'/>
+236
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_236'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_237'/>
+237
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_237'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_238'/>
+238
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_238'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public String toString() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_239'/>
+239
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_239'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        synchronized (lock) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_240'/>
+240
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_240'>4</a>
+<span>
+1. toString : replaced return value with &#34;&#34; for org/apache/commons/collections4/collection/SynchronizedCollection::toString &rarr; SURVIVED<br/>
+2. toString : removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED<br/>
+3. toString : removed call to java/lang/Object::toString &rarr; KILLED<br/>
+4. toString : mutated return of Object value for org/apache/commons/collections4/collection/SynchronizedCollection::toString to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            return decorated().toString();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_241'/>
+241
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_241'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_242'/>
+242
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_242'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_243'/>
+243
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_243'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@678a9516_244'/>
+244
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_244'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_63'>63</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_63'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>synchronizedCollection<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionIsEmpty(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to org/apache/commons/collections4/collection/SynchronizedCollection::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>synchronizedCollection<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionIsEmpty(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced return value with null for org/apache/commons/collections4/collection/SynchronizedCollection::synchronizedCollection &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>synchronizedCollection<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionIsEmpty(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> mutated return of Object value for org/apache/commons/collections4/collection/SynchronizedCollection::synchronizedCollection to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_74'>74</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_74'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testObjectEqualsSelf(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testObjectEqualsSelf(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_75'>75</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_75'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to java/lang/NullPointerException::&#60;init&#62; &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_77'>77</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_77'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionIsEmpty(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> Removed assignment to member variable collection &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_78'>78</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_78'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testObjectEqualsSelf(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> Removed assignment to member variable lock &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_89'>89</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_89'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_90'>90</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_90'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to java/lang/NullPointerException::&#60;init&#62; &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_92'>92</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_92'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_93'>93</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_93'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to java/lang/NullPointerException::&#60;init&#62; &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_95'>95</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_95'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Removed assignment to member variable collection &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_96'>96</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_96'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Removed assignment to member variable lock &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_105'>105</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_105'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decorated<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionIsEmpty(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced return value with Collections.emptyList for org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decorated<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionIsEmpty(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> mutated return of Object value for org/apache/commons/collections4/collection/SynchronizedCollection::decorated to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_113'>113</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_113'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>add<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionAdd(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced boolean return with false for org/apache/commons/collections4/collection/SynchronizedCollection::add &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>add<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for org/apache/commons/collections4/collection/SynchronizedCollection::add &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>add<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionAdd(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>add<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionAdd(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to java/util/Collection::add &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>add<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionAdd(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_120'>120</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_120'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionAddAll(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced boolean return with false for org/apache/commons/collections4/collection/SynchronizedCollection::addAll &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for org/apache/commons/collections4/collection/SynchronizedCollection::addAll &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionIsEmpty(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionIsEmpty(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to java/util/Collection::addAll &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionAddAll(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_127'>127</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_127'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>clear<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionClear(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>clear<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionClear(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to java/util/Collection::clear &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_134'>134</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_134'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>contains<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionToArray(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced boolean return with false for org/apache/commons/collections4/collection/SynchronizedCollection::contains &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>contains<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionContains(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced boolean return with true for org/apache/commons/collections4/collection/SynchronizedCollection::contains &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>contains<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionToArray(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>contains<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionToArray(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to java/util/Collection::contains &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>contains<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionToArray(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_141'>141</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_141'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>containsAll<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionContainsAll(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced boolean return with false for org/apache/commons/collections4/collection/SynchronizedCollection::containsAll &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>containsAll<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionContainsAll(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced boolean return with true for org/apache/commons/collections4/collection/SynchronizedCollection::containsAll &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>containsAll<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionContainsAll(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>containsAll<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionContainsAll(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to java/util/Collection::containsAll &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>containsAll<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionContainsAll(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_148'>148</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_148'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isEmpty<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionIsEmpty(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced boolean return with false for org/apache/commons/collections4/collection/SynchronizedCollection::isEmpty &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isEmpty<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionIsEmpty(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced boolean return with true for org/apache/commons/collections4/collection/SynchronizedCollection::isEmpty &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isEmpty<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionIsEmpty(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isEmpty<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionIsEmpty(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to java/util/Collection::isEmpty &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isEmpty<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionIsEmpty(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_165'>165</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_165'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>iterator<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionIsEmpty(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>iterator<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionIsEmpty(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to java/util/Collection::iterator &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>iterator<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionIsEmpty(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced return value with null for org/apache/commons/collections4/collection/SynchronizedCollection::iterator &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>iterator<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionIsEmpty(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> mutated return of Object value for org/apache/commons/collections4/collection/SynchronizedCollection::iterator to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_171'>171</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_171'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toArray<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionToArray(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toArray<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionToArray(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to java/util/Collection::toArray &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>toArray<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionToArray(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced return value with null for org/apache/commons/collections4/collection/SynchronizedCollection::toArray &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>toArray<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionToArray(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> mutated return of Object value for org/apache/commons/collections4/collection/SynchronizedCollection::toArray to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_178'>178</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_178'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toArray<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionToArray2(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced call to java/util/Collection::toArray with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toArray<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionToArray2(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>toArray<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionToArray2(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to java/util/Collection::toArray &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>toArray<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionToArray2(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced return value with null for org/apache/commons/collections4/collection/SynchronizedCollection::toArray &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>toArray<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionToArray2(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> mutated return of Object value for org/apache/commons/collections4/collection/SynchronizedCollection::toArray to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_185'>185</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_185'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>remove<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionRemove(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced boolean return with false for org/apache/commons/collections4/collection/SynchronizedCollection::remove &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>remove<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionRemove(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced boolean return with true for org/apache/commons/collections4/collection/SynchronizedCollection::remove &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>remove<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionRemove(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>remove<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionRemove(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to java/util/Collection::remove &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>remove<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionRemove(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_195'>195</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_195'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>removeIf<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionRemoveIf(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced boolean return with false for org/apache/commons/collections4/collection/SynchronizedCollection::removeIf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>removeIf<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionRemoveIf(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced boolean return with true for org/apache/commons/collections4/collection/SynchronizedCollection::removeIf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>removeIf<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionRemoveIf(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>removeIf<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionRemoveIf(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to java/util/Collection::removeIf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>removeIf<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionRemoveIf(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_202'>202</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_202'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>removeAll<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionRemoveAll(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced boolean return with false for org/apache/commons/collections4/collection/SynchronizedCollection::removeAll &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>removeAll<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionRemoveAll(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced boolean return with true for org/apache/commons/collections4/collection/SynchronizedCollection::removeAll &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>removeAll<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionRemoveAll(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>removeAll<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionRemoveAll(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to java/util/Collection::removeAll &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>removeAll<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionRemoveAll(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_209'>209</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_209'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>retainAll<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionRetainAll(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced boolean return with false for org/apache/commons/collections4/collection/SynchronizedCollection::retainAll &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>retainAll<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionRetainAll(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced boolean return with true for org/apache/commons/collections4/collection/SynchronizedCollection::retainAll &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>retainAll<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionRetainAll(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>retainAll<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionRetainAll(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to java/util/Collection::retainAll &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>retainAll<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionRetainAll(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_216'>216</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_216'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>size<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionIsEmpty(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>size<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionIsEmpty(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to java/util/Collection::size &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>size<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionIsEmpty(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced int return with 0 for org/apache/commons/collections4/collection/SynchronizedCollection::size &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>size<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionIsEmpty(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_223'>223</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_223'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testEqualsNull(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testEqualsNull(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_224'>224</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_224'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testObjectEqualsSelf(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced boolean return with false for org/apache/commons/collections4/collection/SynchronizedCollection::equals &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for org/apache/commons/collections4/collection/SynchronizedCollection::equals &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testObjectEqualsSelf(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testObjectEqualsSelf(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_226'>226</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_226'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> replaced boolean return with false for org/apache/commons/collections4/collection/SynchronizedCollection::equals &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testEqualsNull(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced boolean return with true for org/apache/commons/collections4/collection/SynchronizedCollection::equals &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testEqualsNull(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testEqualsNull(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testEqualsNull(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testEqualsNull(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> removed call to java/util/Collection::equals &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testEqualsNull(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testEqualsNull(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_233'>233</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_233'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testObjectHashCodeEqualsSelfHashCode(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> removed call to java/util/Collection::hashCode &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> replaced int return with 0 for org/apache/commons/collections4/collection/SynchronizedCollection::hashCode &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hashCode<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@678a9516_240'>240</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@678a9516_240'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> replaced return value with &#34;&#34; for org/apache/commons/collections4/collection/SynchronizedCollection::toString &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionToString(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to org/apache/commons/collections4/collection/SynchronizedCollection::decorated &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionToString(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> removed call to java/lang/Object::toString &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionToString(org.apache.commons.collections4.collection.SynchronizedCollectionTest)</span></span> mutated return of Object value for org/apache/commons/collections4/collection/SynchronizedCollection::toString to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_61</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_60</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_56</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_55</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_58</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_57</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_52</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_51</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_54</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_53</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_59</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_50</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_45</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_44</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_47</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_46</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_41</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_40</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_43</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_42</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_49</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_48</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_34</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_33</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_36</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_35</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_30</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_32</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_31</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_38</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_37</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_39</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_3</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_2</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_1</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_0</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_23</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_22</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_25</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_9</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_24</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_8</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_7</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_6</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_21</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_5</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_20</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_4</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_27</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_26</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_29</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_28</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_12</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_11</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_99</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_14</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_13</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_96</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_95</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_10</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_98</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_97</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_19</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_16</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_15</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_18</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_17</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_92</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_91</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_94</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_93</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_90</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_89</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_88</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_85</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_84</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_87</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_86</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_81</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_80</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_83</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_82</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_78</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_77</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_79</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_74</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_73</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_76</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_75</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_70</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_72</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_71</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_67</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_66</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_69</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_68</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_63</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_62</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_65</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_64</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCanonicalFullCollectionExists(org.apache.commons.collections4.collection.SynchronizedCollectionTest) (4 ms)</li><li>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionClear(org.apache.commons.collections4.collection.SynchronizedCollectionTest) (8 ms)</li><li>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionToArray2(org.apache.commons.collections4.collection.SynchronizedCollectionTest) (2 ms)</li><li>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionAdd(org.apache.commons.collections4.collection.SynchronizedCollectionTest) (5 ms)</li><li>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCanonicalEmptyCollectionExists(org.apache.commons.collections4.collection.SynchronizedCollectionTest) (56 ms)</li><li>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionRetainAll(org.apache.commons.collections4.collection.SynchronizedCollectionTest) (3 ms)</li><li>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionAddAll(org.apache.commons.collections4.collection.SynchronizedCollectionTest) (4 ms)</li><li>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testObjectHashCodeEqualsContract(org.apache.commons.collections4.collection.SynchronizedCollectionTest) (9 ms)</li><li>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionToString(org.apache.commons.collections4.collection.SynchronizedCollectionTest) (2 ms)</li><li>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testEqualsNull(org.apache.commons.collections4.collection.SynchronizedCollectionTest) (2 ms)</li><li>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testObjectHashCodeEqualsSelfHashCode(org.apache.commons.collections4.collection.SynchronizedCollectionTest) (2 ms)</li><li>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionRemove(org.apache.commons.collections4.collection.SynchronizedCollectionTest) (4 ms)</li><li>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionRemoveIf(org.apache.commons.collections4.collection.SynchronizedCollectionTest) (5 ms)</li><li>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionIterator(org.apache.commons.collections4.collection.SynchronizedCollectionTest) (3 ms)</li><li>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testSimpleSerialization(org.apache.commons.collections4.collection.SynchronizedCollectionTest) (1 ms)</li><li>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testObjectEqualsSelf(org.apache.commons.collections4.collection.SynchronizedCollectionTest) (1 ms)</li><li>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionRemoveAll(org.apache.commons.collections4.collection.SynchronizedCollectionTest) (3 ms)</li><li>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionToArray(org.apache.commons.collections4.collection.SynchronizedCollectionTest) (2 ms)</li><li>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionIsEmpty(org.apache.commons.collections4.collection.SynchronizedCollectionTest) (2 ms)</li><li>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionIteratorRemove(org.apache.commons.collections4.collection.SynchronizedCollectionTest) (2 ms)</li><li>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testSerializeDeserializeThenCompare(org.apache.commons.collections4.collection.SynchronizedCollectionTest) (25 ms)</li><li>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionSize(org.apache.commons.collections4.collection.SynchronizedCollectionTest) (2 ms)</li><li>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionContains(org.apache.commons.collections4.collection.SynchronizedCollectionTest) (3 ms)</li><li>org.apache.commons.collections4.collection.SynchronizedCollectionTest.testCollectionContainsAll(org.apache.commons.collections4.collection.SynchronizedCollectionTest) (3 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

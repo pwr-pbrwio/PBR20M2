@@ -1,0 +1,3643 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>DepsFileRegexParser.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2008 The Closure Compiler Authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.google.javascript.jscomp.deps;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.google.common.collect.ImmutableList.toImmutableList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.annotations.GwtIncompatible;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.base.CharMatcher;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.base.Function;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.base.Functions;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.collect.ImmutableMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.io.Files;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.ErrorManager;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.deps.DependencyInfo.Require;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.File;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.IOException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.Reader;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.StringReader;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.nio.charset.StandardCharsets;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.ArrayList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.List;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Map;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.logging.Level;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.logging.Logger;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.regex.Matcher;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.regex.Pattern;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * A parser that can extract dependency information from existing deps.js files.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;See //javascript/closure/deps.js for an example file.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>@GwtIncompatible(&#34;java.util.regex&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public final class DepsFileRegexParser extends JsFileLineParser {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_49'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private static final Logger logger = Logger.getLogger(DepsFileRegexParser.class.getName());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Pattern for matching JavaScript string literals. The group is:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * goog.addDependency({1});</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_55'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private final Matcher depMatcher =</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_56'/>
+56
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_56'>3</a>
+<span>
+1. <init> : removed call to java/util/regex/Pattern::compile &rarr; KILLED<br/>
+2. <init> : removed call to java/util/regex/Pattern::matcher &rarr; KILLED<br/>
+3. <init> : Removed assignment to member variable depMatcher &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      Pattern.compile(&#34;\\s*goog.addDependency\\((.*)\\);?\\s*&#34;).matcher(&#34;&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Pattern for matching the args of a goog.addDependency(). The group is:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * goog.addDependency({1}, {2}, {3}, {4?});</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_62'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private final Matcher depArgsMatch =</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_63'/>
+63
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_63'>1</a>
+<span>
+1. <init> : removed call to java/util/regex/Pattern::compile &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      Pattern.compile(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>              &#34;\\s*([^,]*), (\\[[^\\]]*\\]), (\\[[^\\]]*\\])&#34;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                  + &#34;(?:, (true|false|\\{[^{}]*\\}))?\\s*&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_66'/>
+66
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_66'>2</a>
+<span>
+1. <init> : removed call to java/util/regex/Pattern::matcher &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable depArgsMatch &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          .matcher(&#34;&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * The dependency information extracted from the current file.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private List&#60;DependencyInfo&#62; depInfos;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /** Translates paths in different build systems. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final Function&#60;String, String&#62; pathTranslator;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Constructor</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param errorManager Handles parse errors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public DepsFileRegexParser(ErrorManager errorManager) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_82'/>
+82
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_82'>1</a>
+<span>
+1. <init> : removed call to com/google/common/base/Functions::identity &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    this(Functions.identity(), errorManager);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_83'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param pathTranslator Translates paths in different build systems.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param errorManager Handles parse errors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public DepsFileRegexParser(Function&#60;String, String&#62; pathTranslator, ErrorManager errorManager) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_90'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    super(errorManager);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_91'/>
+91
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_91'>1</a>
+<span>
+1. <init> : Removed assignment to member variable pathTranslator &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    this.pathTranslator = pathTranslator;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_92'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Parses the given file and returns a list of dependency information that it</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * contained.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param filePath Path to the file to parse.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @return A list of DependencyInfo objects.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @throws IOException Thrown if the file could not be read.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public List&#60;DependencyInfo&#62; parseFile(String filePath) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_103'/>
+103
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_103'>5</a>
+<span>
+1. parseFile : removed call to java/io/File::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+2. parseFile : replaced return value with Collections.emptyList for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseFile &rarr; NO_COVERAGE<br/>
+3. parseFile : removed call to com/google/common/io/Files::newReader &rarr; NO_COVERAGE<br/>
+4. parseFile : removed call to com/google/javascript/jscomp/deps/DepsFileRegexParser::parseFileReader &rarr; NO_COVERAGE<br/>
+5. parseFile : mutated return of Object value for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseFile to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    return parseFileReader(filePath, Files.newReader(new File(filePath), StandardCharsets.UTF_8));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Parses the given file and returns a list of dependency information that it</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * contained.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * It uses the passed in fileContents instead of reading the file.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param filePath Path to the file to parse.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param fileContents The contents to parse.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @return A list of DependencyInfo objects.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public List&#60;DependencyInfo&#62; parseFile(String filePath, String fileContents) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_116'/>
+116
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_116'>4</a>
+<span>
+1. parseFile : removed call to java/io/StringReader::&#60;init&#62; &rarr; KILLED<br/>
+2. parseFile : replaced return value with Collections.emptyList for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseFile &rarr; KILLED<br/>
+3. parseFile : removed call to com/google/javascript/jscomp/deps/DepsFileRegexParser::parseFileReader &rarr; KILLED<br/>
+4. parseFile : mutated return of Object value for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseFile to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return parseFileReader(filePath, new StringReader(fileContents));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_118'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Parses the file from the given reader and returns a list of</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * dependency information that it contained.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param filePath Path to the file to parse.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param reader A reader for the file.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @return A list of DependencyInfo objects.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public List&#60;DependencyInfo&#62; parseFileReader(String filePath, Reader reader) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_129'/>
+129
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_129'>2</a>
+<span>
+1. parseFileReader : removed call to java/util/ArrayList::&#60;init&#62; &rarr; KILLED<br/>
+2. parseFileReader : Removed assignment to member variable depInfos &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    depInfos = new ArrayList&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_130'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    if (logger.isLoggable(Level.FINE)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_131'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>      logger.fine(&#34;Parsing Dep: &#34; + filePath);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_133'/>
+133
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_133'>1</a>
+<span>
+1. parseFileReader : removed call to com/google/javascript/jscomp/deps/DepsFileRegexParser::doParse &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    doParse(filePath, reader);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_134'/>
+134
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_134'>2</a>
+<span>
+1. parseFileReader : replaced return value with Collections.emptyList for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseFileReader &rarr; KILLED<br/>
+2. parseFileReader : mutated return of Object value for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseFileReader to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return depInfos;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_135'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_138'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Extracts dependency information from lines that look like</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_139'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *   goog.addDependency(&#39;pathRelativeToClosure&#39;, [&#39;provides&#39;], [&#39;requires&#39;]);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Adds the dependencies to depInfos.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @throws ParseException Thrown if the given line has a malformed</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *     goog.addDependency().</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  protected boolean parseLine(String line) throws ParseException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_147'/>
+147
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_147'>1</a>
+<span>
+1. parseLine : Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    boolean hasDependencies = false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Quick check that will catch most cases. This is a performance win for teams with a lot of JS.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_150'/>
+150
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_150'>4</a>
+<span>
+1. parseLine : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. parseLine : negated conditional &rarr; KILLED<br/>
+3. parseLine : removed call to java/lang/String::contains &rarr; KILLED<br/>
+4. parseLine : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (line.contains(&#34;addDependency&#34;)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_151'/>
+151
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_151'>2</a>
+<span>
+1. parseLine : removed call to java/util/regex/Matcher::reset &rarr; KILLED<br/>
+2. parseLine : replaced call to java/util/regex/Matcher::reset with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      depMatcher.reset(line);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // See if the line looks like: goog.addDependency(...)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_153'/>
+153
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_153'>4</a>
+<span>
+1. parseLine : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. parseLine : negated conditional &rarr; KILLED<br/>
+3. parseLine : removed call to java/util/regex/Matcher::matches &rarr; KILLED<br/>
+4. parseLine : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      if (depMatcher.matches()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_154'/>
+154
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_154'>1</a>
+<span>
+1. parseLine : Substituted 1 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        hasDependencies = true;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_155'/>
+155
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_155'>2</a>
+<span>
+1. parseLine : Substituted 1 with 0 &rarr; KILLED<br/>
+2. parseLine : removed call to java/util/regex/Matcher::group &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        String addDependencyParams = depMatcher.group(1);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_156'/>
+156
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_156'>2</a>
+<span>
+1. parseLine : removed call to java/util/regex/Matcher::reset &rarr; KILLED<br/>
+2. parseLine : replaced call to java/util/regex/Matcher::reset with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        depArgsMatch.reset(addDependencyParams);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_157'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Extract the three parameters.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_158'/>
+158
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_158'>4</a>
+<span>
+1. parseLine : negated conditional &rarr; KILLED<br/>
+2. parseLine : removed call to java/util/regex/Matcher::matches &rarr; KILLED<br/>
+3. parseLine : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. parseLine : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (!depArgsMatch.matches()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          // Although we could recover, we mark this as fatal since there should</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          // not be problems with generated deps.js files.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_161'/>
+161
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_161'>8</a>
+<span>
+1. parseLine : removed call to java/lang/StringBuilder::toString &rarr; SURVIVED<br/>
+2. parseLine : replaced call to java/lang/StringBuilder::append with receiver &rarr; SURVIVED<br/>
+3. parseLine : replaced call to java/lang/StringBuilder::append with receiver &rarr; SURVIVED<br/>
+4. parseLine : removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; KILLED<br/>
+5. parseLine : removed call to com/google/javascript/jscomp/deps/JsFileLineParser$ParseException::&#60;init&#62; &rarr; KILLED<br/>
+6. parseLine : Substituted 1 with 0 &rarr; KILLED<br/>
+7. parseLine : removed call to java/lang/StringBuilder::append &rarr; KILLED<br/>
+8. parseLine : removed call to java/lang/StringBuilder::append &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>          throw new ParseException(&#34;Invalid arguments to goog.addDependency(). Found: &#34;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>              + addDependencyParams, true);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_164'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Parse the file path.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_165'/>
+165
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_165'>4</a>
+<span>
+1. parseLine : replaced call to com/google/javascript/jscomp/deps/DepsFileRegexParser::parseJsString with argument &rarr; KILLED<br/>
+2. parseLine : Substituted 1 with 0 &rarr; KILLED<br/>
+3. parseLine : removed call to java/util/regex/Matcher::group &rarr; KILLED<br/>
+4. parseLine : removed call to com/google/javascript/jscomp/deps/DepsFileRegexParser::parseJsString &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        String relativePath = parseJsString(depArgsMatch.group(1));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_166'/>
+166
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_166'>2</a>
+<span>
+1. parseLine : replaced call to com/google/common/base/Function::apply with argument &rarr; SURVIVED<br/>
+2. parseLine : removed call to com/google/common/base/Function::apply &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        String path = pathTranslator.apply(relativePath);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_168'/>
+168
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_168'>3</a>
+<span>
+1. parseLine : Substituted 2 with 3 &rarr; KILLED<br/>
+2. parseLine : removed call to java/util/regex/Matcher::group &rarr; KILLED<br/>
+3. parseLine : removed call to com/google/javascript/jscomp/deps/DepsFileRegexParser::parseJsStringArray &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        List&#60;String&#62; provides = parseJsStringArray(depArgsMatch.group(2));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_169'/>
+169
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_169'>3</a>
+<span>
+1. parseLine : Substituted 4 with 5 &rarr; KILLED<br/>
+2. parseLine : removed call to java/util/regex/Matcher::group &rarr; KILLED<br/>
+3. parseLine : removed call to com/google/javascript/jscomp/deps/DepsFileRegexParser::parseLoadFlags &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        Map&#60;String, String&#62; loadFlags = parseLoadFlags(depArgsMatch.group(4));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_171'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // ES6 modules are require&#39;d by path but do not provide them in the addDependency call.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_172'/>
+172
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_172'>6</a>
+<span>
+1. parseLine : replaced call to java/util/Map::get with argument &rarr; KILLED<br/>
+2. parseLine : negated conditional &rarr; KILLED<br/>
+3. parseLine : removed call to java/util/Map::get &rarr; KILLED<br/>
+4. parseLine : removed call to java/lang/String::equals &rarr; KILLED<br/>
+5. parseLine : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+6. parseLine : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (&#34;es6&#34;.equals(loadFlags.get(&#34;module&#34;))) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_173'/>
+173
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_173'>1</a>
+<span>
+1. parseLine : removed call to java/util/List::add &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          provides.add(relativePath);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_174'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_175'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_176'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        DependencyInfo depInfo =</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_177'/>
+177
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_177'>1</a>
+<span>
+1. parseLine : removed call to com/google/javascript/jscomp/deps/SimpleDependencyInfo::builder &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            SimpleDependencyInfo.builder(path, filePath)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_178'/>
+178
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_178'>3</a>
+<span>
+1. parseLine : Substituted 3 with 4 &rarr; KILLED<br/>
+2. parseLine : removed call to com/google/javascript/jscomp/deps/SimpleDependencyInfo$Builder::setProvides &rarr; KILLED<br/>
+3. parseLine : replaced call to com/google/javascript/jscomp/deps/SimpleDependencyInfo$Builder::setProvides with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                .setProvides(provides)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_179'/>
+179
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_179'>2</a>
+<span>
+1. parseLine : removed call to com/google/javascript/jscomp/deps/SimpleDependencyInfo$Builder::setRequires &rarr; KILLED<br/>
+2. parseLine : replaced call to com/google/javascript/jscomp/deps/SimpleDependencyInfo$Builder::setRequires with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                .setRequires(</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_180'/>
+180
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_180'>2</a>
+<span>
+1. parseLine : removed call to java/util/regex/Matcher::group &rarr; KILLED<br/>
+2. parseLine : removed call to com/google/javascript/jscomp/deps/DepsFileRegexParser::parseJsStringArray &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    parseJsStringArray(depArgsMatch.group(3))</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_181'/>
+181
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_181'>1</a>
+<span>
+1. parseLine : removed call to java/util/List::stream &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                        .stream()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_182'/>
+182
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_182'>2</a>
+<span>
+1. parseLine : removed call to java/util/stream/Stream::map &rarr; KILLED<br/>
+2. parseLine : replaced call to java/util/stream/Stream::map with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                        .map(Require::parsedFromDeps)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_183'/>
+183
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_183'>2</a>
+<span>
+1. parseLine : removed call to com/google/common/collect/ImmutableList::toImmutableList &rarr; KILLED<br/>
+2. parseLine : removed call to java/util/stream/Stream::collect &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                        .collect(toImmutableList()))</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_184'/>
+184
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_184'>2</a>
+<span>
+1. parseLine : removed call to com/google/javascript/jscomp/deps/SimpleDependencyInfo$Builder::setLoadFlags &rarr; KILLED<br/>
+2. parseLine : replaced call to com/google/javascript/jscomp/deps/SimpleDependencyInfo$Builder::setLoadFlags with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                .setLoadFlags(loadFlags)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_185'/>
+185
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_185'>1</a>
+<span>
+1. parseLine : removed call to com/google/javascript/jscomp/deps/SimpleDependencyInfo$Builder::build &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                .build();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_186'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_187'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        if (logger.isLoggable(Level.FINE)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_188'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>          logger.fine(&#34;Found dep: &#34; + depInfo);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_189'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_190'/>
+190
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_190'>1</a>
+<span>
+1. parseLine : removed call to java/util/List::add &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        depInfos.add(depInfo);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_191'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_192'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_193'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_194'/>
+194
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_194'>9</a>
+<span>
+1. parseLine : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. parseLine : replaced boolean return with false for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseLine &rarr; KILLED<br/>
+3. parseLine : replaced boolean return with true for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseLine &rarr; KILLED<br/>
+4. parseLine : negated conditional &rarr; KILLED<br/>
+5. parseLine : negated conditional &rarr; KILLED<br/>
+6. parseLine : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+7. parseLine : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+8. parseLine : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+9. parseLine : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    return !shortcutMode || hasDependencies ||</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_195'/>
+195
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_195'>7</a>
+<span>
+1. parseLine : removed call to com/google/common/base/CharMatcher::matchesAllOf &rarr; SURVIVED<br/>
+2. parseLine : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+3. parseLine : Substituted 1 with 0 &rarr; KILLED<br/>
+4. parseLine : Substituted 0 with 1 &rarr; KILLED<br/>
+5. parseLine : negated conditional &rarr; KILLED<br/>
+6. parseLine : removed call to com/google/common/base/CharMatcher::whitespace &rarr; KILLED<br/>
+7. parseLine : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        CharMatcher.whitespace().matchesAllOf(line);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_196'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_197'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_198'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private Map&#60;String, String&#62; parseLoadFlags(String loadFlags) throws ParseException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_199'/>
+199
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_199'>7</a>
+<span>
+1. parseLoadFlags : negated conditional &rarr; KILLED<br/>
+2. parseLoadFlags : negated conditional &rarr; KILLED<br/>
+3. parseLoadFlags : removed call to java/lang/String::equals &rarr; KILLED<br/>
+4. parseLoadFlags : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+5. parseLoadFlags : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+6. parseLoadFlags : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+7. parseLoadFlags : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (loadFlags == null || loadFlags.equals(&#34;false&#34;)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_200'/>
+200
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_200'>3</a>
+<span>
+1. parseLoadFlags : removed call to com/google/common/collect/ImmutableMap::of &rarr; KILLED<br/>
+2. parseLoadFlags : replaced return value with null for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseLoadFlags &rarr; KILLED<br/>
+3. parseLoadFlags : mutated return of Object value for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseLoadFlags to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return ImmutableMap.of();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_201'/>
+201
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_201'>4</a>
+<span>
+1. parseLoadFlags : negated conditional &rarr; KILLED<br/>
+2. parseLoadFlags : removed call to java/lang/String::equals &rarr; KILLED<br/>
+3. parseLoadFlags : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. parseLoadFlags : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    } else if (loadFlags.equals(&#34;true&#34;)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_202'/>
+202
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_202'>3</a>
+<span>
+1. parseLoadFlags : removed call to com/google/common/collect/ImmutableMap::of &rarr; KILLED<br/>
+2. parseLoadFlags : replaced return value with null for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseLoadFlags &rarr; KILLED<br/>
+3. parseLoadFlags : mutated return of Object value for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseLoadFlags to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return ImmutableMap.of(&#34;module&#34;, &#34;goog&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_203'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_204'/>
+204
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_204'>3</a>
+<span>
+1. parseLoadFlags : removed call to com/google/javascript/jscomp/deps/DepsFileRegexParser::parseJsStringMap &rarr; KILLED<br/>
+2. parseLoadFlags : replaced return value with null for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseLoadFlags &rarr; KILLED<br/>
+3. parseLoadFlags : mutated return of Object value for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseLoadFlags to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return parseJsStringMap(loadFlags);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_205'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_206'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2591d23a_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_207'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_56'>56</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_56'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooFewArgs(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/util/regex/Pattern::compile &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooFewArgs(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/util/regex/Pattern::matcher &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooFewArgs(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> Removed assignment to member variable depMatcher &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_63'>63</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_63'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooFewArgs(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/util/regex/Pattern::compile &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_66'>66</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_66'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooFewArgs(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/util/regex/Pattern::matcher &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooFewArgs(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> Removed assignment to member variable depArgsMatch &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_82'>82</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_82'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to com/google/common/base/Functions::identity &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_91'>91</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_91'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> Removed assignment to member variable pathTranslator &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_103'>103</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_103'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseFile<br/><b>Killed by : </b>none</span></span> removed call to java/io/File::&#60;init&#62; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseFile<br/><b>Killed by : </b>none</span></span> replaced return value with Collections.emptyList for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseFile &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseFile<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/io/Files::newReader &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>parseFile<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/deps/DepsFileRegexParser::parseFileReader &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>parseFile<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseFile to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_116'>116</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_116'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseFile<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooFewArgs(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/io/StringReader::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseFile<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> replaced return value with Collections.emptyList for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseFile &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseFile<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooFewArgs(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to com/google/javascript/jscomp/deps/DepsFileRegexParser::parseFileReader &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>parseFile<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseFile to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_129'>129</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_129'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseFileReader<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/util/ArrayList::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseFileReader<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> Removed assignment to member variable depInfos &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_133'>133</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_133'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseFileReader<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooFewArgs(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to com/google/javascript/jscomp/deps/DepsFileRegexParser::doParse &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_134'>134</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_134'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseFileReader<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> replaced return value with Collections.emptyList for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseFileReader &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseFileReader<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseFileReader to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_147'>147</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_147'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testShortcutMode(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_150'>150</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_150'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooFewArgs(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooFewArgs(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/lang/String::contains &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooFewArgs(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_151'>151</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_151'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooFewArgs(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/util/regex/Matcher::reset &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooFewArgs(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> replaced call to java/util/regex/Matcher::reset with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_153'>153</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_153'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooFewArgs(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooFewArgs(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/util/regex/Matcher::matches &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooFewArgs(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_154'>154</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_154'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_155'>155</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_155'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooFewArgs(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/util/regex/Matcher::group &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_156'>156</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_156'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/util/regex/Matcher::reset &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> replaced call to java/util/regex/Matcher::reset with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_158'>158</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_158'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooFewArgs(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/util/regex/Matcher::matches &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooFewArgs(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_161'>161</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_161'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooFewArgs(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooFewArgs(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to com/google/javascript/jscomp/deps/JsFileLineParser$ParseException::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooFewArgs(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooFewArgs(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/lang/StringBuilder::append &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooFewArgs(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/lang/StringBuilder::append &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>none</span></span> removed call to java/lang/StringBuilder::toString &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_165'>165</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_165'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> replaced call to com/google/javascript/jscomp/deps/DepsFileRegexParser::parseJsString with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/util/regex/Matcher::group &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to com/google/javascript/jscomp/deps/DepsFileRegexParser::parseJsString &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_166'>166</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_166'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>none</span></span> replaced call to com/google/common/base/Function::apply with argument &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to com/google/common/base/Function::apply &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_168'>168</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_168'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> Substituted 2 with 3 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/util/regex/Matcher::group &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to com/google/javascript/jscomp/deps/DepsFileRegexParser::parseJsStringArray &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_169'>169</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_169'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> Substituted 4 with 5 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testLoadFlags(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/util/regex/Matcher::group &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to com/google/javascript/jscomp/deps/DepsFileRegexParser::parseLoadFlags &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_172'>172</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_172'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testEs6Module(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> replaced call to java/util/Map::get with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testEs6Module(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/util/Map::get &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testEs6Module(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/lang/String::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testEs6Module(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_173'>173</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_173'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testEs6Module(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/util/List::add &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_177'>177</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_177'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to com/google/javascript/jscomp/deps/SimpleDependencyInfo::builder &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_178'>178</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_178'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> Substituted 3 with 4 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to com/google/javascript/jscomp/deps/SimpleDependencyInfo$Builder::setProvides &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> replaced call to com/google/javascript/jscomp/deps/SimpleDependencyInfo$Builder::setProvides with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_179'>179</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_179'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to com/google/javascript/jscomp/deps/SimpleDependencyInfo$Builder::setRequires &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> replaced call to com/google/javascript/jscomp/deps/SimpleDependencyInfo$Builder::setRequires with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_180'>180</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_180'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/util/regex/Matcher::group &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to com/google/javascript/jscomp/deps/DepsFileRegexParser::parseJsStringArray &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_181'>181</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_181'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/util/List::stream &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_182'>182</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_182'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/util/stream/Stream::map &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> replaced call to java/util/stream/Stream::map with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_183'>183</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_183'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to com/google/common/collect/ImmutableList::toImmutableList &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/util/stream/Stream::collect &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_184'>184</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_184'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to com/google/javascript/jscomp/deps/SimpleDependencyInfo$Builder::setLoadFlags &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testLoadFlags(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> replaced call to com/google/javascript/jscomp/deps/SimpleDependencyInfo$Builder::setLoadFlags with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_185'>185</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_185'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to com/google/javascript/jscomp/deps/SimpleDependencyInfo$Builder::build &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_190'>190</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_190'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/util/List::add &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_194'>194</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_194'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> replaced boolean return with false for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseLine &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testShortcutMode(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> replaced boolean return with true for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseLine &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testShortcutMode(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testShortcutMode(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testShortcutMode(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_195'>195</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_195'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testShortcutMode(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testShortcutMode(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testShortcutMode(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to com/google/common/base/CharMatcher::whitespace &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/base/CharMatcher::matchesAllOf &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>parseLine<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testShortcutMode(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_199'>199</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_199'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLoadFlags<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseLoadFlags<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testLoadFlags(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseLoadFlags<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoogModule(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/lang/String::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>parseLoadFlags<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testLoadFlags(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>parseLoadFlags<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoogModule(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>parseLoadFlags<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>parseLoadFlags<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testLoadFlags(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_200'>200</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_200'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLoadFlags<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to com/google/common/collect/ImmutableMap::of &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseLoadFlags<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> replaced return value with null for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseLoadFlags &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseLoadFlags<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseLoadFlags to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_201'>201</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_201'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLoadFlags<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testLoadFlags(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseLoadFlags<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoogModule(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to java/lang/String::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseLoadFlags<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoogModule(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>parseLoadFlags<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testLoadFlags(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_202'>202</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_202'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLoadFlags<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoogModule(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to com/google/common/collect/ImmutableMap::of &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseLoadFlags<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoogModule(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> replaced return value with null for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseLoadFlags &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseLoadFlags<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoogModule(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseLoadFlags to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2591d23a_204'>204</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2591d23a_204'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseLoadFlags<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testLoadFlags(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> removed call to com/google/javascript/jscomp/deps/DepsFileRegexParser::parseJsStringMap &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>parseLoadFlags<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testLoadFlags(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> replaced return value with null for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseLoadFlags &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>parseLoadFlags<br/><b>Killed by : </b>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testLoadFlags(com.google.javascript.jscomp.deps.DepsFileRegexParserTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/deps/DepsFileRegexParser::parseLoadFlags to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_61</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_60</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_56</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_55</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_58</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_57</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_52</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_51</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_54</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_53</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_59</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_50</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_45</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_44</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_47</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_46</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_41</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_40</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_43</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_42</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_49</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_48</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_34</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_33</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_36</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_35</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_30</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_32</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_31</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_38</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_37</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_39</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_3</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_2</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_1</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_0</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_23</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_22</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_25</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_9</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_24</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_8</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_7</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_6</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_21</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_5</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_20</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_4</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_27</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_26</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_29</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_28</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_12</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_11</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_99</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_14</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_13</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_96</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_95</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_10</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_98</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_97</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_19</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_16</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_15</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_18</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_17</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_92</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_91</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_94</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_93</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_90</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_89</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_88</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_85</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_84</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_87</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_86</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_81</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_80</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_83</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_82</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_78</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_77</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_79</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_74</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_73</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_76</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_75</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_70</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_72</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_71</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_67</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_66</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_69</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_68</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_63</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_62</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_65</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_64</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testShortcutMode(com.google.javascript.jscomp.deps.DepsFileRegexParserTest) (2 ms)</li><li>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoogModule(com.google.javascript.jscomp.deps.DepsFileRegexParserTest) (2 ms)</li><li>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testNoShortcutMode(com.google.javascript.jscomp.deps.DepsFileRegexParserTest) (2 ms)</li><li>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testEs6Module(com.google.javascript.jscomp.deps.DepsFileRegexParserTest) (45 ms)</li><li>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooManyArgs3(com.google.javascript.jscomp.deps.DepsFileRegexParserTest) (2 ms)</li><li>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testGoodParse(com.google.javascript.jscomp.deps.DepsFileRegexParserTest) (2 ms)</li><li>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testLoadFlags(com.google.javascript.jscomp.deps.DepsFileRegexParserTest) (2 ms)</li><li>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooManyArgs2(com.google.javascript.jscomp.deps.DepsFileRegexParserTest) (2 ms)</li><li>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooManyArgs1(com.google.javascript.jscomp.deps.DepsFileRegexParserTest) (2 ms)</li><li>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testBadLoadFlagsSyntax(com.google.javascript.jscomp.deps.DepsFileRegexParserTest) (53 ms)</li><li>com.google.javascript.jscomp.deps.DepsFileRegexParserTest.testTooFewArgs(com.google.javascript.jscomp.deps.DepsFileRegexParserTest) (2 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

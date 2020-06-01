@@ -1,0 +1,3376 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>SparseFieldMatrix.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.math3.linear;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.Field;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.FieldElement;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.util.OpenIntToFieldHashMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Sparse matrix implementation based on an open addressed map.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Caveat: This implementation assumes that, for any {@code x},</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  the equality {@code x * 0d == 0d} holds. But it is is not true for</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  {@code NaN}. Moreover, zero entries will lose their sign.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Some operations (that involve {@code NaN} and/or infinities) may</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  thus give incorrect results.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;T&#62; the type of the field elements</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class SparseFieldMatrix&#60;T extends FieldElement&#60;T&#62;&#62; extends AbstractFieldMatrix&#60;T&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Storage for (sparse) matrix elements. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final OpenIntToFieldHashMap&#60;T&#62; entries;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Row dimension. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final int rows;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Column dimension. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final int columns;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Create a matrix with no data.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param field Field to which the elements belong.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public SparseFieldMatrix(final Field&#60;T&#62; field) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_51'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        super(field);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_52'/>
+52
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_52'>2</a>
+<span>
+1. <init> : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+2. <init> : Removed assignment to member variable rows &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        rows = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_53'/>
+53
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_53'>2</a>
+<span>
+1. <init> : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+2. <init> : Removed assignment to member variable columns &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        columns= 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_54'/>
+54
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_54'>2</a>
+<span>
+1. <init> : removed call to org/apache/commons/math3/util/OpenIntToFieldHashMap::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+2. <init> : Removed assignment to member variable entries &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        entries = new OpenIntToFieldHashMap&#60;T&#62;(field);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_55'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Create a new SparseFieldMatrix&#60;T&#62; with the supplied row and column</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * dimensions.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param field Field to which the elements belong.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param rowDimension Number of rows in the new matrix.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param columnDimension Number of columns in the new matrix.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws org.apache.commons.math3.exception.NotStrictlyPositiveException</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * if row or column dimension is not positive.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public SparseFieldMatrix(final Field&#60;T&#62; field,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                             final int rowDimension, final int columnDimension) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_69'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        super(field, rowDimension, columnDimension);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_70'/>
+70
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_70'>1</a>
+<span>
+1. <init> : Removed assignment to member variable rows &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.rows = rowDimension;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_71'/>
+71
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_71'>1</a>
+<span>
+1. <init> : Removed assignment to member variable columns &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.columns = columnDimension;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_72'/>
+72
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_72'>2</a>
+<span>
+1. <init> : removed call to org/apache/commons/math3/util/OpenIntToFieldHashMap::&#60;init&#62; &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable entries &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        entries = new OpenIntToFieldHashMap&#60;T&#62;(field);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_73'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Copy constructor.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param other Instance to copy.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public SparseFieldMatrix(SparseFieldMatrix&#60;T&#62; other) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_81'/>
+81
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_81'>3</a>
+<span>
+1. <init> : removed call to org/apache/commons/math3/linear/SparseFieldMatrix::getField &rarr; SURVIVED<br/>
+2. <init> : removed call to org/apache/commons/math3/linear/SparseFieldMatrix::getRowDimension &rarr; KILLED<br/>
+3. <init> : removed call to org/apache/commons/math3/linear/SparseFieldMatrix::getColumnDimension &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        super(other.getField(), other.getRowDimension(), other.getColumnDimension());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_82'/>
+82
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_82'>2</a>
+<span>
+1. <init> : removed call to org/apache/commons/math3/linear/SparseFieldMatrix::getRowDimension &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable rows &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        rows = other.getRowDimension();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_83'/>
+83
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_83'>2</a>
+<span>
+1. <init> : removed call to org/apache/commons/math3/linear/SparseFieldMatrix::getColumnDimension &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable columns &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        columns = other.getColumnDimension();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_84'/>
+84
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_84'>2</a>
+<span>
+1. <init> : removed call to org/apache/commons/math3/util/OpenIntToFieldHashMap::&#60;init&#62; &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable entries &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        entries = new OpenIntToFieldHashMap&#60;T&#62;(other.entries);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_85'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Generic copy constructor.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param other Instance to copy.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public SparseFieldMatrix(FieldMatrix&#60;T&#62; other){</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_93'/>
+93
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_93'>3</a>
+<span>
+1. <init> : removed call to org/apache/commons/math3/linear/FieldMatrix::getField &rarr; NO_COVERAGE<br/>
+2. <init> : removed call to org/apache/commons/math3/linear/FieldMatrix::getRowDimension &rarr; NO_COVERAGE<br/>
+3. <init> : removed call to org/apache/commons/math3/linear/FieldMatrix::getColumnDimension &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        super(other.getField(), other.getRowDimension(), other.getColumnDimension());</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_94'/>
+94
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_94'>2</a>
+<span>
+1. <init> : removed call to org/apache/commons/math3/linear/FieldMatrix::getRowDimension &rarr; NO_COVERAGE<br/>
+2. <init> : Removed assignment to member variable rows &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        rows = other.getRowDimension();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_95'/>
+95
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_95'>2</a>
+<span>
+1. <init> : removed call to org/apache/commons/math3/linear/FieldMatrix::getColumnDimension &rarr; NO_COVERAGE<br/>
+2. <init> : Removed assignment to member variable columns &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        columns = other.getColumnDimension();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_96'/>
+96
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_96'>3</a>
+<span>
+1. <init> : removed call to org/apache/commons/math3/util/OpenIntToFieldHashMap::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+2. <init> : removed call to org/apache/commons/math3/linear/SparseFieldMatrix::getField &rarr; NO_COVERAGE<br/>
+3. <init> : Removed assignment to member variable entries &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        entries = new OpenIntToFieldHashMap&#60;T&#62;(getField());</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_97'/>
+97
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_97'>7</a>
+<span>
+1. <init> : changed conditional boundary &rarr; NO_COVERAGE<br/>
+2. <init> : Changed increment from 1 to -1 &rarr; NO_COVERAGE<br/>
+3. <init> : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+4. <init> : negated conditional &rarr; NO_COVERAGE<br/>
+5. <init> : removed conditional - replaced comparison check with false &rarr; NO_COVERAGE<br/>
+6. <init> : removed conditional - replaced comparison check with true &rarr; NO_COVERAGE<br/>
+7. <init> : Removed increment 1 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        for (int i = 0; i &#60; rows; i++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_98'/>
+98
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_98'>6</a>
+<span>
+1. <init> : changed conditional boundary &rarr; NO_COVERAGE<br/>
+2. <init> : Changed increment from 1 to -1 &rarr; NO_COVERAGE<br/>
+3. <init> : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+4. <init> : negated conditional &rarr; NO_COVERAGE<br/>
+5. <init> : removed conditional - replaced comparison check with false &rarr; NO_COVERAGE<br/>
+6. <init> : removed conditional - replaced comparison check with true &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            for (int j = 0; j &#60; columns; j++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_99'/>
+99
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_99'>2</a>
+<span>
+1. <init> : removed call to org/apache/commons/math3/linear/FieldMatrix::getEntry &rarr; NO_COVERAGE<br/>
+2. <init> : removed call to org/apache/commons/math3/linear/SparseFieldMatrix::setEntry &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                setEntry(i, j, other.getEntry(i, j));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_102'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** {@inheritDoc} */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void addToEntry(int row, int column, T increment) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_107'/>
+107
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_107'>1</a>
+<span>
+1. addToEntry : removed call to org/apache/commons/math3/linear/SparseFieldMatrix::checkRowIndex &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        checkRowIndex(row);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_108'/>
+108
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_108'>1</a>
+<span>
+1. addToEntry : removed call to org/apache/commons/math3/linear/SparseFieldMatrix::checkColumnIndex &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        checkColumnIndex(column);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_109'/>
+109
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_109'>2</a>
+<span>
+1. addToEntry : replaced call to org/apache/commons/math3/linear/SparseFieldMatrix::computeKey with argument &rarr; NO_COVERAGE<br/>
+2. addToEntry : removed call to org/apache/commons/math3/linear/SparseFieldMatrix::computeKey &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        final int key = computeKey(row, column);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_110'/>
+110
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_110'>3</a>
+<span>
+1. addToEntry : replaced call to org/apache/commons/math3/FieldElement::add with argument &rarr; NO_COVERAGE<br/>
+2. addToEntry : removed call to org/apache/commons/math3/util/OpenIntToFieldHashMap::get &rarr; NO_COVERAGE<br/>
+3. addToEntry : removed call to org/apache/commons/math3/FieldElement::add &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        final T value = entries.get(key).add(increment);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_111'/>
+111
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_111'>6</a>
+<span>
+1. addToEntry : negated conditional &rarr; NO_COVERAGE<br/>
+2. addToEntry : removed call to org/apache/commons/math3/linear/SparseFieldMatrix::getField &rarr; NO_COVERAGE<br/>
+3. addToEntry : removed call to org/apache/commons/math3/Field::getZero &rarr; NO_COVERAGE<br/>
+4. addToEntry : removed call to java/lang/Object::equals &rarr; NO_COVERAGE<br/>
+5. addToEntry : removed conditional - replaced equality check with false &rarr; NO_COVERAGE<br/>
+6. addToEntry : removed conditional - replaced equality check with true &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        if (getField().getZero().equals(value)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_112'/>
+112
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_112'>1</a>
+<span>
+1. addToEntry : removed call to org/apache/commons/math3/util/OpenIntToFieldHashMap::remove &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            entries.remove(key);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_114'/>
+114
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_114'>2</a>
+<span>
+1. addToEntry : replaced call to org/apache/commons/math3/util/OpenIntToFieldHashMap::put with argument &rarr; NO_COVERAGE<br/>
+2. addToEntry : removed call to org/apache/commons/math3/util/OpenIntToFieldHashMap::put &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            entries.put(key, value);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_116'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_118'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** {@inheritDoc} */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public FieldMatrix&#60;T&#62; copy() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_121'/>
+121
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_121'>3</a>
+<span>
+1. copy : removed call to org/apache/commons/math3/linear/SparseFieldMatrix::&#60;init&#62; &rarr; KILLED<br/>
+2. copy : replaced return value with null for org/apache/commons/math3/linear/SparseFieldMatrix::copy &rarr; KILLED<br/>
+3. copy : mutated return of Object value for org/apache/commons/math3/linear/SparseFieldMatrix::copy to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new SparseFieldMatrix&#60;T&#62;(this);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** {@inheritDoc} */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public FieldMatrix&#60;T&#62; createMatrix(int rowDimension, int columnDimension) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_127'/>
+127
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_127'>4</a>
+<span>
+1. createMatrix : removed call to org/apache/commons/math3/linear/SparseFieldMatrix::&#60;init&#62; &rarr; KILLED<br/>
+2. createMatrix : removed call to org/apache/commons/math3/linear/SparseFieldMatrix::getField &rarr; KILLED<br/>
+3. createMatrix : replaced return value with null for org/apache/commons/math3/linear/SparseFieldMatrix::createMatrix &rarr; KILLED<br/>
+4. createMatrix : mutated return of Object value for org/apache/commons/math3/linear/SparseFieldMatrix::createMatrix to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new SparseFieldMatrix&#60;T&#62;(getField(), rowDimension, columnDimension);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_130'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** {@inheritDoc} */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_131'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int getColumnDimension() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_133'/>
+133
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_133'>2</a>
+<span>
+1. getColumnDimension : replaced int return with 0 for org/apache/commons/math3/linear/SparseFieldMatrix::getColumnDimension &rarr; KILLED<br/>
+2. getColumnDimension : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return columns;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_135'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** {@inheritDoc} */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_138'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public T getEntry(int row, int column) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_139'/>
+139
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_139'>1</a>
+<span>
+1. getEntry : removed call to org/apache/commons/math3/linear/SparseFieldMatrix::checkRowIndex &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        checkRowIndex(row);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_140'/>
+140
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_140'>1</a>
+<span>
+1. getEntry : removed call to org/apache/commons/math3/linear/SparseFieldMatrix::checkColumnIndex &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        checkColumnIndex(column);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_141'/>
+141
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_141'>5</a>
+<span>
+1. getEntry : replaced call to org/apache/commons/math3/linear/SparseFieldMatrix::computeKey with argument &rarr; KILLED<br/>
+2. getEntry : removed call to org/apache/commons/math3/linear/SparseFieldMatrix::computeKey &rarr; KILLED<br/>
+3. getEntry : removed call to org/apache/commons/math3/util/OpenIntToFieldHashMap::get &rarr; KILLED<br/>
+4. getEntry : replaced return value with null for org/apache/commons/math3/linear/SparseFieldMatrix::getEntry &rarr; KILLED<br/>
+5. getEntry : mutated return of Object value for org/apache/commons/math3/linear/SparseFieldMatrix::getEntry to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return entries.get(computeKey(row, column));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** {@inheritDoc} */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int getRowDimension() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_147'/>
+147
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_147'>2</a>
+<span>
+1. getRowDimension : replaced int return with 0 for org/apache/commons/math3/linear/SparseFieldMatrix::getRowDimension &rarr; KILLED<br/>
+2. getRowDimension : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return rows;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_150'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** {@inheritDoc} */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void multiplyEntry(int row, int column, T factor) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_153'/>
+153
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_153'>1</a>
+<span>
+1. multiplyEntry : removed call to org/apache/commons/math3/linear/SparseFieldMatrix::checkRowIndex &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        checkRowIndex(row);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_154'/>
+154
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_154'>1</a>
+<span>
+1. multiplyEntry : removed call to org/apache/commons/math3/linear/SparseFieldMatrix::checkColumnIndex &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        checkColumnIndex(column);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_155'/>
+155
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_155'>2</a>
+<span>
+1. multiplyEntry : replaced call to org/apache/commons/math3/linear/SparseFieldMatrix::computeKey with argument &rarr; NO_COVERAGE<br/>
+2. multiplyEntry : removed call to org/apache/commons/math3/linear/SparseFieldMatrix::computeKey &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        final int key = computeKey(row, column);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_156'/>
+156
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_156'>3</a>
+<span>
+1. multiplyEntry : replaced call to org/apache/commons/math3/FieldElement::multiply with argument &rarr; NO_COVERAGE<br/>
+2. multiplyEntry : removed call to org/apache/commons/math3/util/OpenIntToFieldHashMap::get &rarr; NO_COVERAGE<br/>
+3. multiplyEntry : removed call to org/apache/commons/math3/FieldElement::multiply &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        final T value = entries.get(key).multiply(factor);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_157'/>
+157
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_157'>6</a>
+<span>
+1. multiplyEntry : negated conditional &rarr; NO_COVERAGE<br/>
+2. multiplyEntry : removed call to org/apache/commons/math3/linear/SparseFieldMatrix::getField &rarr; NO_COVERAGE<br/>
+3. multiplyEntry : removed call to org/apache/commons/math3/Field::getZero &rarr; NO_COVERAGE<br/>
+4. multiplyEntry : removed call to java/lang/Object::equals &rarr; NO_COVERAGE<br/>
+5. multiplyEntry : removed conditional - replaced equality check with false &rarr; NO_COVERAGE<br/>
+6. multiplyEntry : removed conditional - replaced equality check with true &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        if (getField().getZero().equals(value)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_158'/>
+158
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_158'>1</a>
+<span>
+1. multiplyEntry : removed call to org/apache/commons/math3/util/OpenIntToFieldHashMap::remove &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            entries.remove(key);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_160'/>
+160
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_160'>2</a>
+<span>
+1. multiplyEntry : replaced call to org/apache/commons/math3/util/OpenIntToFieldHashMap::put with argument &rarr; NO_COVERAGE<br/>
+2. multiplyEntry : removed call to org/apache/commons/math3/util/OpenIntToFieldHashMap::put &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            entries.put(key, value);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_163'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_164'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** {@inheritDoc} */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_166'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void setEntry(int row, int column, T value) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_168'/>
+168
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_168'>1</a>
+<span>
+1. setEntry : removed call to org/apache/commons/math3/linear/SparseFieldMatrix::checkRowIndex &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        checkRowIndex(row);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_169'/>
+169
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_169'>1</a>
+<span>
+1. setEntry : removed call to org/apache/commons/math3/linear/SparseFieldMatrix::checkColumnIndex &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        checkColumnIndex(column);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_170'/>
+170
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_170'>6</a>
+<span>
+1. setEntry : removed call to java/lang/Object::equals &rarr; SURVIVED<br/>
+2. setEntry : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+3. setEntry : negated conditional &rarr; KILLED<br/>
+4. setEntry : removed call to org/apache/commons/math3/linear/SparseFieldMatrix::getField &rarr; KILLED<br/>
+5. setEntry : removed call to org/apache/commons/math3/Field::getZero &rarr; KILLED<br/>
+6. setEntry : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (getField().getZero().equals(value)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_171'/>
+171
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_171'>3</a>
+<span>
+1. setEntry : removed call to org/apache/commons/math3/util/OpenIntToFieldHashMap::remove &rarr; SURVIVED<br/>
+2. setEntry : replaced call to org/apache/commons/math3/linear/SparseFieldMatrix::computeKey with argument &rarr; KILLED<br/>
+3. setEntry : removed call to org/apache/commons/math3/linear/SparseFieldMatrix::computeKey &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            entries.remove(computeKey(row, column));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_172'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_173'/>
+173
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_173'>4</a>
+<span>
+1. setEntry : replaced call to org/apache/commons/math3/linear/SparseFieldMatrix::computeKey with argument &rarr; KILLED<br/>
+2. setEntry : replaced call to org/apache/commons/math3/util/OpenIntToFieldHashMap::put with argument &rarr; KILLED<br/>
+3. setEntry : removed call to org/apache/commons/math3/linear/SparseFieldMatrix::computeKey &rarr; KILLED<br/>
+4. setEntry : removed call to org/apache/commons/math3/util/OpenIntToFieldHashMap::put &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            entries.put(computeKey(row, column), value);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_174'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_175'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_176'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_177'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_178'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Compute the key to access a matrix element.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_179'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_180'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param row Row index of the matrix element.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_181'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param column Column index of the matrix element.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_182'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the key within the map to access the matrix element.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_183'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_184'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private int computeKey(int row, int column) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_185'/>
+185
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_185'>4</a>
+<span>
+1. computeKey : Replaced integer addition with subtraction &rarr; SURVIVED<br/>
+2. computeKey : Replaced integer multiplication with division &rarr; KILLED<br/>
+3. computeKey : replaced int return with 0 for org/apache/commons/math3/linear/SparseFieldMatrix::computeKey &rarr; KILLED<br/>
+4. computeKey : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return row * columns + column;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_186'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_187'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_52'>52</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_52'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Removed assignment to member variable rows &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_53'>53</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_53'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Removed assignment to member variable columns &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_54'>54</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_54'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/util/OpenIntToFieldHashMap::&#60;init&#62; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Removed assignment to member variable entries &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_70'>70</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_70'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMath209(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> Removed assignment to member variable rows &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_71'>71</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_71'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMath209(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> Removed assignment to member variable columns &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_72'>72</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_72'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMath209(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> removed call to org/apache/commons/math3/util/OpenIntToFieldHashMap::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMath209(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> Removed assignment to member variable entries &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_81'>81</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_81'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/linear/SparseFieldMatrix::getField &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testCopyFunctions(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> removed call to org/apache/commons/math3/linear/SparseFieldMatrix::getRowDimension &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testCopyFunctions(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> removed call to org/apache/commons/math3/linear/SparseFieldMatrix::getColumnDimension &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_82'>82</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_82'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testCopyFunctions(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> removed call to org/apache/commons/math3/linear/SparseFieldMatrix::getRowDimension &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testCopyFunctions(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> Removed assignment to member variable rows &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_83'>83</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_83'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testCopyFunctions(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> removed call to org/apache/commons/math3/linear/SparseFieldMatrix::getColumnDimension &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testCopyFunctions(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> Removed assignment to member variable columns &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_84'>84</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_84'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testCopyFunctions(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> removed call to org/apache/commons/math3/util/OpenIntToFieldHashMap::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testCopyFunctions(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> Removed assignment to member variable entries &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_93'>93</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_93'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/linear/FieldMatrix::getField &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/linear/FieldMatrix::getRowDimension &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/linear/FieldMatrix::getColumnDimension &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_94'>94</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_94'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/linear/FieldMatrix::getRowDimension &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Removed assignment to member variable rows &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_95'>95</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_95'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/linear/FieldMatrix::getColumnDimension &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Removed assignment to member variable columns &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_96'>96</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_96'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/util/OpenIntToFieldHashMap::&#60;init&#62; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/linear/SparseFieldMatrix::getField &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Removed assignment to member variable entries &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_97'>97</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_97'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Changed increment from 1 to -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed conditional - replaced comparison check with false &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed conditional - replaced comparison check with true &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Removed increment 1 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_98'>98</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_98'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Changed increment from 1 to -1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed conditional - replaced comparison check with false &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed conditional - replaced comparison check with true &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_99'>99</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_99'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/linear/FieldMatrix::getEntry &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/linear/SparseFieldMatrix::setEntry &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_107'>107</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_107'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addToEntry<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/linear/SparseFieldMatrix::checkRowIndex &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_108'>108</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_108'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addToEntry<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/linear/SparseFieldMatrix::checkColumnIndex &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_109'>109</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_109'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addToEntry<br/><b>Killed by : </b>none</span></span> replaced call to org/apache/commons/math3/linear/SparseFieldMatrix::computeKey with argument &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addToEntry<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/linear/SparseFieldMatrix::computeKey &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_110'>110</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_110'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addToEntry<br/><b>Killed by : </b>none</span></span> replaced call to org/apache/commons/math3/FieldElement::add with argument &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addToEntry<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/util/OpenIntToFieldHashMap::get &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>addToEntry<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/FieldElement::add &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_111'>111</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_111'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addToEntry<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addToEntry<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/linear/SparseFieldMatrix::getField &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>addToEntry<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/Field::getZero &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>addToEntry<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Object::equals &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>addToEntry<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>addToEntry<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_112'>112</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_112'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addToEntry<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/util/OpenIntToFieldHashMap::remove &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_114'>114</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_114'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addToEntry<br/><b>Killed by : </b>none</span></span> replaced call to org/apache/commons/math3/util/OpenIntToFieldHashMap::put with argument &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addToEntry<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/util/OpenIntToFieldHashMap::put &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_121'>121</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_121'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>copy<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testCopyFunctions(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> removed call to org/apache/commons/math3/linear/SparseFieldMatrix::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>copy<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testCopyFunctions(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> replaced return value with null for org/apache/commons/math3/linear/SparseFieldMatrix::copy &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>copy<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testCopyFunctions(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> mutated return of Object value for org/apache/commons/math3/linear/SparseFieldMatrix::copy to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_127'>127</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_127'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createMatrix<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMultiply2(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> removed call to org/apache/commons/math3/linear/SparseFieldMatrix::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createMatrix<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMultiply2(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> removed call to org/apache/commons/math3/linear/SparseFieldMatrix::getField &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createMatrix<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMultiply2(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> replaced return value with null for org/apache/commons/math3/linear/SparseFieldMatrix::createMatrix &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>createMatrix<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMultiply2(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> mutated return of Object value for org/apache/commons/math3/linear/SparseFieldMatrix::createMatrix to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_133'>133</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_133'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getColumnDimension<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMath209(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> replaced int return with 0 for org/apache/commons/math3/linear/SparseFieldMatrix::getColumnDimension &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getColumnDimension<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMath209(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_139'>139</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_139'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getEntry<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/linear/SparseFieldMatrix::checkRowIndex &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_140'>140</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_140'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getEntry<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/linear/SparseFieldMatrix::checkColumnIndex &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_141'>141</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_141'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getEntry<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMath209(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> replaced call to org/apache/commons/math3/linear/SparseFieldMatrix::computeKey with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getEntry<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMath209(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> removed call to org/apache/commons/math3/linear/SparseFieldMatrix::computeKey &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getEntry<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMath209(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> removed call to org/apache/commons/math3/util/OpenIntToFieldHashMap::get &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getEntry<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMath209(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> replaced return value with null for org/apache/commons/math3/linear/SparseFieldMatrix::getEntry &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>getEntry<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMath209(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> mutated return of Object value for org/apache/commons/math3/linear/SparseFieldMatrix::getEntry to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_147'>147</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_147'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getRowDimension<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMath209(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> replaced int return with 0 for org/apache/commons/math3/linear/SparseFieldMatrix::getRowDimension &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getRowDimension<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMath209(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_153'>153</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_153'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>multiplyEntry<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/linear/SparseFieldMatrix::checkRowIndex &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_154'>154</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_154'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>multiplyEntry<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/linear/SparseFieldMatrix::checkColumnIndex &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_155'>155</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_155'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>multiplyEntry<br/><b>Killed by : </b>none</span></span> replaced call to org/apache/commons/math3/linear/SparseFieldMatrix::computeKey with argument &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>multiplyEntry<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/linear/SparseFieldMatrix::computeKey &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_156'>156</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_156'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>multiplyEntry<br/><b>Killed by : </b>none</span></span> replaced call to org/apache/commons/math3/FieldElement::multiply with argument &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>multiplyEntry<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/util/OpenIntToFieldHashMap::get &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>multiplyEntry<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/FieldElement::multiply &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_157'>157</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_157'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>multiplyEntry<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>multiplyEntry<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/linear/SparseFieldMatrix::getField &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>multiplyEntry<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/Field::getZero &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>multiplyEntry<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Object::equals &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>multiplyEntry<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>multiplyEntry<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_158'>158</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_158'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>multiplyEntry<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/util/OpenIntToFieldHashMap::remove &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_160'>160</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_160'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>multiplyEntry<br/><b>Killed by : </b>none</span></span> replaced call to org/apache/commons/math3/util/OpenIntToFieldHashMap::put with argument &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>multiplyEntry<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/util/OpenIntToFieldHashMap::put &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_168'>168</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_168'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setEntry<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/linear/SparseFieldMatrix::checkRowIndex &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_169'>169</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_169'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setEntry<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/linear/SparseFieldMatrix::checkColumnIndex &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_170'>170</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_170'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setEntry<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMath209(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>setEntry<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMath209(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> removed call to org/apache/commons/math3/linear/SparseFieldMatrix::getField &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>setEntry<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMath209(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> removed call to org/apache/commons/math3/Field::getZero &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>setEntry<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Object::equals &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>setEntry<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>setEntry<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMath209(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_171'>171</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_171'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setEntry<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testOperate(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> replaced call to org/apache/commons/math3/linear/SparseFieldMatrix::computeKey with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>setEntry<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testOperate(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> removed call to org/apache/commons/math3/linear/SparseFieldMatrix::computeKey &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>setEntry<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/util/OpenIntToFieldHashMap::remove &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_173'>173</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_173'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setEntry<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMath209(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> replaced call to org/apache/commons/math3/linear/SparseFieldMatrix::computeKey with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>setEntry<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMath209(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> replaced call to org/apache/commons/math3/util/OpenIntToFieldHashMap::put with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>setEntry<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMath209(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> removed call to org/apache/commons/math3/linear/SparseFieldMatrix::computeKey &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>setEntry<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMath209(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> removed call to org/apache/commons/math3/util/OpenIntToFieldHashMap::put &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7e3d7dd_185'>185</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7e3d7dd_185'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeKey<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMath209(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> Replaced integer multiplication with division &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeKey<br/><b>Killed by : </b>none</span></span> Replaced integer addition with subtraction &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeKey<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMath209(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> replaced int return with 0 for org/apache/commons/math3/linear/SparseFieldMatrix::computeKey &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeKey<br/><b>Killed by : </b>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMath209(org.apache.commons.math3.linear.SparseFieldMatrixTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_61</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_60</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_56</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_55</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_58</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_57</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_52</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_51</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_54</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_53</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_59</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_50</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_45</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_44</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_47</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_46</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_41</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_40</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_43</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_42</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_49</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_48</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_34</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_33</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_36</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_35</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_30</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_32</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_31</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_38</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_37</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_39</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_3</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_2</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_1</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_0</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_23</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_22</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_25</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_9</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_24</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_8</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_7</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_6</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_21</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_5</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_20</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_4</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_27</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_26</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_29</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_28</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_12</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_11</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_99</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_14</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_13</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_96</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_95</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_10</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_98</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_97</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_19</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_16</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_15</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_18</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_17</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_92</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_91</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_94</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_93</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_90</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_89</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_88</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_85</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_84</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_87</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_86</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_81</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_80</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_83</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_82</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_78</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_77</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_79</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_74</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_73</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_76</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_75</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_70</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_72</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_71</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_67</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_66</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_69</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_68</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_63</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_62</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_65</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_64</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.math3.linear.SparseFieldMatrixTest.testSetSubMatrix(org.apache.commons.math3.linear.SparseFieldMatrixTest) (2 ms)</li><li>org.apache.commons.math3.linear.SparseFieldMatrixTest.testPremultiply(org.apache.commons.math3.linear.SparseFieldMatrixTest) (2 ms)</li><li>org.apache.commons.math3.linear.SparseFieldMatrixTest.testScalarAdd(org.apache.commons.math3.linear.SparseFieldMatrixTest) (1 ms)</li><li>org.apache.commons.math3.linear.SparseFieldMatrixTest.testGetRowVector(org.apache.commons.math3.linear.SparseFieldMatrixTest) (2 ms)</li><li>org.apache.commons.math3.linear.SparseFieldMatrixTest.testPlusMinus(org.apache.commons.math3.linear.SparseFieldMatrixTest) (1 ms)</li><li>org.apache.commons.math3.linear.SparseFieldMatrixTest.testDimensions(org.apache.commons.math3.linear.SparseFieldMatrixTest) (3 ms)</li><li>org.apache.commons.math3.linear.SparseFieldMatrixTest.testTrace(org.apache.commons.math3.linear.SparseFieldMatrixTest) (2 ms)</li><li>org.apache.commons.math3.linear.SparseFieldMatrixTest.testPremultiplyVector(org.apache.commons.math3.linear.SparseFieldMatrixTest) (2 ms)</li><li>org.apache.commons.math3.linear.SparseFieldMatrixTest.testAddFail(org.apache.commons.math3.linear.SparseFieldMatrixTest) (6 ms)</li><li>org.apache.commons.math3.linear.SparseFieldMatrixTest.testGetColumnVector(org.apache.commons.math3.linear.SparseFieldMatrixTest) (2 ms)</li><li>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMultiply2(org.apache.commons.math3.linear.SparseFieldMatrixTest) (1 ms)</li><li>org.apache.commons.math3.linear.SparseFieldMatrixTest.testAdd(org.apache.commons.math3.linear.SparseFieldMatrixTest) (24 ms)</li><li>org.apache.commons.math3.linear.SparseFieldMatrixTest.testGetVectors(org.apache.commons.math3.linear.SparseFieldMatrixTest) (2 ms)</li><li>org.apache.commons.math3.linear.SparseFieldMatrixTest.testTranspose(org.apache.commons.math3.linear.SparseFieldMatrixTest) (1 ms)</li><li>org.apache.commons.math3.linear.SparseFieldMatrixTest.testGetEntry(org.apache.commons.math3.linear.SparseFieldMatrixTest) (2 ms)</li><li>org.apache.commons.math3.linear.SparseFieldMatrixTest.testGetRowMatrix(org.apache.commons.math3.linear.SparseFieldMatrixTest) (2 ms)</li><li>org.apache.commons.math3.linear.SparseFieldMatrixTest.testSubMatrix(org.apache.commons.math3.linear.SparseFieldMatrixTest) (3 ms)</li><li>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMath209(org.apache.commons.math3.linear.SparseFieldMatrixTest) (1 ms)</li><li>org.apache.commons.math3.linear.SparseFieldMatrixTest.testOperate(org.apache.commons.math3.linear.SparseFieldMatrixTest) (1 ms)</li><li>org.apache.commons.math3.linear.SparseFieldMatrixTest.testExamples(org.apache.commons.math3.linear.SparseFieldMatrixTest) (14 ms)</li><li>org.apache.commons.math3.linear.SparseFieldMatrixTest.testCopyFunctions(org.apache.commons.math3.linear.SparseFieldMatrixTest) (2 ms)</li><li>org.apache.commons.math3.linear.SparseFieldMatrixTest.testGetColumnMatrix(org.apache.commons.math3.linear.SparseFieldMatrixTest) (6 ms)</li><li>org.apache.commons.math3.linear.SparseFieldMatrixTest.testEqualsAndHashCode(org.apache.commons.math3.linear.SparseFieldMatrixTest) (3 ms)</li><li>org.apache.commons.math3.linear.SparseFieldMatrixTest.testMultiply(org.apache.commons.math3.linear.SparseFieldMatrixTest) (4 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

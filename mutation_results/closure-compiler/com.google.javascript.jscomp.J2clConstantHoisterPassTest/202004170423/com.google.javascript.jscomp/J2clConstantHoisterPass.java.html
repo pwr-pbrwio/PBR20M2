@@ -1,0 +1,3430 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>J2clConstantHoisterPass.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2016 The Closure Compiler Authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.google.javascript.jscomp;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.google.common.base.Preconditions.checkState;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.collect.ArrayListMultimap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.collect.Iterables;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.collect.Multimap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.Node;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Collection;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.HashSet;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Set;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * An optimization pass for J2CL-generated code to hoist some constant assignments out clinit method</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * to declaration phase so they could be used by other optimization passes for static evaluation.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class J2clConstantHoisterPass implements CompilerPass {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final AbstractCompiler compiler;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_36'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  J2clConstantHoisterPass(AbstractCompiler compiler) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_37'/>
+37
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_37'>1</a>
+<span>
+1. <init> : Removed assignment to member variable compiler &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    this.compiler = compiler;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_38'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void process(Node externs, Node root) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_42'/>
+42
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_42'>4</a>
+<span>
+1. process : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. process : negated conditional &rarr; KILLED<br/>
+3. process : removed call to com/google/javascript/jscomp/J2clSourceFileChecker::shouldRunJ2clPasses &rarr; KILLED<br/>
+4. process : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (!J2clSourceFileChecker.shouldRunJ2clPasses(compiler)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_43'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>      return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_46'/>
+46
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_46'>1</a>
+<span>
+1. process : removed call to com/google/common/collect/ArrayListMultimap::create &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    final Multimap&#60;String, Node&#62; fieldAssignments = ArrayListMultimap.create();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_47'/>
+47
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_47'>1</a>
+<span>
+1. process : removed call to java/util/HashSet::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    final Set&#60;Node&#62; hoistableFunctions = new HashSet&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_48'/>
+48
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_48'>1</a>
+<span>
+1. process : removed call to com/google/javascript/jscomp/NodeTraversal::traversePostOrder &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    NodeTraversal.traversePostOrder(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        compiler,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        root,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        (NodeTraversal t, Node node, Node parent) -&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          // TODO(stalcup): don&#39;t gather assignments ourselves, switch to a persistent</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          // DefinitionUseSiteFinder instead.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_54'/>
+54
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_54'>7</a>
+<span>
+1. lambda$process$0 : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. lambda$process$0 : negated conditional &rarr; KILLED<br/>
+3. lambda$process$0 : negated conditional &rarr; KILLED<br/>
+4. lambda$process$0 : removed call to com/google/javascript/jscomp/NodeUtil::isLValue &rarr; KILLED<br/>
+5. lambda$process$0 : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+6. lambda$process$0 : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+7. lambda$process$0 : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>          if (parent != null &#38;&#38; NodeUtil.isLValue(node)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_55'/>
+55
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_55'>2</a>
+<span>
+1. lambda$process$0 : removed call to com/google/javascript/rhino/Node::getQualifiedName &rarr; KILLED<br/>
+2. lambda$process$0 : removed call to com/google/common/collect/Multimap::put &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            fieldAssignments.put(node.getQualifiedName(), parent);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          // TODO(stalcup): convert to a persistent index of hoistable functions.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_59'/>
+59
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_59'>4</a>
+<span>
+1. lambda$process$0 : negated conditional &rarr; KILLED<br/>
+2. lambda$process$0 : removed call to com/google/javascript/jscomp/J2clConstantHoisterPass::isHoistableFunction &rarr; KILLED<br/>
+3. lambda$process$0 : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. lambda$process$0 : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          if (isHoistableFunction(t, node)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_60'/>
+60
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_60'>1</a>
+<span>
+1. lambda$process$0 : removed call to java/util/Set::add &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            hoistableFunctions.add(node);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_62'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        });</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_64'/>
+64
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_64'>2</a>
+<span>
+1. process : removed call to com/google/common/collect/Multimap::asMap &rarr; KILLED<br/>
+2. process : removed call to java/util/Map::values &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    for (Collection&#60;Node&#62; assignments : fieldAssignments.asMap().values()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_65'/>
+65
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_65'>1</a>
+<span>
+1. process : removed call to com/google/javascript/jscomp/J2clConstantHoisterPass::maybeHoistClassField &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      maybeHoistClassField(assignments, hoistableFunctions);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_66'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_67'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Returns whether the specified rValue is a function which does not receive any variables from</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * its containing scope, and is thus &#39;hoistable&#39;.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private static boolean isHoistableFunction(NodeTraversal t, Node node) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // TODO(michaelthomas): This could be improved slightly by not assuming that any variable in the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // outer scope is used in the function.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_76'/>
+76
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_76'>14</a>
+<span>
+1. isHoistableFunction : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. isHoistableFunction : replaced boolean return with false for com/google/javascript/jscomp/J2clConstantHoisterPass::isHoistableFunction &rarr; KILLED<br/>
+3. isHoistableFunction : replaced boolean return with true for com/google/javascript/jscomp/J2clConstantHoisterPass::isHoistableFunction &rarr; KILLED<br/>
+4. isHoistableFunction : Substituted 1 with 0 &rarr; KILLED<br/>
+5. isHoistableFunction : Substituted 0 with 1 &rarr; KILLED<br/>
+6. isHoistableFunction : negated conditional &rarr; KILLED<br/>
+7. isHoistableFunction : negated conditional &rarr; KILLED<br/>
+8. isHoistableFunction : removed call to com/google/javascript/rhino/Node::isFunction &rarr; KILLED<br/>
+9. isHoistableFunction : removed call to com/google/javascript/jscomp/NodeTraversal::getScope &rarr; KILLED<br/>
+10. isHoistableFunction : removed call to com/google/javascript/jscomp/Scope::getVarCount &rarr; KILLED<br/>
+11. isHoistableFunction : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+12. isHoistableFunction : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+13. isHoistableFunction : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+14. isHoistableFunction : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    return node.isFunction() &#38;&#38; t.getScope().getVarCount() == 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private void maybeHoistClassField(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      Collection&#60;Node&#62; assignments, Collection&#60;Node&#62; hoistableFunctions) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // The field is only assigned twice:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_82'/>
+82
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_82'>5</a>
+<span>
+1. maybeHoistClassField : Substituted 2 with 3 &rarr; KILLED<br/>
+2. maybeHoistClassField : negated conditional &rarr; KILLED<br/>
+3. maybeHoistClassField : removed call to java/util/Collection::size &rarr; KILLED<br/>
+4. maybeHoistClassField : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+5. maybeHoistClassField : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (assignments.size() != 2) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_83'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_86'/>
+86
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_86'>2</a>
+<span>
+1. maybeHoistClassField : Substituted 0 with 1 &rarr; KILLED<br/>
+2. maybeHoistClassField : removed call to com/google/common/collect/Iterables::get &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    Node first = Iterables.get(assignments, 0);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_87'/>
+87
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_87'>2</a>
+<span>
+1. maybeHoistClassField : Substituted 1 with 0 &rarr; KILLED<br/>
+2. maybeHoistClassField : removed call to com/google/common/collect/Iterables::get &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    Node second = Iterables.get(assignments, 1);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // One of them is the top level declaration and the other is the assignment in clinit.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_90'/>
+90
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_90'>4</a>
+<span>
+1. maybeHoistClassField : negated conditional &rarr; KILLED<br/>
+2. maybeHoistClassField : removed call to com/google/javascript/jscomp/J2clConstantHoisterPass::isClassFieldDeclaration &rarr; KILLED<br/>
+3. maybeHoistClassField : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. maybeHoistClassField : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    Node topLevelDeclaration = isClassFieldDeclaration(first) ? first : second;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_91'/>
+91
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_91'>4</a>
+<span>
+1. maybeHoistClassField : negated conditional &rarr; KILLED<br/>
+2. maybeHoistClassField : removed call to com/google/javascript/jscomp/J2clConstantHoisterPass::isClinitFieldAssignment &rarr; KILLED<br/>
+3. maybeHoistClassField : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. maybeHoistClassField : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    Node clinitAssignment = isClinitFieldAssignment(first) ? first : second;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_92'/>
+92
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_92'>4</a>
+<span>
+1. maybeHoistClassField : negated conditional &rarr; KILLED<br/>
+2. maybeHoistClassField : removed call to com/google/javascript/jscomp/J2clConstantHoisterPass::isClassFieldDeclaration &rarr; KILLED<br/>
+3. maybeHoistClassField : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. maybeHoistClassField : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (!isClassFieldDeclaration(topLevelDeclaration)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_93'/>
+93
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_93'>4</a>
+<span>
+1. maybeHoistClassField : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. maybeHoistClassField : negated conditional &rarr; KILLED<br/>
+3. maybeHoistClassField : removed call to com/google/javascript/jscomp/J2clConstantHoisterPass::isClinitFieldAssignment &rarr; KILLED<br/>
+4. maybeHoistClassField : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        || !isClinitFieldAssignment(clinitAssignment)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_94'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // And it is assigned to a literal value; hence could be used in static eval and safe to move:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_98'/>
+98
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_98'>2</a>
+<span>
+1. maybeHoistClassField : removed call to com/google/javascript/rhino/Node::getSecondChild &rarr; KILLED<br/>
+2. maybeHoistClassField : replaced call to com/google/javascript/rhino/Node::getSecondChild with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    Node assignmentRhs = clinitAssignment.getSecondChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_99'/>
+99
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_99'>6</a>
+<span>
+1. maybeHoistClassField : replaced call to com/google/javascript/jscomp/NodeUtil::isLiteralValue with argument &rarr; KILLED<br/>
+2. maybeHoistClassField : Substituted 1 with 0 &rarr; KILLED<br/>
+3. maybeHoistClassField : negated conditional &rarr; KILLED<br/>
+4. maybeHoistClassField : removed call to com/google/javascript/jscomp/NodeUtil::isLiteralValue &rarr; KILLED<br/>
+5. maybeHoistClassField : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+6. maybeHoistClassField : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (!NodeUtil.isLiteralValue(assignmentRhs, true /* includeFunctions */)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_100'/>
+100
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_100'>8</a>
+<span>
+1. maybeHoistClassField : negated conditional &rarr; KILLED<br/>
+2. maybeHoistClassField : negated conditional &rarr; KILLED<br/>
+3. maybeHoistClassField : removed call to com/google/javascript/rhino/Node::isFunction &rarr; KILLED<br/>
+4. maybeHoistClassField : removed call to java/util/Collection::contains &rarr; KILLED<br/>
+5. maybeHoistClassField : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+6. maybeHoistClassField : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+7. maybeHoistClassField : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+8. maybeHoistClassField : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        || (assignmentRhs.isFunction() &#38;&#38; !hoistableFunctions.contains(assignmentRhs))) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_101'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // And the assignment are in the same script:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_105'/>
+105
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_105'>2</a>
+<span>
+1. maybeHoistClassField : replaced call to com/google/javascript/jscomp/NodeUtil::getEnclosingScript with argument &rarr; KILLED<br/>
+2. maybeHoistClassField : removed call to com/google/javascript/jscomp/NodeUtil::getEnclosingScript &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (NodeUtil.getEnclosingScript(clinitAssignment)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_106'/>
+106
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_106'>5</a>
+<span>
+1. maybeHoistClassField : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. maybeHoistClassField : replaced call to com/google/javascript/jscomp/NodeUtil::getEnclosingScript with argument &rarr; KILLED<br/>
+3. maybeHoistClassField : negated conditional &rarr; KILLED<br/>
+4. maybeHoistClassField : removed call to com/google/javascript/jscomp/NodeUtil::getEnclosingScript &rarr; KILLED<br/>
+5. maybeHoistClassField : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        != NodeUtil.getEnclosingScript(topLevelDeclaration)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_107'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>      return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // At this point the only case some could observe the declaration value is the when you have</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // cycle between clinits and the field is accessed before initialization; which is almost always</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // a bug and GWT never assumed this state is observable in its optimization, yet nobody</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // complained. So it is safe to upgrade it to a constant.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_114'/>
+114
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_114'>1</a>
+<span>
+1. maybeHoistClassField : removed call to com/google/javascript/jscomp/J2clConstantHoisterPass::hoistConstantLikeField &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    hoistConstantLikeField(clinitAssignment, topLevelDeclaration);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_115'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private void hoistConstantLikeField(Node clinitAssignment, Node topLevelDeclaration) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_118'/>
+118
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_118'>2</a>
+<span>
+1. hoistConstantLikeField : removed call to com/google/javascript/rhino/Node::getSecondChild &rarr; KILLED<br/>
+2. hoistConstantLikeField : replaced call to com/google/javascript/rhino/Node::getSecondChild with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    Node clinitAssignedValue = clinitAssignment.getSecondChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_119'/>
+119
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_119'>2</a>
+<span>
+1. hoistConstantLikeField : removed call to com/google/javascript/rhino/Node::getFirstChild &rarr; KILLED<br/>
+2. hoistConstantLikeField : replaced call to com/google/javascript/rhino/Node::getFirstChild with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    Node declarationInClass = topLevelDeclaration.getFirstChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_120'/>
+120
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_120'>2</a>
+<span>
+1. hoistConstantLikeField : removed call to com/google/javascript/rhino/Node::getFirstChild &rarr; KILLED<br/>
+2. hoistConstantLikeField : replaced call to com/google/javascript/rhino/Node::getFirstChild with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    Node declarationAssignedValue = declarationInClass.getFirstChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_122'/>
+122
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_122'>2</a>
+<span>
+1. hoistConstantLikeField : replaced call to com/google/javascript/jscomp/NodeUtil::getEnclosingChangeScopeRoot with argument &rarr; KILLED<br/>
+2. hoistConstantLikeField : removed call to com/google/javascript/jscomp/NodeUtil::getEnclosingChangeScopeRoot &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    Node clinitChangeScope = NodeUtil.getEnclosingChangeScopeRoot(clinitAssignment);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Remove the clinit initialization</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_124'/>
+124
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_124'>3</a>
+<span>
+1. hoistConstantLikeField : removed call to com/google/javascript/rhino/Node::getParent &rarr; KILLED<br/>
+2. hoistConstantLikeField : removed call to com/google/javascript/jscomp/NodeUtil::removeChild &rarr; KILLED<br/>
+3. hoistConstantLikeField : replaced call to com/google/javascript/rhino/Node::getParent with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    NodeUtil.removeChild(clinitAssignment.getParent(), clinitAssignment);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_127'/>
+127
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_127'>2</a>
+<span>
+1. hoistConstantLikeField : removed call to com/google/javascript/rhino/Node::detach &rarr; KILLED<br/>
+2. hoistConstantLikeField : replaced call to com/google/javascript/rhino/Node::detach with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    clinitAssignedValue.detach();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_128'/>
+128
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_128'>1</a>
+<span>
+1. hoistConstantLikeField : removed call to com/google/javascript/jscomp/AbstractCompiler::reportChangeToChangeScope &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    compiler.reportChangeToChangeScope(clinitChangeScope);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_129'/>
+129
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_129'>3</a>
+<span>
+1. hoistConstantLikeField : negated conditional &rarr; KILLED<br/>
+2. hoistConstantLikeField : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. hoistConstantLikeField : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (declarationAssignedValue == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_130'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // Add the value from clinit to the stub declaration</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_131'/>
+131
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_131'>1</a>
+<span>
+1. hoistConstantLikeField : removed call to com/google/javascript/rhino/Node::addChildToFront &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      declarationInClass.addChildToFront(clinitAssignedValue);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_132'/>
+132
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_132'>1</a>
+<span>
+1. hoistConstantLikeField : removed call to com/google/javascript/jscomp/AbstractCompiler::reportChangeToEnclosingScope &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      compiler.reportChangeToEnclosingScope(topLevelDeclaration);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_133'/>
+133
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_133'>4</a>
+<span>
+1. hoistConstantLikeField : removed call to java/lang/Object::equals &rarr; SURVIVED<br/>
+2. hoistConstantLikeField : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+3. hoistConstantLikeField : negated conditional &rarr; KILLED<br/>
+4. hoistConstantLikeField : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    } else if (!declarationAssignedValue.equals(clinitAssignedValue)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_134'/>
+134
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_134'>4</a>
+<span>
+1. hoistConstantLikeField : Substituted 0 with 1 &rarr; SURVIVED<br/>
+2. hoistConstantLikeField : removed call to com/google/common/base/Preconditions::checkState &rarr; SURVIVED<br/>
+3. hoistConstantLikeField : replaced call to com/google/javascript/jscomp/NodeUtil::isLiteralValue with argument &rarr; KILLED<br/>
+4. hoistConstantLikeField : removed call to com/google/javascript/jscomp/NodeUtil::isLiteralValue &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      checkState(NodeUtil.isLiteralValue(declarationAssignedValue, false /* includeFunctions */));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_135'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // Replace the assignment in declaration with the value from clinit</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_136'/>
+136
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_136'>1</a>
+<span>
+1. hoistConstantLikeField : removed call to com/google/javascript/rhino/Node::replaceChild &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      declarationInClass.replaceChild(declarationAssignedValue, clinitAssignedValue);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_137'/>
+137
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_137'>1</a>
+<span>
+1. hoistConstantLikeField : removed call to com/google/javascript/jscomp/AbstractCompiler::reportChangeToEnclosingScope &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      compiler.reportChangeToEnclosingScope(topLevelDeclaration);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_138'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_139'/>
+139
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_139'>2</a>
+<span>
+1. hoistConstantLikeField : Substituted 1 with 0 &rarr; SURVIVED<br/>
+2. hoistConstantLikeField : removed call to com/google/javascript/rhino/Node::setDeclaredConstantVar &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    declarationInClass.setDeclaredConstantVar(true);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_140'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Matches literal value declarations {@code var foo = 3;} or stub declarations like</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * {@code var bar;}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private static boolean isClassFieldDeclaration(Node node) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_147'/>
+147
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_147'>9</a>
+<span>
+1. isClassFieldDeclaration : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. isClassFieldDeclaration : replaced boolean return with false for com/google/javascript/jscomp/J2clConstantHoisterPass::isClassFieldDeclaration &rarr; KILLED<br/>
+3. isClassFieldDeclaration : replaced boolean return with true for com/google/javascript/jscomp/J2clConstantHoisterPass::isClassFieldDeclaration &rarr; KILLED<br/>
+4. isClassFieldDeclaration : negated conditional &rarr; KILLED<br/>
+5. isClassFieldDeclaration : removed call to com/google/javascript/rhino/Node::getParent &rarr; KILLED<br/>
+6. isClassFieldDeclaration : removed call to com/google/javascript/rhino/Node::isScript &rarr; KILLED<br/>
+7. isClassFieldDeclaration : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+8. isClassFieldDeclaration : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+9. isClassFieldDeclaration : replaced call to com/google/javascript/rhino/Node::getParent with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    return node.getParent().isScript()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_148'/>
+148
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_148'>4</a>
+<span>
+1. isClassFieldDeclaration : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. isClassFieldDeclaration : negated conditional &rarr; KILLED<br/>
+3. isClassFieldDeclaration : removed call to com/google/javascript/rhino/Node::isVar &rarr; KILLED<br/>
+4. isClassFieldDeclaration : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        &#38;&#38; node.isVar()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_149'/>
+149
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_149'>6</a>
+<span>
+1. isClassFieldDeclaration : negated conditional &rarr; KILLED<br/>
+2. isClassFieldDeclaration : removed call to com/google/javascript/rhino/Node::getFirstChild &rarr; KILLED<br/>
+3. isClassFieldDeclaration : removed call to com/google/javascript/rhino/Node::hasChildren &rarr; KILLED<br/>
+4. isClassFieldDeclaration : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+5. isClassFieldDeclaration : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+6. isClassFieldDeclaration : replaced call to com/google/javascript/rhino/Node::getFirstChild with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        &#38;&#38; (!node.getFirstChild().hasChildren()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_150'/>
+150
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_150'>5</a>
+<span>
+1. isClassFieldDeclaration : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. isClassFieldDeclaration : replaced call to com/google/javascript/rhino/Node::getFirstFirstChild with receiver &rarr; SURVIVED<br/>
+3. isClassFieldDeclaration : negated conditional &rarr; KILLED<br/>
+4. isClassFieldDeclaration : removed call to com/google/javascript/rhino/Node::getFirstFirstChild &rarr; KILLED<br/>
+5. isClassFieldDeclaration : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            || (node.getFirstFirstChild() != null</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_151'/>
+151
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_151'>7</a>
+<span>
+1. isClassFieldDeclaration : replaced call to com/google/javascript/jscomp/NodeUtil::isLiteralValue with argument &rarr; KILLED<br/>
+2. isClassFieldDeclaration : Substituted 1 with 0 &rarr; KILLED<br/>
+3. isClassFieldDeclaration : Substituted 0 with 1 &rarr; KILLED<br/>
+4. isClassFieldDeclaration : negated conditional &rarr; KILLED<br/>
+5. isClassFieldDeclaration : removed call to com/google/javascript/jscomp/NodeUtil::isLiteralValue &rarr; KILLED<br/>
+6. isClassFieldDeclaration : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+7. isClassFieldDeclaration : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                &#38;&#38; NodeUtil.isLiteralValue(</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_152'/>
+152
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_152'>3</a>
+<span>
+1. isClassFieldDeclaration : Substituted 0 with 1 &rarr; KILLED<br/>
+2. isClassFieldDeclaration : removed call to com/google/javascript/rhino/Node::getFirstFirstChild &rarr; KILLED<br/>
+3. isClassFieldDeclaration : replaced call to com/google/javascript/rhino/Node::getFirstFirstChild with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    node.getFirstFirstChild(), false /* includeFunctions */)));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private static boolean isClinitFieldAssignment(Node node) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_156'/>
+156
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_156'>9</a>
+<span>
+1. isClinitFieldAssignment : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. isClinitFieldAssignment : replaced boolean return with false for com/google/javascript/jscomp/J2clConstantHoisterPass::isClinitFieldAssignment &rarr; KILLED<br/>
+3. isClinitFieldAssignment : replaced boolean return with true for com/google/javascript/jscomp/J2clConstantHoisterPass::isClinitFieldAssignment &rarr; KILLED<br/>
+4. isClinitFieldAssignment : negated conditional &rarr; KILLED<br/>
+5. isClinitFieldAssignment : removed call to com/google/javascript/rhino/Node::getParent &rarr; KILLED<br/>
+6. isClinitFieldAssignment : removed call to com/google/javascript/rhino/Node::isExprResult &rarr; KILLED<br/>
+7. isClinitFieldAssignment : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+8. isClinitFieldAssignment : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+9. isClinitFieldAssignment : replaced call to com/google/javascript/rhino/Node::getParent with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    return node.getParent().isExprResult()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_157'/>
+157
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_157'>6</a>
+<span>
+1. isClinitFieldAssignment : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. isClinitFieldAssignment : negated conditional &rarr; KILLED<br/>
+3. isClinitFieldAssignment : removed call to com/google/javascript/rhino/Node::getGrandparent &rarr; KILLED<br/>
+4. isClinitFieldAssignment : removed call to com/google/javascript/rhino/Node::isBlock &rarr; KILLED<br/>
+5. isClinitFieldAssignment : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+6. isClinitFieldAssignment : replaced call to com/google/javascript/rhino/Node::getGrandparent with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        &#38;&#38; node.getGrandparent().isBlock()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_158'/>
+158
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_158'>10</a>
+<span>
+1. isClinitFieldAssignment : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. isClinitFieldAssignment : Substituted 1 with 0 &rarr; KILLED<br/>
+3. isClinitFieldAssignment : Substituted 0 with 1 &rarr; KILLED<br/>
+4. isClinitFieldAssignment : negated conditional &rarr; KILLED<br/>
+5. isClinitFieldAssignment : removed call to com/google/javascript/rhino/Node::getGrandparent &rarr; KILLED<br/>
+6. isClinitFieldAssignment : removed call to com/google/javascript/rhino/Node::getParent &rarr; KILLED<br/>
+7. isClinitFieldAssignment : removed call to com/google/javascript/jscomp/J2clConstantHoisterPass::isClinitMethod &rarr; KILLED<br/>
+8. isClinitFieldAssignment : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+9. isClinitFieldAssignment : replaced call to com/google/javascript/rhino/Node::getGrandparent with receiver &rarr; KILLED<br/>
+10. isClinitFieldAssignment : replaced call to com/google/javascript/rhino/Node::getParent with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        &#38;&#38; isClinitMethod(node.getGrandparent().getParent());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  // TODO(goktug): Create a utility to share this logic and start using getQualifiedOriginalName.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private static boolean isClinitMethod(Node fnNode) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_163'/>
+163
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_163'>4</a>
+<span>
+1. isClinitMethod : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. isClinitMethod : negated conditional &rarr; KILLED<br/>
+3. isClinitMethod : removed call to com/google/javascript/rhino/Node::isFunction &rarr; KILLED<br/>
+4. isClinitMethod : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (!fnNode.isFunction()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_164'/>
+164
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_164'>3</a>
+<span>
+1. isClinitMethod : replaced boolean return with true for com/google/javascript/jscomp/J2clConstantHoisterPass::isClinitMethod &rarr; NO_COVERAGE<br/>
+2. isClinitMethod : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+3. isClinitMethod : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_166'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_167'/>
+167
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_167'>1</a>
+<span>
+1. isClinitMethod : removed call to com/google/javascript/jscomp/NodeUtil::getName &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    String fnName = NodeUtil.getName(fnNode);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_168'/>
+168
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_168'>12</a>
+<span>
+1. isClinitMethod : replaced boolean return with true for com/google/javascript/jscomp/J2clConstantHoisterPass::isClinitMethod &rarr; SURVIVED<br/>
+2. isClinitMethod : Substituted 0 with 1 &rarr; SURVIVED<br/>
+3. isClinitMethod : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+4. isClinitMethod : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+5. isClinitMethod : replaced boolean return with false for com/google/javascript/jscomp/J2clConstantHoisterPass::isClinitMethod &rarr; KILLED<br/>
+6. isClinitMethod : Substituted 1 with 0 &rarr; KILLED<br/>
+7. isClinitMethod : negated conditional &rarr; KILLED<br/>
+8. isClinitMethod : negated conditional &rarr; KILLED<br/>
+9. isClinitMethod : removed call to com/google/javascript/jscomp/J2clConstantHoisterPass::isClinitMethodName &rarr; KILLED<br/>
+10. isClinitMethod : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+11. isClinitMethod : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+12. isClinitMethod : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    return fnName != null &#38;&#38; isClinitMethodName(fnName);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_171'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private static boolean isClinitMethodName(String methodName) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_172'/>
+172
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_172'>6</a>
+<span>
+1. isClinitMethodName : replaced boolean return with true for com/google/javascript/jscomp/J2clConstantHoisterPass::isClinitMethodName &rarr; SURVIVED<br/>
+2. isClinitMethodName : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+3. isClinitMethodName : replaced boolean return with false for com/google/javascript/jscomp/J2clConstantHoisterPass::isClinitMethodName &rarr; KILLED<br/>
+4. isClinitMethodName : negated conditional &rarr; KILLED<br/>
+5. isClinitMethodName : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+6. isClinitMethodName : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    return methodName != null</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_173'/>
+173
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_173'>10</a>
+<span>
+1. isClinitMethodName : Substituted 0 with 1 &rarr; SURVIVED<br/>
+2. isClinitMethodName : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+3. isClinitMethodName : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+4. isClinitMethodName : Substituted 1 with 0 &rarr; KILLED<br/>
+5. isClinitMethodName : negated conditional &rarr; KILLED<br/>
+6. isClinitMethodName : negated conditional &rarr; KILLED<br/>
+7. isClinitMethodName : removed call to java/lang/String::endsWith &rarr; KILLED<br/>
+8. isClinitMethodName : removed call to java/lang/String::endsWith &rarr; KILLED<br/>
+9. isClinitMethodName : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+10. isClinitMethodName : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        &#38;&#38; (methodName.endsWith(&#34;$$0clinit&#34;) || methodName.endsWith(&#34;.$clinit&#34;));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_174'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_175'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_37'>37</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_37'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> Removed assignment to member variable compiler &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_42'>42</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_42'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/jscomp/J2clSourceFileChecker::shouldRunJ2clPasses &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>process<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_46'>46</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_46'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/common/collect/ArrayListMultimap::create &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_47'>47</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_47'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to java/util/HashSet::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_48'>48</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_48'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/jscomp/NodeTraversal::traversePostOrder &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_54'>54</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_54'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$process$0<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$process$0<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$process$0<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/jscomp/NodeUtil::isLValue &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$process$0<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$process$0<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lambda$process$0<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>lambda$process$0<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_stubInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_55'>55</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_55'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$process$0<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/rhino/Node::getQualifiedName &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$process$0<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/common/collect/Multimap::put &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_59'>59</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_59'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$process$0<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_stubInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$process$0<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_stubInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/jscomp/J2clConstantHoisterPass::isHoistableFunction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$process$0<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_stubInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$process$0<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_avoidUnsafeFunc(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_60'>60</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_60'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$process$0<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_stubInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to java/util/Set::add &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_64'>64</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_64'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/common/collect/Multimap::asMap &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to java/util/Map::values &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_65'>65</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_65'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/jscomp/J2clConstantHoisterPass::maybeHoistClassField &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_76'>76</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_76'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isHoistableFunction<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_stubInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced boolean return with false for com/google/javascript/jscomp/J2clConstantHoisterPass::isHoistableFunction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isHoistableFunction<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_avoidUnsafeFunc(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced boolean return with true for com/google/javascript/jscomp/J2clConstantHoisterPass::isHoistableFunction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isHoistableFunction<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_stubInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isHoistableFunction<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_avoidUnsafeFunc(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isHoistableFunction<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_stubInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isHoistableFunction<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_stubInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isHoistableFunction<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_stubInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/rhino/Node::isFunction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isHoistableFunction<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/jscomp/NodeTraversal::getScope &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>isHoistableFunction<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_avoidUnsafeFunc(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/jscomp/Scope::getVarCount &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>isHoistableFunction<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_stubInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>isHoistableFunction<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_stubInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>isHoistableFunction<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>isHoistableFunction<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_avoidUnsafeFunc(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>isHoistableFunction<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_stubInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_82'>82</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_82'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> Substituted 2 with 3 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to java/util/Collection::size &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_86'>86</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_86'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/common/collect/Iterables::get &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_87'>87</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_87'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/common/collect/Iterables::get &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_90'>90</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_90'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_assignmentAfterInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/jscomp/J2clConstantHoisterPass::isClassFieldDeclaration &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_assignmentAfterInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_91'>91</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_91'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/jscomp/J2clConstantHoisterPass::isClinitFieldAssignment &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_assignmentAfterInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_92'>92</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_92'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/jscomp/J2clConstantHoisterPass::isClassFieldDeclaration &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_93'>93</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_93'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/jscomp/J2clConstantHoisterPass::isClinitFieldAssignment &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_98'>98</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_98'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/rhino/Node::getSecondChild &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced call to com/google/javascript/rhino/Node::getSecondChild with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_99'>99</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_99'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced call to com/google/javascript/jscomp/NodeUtil::isLiteralValue with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_stubInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/jscomp/NodeUtil::isLiteralValue &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_100'>100</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_100'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_stubInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_avoidUnsafeFunc(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/rhino/Node::isFunction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_stubInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to java/util/Collection::contains &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_avoidUnsafeFunc(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_avoidUnsafeFunc(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_stubInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_105'>105</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_105'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced call to com/google/javascript/jscomp/NodeUtil::getEnclosingScript with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/jscomp/NodeUtil::getEnclosingScript &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_106'>106</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_106'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced call to com/google/javascript/jscomp/NodeUtil::getEnclosingScript with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/jscomp/NodeUtil::getEnclosingScript &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_114'>114</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_114'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>maybeHoistClassField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/jscomp/J2clConstantHoisterPass::hoistConstantLikeField &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_118'>118</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_118'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/rhino/Node::getSecondChild &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced call to com/google/javascript/rhino/Node::getSecondChild with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_119'>119</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_119'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/rhino/Node::getFirstChild &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced call to com/google/javascript/rhino/Node::getFirstChild with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_120'>120</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_120'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/rhino/Node::getFirstChild &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced call to com/google/javascript/rhino/Node::getFirstChild with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_122'>122</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_122'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced call to com/google/javascript/jscomp/NodeUtil::getEnclosingChangeScopeRoot with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/jscomp/NodeUtil::getEnclosingChangeScopeRoot &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_124'>124</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_124'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/rhino/Node::getParent &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/jscomp/NodeUtil::removeChild &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced call to com/google/javascript/rhino/Node::getParent with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_127'>127</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_127'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/rhino/Node::detach &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced call to com/google/javascript/rhino/Node::detach with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_128'>128</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_128'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/jscomp/AbstractCompiler::reportChangeToChangeScope &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_129'>129</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_129'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_stubInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_131'>131</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_131'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_stubInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/rhino/Node::addChildToFront &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_132'>132</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_132'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/AbstractCompiler::reportChangeToEnclosingScope &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_133'>133</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_133'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Object::equals &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_134'>134</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_134'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced call to com/google/javascript/jscomp/NodeUtil::isLiteralValue with argument &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/jscomp/NodeUtil::isLiteralValue &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/base/Preconditions::checkState &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_136'>136</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_136'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/rhino/Node::replaceChild &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_137'>137</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_137'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/jscomp/AbstractCompiler::reportChangeToEnclosingScope &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_139'>139</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_139'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hoistConstantLikeField<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/rhino/Node::setDeclaredConstantVar &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_147'>147</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_147'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced boolean return with false for com/google/javascript/jscomp/J2clConstantHoisterPass::isClassFieldDeclaration &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced boolean return with true for com/google/javascript/jscomp/J2clConstantHoisterPass::isClassFieldDeclaration &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/rhino/Node::getParent &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/rhino/Node::isScript &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced call to com/google/javascript/rhino/Node::getParent with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_148'>148</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_148'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/rhino/Node::isVar &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_149'>149</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_149'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/rhino/Node::getFirstChild &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/rhino/Node::hasChildren &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_stubInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_stubInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced call to com/google/javascript/rhino/Node::getFirstChild with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_150'>150</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_150'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/rhino/Node::getFirstFirstChild &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>none</span></span> replaced call to com/google/javascript/rhino/Node::getFirstFirstChild with receiver &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_151'>151</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_151'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced call to com/google/javascript/jscomp/NodeUtil::isLiteralValue with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/jscomp/NodeUtil::isLiteralValue &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_152'>152</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_152'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/rhino/Node::getFirstFirstChild &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isClassFieldDeclaration<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced call to com/google/javascript/rhino/Node::getFirstFirstChild with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_156'>156</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_156'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isClinitFieldAssignment<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced boolean return with false for com/google/javascript/jscomp/J2clConstantHoisterPass::isClinitFieldAssignment &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isClinitFieldAssignment<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_assignmentAfterInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced boolean return with true for com/google/javascript/jscomp/J2clConstantHoisterPass::isClinitFieldAssignment &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isClinitFieldAssignment<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isClinitFieldAssignment<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/rhino/Node::getParent &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isClinitFieldAssignment<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/rhino/Node::isExprResult &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isClinitFieldAssignment<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isClinitFieldAssignment<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isClinitFieldAssignment<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>isClinitFieldAssignment<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced call to com/google/javascript/rhino/Node::getParent with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_157'>157</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_157'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isClinitFieldAssignment<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isClinitFieldAssignment<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/rhino/Node::getGrandparent &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isClinitFieldAssignment<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/rhino/Node::isBlock &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isClinitFieldAssignment<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isClinitFieldAssignment<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isClinitFieldAssignment<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced call to com/google/javascript/rhino/Node::getGrandparent with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_158'>158</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_158'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isClinitFieldAssignment<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isClinitFieldAssignment<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_assignmentAfterInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isClinitFieldAssignment<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isClinitFieldAssignment<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/rhino/Node::getGrandparent &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isClinitFieldAssignment<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/rhino/Node::getParent &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isClinitFieldAssignment<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/jscomp/J2clConstantHoisterPass::isClinitMethod &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isClinitFieldAssignment<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isClinitFieldAssignment<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>isClinitFieldAssignment<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced call to com/google/javascript/rhino/Node::getGrandparent with receiver &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>isClinitFieldAssignment<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced call to com/google/javascript/rhino/Node::getParent with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_163'>163</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_163'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isClinitMethod<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isClinitMethod<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/rhino/Node::isFunction &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isClinitMethod<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isClinitMethod<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_164'>164</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_164'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isClinitMethod<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for com/google/javascript/jscomp/J2clConstantHoisterPass::isClinitMethod &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isClinitMethod<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isClinitMethod<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_167'>167</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_167'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isClinitMethod<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/jscomp/NodeUtil::getName &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_168'>168</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_168'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isClinitMethod<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced boolean return with false for com/google/javascript/jscomp/J2clConstantHoisterPass::isClinitMethod &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isClinitMethod<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for com/google/javascript/jscomp/J2clConstantHoisterPass::isClinitMethod &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isClinitMethod<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isClinitMethod<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isClinitMethod<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isClinitMethod<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isClinitMethod<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to com/google/javascript/jscomp/J2clConstantHoisterPass::isClinitMethodName &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isClinitMethod<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>isClinitMethod<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>isClinitMethod<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>isClinitMethod<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>isClinitMethod<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_172'>172</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_172'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isClinitMethodName<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced boolean return with false for com/google/javascript/jscomp/J2clConstantHoisterPass::isClinitMethodName &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isClinitMethodName<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for com/google/javascript/jscomp/J2clConstantHoisterPass::isClinitMethodName &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isClinitMethodName<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isClinitMethodName<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isClinitMethodName<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isClinitMethodName<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@22ab1b8a_173'>173</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@22ab1b8a_173'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isClinitMethodName<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isClinitMethodName<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isClinitMethodName<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isClinitMethodName<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_stubInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isClinitMethodName<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to java/lang/String::endsWith &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isClinitMethodName<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_stubInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed call to java/lang/String::endsWith &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isClinitMethodName<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isClinitMethodName<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_stubInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>isClinitMethodName<br/><b>Killed by : </b>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>isClinitMethodName<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_61</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_60</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_56</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_55</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_58</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_57</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_52</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_51</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_54</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_53</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_59</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_50</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_45</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_44</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_47</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_46</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_41</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_40</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_43</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_42</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_49</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_48</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_34</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_33</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_36</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_35</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_30</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_32</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_31</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_38</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_37</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_39</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_3</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_2</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_1</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_0</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_23</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_22</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_25</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_9</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_24</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_8</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_7</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_6</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_21</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_5</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_20</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_4</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_27</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_26</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_29</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_28</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_12</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_11</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_99</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_14</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_13</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_96</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_95</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_10</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_98</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_97</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_19</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_16</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_15</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_18</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_17</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_92</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_91</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_94</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_93</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_90</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_89</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_88</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_85</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_84</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_87</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_86</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_81</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_80</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_83</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_82</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_78</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_77</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_79</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_74</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_73</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_76</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_75</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_70</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_72</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_71</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_67</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_66</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_69</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_68</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_63</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_62</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_65</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_64</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_assignmentAfterInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest) (17 ms)</li><li>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_avoidUnsafe(com.google.javascript.jscomp.J2clConstantHoisterPassTest) (18 ms)</li><li>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_stubInit(com.google.javascript.jscomp.J2clConstantHoisterPassTest) (12 ms)</li><li>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_devirtualized(com.google.javascript.jscomp.J2clConstantHoisterPassTest) (12 ms)</li><li>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments(com.google.javascript.jscomp.J2clConstantHoisterPassTest) (419 ms)</li><li>com.google.javascript.jscomp.J2clConstantHoisterPassTest.testHoistClinitConstantAssignments_avoidUnsafeFunc(com.google.javascript.jscomp.J2clConstantHoisterPassTest) (20 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

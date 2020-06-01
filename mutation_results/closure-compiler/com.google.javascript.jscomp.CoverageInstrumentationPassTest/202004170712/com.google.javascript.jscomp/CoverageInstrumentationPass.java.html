@@ -1,0 +1,2658 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>CoverageInstrumentationPass.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2009 The Closure Compiler Authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.google.javascript.jscomp;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.google.common.base.Preconditions.checkState;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.annotations.GwtIncompatible;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.IR;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.Node;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.LinkedHashMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Map;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * This code implements the instrumentation pass over the AST</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (returned by JSCompiler).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>@GwtIncompatible(&#34;FileInstrumentationData&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>class CoverageInstrumentationPass implements CompilerPass {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  final AbstractCompiler compiler;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final Map&#60;String, FileInstrumentationData&#62; instrumentationData;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final CoverageReach reach;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final InstrumentOption instrumentOption;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public enum InstrumentOption {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    LINE_ONLY,  // Collect coverage for every executable statement.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    BRANCH_ONLY  // Collect coverage for control-flow branches.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public static final String JS_INSTRUMENTATION_OBJECT_NAME = &#34;__jscov&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public enum CoverageReach {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    ALL,         // Instrument all statements.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    CONDITIONAL  // Do not instrument global statements.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param compiler the compiler which generates the AST.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public CoverageInstrumentationPass(</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_56'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      AbstractCompiler compiler, CoverageReach reach, InstrumentOption instrumentOption) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_57'/>
+57
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_57'>1</a>
+<span>
+1. <init> : Removed assignment to member variable compiler &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    this.compiler = compiler;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_58'/>
+58
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_58'>1</a>
+<span>
+1. <init> : Removed assignment to member variable reach &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    this.reach = reach;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_59'/>
+59
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_59'>1</a>
+<span>
+1. <init> : Removed assignment to member variable instrumentOption &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    this.instrumentOption = instrumentOption;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_60'/>
+60
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_60'>2</a>
+<span>
+1. <init> : removed call to java/util/LinkedHashMap::&#60;init&#62; &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable instrumentationData &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    instrumentationData = new LinkedHashMap&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_61'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public CoverageInstrumentationPass(AbstractCompiler compiler, CoverageReach reach) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_64'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    this(compiler, reach, InstrumentOption.LINE_ONLY);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_65'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Creates the js code to be added to source. This code declares and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * initializes the variables required for collection of coverage data.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private void addHeaderCode(Node script) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_72'/>
+72
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_72'>3</a>
+<span>
+1. addHeaderCode : replaced call to com/google/javascript/jscomp/CoverageInstrumentationPass::createConditionalObjectDecl with argument &rarr; KILLED<br/>
+2. addHeaderCode : removed call to com/google/javascript/jscomp/CoverageInstrumentationPass::createConditionalObjectDecl &rarr; KILLED<br/>
+3. addHeaderCode : removed call to com/google/javascript/rhino/Node::addChildToFront &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    script.addChildToFront(createConditionalObjectDecl(JS_INSTRUMENTATION_OBJECT_NAME, script));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Make subsequent usages of &#34;window&#34; and &#34;window.top&#34; work in a Web Worker context.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_75'/>
+75
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_75'>1</a>
+<span>
+1. addHeaderCode : removed call to com/google/javascript/rhino/Node::addChildToFront &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    script.addChildToFront(</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_76'/>
+76
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_76'>1</a>
+<span>
+1. addHeaderCode : removed call to com/google/javascript/jscomp/AbstractCompiler::parseSyntheticCode &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        compiler.parseSyntheticCode(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            &#34;if (!self.window) { self.window = self; self.window.top = self; }&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_78'/>
+78
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_78'>2</a>
+<span>
+1. addHeaderCode : removed call to com/google/javascript/rhino/Node::removeFirstChild &rarr; KILLED<br/>
+2. addHeaderCode : replaced call to com/google/javascript/rhino/Node::removeFirstChild with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        .removeFirstChild()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_79'/>
+79
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_79'>3</a>
+<span>
+1. addHeaderCode : replaced call to com/google/javascript/rhino/Node::useSourceInfoIfMissingFromForTree with receiver &rarr; SURVIVED<br/>
+2. addHeaderCode : replaced call to com/google/javascript/rhino/Node::useSourceInfoIfMissingFromForTree with argument &rarr; KILLED<br/>
+3. addHeaderCode : removed call to com/google/javascript/rhino/Node::useSourceInfoIfMissingFromForTree &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        .useSourceInfoIfMissingFromForTree(script));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_80'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void process(Node externsNode, Node rootNode) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_84'/>
+84
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_84'>4</a>
+<span>
+1. process : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. process : negated conditional &rarr; KILLED<br/>
+3. process : removed call to com/google/javascript/rhino/Node::hasChildren &rarr; KILLED<br/>
+4. process : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (rootNode.hasChildren()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_85'/>
+85
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_85'>3</a>
+<span>
+1. process : negated conditional &rarr; KILLED<br/>
+2. process : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. process : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (instrumentOption == InstrumentOption.BRANCH_ONLY) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_86'/>
+86
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_86'>2</a>
+<span>
+1. process : removed call to com/google/javascript/jscomp/BranchCoverageInstrumentationCallback::&#60;init&#62; &rarr; KILLED<br/>
+2. process : removed call to com/google/javascript/jscomp/NodeTraversal::traverse &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        NodeTraversal.traverse(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            compiler,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            rootNode,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            new BranchCoverageInstrumentationCallback(compiler, instrumentationData));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_91'/>
+91
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_91'>2</a>
+<span>
+1. process : removed call to com/google/javascript/jscomp/CoverageInstrumentationCallback::&#60;init&#62; &rarr; KILLED<br/>
+2. process : removed call to com/google/javascript/jscomp/NodeTraversal::traverse &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        NodeTraversal.traverse(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            compiler, rootNode, new CoverageInstrumentationCallback(instrumentationData, reach));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_94'/>
+94
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_94'>2</a>
+<span>
+1. process : removed call to com/google/javascript/rhino/Node::getFirstChild &rarr; KILLED<br/>
+2. process : replaced call to com/google/javascript/rhino/Node::getFirstChild with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      Node firstScript = rootNode.getFirstChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_95'/>
+95
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_95'>2</a>
+<span>
+1. process : removed call to com/google/common/base/Preconditions::checkState &rarr; SURVIVED<br/>
+2. process : removed call to com/google/javascript/rhino/Node::isScript &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      checkState(firstScript.isScript());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // If any passes run after we need to preserve the MODULE_BODY structure of scripts - we can&#39;t</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // just add to a script if it is a module.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_98'/>
+98
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_98'>10</a>
+<span>
+1. process : negated conditional &rarr; SURVIVED<br/>
+2. process : removed call to com/google/javascript/rhino/Node::hasChildren &rarr; SURVIVED<br/>
+3. process : removed call to com/google/javascript/rhino/Node::isModuleBody &rarr; SURVIVED<br/>
+4. process : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+5. process : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+6. process : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+7. process : replaced call to com/google/javascript/rhino/Node::getFirstChild with receiver &rarr; SURVIVED<br/>
+8. process : negated conditional &rarr; KILLED<br/>
+9. process : removed call to com/google/javascript/rhino/Node::getFirstChild &rarr; KILLED<br/>
+10. process : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      if (firstScript.hasChildren() &#38;&#38; firstScript.getFirstChild().isModuleBody()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_99'/>
+99
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_99'>2</a>
+<span>
+1. process : replaced call to com/google/javascript/rhino/Node::getFirstChild with receiver &rarr; SURVIVED<br/>
+2. process : removed call to com/google/javascript/rhino/Node::getFirstChild &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        firstScript = firstScript.getFirstChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_101'/>
+101
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_101'>1</a>
+<span>
+1. process : removed call to com/google/javascript/jscomp/CoverageInstrumentationPass::addHeaderCode &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      addHeaderCode(firstScript);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_103'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private Node createConditionalObjectDecl(String name, Node srcref) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Make sure to quote properties so they are not renamed.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    Node jscovData;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_108'/>
+108
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_108'>4</a>
+<span>
+1. createConditionalObjectDecl : removed call to com/google/javascript/jscomp/CoverageInstrumentationPass$InstrumentOption::ordinal &rarr; KILLED<br/>
+2. createConditionalObjectDecl : RemoveSwitch 0 mutation &rarr; KILLED<br/>
+3. createConditionalObjectDecl : RemoveSwitch 1 mutation &rarr; KILLED<br/>
+4. createConditionalObjectDecl : Switch mutation &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    switch (instrumentOption) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case BRANCH_ONLY:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_110'/>
+110
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_110'>3</a>
+<span>
+1. createConditionalObjectDecl : Substituted 4 with 5 &rarr; KILLED<br/>
+2. createConditionalObjectDecl : Substituted 0 with 1 &rarr; KILLED<br/>
+3. createConditionalObjectDecl : Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        jscovData =</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_111'/>
+111
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_111'>1</a>
+<span>
+1. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::objectlit &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            IR.objectlit(</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_112'/>
+112
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_112'>5</a>
+<span>
+1. createConditionalObjectDecl : replaced call to com/google/javascript/rhino/IR::quotedStringKey with argument &rarr; KILLED<br/>
+2. createConditionalObjectDecl : Substituted 1 with 0 &rarr; KILLED<br/>
+3. createConditionalObjectDecl : Substituted 0 with 1 &rarr; KILLED<br/>
+4. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::arraylit &rarr; KILLED<br/>
+5. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::quotedStringKey &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                IR.quotedStringKey(&#34;fileNames&#34;, IR.arraylit()),</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_113'/>
+113
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_113'>5</a>
+<span>
+1. createConditionalObjectDecl : replaced call to com/google/javascript/rhino/IR::quotedStringKey with argument &rarr; KILLED<br/>
+2. createConditionalObjectDecl : Substituted 2 with 3 &rarr; KILLED<br/>
+3. createConditionalObjectDecl : Substituted 0 with 1 &rarr; KILLED<br/>
+4. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::arraylit &rarr; KILLED<br/>
+5. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::quotedStringKey &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                IR.quotedStringKey(&#34;branchPresent&#34;, IR.arraylit()),</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_114'/>
+114
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_114'>5</a>
+<span>
+1. createConditionalObjectDecl : replaced call to com/google/javascript/rhino/IR::quotedStringKey with argument &rarr; KILLED<br/>
+2. createConditionalObjectDecl : Substituted 3 with 4 &rarr; KILLED<br/>
+3. createConditionalObjectDecl : Substituted 0 with 1 &rarr; KILLED<br/>
+4. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::arraylit &rarr; KILLED<br/>
+5. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::quotedStringKey &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                IR.quotedStringKey(&#34;branchesInLine&#34;, IR.arraylit()),</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_115'/>
+115
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_115'>3</a>
+<span>
+1. createConditionalObjectDecl : replaced call to com/google/javascript/rhino/IR::quotedStringKey with argument &rarr; KILLED<br/>
+2. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::arraylit &rarr; KILLED<br/>
+3. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::quotedStringKey &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                IR.quotedStringKey(&#34;branchesTaken&#34;, IR.arraylit()));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_116'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      case LINE_ONLY:</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_118'/>
+118
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_118'>3</a>
+<span>
+1. createConditionalObjectDecl : Substituted 3 with 4 &rarr; KILLED<br/>
+2. createConditionalObjectDecl : Substituted 0 with 1 &rarr; KILLED<br/>
+3. createConditionalObjectDecl : Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        jscovData =</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_119'/>
+119
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_119'>1</a>
+<span>
+1. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::objectlit &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            IR.objectlit(</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_120'/>
+120
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_120'>5</a>
+<span>
+1. createConditionalObjectDecl : replaced call to com/google/javascript/rhino/IR::quotedStringKey with argument &rarr; KILLED<br/>
+2. createConditionalObjectDecl : Substituted 1 with 0 &rarr; KILLED<br/>
+3. createConditionalObjectDecl : Substituted 0 with 1 &rarr; KILLED<br/>
+4. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::arraylit &rarr; KILLED<br/>
+5. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::quotedStringKey &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                IR.quotedStringKey(&#34;fileNames&#34;, IR.arraylit()),</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_121'/>
+121
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_121'>5</a>
+<span>
+1. createConditionalObjectDecl : replaced call to com/google/javascript/rhino/IR::quotedStringKey with argument &rarr; KILLED<br/>
+2. createConditionalObjectDecl : Substituted 2 with 3 &rarr; KILLED<br/>
+3. createConditionalObjectDecl : Substituted 0 with 1 &rarr; KILLED<br/>
+4. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::arraylit &rarr; KILLED<br/>
+5. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::quotedStringKey &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                IR.quotedStringKey(&#34;instrumentedLines&#34;, IR.arraylit()),</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_122'/>
+122
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_122'>3</a>
+<span>
+1. createConditionalObjectDecl : replaced call to com/google/javascript/rhino/IR::quotedStringKey with argument &rarr; KILLED<br/>
+2. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::arraylit &rarr; KILLED<br/>
+3. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::quotedStringKey &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                IR.quotedStringKey(&#34;executedLines&#34;, IR.arraylit()));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_123'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      default:</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_125'/>
+125
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_125'>7</a>
+<span>
+1. createConditionalObjectDecl : removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+2. createConditionalObjectDecl : removed call to java/lang/AssertionError::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+3. createConditionalObjectDecl : removed call to java/lang/StringBuilder::append &rarr; NO_COVERAGE<br/>
+4. createConditionalObjectDecl : removed call to java/lang/StringBuilder::append &rarr; NO_COVERAGE<br/>
+5. createConditionalObjectDecl : removed call to java/lang/StringBuilder::toString &rarr; NO_COVERAGE<br/>
+6. createConditionalObjectDecl : replaced call to java/lang/StringBuilder::append with receiver &rarr; NO_COVERAGE<br/>
+7. createConditionalObjectDecl : replaced call to java/lang/StringBuilder::append with receiver &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        throw new AssertionError(&#34;Unexpected option: &#34; + instrumentOption);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Add the __jscov var to the window as a quoted key so it can be found even if property</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // renaming is enabled.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_130'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    Node var =</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_131'/>
+131
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_131'>2</a>
+<span>
+1. createConditionalObjectDecl : replaced call to com/google/javascript/rhino/IR::var with argument &rarr; KILLED<br/>
+2. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::var &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        IR.var(</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_132'/>
+132
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_132'>1</a>
+<span>
+1. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::name &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            IR.name(name),</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_133'/>
+133
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_133'>2</a>
+<span>
+1. createConditionalObjectDecl : replaced call to com/google/javascript/rhino/IR::or with argument &rarr; KILLED<br/>
+2. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::or &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            IR.or(</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_134'/>
+134
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_134'>7</a>
+<span>
+1. createConditionalObjectDecl : replaced call to com/google/javascript/rhino/IR::getprop with argument &rarr; KILLED<br/>
+2. createConditionalObjectDecl : replaced call to com/google/javascript/rhino/IR::getelem with argument &rarr; KILLED<br/>
+3. createConditionalObjectDecl : Substituted 0 with 1 &rarr; KILLED<br/>
+4. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::name &rarr; KILLED<br/>
+5. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::getprop &rarr; KILLED<br/>
+6. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::string &rarr; KILLED<br/>
+7. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::getelem &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                IR.getelem(IR.getprop(IR.name(&#34;window&#34;), &#34;top&#34;), IR.string(&#34;__jscov&#34;)),</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_135'/>
+135
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_135'>2</a>
+<span>
+1. createConditionalObjectDecl : replaced call to com/google/javascript/rhino/IR::assign with argument &rarr; KILLED<br/>
+2. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::assign &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                IR.assign(</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_136'/>
+136
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_136'>7</a>
+<span>
+1. createConditionalObjectDecl : replaced call to com/google/javascript/rhino/IR::getprop with argument &rarr; KILLED<br/>
+2. createConditionalObjectDecl : replaced call to com/google/javascript/rhino/IR::getelem with argument &rarr; KILLED<br/>
+3. createConditionalObjectDecl : Substituted 0 with 1 &rarr; KILLED<br/>
+4. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::name &rarr; KILLED<br/>
+5. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::getprop &rarr; KILLED<br/>
+6. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::string &rarr; KILLED<br/>
+7. createConditionalObjectDecl : removed call to com/google/javascript/rhino/IR::getelem &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    IR.getelem(IR.getprop(IR.name(&#34;window&#34;), &#34;top&#34;), IR.string(&#34;__jscov&#34;)),</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    jscovData)));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_138'/>
+138
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_138'>5</a>
+<span>
+1. createConditionalObjectDecl : replaced call to com/google/javascript/rhino/Node::useSourceInfoIfMissingFromForTree with receiver &rarr; SURVIVED<br/>
+2. createConditionalObjectDecl : replaced call to com/google/javascript/rhino/Node::useSourceInfoIfMissingFromForTree with argument &rarr; KILLED<br/>
+3. createConditionalObjectDecl : removed call to com/google/javascript/rhino/Node::useSourceInfoIfMissingFromForTree &rarr; KILLED<br/>
+4. createConditionalObjectDecl : replaced return value with null for com/google/javascript/jscomp/CoverageInstrumentationPass::createConditionalObjectDecl &rarr; KILLED<br/>
+5. createConditionalObjectDecl : mutated return of Object value for com/google/javascript/jscomp/CoverageInstrumentationPass::createConditionalObjectDecl to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    return var.useSourceInfoIfMissingFromForTree(srcref);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_139'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@31e3c34_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_57'>57</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_57'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> Removed assignment to member variable compiler &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_58'>58</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_58'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testArrowFunction_expression(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> Removed assignment to member variable reach &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_59'>59</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_59'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> Removed assignment to member variable instrumentOption &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_60'>60</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_60'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to java/util/LinkedHashMap::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> Removed assignment to member variable instrumentationData &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_72'>72</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_72'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addHeaderCode<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> replaced call to com/google/javascript/jscomp/CoverageInstrumentationPass::createConditionalObjectDecl with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addHeaderCode<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/jscomp/CoverageInstrumentationPass::createConditionalObjectDecl &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>addHeaderCode<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/Node::addChildToFront &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_75'>75</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_75'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addHeaderCode<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/Node::addChildToFront &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_76'>76</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_76'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addHeaderCode<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/jscomp/AbstractCompiler::parseSyntheticCode &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_78'>78</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_78'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addHeaderCode<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/Node::removeFirstChild &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addHeaderCode<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testArrowFunction_expression(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> replaced call to com/google/javascript/rhino/Node::removeFirstChild with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_79'>79</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_79'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addHeaderCode<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> replaced call to com/google/javascript/rhino/Node::useSourceInfoIfMissingFromForTree with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addHeaderCode<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/Node::useSourceInfoIfMissingFromForTree &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>addHeaderCode<br/><b>Killed by : </b>none</span></span> replaced call to com/google/javascript/rhino/Node::useSourceInfoIfMissingFromForTree with receiver &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_84'>84</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_84'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/Node::hasChildren &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>process<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_85'>85</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_85'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_86'>86</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_86'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/jscomp/BranchCoverageInstrumentationCallback::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/jscomp/NodeTraversal::traverse &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_91'>91</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_91'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/jscomp/CoverageInstrumentationCallback::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/jscomp/NodeTraversal::traverse &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_94'>94</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_94'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/Node::getFirstChild &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> replaced call to com/google/javascript/rhino/Node::getFirstChild with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_95'>95</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_95'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/Node::isScript &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>process<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/base/Preconditions::checkState &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_98'>98</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_98'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>process<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testArrowFunction_expression(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>process<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/rhino/Node::hasChildren &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/Node::getFirstChild &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>process<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/rhino/Node::isModuleBody &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>process<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>process<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>process<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testArrowFunction_expression(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>process<br/><b>Killed by : </b>none</span></span> replaced call to com/google/javascript/rhino/Node::getFirstChild with receiver &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_99'>99</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_99'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/Node::getFirstChild &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>process<br/><b>Killed by : </b>none</span></span> replaced call to com/google/javascript/rhino/Node::getFirstChild with receiver &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_101'>101</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_101'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/jscomp/CoverageInstrumentationPass::addHeaderCode &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_108'>108</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_108'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/jscomp/CoverageInstrumentationPass$InstrumentOption::ordinal &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> RemoveSwitch 0 mutation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> RemoveSwitch 1 mutation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> Switch mutation &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_110'>110</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_110'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> Substituted 4 with 5 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_111'>111</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_111'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::objectlit &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_112'>112</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_112'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> replaced call to com/google/javascript/rhino/IR::quotedStringKey with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::arraylit &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::quotedStringKey &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_113'>113</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_113'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> replaced call to com/google/javascript/rhino/IR::quotedStringKey with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> Substituted 2 with 3 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::arraylit &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::quotedStringKey &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_114'>114</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_114'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> replaced call to com/google/javascript/rhino/IR::quotedStringKey with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> Substituted 3 with 4 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::arraylit &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::quotedStringKey &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_115'>115</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_115'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> replaced call to com/google/javascript/rhino/IR::quotedStringKey with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::arraylit &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::quotedStringKey &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_118'>118</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_118'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> Substituted 3 with 4 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_119'>119</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_119'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::objectlit &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_120'>120</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_120'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> replaced call to com/google/javascript/rhino/IR::quotedStringKey with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::arraylit &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::quotedStringKey &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_121'>121</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_121'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> replaced call to com/google/javascript/rhino/IR::quotedStringKey with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> Substituted 2 with 3 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::arraylit &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::quotedStringKey &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_122'>122</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_122'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> replaced call to com/google/javascript/rhino/IR::quotedStringKey with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::arraylit &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::quotedStringKey &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_125'>125</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_125'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>none</span></span> removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>none</span></span> removed call to java/lang/AssertionError::&#60;init&#62; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>none</span></span> removed call to java/lang/StringBuilder::append &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>none</span></span> removed call to java/lang/StringBuilder::append &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>none</span></span> removed call to java/lang/StringBuilder::toString &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_131'>131</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_131'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> replaced call to com/google/javascript/rhino/IR::var with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::var &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_132'>132</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_132'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::name &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_133'>133</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_133'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> replaced call to com/google/javascript/rhino/IR::or with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::or &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_134'>134</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_134'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> replaced call to com/google/javascript/rhino/IR::getprop with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> replaced call to com/google/javascript/rhino/IR::getelem with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::name &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::getprop &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::string &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::getelem &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_135'>135</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_135'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> replaced call to com/google/javascript/rhino/IR::assign with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::assign &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_136'>136</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_136'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> replaced call to com/google/javascript/rhino/IR::getprop with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> replaced call to com/google/javascript/rhino/IR::getelem with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::name &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::getprop &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::string &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/IR::getelem &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@31e3c34_138'>138</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@31e3c34_138'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> replaced call to com/google/javascript/rhino/Node::useSourceInfoIfMissingFromForTree with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> removed call to com/google/javascript/rhino/Node::useSourceInfoIfMissingFromForTree &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> replaced return value with null for com/google/javascript/jscomp/CoverageInstrumentationPass::createConditionalObjectDecl &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/CoverageInstrumentationPass::createConditionalObjectDecl to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>createConditionalObjectDecl<br/><b>Killed by : </b>none</span></span> replaced call to com/google/javascript/rhino/Node::useSourceInfoIfMissingFromForTree with receiver &rarr; SURVIVED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_61</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_60</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_56</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_55</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_58</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_57</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_52</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_51</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_54</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_53</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_59</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_50</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_45</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_44</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_47</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_46</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_41</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_40</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_43</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_42</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_49</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_48</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_34</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_33</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_36</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_35</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_30</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_32</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_31</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_38</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_37</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_39</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_3</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_2</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_1</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_0</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_23</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_22</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_25</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_9</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_24</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_8</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_7</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_6</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_21</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_5</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_20</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_4</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_27</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_26</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_29</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_28</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_12</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_11</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_99</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_14</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_13</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_96</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_95</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_10</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_98</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_97</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_19</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_16</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_15</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_18</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_17</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_92</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_91</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_94</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_93</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_90</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_89</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_88</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_85</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_84</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_87</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_86</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_81</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_80</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_83</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_82</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_78</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_77</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_79</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_74</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_73</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_76</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_75</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_70</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_72</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_71</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_67</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_66</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_69</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_68</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_63</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_62</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_65</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_64</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testDoWhileLoopMultiLineBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest) (69 ms)</li><li>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testDoWhileLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest) (88 ms)</li><li>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testArrowFunction_block(com.google.javascript.jscomp.CoverageInstrumentationPassTest) (594 ms)</li><li>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testFunction(com.google.javascript.jscomp.CoverageInstrumentationPassTest) (44 ms)</li><li>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testIfElseBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest) (55 ms)</li><li>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testForLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest) (43 ms)</li><li>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testWhileLoopBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest) (45 ms)</li><li>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testIfBranch(com.google.javascript.jscomp.CoverageInstrumentationPassTest) (55 ms)</li><li>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testEsModule(com.google.javascript.jscomp.CoverageInstrumentationPassTest) (10 ms)</li><li>com.google.javascript.jscomp.CoverageInstrumentationPassTest.testArrowFunction_expression(com.google.javascript.jscomp.CoverageInstrumentationPassTest) (27 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

@@ -1,0 +1,3477 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>QueueDrainSubscriber.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright (c) 2016-present, RxJava Contributors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;); you may not use this file except in</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * compliance with the License. You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software distributed under the License is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed on an &#34;AS IS&#34; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License for the specific language governing permissions and limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package io.reactivex.rxjava3.internal.subscribers;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.concurrent.atomic.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.reactivestreams.Subscriber;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import io.reactivex.rxjava3.core.FlowableSubscriber;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import io.reactivex.rxjava3.disposables.Disposable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import io.reactivex.rxjava3.exceptions.MissingBackpressureException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import io.reactivex.rxjava3.internal.fuseable.SimplePlainQueue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import io.reactivex.rxjava3.internal.subscriptions.SubscriptionHelper;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import io.reactivex.rxjava3.internal.util.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Abstract base class for subscribers that hold another subscriber, a queue</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * and requires queue-drain behavior.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;T&#62; the source type to which this subscriber will be subscribed</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;U&#62; the value type in the queue</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;V&#62; the value type the child subscriber accepts</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public abstract class QueueDrainSubscriber&#60;T, U, V&#62; extends QueueDrainSubscriberPad4 implements FlowableSubscriber&#60;T&#62;, QueueDrain&#60;U, V&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected final Subscriber&#60;? super V&#62; downstream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected final SimplePlainQueue&#60;U&#62; queue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected volatile boolean cancelled;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected volatile boolean done;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected Throwable error;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_46'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public QueueDrainSubscriber(Subscriber&#60;? super V&#62; actual, SimplePlainQueue&#60;U&#62; queue) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_47'/>
+47
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_47'>1</a>
+<span>
+1. <init> : Removed assignment to member variable downstream &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.downstream = actual;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_48'/>
+48
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_48'>1</a>
+<span>
+1. <init> : Removed assignment to member variable queue &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.queue = queue;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_49'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final boolean cancelled() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_53'/>
+53
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_53'>3</a>
+<span>
+1. cancelled : replaced boolean return with false for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::cancelled &rarr; SURVIVED<br/>
+2. cancelled : replaced boolean return with true for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::cancelled &rarr; KILLED<br/>
+3. cancelled : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return cancelled;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final boolean done() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_58'/>
+58
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_58'>3</a>
+<span>
+1. done : replaced boolean return with false for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::done &rarr; SURVIVED<br/>
+2. done : replaced boolean return with true for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::done &rarr; KILLED<br/>
+3. done : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return done;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final boolean enter() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_63'/>
+63
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_63'>9</a>
+<span>
+1. enter : replaced boolean return with false for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::enter &rarr; KILLED<br/>
+2. enter : replaced boolean return with true for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::enter &rarr; KILLED<br/>
+3. enter : Substituted 1 with 0 &rarr; KILLED<br/>
+4. enter : Substituted 0 with 1 &rarr; KILLED<br/>
+5. enter : negated conditional &rarr; KILLED<br/>
+6. enter : removed call to java/util/concurrent/atomic/AtomicInteger::getAndIncrement &rarr; KILLED<br/>
+7. enter : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+8. enter : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+9. enter : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return wip.getAndIncrement() == 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final boolean fastEnter() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_67'/>
+67
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_67'>15</a>
+<span>
+1. fastEnter : removed call to java/util/concurrent/atomic/AtomicInteger::get &rarr; SURVIVED<br/>
+2. fastEnter : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+3. fastEnter : replaced boolean return with false for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::fastEnter &rarr; KILLED<br/>
+4. fastEnter : replaced boolean return with true for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::fastEnter &rarr; KILLED<br/>
+5. fastEnter : Substituted 0 with 1 &rarr; KILLED<br/>
+6. fastEnter : Substituted 1 with 0 &rarr; KILLED<br/>
+7. fastEnter : Substituted 1 with 0 &rarr; KILLED<br/>
+8. fastEnter : Substituted 0 with 1 &rarr; KILLED<br/>
+9. fastEnter : negated conditional &rarr; KILLED<br/>
+10. fastEnter : negated conditional &rarr; KILLED<br/>
+11. fastEnter : removed call to java/util/concurrent/atomic/AtomicInteger::compareAndSet &rarr; KILLED<br/>
+12. fastEnter : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+13. fastEnter : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+14. fastEnter : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+15. fastEnter : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return wip.get() == 0 &#38;&#38; wip.compareAndSet(0, 1);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected final void fastPathEmitMax(U value, boolean delayError, Disposable dispose) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_71'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final Subscriber&#60;? super V&#62; s = downstream;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_72'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final SimplePlainQueue&#60;U&#62; q = queue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_74'/>
+74
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_74'>4</a>
+<span>
+1. fastPathEmitMax : negated conditional &rarr; KILLED<br/>
+2. fastPathEmitMax : removed call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::fastEnter &rarr; KILLED<br/>
+3. fastPathEmitMax : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. fastPathEmitMax : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (fastEnter()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_75'/>
+75
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_75'>1</a>
+<span>
+1. fastPathEmitMax : removed call to java/util/concurrent/atomic/AtomicLong::get &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            long r = requested.get();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_76'/>
+76
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_76'>4</a>
+<span>
+1. fastPathEmitMax : Substituted 0 with 1 &rarr; KILLED<br/>
+2. fastPathEmitMax : negated conditional &rarr; KILLED<br/>
+3. fastPathEmitMax : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. fastPathEmitMax : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (r != 0L) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_77'/>
+77
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_77'>4</a>
+<span>
+1. fastPathEmitMax : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. fastPathEmitMax : negated conditional &rarr; KILLED<br/>
+3. fastPathEmitMax : removed call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::accept &rarr; KILLED<br/>
+4. fastPathEmitMax : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                if (accept(s, value)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_78'/>
+78
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_78'>4</a>
+<span>
+1. fastPathEmitMax : Substituted 9223372036854775807 with -9223372036854775808 &rarr; SURVIVED<br/>
+2. fastPathEmitMax : negated conditional &rarr; SURVIVED<br/>
+3. fastPathEmitMax : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+4. fastPathEmitMax : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                    if (r != Long.MAX_VALUE) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_79'/>
+79
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_79'>3</a>
+<span>
+1. fastPathEmitMax : replaced call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::produced with argument &rarr; SURVIVED<br/>
+2. fastPathEmitMax : Substituted 1 with 2 &rarr; SURVIVED<br/>
+3. fastPathEmitMax : removed call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::produced &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                        produced(1);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_82'/>
+82
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_82'>6</a>
+<span>
+1. fastPathEmitMax : replaced call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::leave with argument &rarr; SURVIVED<br/>
+2. fastPathEmitMax : Substituted -1 with 0 &rarr; SURVIVED<br/>
+3. fastPathEmitMax : negated conditional &rarr; KILLED<br/>
+4. fastPathEmitMax : removed call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::leave &rarr; KILLED<br/>
+5. fastPathEmitMax : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+6. fastPathEmitMax : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                if (leave(-1) == 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_83'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                    return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_86'/>
+86
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_86'>1</a>
+<span>
+1. fastPathEmitMax : removed call to io/reactivex/rxjava3/disposables/Disposable::dispose &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                dispose.dispose();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_87'/>
+87
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_87'>2</a>
+<span>
+1. fastPathEmitMax : removed call to io/reactivex/rxjava3/exceptions/MissingBackpressureException::&#60;init&#62; &rarr; KILLED<br/>
+2. fastPathEmitMax : removed call to org/reactivestreams/Subscriber::onError &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                s.onError(new MissingBackpressureException(&#34;Could not emit buffer due to lack of requests&#34;));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_88'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_90'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_91'/>
+91
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_91'>1</a>
+<span>
+1. fastPathEmitMax : removed call to io/reactivex/rxjava3/internal/fuseable/SimplePlainQueue::offer &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            q.offer(value);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_92'/>
+92
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_92'>4</a>
+<span>
+1. fastPathEmitMax : negated conditional &rarr; KILLED<br/>
+2. fastPathEmitMax : removed call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::enter &rarr; KILLED<br/>
+3. fastPathEmitMax : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. fastPathEmitMax : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (!enter()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_93'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_96'/>
+96
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_96'>1</a>
+<span>
+1. fastPathEmitMax : removed call to io/reactivex/rxjava3/internal/util/QueueDrainHelper::drainMaxLoop &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        QueueDrainHelper.drainMaxLoop(q, s, delayError, dispose, this);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_97'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected final void fastPathOrderedEmitMax(U value, boolean delayError, Disposable dispose) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_100'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final Subscriber&#60;? super V&#62; s = downstream;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_101'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final SimplePlainQueue&#60;U&#62; q = queue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_103'/>
+103
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_103'>4</a>
+<span>
+1. fastPathOrderedEmitMax : negated conditional &rarr; KILLED<br/>
+2. fastPathOrderedEmitMax : removed call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::fastEnter &rarr; KILLED<br/>
+3. fastPathOrderedEmitMax : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. fastPathOrderedEmitMax : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (fastEnter()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_104'/>
+104
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_104'>1</a>
+<span>
+1. fastPathOrderedEmitMax : removed call to java/util/concurrent/atomic/AtomicLong::get &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            long r = requested.get();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_105'/>
+105
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_105'>4</a>
+<span>
+1. fastPathOrderedEmitMax : Substituted 0 with 1 &rarr; KILLED<br/>
+2. fastPathOrderedEmitMax : negated conditional &rarr; KILLED<br/>
+3. fastPathOrderedEmitMax : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. fastPathOrderedEmitMax : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (r != 0L) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_106'/>
+106
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_106'>4</a>
+<span>
+1. fastPathOrderedEmitMax : negated conditional &rarr; KILLED<br/>
+2. fastPathOrderedEmitMax : removed call to io/reactivex/rxjava3/internal/fuseable/SimplePlainQueue::isEmpty &rarr; KILLED<br/>
+3. fastPathOrderedEmitMax : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. fastPathOrderedEmitMax : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                if (q.isEmpty()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_107'/>
+107
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_107'>4</a>
+<span>
+1. fastPathOrderedEmitMax : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. fastPathOrderedEmitMax : negated conditional &rarr; KILLED<br/>
+3. fastPathOrderedEmitMax : removed call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::accept &rarr; KILLED<br/>
+4. fastPathOrderedEmitMax : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                    if (accept(s, value)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_108'/>
+108
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_108'>4</a>
+<span>
+1. fastPathOrderedEmitMax : Substituted 9223372036854775807 with -9223372036854775808 &rarr; SURVIVED<br/>
+2. fastPathOrderedEmitMax : negated conditional &rarr; SURVIVED<br/>
+3. fastPathOrderedEmitMax : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+4. fastPathOrderedEmitMax : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                        if (r != Long.MAX_VALUE) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_109'/>
+109
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_109'>3</a>
+<span>
+1. fastPathOrderedEmitMax : replaced call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::produced with argument &rarr; SURVIVED<br/>
+2. fastPathOrderedEmitMax : Substituted 1 with 2 &rarr; SURVIVED<br/>
+3. fastPathOrderedEmitMax : removed call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::produced &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                            produced(1);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_112'/>
+112
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_112'>6</a>
+<span>
+1. fastPathOrderedEmitMax : replaced call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::leave with argument &rarr; SURVIVED<br/>
+2. fastPathOrderedEmitMax : Substituted -1 with 0 &rarr; SURVIVED<br/>
+3. fastPathOrderedEmitMax : negated conditional &rarr; KILLED<br/>
+4. fastPathOrderedEmitMax : removed call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::leave &rarr; KILLED<br/>
+5. fastPathOrderedEmitMax : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+6. fastPathOrderedEmitMax : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                    if (leave(-1) == 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_113'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                        return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_116'/>
+116
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_116'>1</a>
+<span>
+1. fastPathOrderedEmitMax : removed call to io/reactivex/rxjava3/internal/fuseable/SimplePlainQueue::offer &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    q.offer(value);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_118'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_119'/>
+119
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_119'>2</a>
+<span>
+1. fastPathOrderedEmitMax : Substituted 1 with 0 &rarr; SURVIVED<br/>
+2. fastPathOrderedEmitMax : Removed assignment to member variable cancelled &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                cancelled = true;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_120'/>
+120
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_120'>1</a>
+<span>
+1. fastPathOrderedEmitMax : removed call to io/reactivex/rxjava3/disposables/Disposable::dispose &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                dispose.dispose();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_121'/>
+121
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_121'>2</a>
+<span>
+1. fastPathOrderedEmitMax : removed call to io/reactivex/rxjava3/exceptions/MissingBackpressureException::&#60;init&#62; &rarr; KILLED<br/>
+2. fastPathOrderedEmitMax : removed call to org/reactivestreams/Subscriber::onError &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                s.onError(new MissingBackpressureException(&#34;Could not emit buffer due to lack of requests&#34;));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_122'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_124'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_125'/>
+125
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_125'>1</a>
+<span>
+1. fastPathOrderedEmitMax : removed call to io/reactivex/rxjava3/internal/fuseable/SimplePlainQueue::offer &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            q.offer(value);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_126'/>
+126
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_126'>4</a>
+<span>
+1. fastPathOrderedEmitMax : negated conditional &rarr; KILLED<br/>
+2. fastPathOrderedEmitMax : removed call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::enter &rarr; KILLED<br/>
+3. fastPathOrderedEmitMax : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. fastPathOrderedEmitMax : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (!enter()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_127'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_130'/>
+130
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_130'>1</a>
+<span>
+1. fastPathOrderedEmitMax : removed call to io/reactivex/rxjava3/internal/util/QueueDrainHelper::drainMaxLoop &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        QueueDrainHelper.drainMaxLoop(q, s, delayError, dispose, this);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_131'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_133'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean accept(Subscriber&#60;? super V&#62; a, U v) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_135'/>
+135
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_135'>3</a>
+<span>
+1. accept : replaced boolean return with true for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::accept &rarr; SURVIVED<br/>
+2. accept : Substituted 0 with 1 &rarr; SURVIVED<br/>
+3. accept : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_138'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_139'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final Throwable error() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_140'/>
+140
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_140'>2</a>
+<span>
+1. error : replaced return value with null for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::error &rarr; NO_COVERAGE<br/>
+2. error : mutated return of Object value for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::error to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return error;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final int leave(int m) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_145'/>
+145
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_145'>4</a>
+<span>
+1. leave : replaced call to java/util/concurrent/atomic/AtomicInteger::addAndGet with argument &rarr; TIMED_OUT<br/>
+2. leave : removed call to java/util/concurrent/atomic/AtomicInteger::addAndGet &rarr; KILLED<br/>
+3. leave : replaced int return with 0 for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::leave &rarr; KILLED<br/>
+4. leave : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        return wip.addAndGet(m);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_147'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final long requested() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_150'/>
+150
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_150'>3</a>
+<span>
+1. requested : removed call to java/util/concurrent/atomic/AtomicLong::get &rarr; KILLED<br/>
+2. requested : replaced long return with 0 for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::requested &rarr; KILLED<br/>
+3. requested : replaced return of long value with value + 1 for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::requested &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return requested.get();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final long produced(long n) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_155'/>
+155
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_155'>5</a>
+<span>
+1. produced : replaced call to java/util/concurrent/atomic/AtomicLong::addAndGet with argument &rarr; SURVIVED<br/>
+2. produced : removed negation &rarr; SURVIVED<br/>
+3. produced : removed call to java/util/concurrent/atomic/AtomicLong::addAndGet &rarr; SURVIVED<br/>
+4. produced : replaced long return with 0 for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::produced &rarr; SURVIVED<br/>
+5. produced : replaced return of long value with value + 1 for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::produced &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return requested.addAndGet(-n);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_157'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_158'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final void requested(long n) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_159'/>
+159
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_159'>4</a>
+<span>
+1. requested : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. requested : negated conditional &rarr; KILLED<br/>
+3. requested : removed call to io/reactivex/rxjava3/internal/subscriptions/SubscriptionHelper::validate &rarr; KILLED<br/>
+4. requested : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (SubscriptionHelper.validate(n)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_160'/>
+160
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_160'>2</a>
+<span>
+1. requested : replaced call to io/reactivex/rxjava3/internal/util/BackpressureHelper::add with argument &rarr; KILLED<br/>
+2. requested : removed call to io/reactivex/rxjava3/internal/util/BackpressureHelper::add &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            BackpressureHelper.add(requested, n);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_162'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_164'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_166'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>// -------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>// Padding superclasses</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_168'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>//-------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/** Pads the header away from other fields. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_171'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>class QueueDrainSubscriberPad0 {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_172'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    volatile long p1, p2, p3, p4, p5, p6, p7;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_173'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    volatile long p8, p9, p10, p11, p12, p13, p14, p15;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_174'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_175'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_176'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/** The WIP counter. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_177'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>class QueueDrainSubscriberWip extends QueueDrainSubscriberPad0 {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_178'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    final AtomicInteger wip = new AtomicInteger();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_179'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_180'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_181'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/** Pads away the wip from the other fields. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_182'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>class QueueDrainSubscriberPad2 extends QueueDrainSubscriberWip {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_183'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    volatile long p1a, p2a, p3a, p4a, p5a, p6a, p7a;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_184'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    volatile long p8a, p9a, p10a, p11a, p12a, p13a, p14a, p15a;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_185'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_186'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_187'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/** Contains the requested field. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_188'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>class QueueDrainSubscriberPad3 extends QueueDrainSubscriberPad2 {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_189'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    final AtomicLong requested = new AtomicLong();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_190'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_191'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_192'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/** Pads away the requested from the other fields. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_193'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>class QueueDrainSubscriberPad4 extends QueueDrainSubscriberPad3 {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_194'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    volatile long q1, q2, q3, q4, q5, q6, q7;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_195'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    volatile long q8, q9, q10, q11, q12, q13, q14, q15;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@712ac7e6_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_196'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_47'>47</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_47'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedFastPathNoRequest(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> Removed assignment to member variable downstream &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_48'>48</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_48'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedFastPathReject(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> Removed assignment to member variable queue &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_53'>53</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_53'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>cancelled<br/><b>Killed by : </b>none</span></span> replaced boolean return with false for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::cancelled &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>cancelled<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedSlowPathNonEmptyQueue(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> replaced boolean return with true for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::cancelled &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>cancelled<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedSlowPathNonEmptyQueue(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_58'>58</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_58'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>done<br/><b>Killed by : </b>none</span></span> replaced boolean return with false for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::done &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>done<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedSlowPathNonEmptyQueue(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> replaced boolean return with true for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::done &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>done<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedSlowPathNonEmptyQueue(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_63'>63</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_63'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>enter<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> replaced boolean return with false for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::enter &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>enter<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedSlowPath(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> replaced boolean return with true for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::enter &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>enter<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>enter<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedSlowPath(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>enter<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedSlowPath(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>enter<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedSlowPath(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to java/util/concurrent/atomic/AtomicInteger::getAndIncrement &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>enter<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>enter<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedSlowPath(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>enter<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedSlowPath(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_67'>67</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_67'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastEnter<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedFastPathNoRequest(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> replaced boolean return with false for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::fastEnter &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fastEnter<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedSlowPath(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> replaced boolean return with true for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::fastEnter &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>fastEnter<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>fastEnter<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>fastEnter<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedFastPathNoRequest(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>fastEnter<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedSlowPath(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>fastEnter<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>fastEnter<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedFastPathNoRequest(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>fastEnter<br/><b>Killed by : </b>none</span></span> removed call to java/util/concurrent/atomic/AtomicInteger::get &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>fastEnter<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to java/util/concurrent/atomic/AtomicInteger::compareAndSet &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>fastEnter<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>fastEnter<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedFastPathNoRequest(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>fastEnter<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>fastEnter<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>fastEnter<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedFastPathNoRequest(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_74'>74</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_74'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedFastPathNoRequest(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::fastEnter &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedFastPathNoRequest(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedSlowPath(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_75'>75</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_75'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedFastPathReject(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to java/util/concurrent/atomic/AtomicLong::get &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_76'>76</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_76'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedFastPathNoRequest(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedFastPathNoRequest(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedFastPathReject(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedFastPathNoRequest(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_77'>77</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_77'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedFastPathReject(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedFastPathReject(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::accept &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedFastPathReject(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_78'>78</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_78'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>none</span></span> Substituted 9223372036854775807 with -9223372036854775808 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_79'>79</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_79'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>none</span></span> replaced call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::produced with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>none</span></span> Substituted 1 with 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>none</span></span> removed call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::produced &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_82'>82</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_82'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>none</span></span> replaced call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::leave with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>none</span></span> Substituted -1 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::leave &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_86'>86</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_86'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedFastPathNoRequest(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to io/reactivex/rxjava3/disposables/Disposable::dispose &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_87'>87</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_87'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedFastPathNoRequest(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to io/reactivex/rxjava3/exceptions/MissingBackpressureException::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedFastPathNoRequest(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to org/reactivestreams/Subscriber::onError &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_91'>91</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_91'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to io/reactivex/rxjava3/internal/fuseable/SimplePlainQueue::offer &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_92'>92</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_92'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedSlowPath(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::enter &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedSlowPath(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_96'>96</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_96'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to io/reactivex/rxjava3/internal/util/QueueDrainHelper::drainMaxLoop &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_103'>103</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_103'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedFastPathReject(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::fastEnter &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedFastPathReject(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedSlowPath(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_104'>104</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_104'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedFastPathReject(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to java/util/concurrent/atomic/AtomicLong::get &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_105'>105</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_105'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedFastPathReject(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedFastPathReject(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedFastPathReject(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedFastPathNoRequest(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_106'>106</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_106'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedSlowPathNonEmptyQueue(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to io/reactivex/rxjava3/internal/fuseable/SimplePlainQueue::isEmpty &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedSlowPathNonEmptyQueue(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_107'>107</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_107'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedFastPathReject(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedFastPathReject(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::accept &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedFastPathReject(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_108'>108</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_108'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>none</span></span> Substituted 9223372036854775807 with -9223372036854775808 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_109'>109</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_109'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>none</span></span> replaced call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::produced with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>none</span></span> Substituted 1 with 2 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>none</span></span> removed call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::produced &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_112'>112</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_112'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>none</span></span> replaced call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::leave with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>none</span></span> Substituted -1 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::leave &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_116'>116</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_116'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedSlowPathNonEmptyQueue(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to io/reactivex/rxjava3/internal/fuseable/SimplePlainQueue::offer &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_119'>119</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_119'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>none</span></span> Removed assignment to member variable cancelled &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_120'>120</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_120'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedFastPathNoRequest(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to io/reactivex/rxjava3/disposables/Disposable::dispose &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_121'>121</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_121'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedFastPathNoRequest(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to io/reactivex/rxjava3/exceptions/MissingBackpressureException::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedFastPathNoRequest(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to org/reactivestreams/Subscriber::onError &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_125'>125</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_125'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to io/reactivex/rxjava3/internal/fuseable/SimplePlainQueue::offer &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_126'>126</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_126'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedSlowPath(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::enter &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedSlowPath(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_130'>130</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_130'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>fastPathOrderedEmitMax<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedSlowPathNonEmptyQueue(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to io/reactivex/rxjava3/internal/util/QueueDrainHelper::drainMaxLoop &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_135'>135</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_135'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>accept<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::accept &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>accept<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>accept<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_140'>140</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_140'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>error<br/><b>Killed by : </b>none</span></span> replaced return value with null for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::error &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>error<br/><b>Killed by : </b>none</span></span> mutated return of Object value for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::error to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_145'>145</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_145'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>leave<br/><b>Killed by : </b>none</span></span> replaced call to java/util/concurrent/atomic/AtomicInteger::addAndGet with argument &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>leave<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to java/util/concurrent/atomic/AtomicInteger::addAndGet &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>leave<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> replaced int return with 0 for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::leave &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>leave<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_150'>150</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_150'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>requested<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedFastPathReject(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to java/util/concurrent/atomic/AtomicLong::get &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>requested<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedFastPathReject(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> replaced long return with 0 for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::requested &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>requested<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedFastPathReject(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> replaced return of long value with value + 1 for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::requested &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_155'>155</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_155'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>produced<br/><b>Killed by : </b>none</span></span> replaced call to java/util/concurrent/atomic/AtomicLong::addAndGet with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>produced<br/><b>Killed by : </b>none</span></span> removed negation &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>produced<br/><b>Killed by : </b>none</span></span> removed call to java/util/concurrent/atomic/AtomicLong::addAndGet &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>produced<br/><b>Killed by : </b>none</span></span> replaced long return with 0 for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::produced &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>produced<br/><b>Killed by : </b>none</span></span> replaced return of long value with value + 1 for io/reactivex/rxjava3/internal/subscribers/QueueDrainSubscriber::produced &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_159'>159</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_159'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>requested<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedFastPathReject(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>requested<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedFastPathReject(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to io/reactivex/rxjava3/internal/subscriptions/SubscriptionHelper::validate &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>requested<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedFastPathReject(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>requested<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@712ac7e6_160'>160</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@712ac7e6_160'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>requested<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedFastPathReject(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> replaced call to io/reactivex/rxjava3/internal/util/BackpressureHelper::add with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>requested<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedFastPathReject(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest)</span></span> removed call to io/reactivex/rxjava3/internal/util/BackpressureHelper::add &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_61</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_60</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_56</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_55</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_58</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_57</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_52</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_51</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_54</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_53</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_59</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_50</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_45</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_44</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_47</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_46</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_41</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_40</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_43</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_42</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_49</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_48</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_34</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_33</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_36</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_35</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_30</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_32</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_31</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_38</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_37</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_39</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_3</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_2</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_1</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_0</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_23</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_22</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_25</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_9</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_24</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_8</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_7</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_6</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_21</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_5</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_20</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_4</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_27</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_26</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_29</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_28</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_12</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_11</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_99</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_14</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_13</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_96</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_95</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_10</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_98</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_97</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_19</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_16</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_15</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_18</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_17</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_92</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_91</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_94</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_93</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_90</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_89</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_88</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_85</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_84</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_87</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_86</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_81</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_80</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_83</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_82</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_78</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_77</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_79</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_74</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_73</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_76</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_75</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_70</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_72</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_71</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_67</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_66</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_69</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_68</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_63</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_62</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_65</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_64</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedFastPathRequest1(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest) (3 ms)</li><li>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest) (252 ms)</li><li>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedFastPathNoRequest(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest) (4 ms)</li><li>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedSlowPath(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest) (13 ms)</li><li>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedSlowPath(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest) (3 ms)</li><li>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedOnNextRace(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest) (182 ms)</li><li>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedFastPathRequest1(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest) (2 ms)</li><li>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedFastPathReject(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest) (2 ms)</li><li>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedSlowPathNonEmptyQueue(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest) (3 ms)</li><li>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.acceptBadRequest(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest) (57 ms)</li><li>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.unorderedFastPathNoRequest(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest) (2 ms)</li><li>io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest.orderedFastPathReject(io.reactivex.rxjava3.internal.subscribers.QueueDrainSubscriberTest) (2 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

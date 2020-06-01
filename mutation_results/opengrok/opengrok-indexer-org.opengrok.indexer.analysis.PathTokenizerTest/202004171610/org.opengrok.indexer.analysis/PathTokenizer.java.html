@@ -1,0 +1,2726 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>PathTokenizer.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * CDDL HEADER START</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The contents of this file are subject to the terms of the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Common Development and Distribution License (the &#34;License&#34;).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See LICENSE.txt included in this distribution for the specific</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * language governing permissions and limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * When distributing Covered Code, include this CDDL HEADER in each</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * file and include the License file at LICENSE.txt.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * If applicable, add the following below this CDDL HEADER, with the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * fields enclosed by brackets &#34;[]&#34; replaced with your own identifying</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * information: Portions Copyright [yyyy] [name of copyright owner]</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * CDDL HEADER END</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright (c) 2005, 2019, Oracle and/or its affiliates. All rights reserved.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Portions Copyright (c) 2018, Chris Fraire &#60;cfraire@me.com&#62;.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.opengrok.indexer.analysis;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.IOException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Arrays;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Locale;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.lucene.analysis.Tokenizer;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Tokenizer for paths filenames and extensions Input:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  /topdir/subdir/filename.ext</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Output:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  topdir</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  subdir</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  filename</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  .</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  ext</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class PathTokenizer extends Tokenizer {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // below should be &#39;/&#39; since we try to convert even windows file separators </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // to unix ones</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static final char DEFAULT_DELIMITER = &#39;/&#39;;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_55'/>
+55
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_55'>2</a>
+<span>
+1. <init> : removed call to org/opengrok/indexer/analysis/PathTokenizer::addAttribute &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable termAtt &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    private final CharTermAttribute termAtt = addAttribute(CharTermAttribute.class);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_56'/>
+56
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_56'>2</a>
+<span>
+1. <init> : removed call to org/opengrok/indexer/analysis/PathTokenizer::addAttribute &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable offsetAtt &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    private final OffsetAttribute offsetAtt = addAttribute(OffsetAttribute.class);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_57'/>
+57
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_57'>2</a>
+<span>
+1. <init> : Substituted 0 with 1 &rarr; SURVIVED<br/>
+2. <init> : Removed assignment to member variable startPosition &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    private int startPosition = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final char delimiter;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_59'/>
+59
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_59'>2</a>
+<span>
+1. <init> : Substituted 0 with 1 &rarr; SURVIVED<br/>
+2. <init> : Removed assignment to member variable charsRead &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    private int charsRead = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_60'/>
+60
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_60'>2</a>
+<span>
+1. <init> : Substituted 0 with 1 &rarr; SURVIVED<br/>
+2. <init> : Removed assignment to member variable dot &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    private boolean dot = false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final char cdot = &#39;.&#39;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_63'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public PathTokenizer() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_64'/>
+64
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_64'>2</a>
+<span>
+1. <init> : Substituted 47 with 48 &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable delimiter &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.delimiter = DEFAULT_DELIMITER;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_65'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final boolean incrementToken() throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_69'/>
+69
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_69'>1</a>
+<span>
+1. incrementToken : removed call to org/opengrok/indexer/analysis/PathTokenizer::clearAttributes &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        clearAttributes();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_70'/>
+70
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_70'>3</a>
+<span>
+1. incrementToken : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. incrementToken : negated conditional &rarr; KILLED<br/>
+3. incrementToken : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (dot) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_71'/>
+71
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_71'>2</a>
+<span>
+1. incrementToken : Substituted 0 with 1 &rarr; SURVIVED<br/>
+2. incrementToken : Removed assignment to member variable dot &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            dot = false;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_72'/>
+72
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_72'>2</a>
+<span>
+1. incrementToken : removed call to org/apache/lucene/analysis/tokenattributes/CharTermAttribute::setEmpty &rarr; SURVIVED<br/>
+2. incrementToken : replaced call to org/apache/lucene/analysis/tokenattributes/CharTermAttribute::setEmpty with receiver &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            termAtt.setEmpty();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_73'/>
+73
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_73'>3</a>
+<span>
+1. incrementToken : Substituted 46 with 47 &rarr; KILLED<br/>
+2. incrementToken : removed call to org/apache/lucene/analysis/tokenattributes/CharTermAttribute::append &rarr; KILLED<br/>
+3. incrementToken : replaced call to org/apache/lucene/analysis/tokenattributes/CharTermAttribute::append with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            termAtt.append(cdot);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_74'/>
+74
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_74'>3</a>
+<span>
+1. incrementToken : removed call to org/apache/lucene/analysis/tokenattributes/CharTermAttribute::setLength &rarr; SURVIVED<br/>
+2. incrementToken : replaced call to org/apache/lucene/analysis/tokenattributes/CharTermAttribute::setLength with receiver &rarr; SURVIVED<br/>
+3. incrementToken : Substituted 1 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            termAtt.setLength(1);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_75'/>
+75
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_75'>7</a>
+<span>
+1. incrementToken : replaced call to org/opengrok/indexer/analysis/PathTokenizer::correctOffset with argument &rarr; SURVIVED<br/>
+2. incrementToken : replaced call to org/opengrok/indexer/analysis/PathTokenizer::correctOffset with argument &rarr; SURVIVED<br/>
+3. incrementToken : Substituted 1 with 0 &rarr; SURVIVED<br/>
+4. incrementToken : removed call to org/opengrok/indexer/analysis/PathTokenizer::correctOffset &rarr; SURVIVED<br/>
+5. incrementToken : removed call to org/apache/lucene/analysis/tokenattributes/OffsetAttribute::setOffset &rarr; SURVIVED<br/>
+6. incrementToken : Replaced integer addition with subtraction &rarr; KILLED<br/>
+7. incrementToken : removed call to org/opengrok/indexer/analysis/PathTokenizer::correctOffset &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            offsetAtt.setOffset(correctOffset(startPosition), correctOffset(startPosition + 1));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_76'/>
+76
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_76'>3</a>
+<span>
+1. incrementToken : Substituted 1 with 0 &rarr; SURVIVED<br/>
+2. incrementToken : Replaced integer addition with subtraction &rarr; SURVIVED<br/>
+3. incrementToken : Removed assignment to member variable startPosition &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            startPosition++;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_77'/>
+77
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_77'>3</a>
+<span>
+1. incrementToken : replaced boolean return with false for org/opengrok/indexer/analysis/PathTokenizer::incrementToken &rarr; KILLED<br/>
+2. incrementToken : Substituted 1 with 0 &rarr; KILLED<br/>
+3. incrementToken : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_80'/>
+80
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_80'>1</a>
+<span>
+1. incrementToken : Substituted 64 with 65 &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        char[] buf = new char[64];</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        int c;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_82'/>
+82
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_82'>1</a>
+<span>
+1. incrementToken : Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        int i = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        do {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_84'/>
+84
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_84'>1</a>
+<span>
+1. incrementToken : removed call to java/io/Reader::read &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            c = input.read();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_85'/>
+85
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_85'>3</a>
+<span>
+1. incrementToken : Substituted 1 with 0 &rarr; SURVIVED<br/>
+2. incrementToken : Replaced integer addition with subtraction &rarr; SURVIVED<br/>
+3. incrementToken : Removed assignment to member variable charsRead &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            charsRead++;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_86'/>
+86
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_86'>4</a>
+<span>
+1. incrementToken : Substituted -1 with 0 &rarr; SURVIVED<br/>
+2. incrementToken : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+3. incrementToken : negated conditional &rarr; KILLED<br/>
+4. incrementToken : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (c == -1) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_87'/>
+87
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_87'>3</a>
+<span>
+1. incrementToken : replaced boolean return with true for org/opengrok/indexer/analysis/PathTokenizer::incrementToken &rarr; NO_COVERAGE<br/>
+2. incrementToken : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+3. incrementToken : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_89'/>
+89
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_89'>3</a>
+<span>
+1. incrementToken : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. incrementToken : negated conditional &rarr; KILLED<br/>
+3. incrementToken : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        } while (c == delimiter);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        do {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_92'/>
+92
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_92'>4</a>
+<span>
+1. incrementToken : changed conditional boundary &rarr; SURVIVED<br/>
+2. incrementToken : negated conditional &rarr; SURVIVED<br/>
+3. incrementToken : removed conditional - replaced comparison check with false &rarr; SURVIVED<br/>
+4. incrementToken : removed conditional - replaced comparison check with true &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (i &#62;= buf.length) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_93'/>
+93
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_93'>4</a>
+<span>
+1. incrementToken : replaced call to java/util/Arrays::copyOf with argument &rarr; NO_COVERAGE<br/>
+2. incrementToken : Substituted 2 with 3 &rarr; NO_COVERAGE<br/>
+3. incrementToken : Replaced integer multiplication with division &rarr; NO_COVERAGE<br/>
+4. incrementToken : removed call to java/util/Arrays::copyOf &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                buf = Arrays.copyOf(buf, buf.length * 2);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>             * &#34;In general, String.toLowerCase(Locale) should be used to map</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>             * characters to lowercase. String case mapping methods have several</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>             * benefits over Character case mapping methods. String case mapping</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>             * methods can perform locale-sensitive mappings, context-sensitive</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>             * mappings, and 1:M character mappings, whereas the Character case</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>             * mapping methods cannot.&#34; See below.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>             */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_103'/>
+103
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_103'>2</a>
+<span>
+1. incrementToken : Changed increment from 1 to -1 &rarr; KILLED<br/>
+2. incrementToken : Removed increment 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            buf[i++] = (char) c;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_104'/>
+104
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_104'>1</a>
+<span>
+1. incrementToken : removed call to java/io/Reader::read &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            c = input.read();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_105'/>
+105
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_105'>3</a>
+<span>
+1. incrementToken : Substituted 1 with 0 &rarr; SURVIVED<br/>
+2. incrementToken : Removed assignment to member variable charsRead &rarr; SURVIVED<br/>
+3. incrementToken : Replaced integer addition with subtraction &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            charsRead++;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_106'/>
+106
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_106'>15</a>
+<span>
+1. incrementToken : Substituted -1 with 0 &rarr; SURVIVED<br/>
+2. incrementToken : removed call to java/lang/Character::isWhitespace &rarr; SURVIVED<br/>
+3. incrementToken : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+4. incrementToken : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+5. incrementToken : Substituted 46 with 47 &rarr; KILLED<br/>
+6. incrementToken : negated conditional &rarr; KILLED<br/>
+7. incrementToken : negated conditional &rarr; KILLED<br/>
+8. incrementToken : negated conditional &rarr; KILLED<br/>
+9. incrementToken : negated conditional &rarr; KILLED<br/>
+10. incrementToken : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+11. incrementToken : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+12. incrementToken : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+13. incrementToken : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+14. incrementToken : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+15. incrementToken : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        } while (c != delimiter &#38;&#38; c != cdot &#38;&#38; !Character.isWhitespace(c) &#38;&#38; c != -1);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_107'/>
+107
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_107'>4</a>
+<span>
+1. incrementToken : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. incrementToken : Substituted 46 with 47 &rarr; KILLED<br/>
+3. incrementToken : negated conditional &rarr; KILLED<br/>
+4. incrementToken : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (c == cdot) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_108'/>
+108
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_108'>2</a>
+<span>
+1. incrementToken : Substituted 1 with 0 &rarr; SURVIVED<br/>
+2. incrementToken : Removed assignment to member variable dot &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            dot = true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_110'/>
+110
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_110'>4</a>
+<span>
+1. incrementToken : replaced call to java/lang/String::toLowerCase with receiver &rarr; SURVIVED<br/>
+2. incrementToken : Substituted 0 with 1 &rarr; KILLED<br/>
+3. incrementToken : removed call to java/lang/String::valueOf &rarr; KILLED<br/>
+4. incrementToken : removed call to java/lang/String::toLowerCase &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        String bufLcase = String.valueOf(buf, 0, i).toLowerCase(Locale.ROOT);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_111'/>
+111
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_111'>1</a>
+<span>
+1. incrementToken : removed call to java/lang/String::length &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        i = bufLcase.length();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_112'/>
+112
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_112'>2</a>
+<span>
+1. incrementToken : removed call to org/apache/lucene/analysis/tokenattributes/CharTermAttribute::append &rarr; KILLED<br/>
+2. incrementToken : replaced call to org/apache/lucene/analysis/tokenattributes/CharTermAttribute::append with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        termAtt.append(bufLcase);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_113'/>
+113
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_113'>2</a>
+<span>
+1. incrementToken : removed call to org/apache/lucene/analysis/tokenattributes/CharTermAttribute::setLength &rarr; SURVIVED<br/>
+2. incrementToken : replaced call to org/apache/lucene/analysis/tokenattributes/CharTermAttribute::setLength with receiver &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        termAtt.setLength(i);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_114'/>
+114
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_114'>6</a>
+<span>
+1. incrementToken : replaced call to org/opengrok/indexer/analysis/PathTokenizer::correctOffset with argument &rarr; SURVIVED<br/>
+2. incrementToken : replaced call to org/opengrok/indexer/analysis/PathTokenizer::correctOffset with argument &rarr; SURVIVED<br/>
+3. incrementToken : Replaced integer addition with subtraction &rarr; KILLED<br/>
+4. incrementToken : removed call to org/opengrok/indexer/analysis/PathTokenizer::correctOffset &rarr; KILLED<br/>
+5. incrementToken : removed call to org/opengrok/indexer/analysis/PathTokenizer::correctOffset &rarr; KILLED<br/>
+6. incrementToken : removed call to org/apache/lucene/analysis/tokenattributes/OffsetAttribute::setOffset &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        offsetAtt.setOffset(correctOffset(startPosition), correctOffset(startPosition + i));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_115'/>
+115
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_115'>4</a>
+<span>
+1. incrementToken : Substituted 1 with 0 &rarr; KILLED<br/>
+2. incrementToken : Replaced integer addition with subtraction &rarr; KILLED<br/>
+3. incrementToken : Replaced integer addition with subtraction &rarr; KILLED<br/>
+4. incrementToken : Removed assignment to member variable startPosition &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        startPosition = startPosition + i + 1;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_116'/>
+116
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_116'>3</a>
+<span>
+1. incrementToken : replaced boolean return with false for org/opengrok/indexer/analysis/PathTokenizer::incrementToken &rarr; KILLED<br/>
+2. incrementToken : Substituted 1 with 0 &rarr; KILLED<br/>
+3. incrementToken : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_118'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final void end() throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_121'/>
+121
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_121'>1</a>
+<span>
+1. end : removed call to org/apache/lucene/analysis/Tokenizer::end &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        super.end();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // set final offset</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_123'/>
+123
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_123'>2</a>
+<span>
+1. end : replaced call to org/opengrok/indexer/analysis/PathTokenizer::correctOffset with argument &rarr; SURVIVED<br/>
+2. end : removed call to org/opengrok/indexer/analysis/PathTokenizer::correctOffset &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        int finalOffset = correctOffset(charsRead);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_124'/>
+124
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_124'>1</a>
+<span>
+1. end : removed call to org/apache/lucene/analysis/tokenattributes/OffsetAttribute::setOffset &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        offsetAtt.setOffset(finalOffset, finalOffset);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_125'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void reset() throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_129'/>
+129
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_129'>1</a>
+<span>
+1. reset : removed call to org/apache/lucene/analysis/Tokenizer::reset &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        super.reset();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_130'/>
+130
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_130'>2</a>
+<span>
+1. reset : Removed assignment to member variable dot &rarr; SURVIVED<br/>
+2. reset : Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        dot = false;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_131'/>
+131
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_131'>2</a>
+<span>
+1. reset : Substituted 0 with 1 &rarr; SURVIVED<br/>
+2. reset : Removed assignment to member variable charsRead &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        charsRead = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_132'/>
+132
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_132'>2</a>
+<span>
+1. reset : Removed assignment to member variable startPosition &rarr; SURVIVED<br/>
+2. reset : Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        startPosition = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_133'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_135'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final void close() throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_137'/>
+137
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_137'>1</a>
+<span>
+1. close : removed call to org/apache/lucene/analysis/Tokenizer::close &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        super.close();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_138'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2c26ba07_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_139'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_55'>55</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_55'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> removed call to org/opengrok/indexer/analysis/PathTokenizer::addAttribute &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> Removed assignment to member variable termAtt &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_56'>56</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_56'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> removed call to org/opengrok/indexer/analysis/PathTokenizer::addAttribute &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> Removed assignment to member variable offsetAtt &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_57'>57</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_57'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Removed assignment to member variable startPosition &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_59'>59</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_59'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Removed assignment to member variable charsRead &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_60'>60</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_60'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Removed assignment to member variable dot &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_64'>64</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_64'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> Substituted 47 with 48 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> Removed assignment to member variable delimiter &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_69'>69</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_69'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> removed call to org/opengrok/indexer/analysis/PathTokenizer::clearAttributes &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_70'>70</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_70'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_71'>71</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_71'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> Removed assignment to member variable dot &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_72'>72</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_72'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> removed call to org/apache/lucene/analysis/tokenattributes/CharTermAttribute::setEmpty &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> replaced call to org/apache/lucene/analysis/tokenattributes/CharTermAttribute::setEmpty with receiver &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_73'>73</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_73'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> Substituted 46 with 47 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> removed call to org/apache/lucene/analysis/tokenattributes/CharTermAttribute::append &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> replaced call to org/apache/lucene/analysis/tokenattributes/CharTermAttribute::append with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_74'>74</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_74'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> removed call to org/apache/lucene/analysis/tokenattributes/CharTermAttribute::setLength &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> replaced call to org/apache/lucene/analysis/tokenattributes/CharTermAttribute::setLength with receiver &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_75'>75</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_75'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> replaced call to org/opengrok/indexer/analysis/PathTokenizer::correctOffset with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> replaced call to org/opengrok/indexer/analysis/PathTokenizer::correctOffset with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> removed call to org/opengrok/indexer/analysis/PathTokenizer::correctOffset &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> removed call to org/opengrok/indexer/analysis/PathTokenizer::correctOffset &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> removed call to org/apache/lucene/analysis/tokenattributes/OffsetAttribute::setOffset &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_76'>76</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_76'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> Replaced integer addition with subtraction &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> Removed assignment to member variable startPosition &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_77'>77</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_77'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> replaced boolean return with false for org/opengrok/indexer/analysis/PathTokenizer::incrementToken &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_80'>80</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_80'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> Substituted 64 with 65 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_82'>82</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_82'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_84'>84</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_84'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> removed call to java/io/Reader::read &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_85'>85</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_85'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> Replaced integer addition with subtraction &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> Removed assignment to member variable charsRead &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_86'>86</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_86'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> Substituted -1 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_87'>87</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_87'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for org/opengrok/indexer/analysis/PathTokenizer::incrementToken &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_89'>89</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_89'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_92'>92</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_92'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> removed conditional - replaced comparison check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> removed conditional - replaced comparison check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_93'>93</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_93'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> replaced call to java/util/Arrays::copyOf with argument &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> Substituted 2 with 3 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> Replaced integer multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> removed call to java/util/Arrays::copyOf &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_103'>103</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_103'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> Changed increment from 1 to -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> Removed increment 1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_104'>104</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_104'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> removed call to java/io/Reader::read &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_105'>105</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_105'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> Removed assignment to member variable charsRead &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_106'>106</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_106'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> Substituted 46 with 47 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> Substituted -1 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Character::isWhitespace &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_107'>107</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_107'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> Substituted 46 with 47 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_108'>108</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_108'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> Removed assignment to member variable dot &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_110'>110</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_110'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> removed call to java/lang/String::valueOf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> removed call to java/lang/String::toLowerCase &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/String::toLowerCase with receiver &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_111'>111</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_111'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> removed call to java/lang/String::length &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_112'>112</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_112'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> removed call to org/apache/lucene/analysis/tokenattributes/CharTermAttribute::append &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> replaced call to org/apache/lucene/analysis/tokenattributes/CharTermAttribute::append with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_113'>113</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_113'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> removed call to org/apache/lucene/analysis/tokenattributes/CharTermAttribute::setLength &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> replaced call to org/apache/lucene/analysis/tokenattributes/CharTermAttribute::setLength with receiver &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_114'>114</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_114'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> replaced call to org/opengrok/indexer/analysis/PathTokenizer::correctOffset with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>none</span></span> replaced call to org/opengrok/indexer/analysis/PathTokenizer::correctOffset with argument &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> removed call to org/opengrok/indexer/analysis/PathTokenizer::correctOffset &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> removed call to org/opengrok/indexer/analysis/PathTokenizer::correctOffset &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> removed call to org/apache/lucene/analysis/tokenattributes/OffsetAttribute::setOffset &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_115'>115</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_115'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> Removed assignment to member variable startPosition &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_116'>116</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_116'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> replaced boolean return with false for org/opengrok/indexer/analysis/PathTokenizer::incrementToken &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>incrementToken<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_121'>121</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_121'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>end<br/><b>Killed by : </b>none</span></span> removed call to org/apache/lucene/analysis/Tokenizer::end &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_123'>123</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_123'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>end<br/><b>Killed by : </b>none</span></span> replaced call to org/opengrok/indexer/analysis/PathTokenizer::correctOffset with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>end<br/><b>Killed by : </b>none</span></span> removed call to org/opengrok/indexer/analysis/PathTokenizer::correctOffset &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_124'>124</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_124'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>end<br/><b>Killed by : </b>none</span></span> removed call to org/apache/lucene/analysis/tokenattributes/OffsetAttribute::setOffset &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_129'>129</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_129'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>reset<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> removed call to org/apache/lucene/analysis/Tokenizer::reset &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_130'>130</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_130'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>reset<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>reset<br/><b>Killed by : </b>none</span></span> Removed assignment to member variable dot &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_131'>131</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_131'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>reset<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>reset<br/><b>Killed by : </b>none</span></span> Removed assignment to member variable charsRead &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_132'>132</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_132'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>reset<br/><b>Killed by : </b>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>reset<br/><b>Killed by : </b>none</span></span> Removed assignment to member variable startPosition &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2c26ba07_137'>137</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2c26ba07_137'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>close<br/><b>Killed by : </b>none</span></span> removed call to org/apache/lucene/analysis/Tokenizer::close &rarr; SURVIVED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_61</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_60</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_56</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_55</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_58</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_57</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_52</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_51</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_54</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_53</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_59</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_50</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_45</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_44</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_47</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_46</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_41</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_40</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_43</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_42</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_49</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_48</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_34</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_33</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_36</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_35</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_30</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_32</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_31</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_38</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_37</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_39</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_3</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_2</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_1</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_0</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_23</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_22</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_25</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_9</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_24</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_8</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_7</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_6</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_21</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_5</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_20</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_4</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_27</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_26</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_29</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_28</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_12</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_11</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_99</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_14</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_13</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_96</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_95</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_10</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_98</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_97</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_19</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_16</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_15</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_18</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_17</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_92</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_91</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_94</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_93</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_90</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_89</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_88</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_85</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_84</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_87</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_86</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_81</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_80</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_83</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_82</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_78</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_77</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_79</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_74</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_73</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_76</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_75</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_70</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_72</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_71</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_67</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_66</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_69</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_68</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_63</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_62</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_65</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_64</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.opengrok.indexer.analysis.PathTokenizerTest.testIncrementToken(org.opengrok.indexer.analysis.PathTokenizerTest) (63 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

@@ -1,0 +1,4845 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>SerTypeMapper.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Copyright 2001-present Stephen Colebourne</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.joda.beans.ser;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.File;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.math.BigDecimal;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.math.BigInteger;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.net.URI;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Collections;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.HashMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Locale;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Map;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Map.Entry;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.UUID;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.joda.convert.RenameHandler;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Type mapper for Joda-Bean serialization, used by serialization implementations.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public final class SerTypeMapper {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Known simple classes.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final Map&#60;Class&#60;?&#62;, String&#62; BASIC_TYPES;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Known simple classes.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final Map&#60;String, Class&#60;?&#62;&#62; BASIC_TYPES_REVERSED;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_45'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Map&#60;Class&#60;?&#62;, String&#62; map = new HashMap&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_47'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        map.put(String.class, &#34;String&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_48'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        map.put(Long.class, &#34;Long&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_49'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        map.put(Integer.class, &#34;Integer&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_50'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        map.put(Short.class, &#34;Short&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_51'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        map.put(Byte.class, &#34;Byte&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_52'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        map.put(Character.class, &#34;Character&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_53'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        map.put(Boolean.class, &#34;Boolean&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_54'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        map.put(Double.class, &#34;Double&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_55'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        map.put(Float.class, &#34;Float&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_56'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        map.put(BigInteger.class, &#34;BigInteger&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_57'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        map.put(BigDecimal.class, &#34;BigDecimal&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_58'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        map.put(Locale.class, &#34;Locale&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_59'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        map.put(Class.class, &#34;Class&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_60'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        map.put(UUID.class, &#34;UUID&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_61'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        map.put(URI.class, &#34;URI&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_62'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        map.put(File.class, &#34;File&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // selection of types are the most common types suitable for reduction</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // and suitable for simple interpretation on non-Java systems</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_66'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Map&#60;String, Class&#60;?&#62;&#62; reversed = new HashMap&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_67'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        for (Entry&#60;Class&#60;?&#62;, String&#62; entry : map.entrySet()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_68'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            reversed.put(entry.getValue(), entry.getKey());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_69'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_70'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        BASIC_TYPES = Collections.unmodifiableMap(map);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_71'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        BASIC_TYPES_REVERSED = Collections.unmodifiableMap(reversed);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_72'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Creates an instance.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_77'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    private SerTypeMapper() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_78'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Encodes a basic class.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This handles known simple types, like String, Integer or File, and prefixing.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * It also allows a map of message specific shorter forms.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param cls  the class to encode, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param settings  the settings object, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param basePackage  the base package to use with trailing dot, null if none</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param knownTypes  the known types map, null if not using known type shortening</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the class object, null if not a basic type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static String encodeType(Class&#60;?&#62; cls, final JodaBeanSer settings, final String basePackage, final Map&#60;Class&#60;?&#62;, String&#62; knownTypes) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // basic type</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_95'/>
+95
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_95'>2</a>
+<span>
+1. encodeType : replaced call to java/util/Map::get with argument &rarr; KILLED<br/>
+2. encodeType : removed call to java/util/Map::get &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        String result = BASIC_TYPES.get(cls);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_96'/>
+96
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_96'>3</a>
+<span>
+1. encodeType : negated conditional &rarr; KILLED<br/>
+2. encodeType : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. encodeType : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (result != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_97'/>
+97
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_97'>2</a>
+<span>
+1. encodeType : replaced return value with &#34;&#34; for org/joda/beans/ser/SerTypeMapper::encodeType &rarr; KILLED<br/>
+2. encodeType : mutated return of Object value for org/joda/beans/ser/SerTypeMapper::encodeType to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return result;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // handle enum subclasses</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_100'/>
+100
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_100'>2</a>
+<span>
+1. encodeType : removed call to java/lang/Class::getSuperclass &rarr; SURVIVED<br/>
+2. encodeType : replaced call to java/lang/Class::getSuperclass with receiver &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        Class&#60;?&#62; supr1 = cls.getSuperclass();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_101'/>
+101
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_101'>3</a>
+<span>
+1. encodeType : negated conditional &rarr; SURVIVED<br/>
+2. encodeType : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+3. encodeType : removed conditional - replaced equality check with true &rarr; RUN_ERROR<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (supr1 != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_102'/>
+102
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_102'>2</a>
+<span>
+1. encodeType : removed call to java/lang/Class::getSuperclass &rarr; SURVIVED<br/>
+2. encodeType : replaced call to java/lang/Class::getSuperclass with receiver &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            Class&#60;?&#62; supr2 = supr1.getSuperclass();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_103'/>
+103
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_103'>3</a>
+<span>
+1. encodeType : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. encodeType : negated conditional &rarr; KILLED<br/>
+3. encodeType : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (supr2 == Enum.class) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_104'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                cls = supr1;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // calculate</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_108'/>
+108
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_108'>4</a>
+<span>
+1. encodeType : negated conditional &rarr; KILLED<br/>
+2. encodeType : removed call to org/joda/beans/ser/JodaBeanSer::isShortTypes &rarr; KILLED<br/>
+3. encodeType : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. encodeType : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (settings.isShortTypes()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_109'/>
+109
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_109'>3</a>
+<span>
+1. encodeType : negated conditional &rarr; KILLED<br/>
+2. encodeType : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. encodeType : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (knownTypes != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_110'/>
+110
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_110'>2</a>
+<span>
+1. encodeType : replaced call to java/util/Map::get with argument &rarr; KILLED<br/>
+2. encodeType : removed call to java/util/Map::get &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                result = knownTypes.get(cls);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_111'/>
+111
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_111'>3</a>
+<span>
+1. encodeType : negated conditional &rarr; KILLED<br/>
+2. encodeType : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. encodeType : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                if (result != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_112'/>
+112
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_112'>2</a>
+<span>
+1. encodeType : replaced return value with &#34;&#34; for org/joda/beans/ser/SerTypeMapper::encodeType &rarr; KILLED<br/>
+2. encodeType : mutated return of Object value for org/joda/beans/ser/SerTypeMapper::encodeType to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    return result;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_115'/>
+115
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_115'>1</a>
+<span>
+1. encodeType : removed call to java/lang/Class::getName &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            result = cls.getName();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_116'/>
+116
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_116'>3</a>
+<span>
+1. encodeType : negated conditional &rarr; KILLED<br/>
+2. encodeType : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. encodeType : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (basePackage != null &#38;&#38;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_117'/>
+117
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_117'>4</a>
+<span>
+1. encodeType : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. encodeType : negated conditional &rarr; KILLED<br/>
+3. encodeType : removed call to java/lang/String::startsWith &rarr; KILLED<br/>
+4. encodeType : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                    result.startsWith(basePackage) &#38;&#38;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_118'/>
+118
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_118'>6</a>
+<span>
+1. encodeType : negated conditional &rarr; KILLED<br/>
+2. encodeType : removed call to java/lang/String::length &rarr; KILLED<br/>
+3. encodeType : removed call to java/lang/String::charAt &rarr; KILLED<br/>
+4. encodeType : removed call to java/lang/Character::isUpperCase &rarr; KILLED<br/>
+5. encodeType : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+6. encodeType : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    Character.isUpperCase(result.charAt(basePackage.length())) &#38;&#38;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_119'/>
+119
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_119'>7</a>
+<span>
+1. encodeType : negated conditional &rarr; KILLED<br/>
+2. encodeType : removed call to java/lang/String::length &rarr; KILLED<br/>
+3. encodeType : removed call to java/lang/String::substring &rarr; KILLED<br/>
+4. encodeType : removed call to java/util/Map::containsKey &rarr; KILLED<br/>
+5. encodeType : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+6. encodeType : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+7. encodeType : replaced call to java/lang/String::substring with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    BASIC_TYPES_REVERSED.containsKey(result.substring(basePackage.length())) == false) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                // use short format</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_121'/>
+121
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_121'>3</a>
+<span>
+1. encodeType : removed call to java/lang/String::length &rarr; KILLED<br/>
+2. encodeType : removed call to java/lang/String::substring &rarr; KILLED<br/>
+3. encodeType : replaced call to java/lang/String::substring with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                result = result.substring(basePackage.length());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_122'/>
+122
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_122'>3</a>
+<span>
+1. encodeType : negated conditional &rarr; KILLED<br/>
+2. encodeType : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. encodeType : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                if (knownTypes != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_123'/>
+123
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_123'>2</a>
+<span>
+1. encodeType : replaced call to java/util/Map::put with argument &rarr; KILLED<br/>
+2. encodeType : removed call to java/util/Map::put &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    knownTypes.put(cls, result);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                // use long format, short next time if possible</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_127'/>
+127
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_127'>3</a>
+<span>
+1. encodeType : negated conditional &rarr; KILLED<br/>
+2. encodeType : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. encodeType : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                if (knownTypes != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_128'/>
+128
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_128'>1</a>
+<span>
+1. encodeType : removed call to java/lang/Class::getSimpleName &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    String simpleName = cls.getSimpleName();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_129'/>
+129
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_129'>6</a>
+<span>
+1. encodeType : Substituted 0 with 1 &rarr; KILLED<br/>
+2. encodeType : negated conditional &rarr; KILLED<br/>
+3. encodeType : removed call to java/lang/String::charAt &rarr; KILLED<br/>
+4. encodeType : removed call to java/lang/Character::isUpperCase &rarr; KILLED<br/>
+5. encodeType : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+6. encodeType : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    if (Character.isUpperCase(simpleName.charAt(0)) &#38;&#38;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_130'/>
+130
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_130'>4</a>
+<span>
+1. encodeType : negated conditional &rarr; KILLED<br/>
+2. encodeType : removed call to java/util/Map::containsKey &rarr; KILLED<br/>
+3. encodeType : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. encodeType : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                            BASIC_TYPES_REVERSED.containsKey(simpleName) == false &#38;&#38;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_131'/>
+131
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_131'>4</a>
+<span>
+1. encodeType : negated conditional &rarr; KILLED<br/>
+2. encodeType : removed call to java/util/Map::containsValue &rarr; KILLED<br/>
+3. encodeType : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. encodeType : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                            knownTypes.containsValue(simpleName) == false) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_132'/>
+132
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_132'>2</a>
+<span>
+1. encodeType : replaced call to java/util/Map::put with argument &rarr; KILLED<br/>
+2. encodeType : removed call to java/util/Map::put &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                        knownTypes.put(cls, simpleName);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_133'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_134'/>
+134
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_134'>2</a>
+<span>
+1. encodeType : replaced call to java/util/Map::put with argument &rarr; KILLED<br/>
+2. encodeType : removed call to java/util/Map::put &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                        knownTypes.put(cls, result);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_135'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_136'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_138'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_139'/>
+139
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_139'>1</a>
+<span>
+1. encodeType : removed call to java/lang/Class::getName &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            result = cls.getName();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_141'/>
+141
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_141'>2</a>
+<span>
+1. encodeType : replaced return value with &#34;&#34; for org/joda/beans/ser/SerTypeMapper::encodeType &rarr; KILLED<br/>
+2. encodeType : mutated return of Object value for org/joda/beans/ser/SerTypeMapper::encodeType to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return result;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Decodes a class, throwing an exception if not found.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_147'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This uses the context class loader.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This handles known simple types, like String, Integer or File, and prefixing.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * It also allows a map of message specific shorter forms.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_150'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param className  the class name, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param settings  the settings object, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param basePackage  the base package to use with trailing dot, null if none</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param knownTypes  the known types map, null if not using known type shortening</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the class object, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws ClassNotFoundException if not found</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_157'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_158'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static Class&#60;?&#62; decodeType(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            String className,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            JodaBeanSer settings,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            String basePackage,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            Map&#60;String, Class&#60;?&#62;&#62; knownTypes) throws ClassNotFoundException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_164'/>
+164
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_164'>4</a>
+<span>
+1. decodeType : replaced call to org/joda/beans/ser/SerTypeMapper::decodeType0 with argument &rarr; KILLED<br/>
+2. decodeType : removed call to org/joda/beans/ser/SerTypeMapper::decodeType0 &rarr; KILLED<br/>
+3. decodeType : replaced return value with null for org/joda/beans/ser/SerTypeMapper::decodeType &rarr; KILLED<br/>
+4. decodeType : mutated return of Object value for org/joda/beans/ser/SerTypeMapper::decodeType to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return decodeType0(className, settings, basePackage, knownTypes, null);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_166'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_168'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Decodes a class, returning a default if not found.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This uses the context class loader.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_171'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This handles known simple types, like String, Integer or File, and prefixing.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_172'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * It also allows a map of message specific shorter forms.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_173'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_174'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param className  the class name, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_175'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param settings  the settings object, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_176'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param basePackage  the base package to use with trailing dot, null if none</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_177'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param knownTypes  the known types map, null if not using known type shortening</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_178'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param defaultType  the type to use as a default if the type cannot be found</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_179'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the class object, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_180'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws ClassNotFoundException if an error occurs</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_181'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_182'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static Class&#60;?&#62; decodeType(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_183'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            String className,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_184'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            JodaBeanSer settings,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_185'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            String basePackage,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_186'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            Map&#60;String, Class&#60;?&#62;&#62; knownTypes,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_187'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            Class&#60;?&#62; defaultType) throws ClassNotFoundException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_188'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_189'/>
+189
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_189'>4</a>
+<span>
+1. decodeType : replaced call to org/joda/beans/ser/SerTypeMapper::decodeType0 with argument &rarr; NO_COVERAGE<br/>
+2. decodeType : removed call to org/joda/beans/ser/SerTypeMapper::decodeType0 &rarr; NO_COVERAGE<br/>
+3. decodeType : replaced return value with null for org/joda/beans/ser/SerTypeMapper::decodeType &rarr; NO_COVERAGE<br/>
+4. decodeType : mutated return of Object value for org/joda/beans/ser/SerTypeMapper::decodeType to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return decodeType0(className, settings, basePackage, knownTypes, defaultType);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_190'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_191'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_192'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // internal type decode</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_193'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static Class&#60;?&#62; decodeType0(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_194'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            String className,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_195'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            JodaBeanSer settings,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_196'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            String basePackage,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_197'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            Map&#60;String, Class&#60;?&#62;&#62; knownTypes,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_198'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            Class&#60;?&#62; defaultType) throws ClassNotFoundException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_199'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_200'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // basic type</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_201'/>
+201
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_201'>2</a>
+<span>
+1. decodeType0 : replaced call to java/util/Map::get with argument &rarr; KILLED<br/>
+2. decodeType0 : removed call to java/util/Map::get &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        Class&#60;?&#62; result = BASIC_TYPES_REVERSED.get(className);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_202'/>
+202
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_202'>3</a>
+<span>
+1. decodeType0 : negated conditional &rarr; KILLED<br/>
+2. decodeType0 : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. decodeType0 : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (result != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_203'/>
+203
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_203'>2</a>
+<span>
+1. decodeType0 : replaced return value with null for org/joda/beans/ser/SerTypeMapper::decodeType0 &rarr; KILLED<br/>
+2. decodeType0 : mutated return of Object value for org/joda/beans/ser/SerTypeMapper::decodeType0 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return result;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_204'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_205'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // check cache</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_206'/>
+206
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_206'>3</a>
+<span>
+1. decodeType0 : negated conditional &rarr; KILLED<br/>
+2. decodeType0 : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. decodeType0 : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (knownTypes != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_207'/>
+207
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_207'>2</a>
+<span>
+1. decodeType0 : replaced call to java/util/Map::get with argument &rarr; KILLED<br/>
+2. decodeType0 : removed call to java/util/Map::get &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            result = knownTypes.get(className);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_208'/>
+208
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_208'>3</a>
+<span>
+1. decodeType0 : negated conditional &rarr; KILLED<br/>
+2. decodeType0 : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. decodeType0 : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (result != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_209'/>
+209
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_209'>2</a>
+<span>
+1. decodeType0 : replaced return value with null for org/joda/beans/ser/SerTypeMapper::decodeType0 &rarr; KILLED<br/>
+2. decodeType0 : mutated return of Object value for org/joda/beans/ser/SerTypeMapper::decodeType0 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                return result;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_210'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_211'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_212'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // calculate</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_213'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        String fullName = className;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_214'/>
+214
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_214'>1</a>
+<span>
+1. decodeType0 : Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        boolean expanded = false;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_215'/>
+215
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_215'>14</a>
+<span>
+1. decodeType0 : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. decodeType0 : changed conditional boundary &rarr; KILLED<br/>
+3. decodeType0 : Substituted 0 with 1 &rarr; KILLED<br/>
+4. decodeType0 : negated conditional &rarr; KILLED<br/>
+5. decodeType0 : negated conditional &rarr; KILLED<br/>
+6. decodeType0 : negated conditional &rarr; KILLED<br/>
+7. decodeType0 : removed call to java/lang/String::length &rarr; KILLED<br/>
+8. decodeType0 : removed call to java/lang/String::charAt &rarr; KILLED<br/>
+9. decodeType0 : removed call to java/lang/Character::isUpperCase &rarr; KILLED<br/>
+10. decodeType0 : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+11. decodeType0 : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+12. decodeType0 : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+13. decodeType0 : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+14. decodeType0 : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (basePackage != null &#38;&#38; className.length() &#62; 0 &#38;&#38; Character.isUpperCase(className.charAt(0))) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_216'/>
+216
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_216'>6</a>
+<span>
+1. decodeType0 : removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; KILLED<br/>
+2. decodeType0 : removed call to java/lang/StringBuilder::append &rarr; KILLED<br/>
+3. decodeType0 : removed call to java/lang/StringBuilder::append &rarr; KILLED<br/>
+4. decodeType0 : removed call to java/lang/StringBuilder::toString &rarr; KILLED<br/>
+5. decodeType0 : replaced call to java/lang/StringBuilder::append with receiver &rarr; KILLED<br/>
+6. decodeType0 : replaced call to java/lang/StringBuilder::append with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            fullName = basePackage + className;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_217'/>
+217
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_217'>1</a>
+<span>
+1. decodeType0 : Substituted 1 with 0 &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            expanded = true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_218'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_219'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_220'/>
+220
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_220'>1</a>
+<span>
+1. decodeType0 : removed call to org/joda/convert/RenameHandler::lookupType &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            result = RenameHandler.INSTANCE.lookupType(fullName);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_221'/>
+221
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_221'>3</a>
+<span>
+1. decodeType0 : negated conditional &rarr; KILLED<br/>
+2. decodeType0 : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. decodeType0 : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (knownTypes != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_222'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                // cache full name</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_223'/>
+223
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_223'>2</a>
+<span>
+1. decodeType0 : replaced call to java/util/Map::put with argument &rarr; KILLED<br/>
+2. decodeType0 : removed call to java/util/Map::put &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                knownTypes.put(fullName, result);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_224'/>
+224
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_224'>3</a>
+<span>
+1. decodeType0 : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. decodeType0 : negated conditional &rarr; KILLED<br/>
+3. decodeType0 : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                if (expanded) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_225'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    // cache short name</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_226'/>
+226
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_226'>2</a>
+<span>
+1. decodeType0 : replaced call to java/util/Map::put with argument &rarr; KILLED<br/>
+2. decodeType0 : removed call to java/util/Map::put &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    knownTypes.put(className, result);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_227'/>
+227
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_227'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_228'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    // derive and cache short name</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_229'/>
+229
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_229'>1</a>
+<span>
+1. decodeType0 : removed call to java/lang/Class::getSimpleName &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    String simpleName = result.getSimpleName();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_230'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    // handle renames</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_231'/>
+231
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_231'>5</a>
+<span>
+1. decodeType0 : negated conditional &rarr; SURVIVED<br/>
+2. decodeType0 : removed call to java/lang/Class::getName &rarr; SURVIVED<br/>
+3. decodeType0 : removed call to java/lang/String::equals &rarr; SURVIVED<br/>
+4. decodeType0 : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+5. decodeType0 : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                    if (fullName.equals(result.getName()) == false &#38;&#38;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_232'/>
+232
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_232'>5</a>
+<span>
+1. decodeType0 : negated conditional &rarr; NO_COVERAGE<br/>
+2. decodeType0 : removed call to org/joda/convert/RenameHandler::getTypeRenames &rarr; NO_COVERAGE<br/>
+3. decodeType0 : removed call to java/util/Map::containsKey &rarr; NO_COVERAGE<br/>
+4. decodeType0 : removed conditional - replaced equality check with false &rarr; NO_COVERAGE<br/>
+5. decodeType0 : removed conditional - replaced equality check with true &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                            RenameHandler.INSTANCE.getTypeRenames().containsKey(fullName) &#38;&#38;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_233'/>
+233
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_233'>5</a>
+<span>
+1. decodeType0 : negated conditional &rarr; NO_COVERAGE<br/>
+2. decodeType0 : removed call to java/lang/Class::getEnclosingClass &rarr; NO_COVERAGE<br/>
+3. decodeType0 : removed conditional - replaced equality check with false &rarr; NO_COVERAGE<br/>
+4. decodeType0 : removed conditional - replaced equality check with true &rarr; NO_COVERAGE<br/>
+5. decodeType0 : replaced call to java/lang/Class::getEnclosingClass with receiver &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                            result.getEnclosingClass() == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_234'/>
+234
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_234'>5</a>
+<span>
+1. decodeType0 : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+2. decodeType0 : Replaced integer addition with subtraction &rarr; NO_COVERAGE<br/>
+3. decodeType0 : removed call to java/lang/String::lastIndexOf &rarr; NO_COVERAGE<br/>
+4. decodeType0 : removed call to java/lang/String::substring &rarr; NO_COVERAGE<br/>
+5. decodeType0 : replaced call to java/lang/String::substring with receiver &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                        simpleName = fullName.substring(fullName.lastIndexOf(&#34;.&#34;) + 1);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_235'/>
+235
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_235'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_236'/>
+236
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_236'>6</a>
+<span>
+1. decodeType0 : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. decodeType0 : Substituted 0 with 1 &rarr; KILLED<br/>
+3. decodeType0 : negated conditional &rarr; KILLED<br/>
+4. decodeType0 : removed call to java/lang/String::charAt &rarr; KILLED<br/>
+5. decodeType0 : removed call to java/lang/Character::isUpperCase &rarr; KILLED<br/>
+6. decodeType0 : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                    if (Character.isUpperCase(simpleName.charAt(0)) &#38;&#38;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_237'/>
+237
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_237'>4</a>
+<span>
+1. decodeType0 : removed call to java/util/Map::containsKey &rarr; SURVIVED<br/>
+2. decodeType0 : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+3. decodeType0 : negated conditional &rarr; KILLED<br/>
+4. decodeType0 : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                            BASIC_TYPES_REVERSED.containsKey(simpleName) == false &#38;&#38;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_238'/>
+238
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_238'>4</a>
+<span>
+1. decodeType0 : removed call to java/util/Map::containsKey &rarr; SURVIVED<br/>
+2. decodeType0 : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+3. decodeType0 : negated conditional &rarr; KILLED<br/>
+4. decodeType0 : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                            knownTypes.containsKey(simpleName) == false) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_239'/>
+239
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_239'>2</a>
+<span>
+1. decodeType0 : replaced call to java/util/Map::put with argument &rarr; KILLED<br/>
+2. decodeType0 : removed call to java/util/Map::put &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                        knownTypes.put(simpleName, result);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_240'/>
+240
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_240'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_241'/>
+241
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_241'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_242'/>
+242
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_242'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_243'/>
+243
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_243'>2</a>
+<span>
+1. decodeType0 : replaced return value with null for org/joda/beans/ser/SerTypeMapper::decodeType0 &rarr; KILLED<br/>
+2. decodeType0 : mutated return of Object value for org/joda/beans/ser/SerTypeMapper::decodeType0 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return result;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_244'/>
+244
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_244'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        } catch (ClassNotFoundException ex) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_245'/>
+245
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_245'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // handle pathological case of package name starting with upper case</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_246'/>
+246
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_246'>4</a>
+<span>
+1. decodeType0 : negated conditional &rarr; SURVIVED<br/>
+2. decodeType0 : removed call to java/lang/String::equals &rarr; SURVIVED<br/>
+3. decodeType0 : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+4. decodeType0 : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (fullName.equals(className) == false) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_247'/>
+247
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_247'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                try {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_248'/>
+248
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_248'>1</a>
+<span>
+1. decodeType0 : removed call to org/joda/convert/RenameHandler::lookupType &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                    result = RenameHandler.INSTANCE.lookupType(className);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_249'/>
+249
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_249'>3</a>
+<span>
+1. decodeType0 : negated conditional &rarr; NO_COVERAGE<br/>
+2. decodeType0 : removed conditional - replaced equality check with false &rarr; NO_COVERAGE<br/>
+3. decodeType0 : removed conditional - replaced equality check with true &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                    if (knownTypes != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_250'/>
+250
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_250'>2</a>
+<span>
+1. decodeType0 : replaced call to java/util/Map::put with argument &rarr; NO_COVERAGE<br/>
+2. decodeType0 : removed call to java/util/Map::put &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                        knownTypes.put(className, result);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_251'/>
+251
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_251'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_252'/>
+252
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_252'>2</a>
+<span>
+1. decodeType0 : replaced return value with null for org/joda/beans/ser/SerTypeMapper::decodeType0 &rarr; NO_COVERAGE<br/>
+2. decodeType0 : mutated return of Object value for org/joda/beans/ser/SerTypeMapper::decodeType0 to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                    return result;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_253'/>
+253
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_253'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                } catch (ClassNotFoundException ignored) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_254'/>
+254
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_254'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_255'/>
+255
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_255'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_256'/>
+256
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_256'>3</a>
+<span>
+1. decodeType0 : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. decodeType0 : negated conditional &rarr; KILLED<br/>
+3. decodeType0 : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (defaultType == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_257'/>
+257
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_257'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                throw ex;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_258'/>
+258
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_258'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_259'/>
+259
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_259'>2</a>
+<span>
+1. decodeType0 : replaced return value with null for org/joda/beans/ser/SerTypeMapper::decodeType0 &rarr; NO_COVERAGE<br/>
+2. decodeType0 : mutated return of Object value for org/joda/beans/ser/SerTypeMapper::decodeType0 to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            return defaultType;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_260'/>
+260
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_260'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_261'/>
+261
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_261'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_262'/>
+262
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_262'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_263'/>
+263
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_263'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_264'/>
+264
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_264'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_265'/>
+265
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_265'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public String toString() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_266'/>
+266
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_266'>4</a>
+<span>
+1. toString : replaced return value with &#34;&#34; for org/joda/beans/ser/SerTypeMapper::toString &rarr; NO_COVERAGE<br/>
+2. toString : removed call to java/lang/Object::getClass &rarr; NO_COVERAGE<br/>
+3. toString : removed call to java/lang/Class::getSimpleName &rarr; NO_COVERAGE<br/>
+4. toString : mutated return of Object value for org/joda/beans/ser/SerTypeMapper::toString to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return getClass().getSimpleName();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_267'/>
+267
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_267'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_268'/>
+268
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_268'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5d152bcd_269'/>
+269
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_269'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_95'>95</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_95'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noShortTypes(org.joda.beans.ser.TestSerTypeMapper)</span></span> replaced call to java/util/Map::get with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noShortTypes(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/util/Map::get &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_96'>96</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_96'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noShortTypes(org.joda.beans.ser.TestSerTypeMapper)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noShortTypes(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noShortTypes(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_97'>97</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_97'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noShortTypes(org.joda.beans.ser.TestSerTypeMapper)</span></span> replaced return value with &#34;&#34; for org/joda/beans/ser/SerTypeMapper::encodeType &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noShortTypes(org.joda.beans.ser.TestSerTypeMapper)</span></span> mutated return of Object value for org/joda/beans/ser/SerTypeMapper::encodeType to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_100'>100</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_100'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Class::getSuperclass &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/Class::getSuperclass with receiver &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_101'>101</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_101'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='RUN_ERROR'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; RUN_ERROR</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_102'>102</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_102'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Class::getSuperclass &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/Class::getSuperclass with receiver &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_103'>103</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_103'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noShortTypes(org.joda.beans.ser.TestSerTypeMapper)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noShortTypes(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_108'>108</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_108'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noShortTypes(org.joda.beans.ser.TestSerTypeMapper)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_sillyNames(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to org/joda/beans/ser/JodaBeanSer::isShortTypes &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_sillyNames(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noShortTypes(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_109'>109</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_109'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_110'>110</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_110'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_sillyNames(org.joda.beans.ser.TestSerTypeMapper)</span></span> replaced call to java/util/Map::get with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/util/Map::get &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_111'>111</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_111'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_sillyNames(org.joda.beans.ser.TestSerTypeMapper)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_sillyNames(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_112'>112</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_112'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper)</span></span> replaced return value with &#34;&#34; for org/joda/beans/ser/SerTypeMapper::encodeType &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper)</span></span> mutated return of Object value for org/joda/beans/ser/SerTypeMapper::encodeType to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_115'>115</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_115'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_sillyNames(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/lang/Class::getName &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_116'>116</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_116'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_117'>117</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_117'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/lang/String::startsWith &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_118'>118</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_118'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_sillyNames(org.joda.beans.ser.TestSerTypeMapper)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/lang/String::length &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/lang/String::charAt &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/lang/Character::isUpperCase &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_sillyNames(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_119'>119</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_119'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_sillyNames(org.joda.beans.ser.TestSerTypeMapper)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_sillyNames(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/lang/String::length &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_sillyNames(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/lang/String::substring &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_sillyNames(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/util/Map::containsKey &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_sillyNames(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_sillyNames(org.joda.beans.ser.TestSerTypeMapper)</span></span> replaced call to java/lang/String::substring with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_121'>121</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_121'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/lang/String::length &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/lang/String::substring &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> replaced call to java/lang/String::substring with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_122'>122</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_122'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_123'>123</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_123'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> replaced call to java/util/Map::put with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/util/Map::put &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_127'>127</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_127'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_sillyNames(org.joda.beans.ser.TestSerTypeMapper)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_sillyNames(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_128'>128</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_128'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_sillyNames(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/lang/Class::getSimpleName &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_129'>129</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_129'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_sillyNames(org.joda.beans.ser.TestSerTypeMapper)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/lang/String::charAt &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/lang/Character::isUpperCase &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_sillyNames(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_130'>130</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_130'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_sillyNames(org.joda.beans.ser.TestSerTypeMapper)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_sillyNames(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/util/Map::containsKey &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_sillyNames(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_131'>131</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_131'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/util/Map::containsValue &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_132'>132</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_132'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper)</span></span> replaced call to java/util/Map::put with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/util/Map::put &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_134'>134</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_134'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_sillyNames(org.joda.beans.ser.TestSerTypeMapper)</span></span> replaced call to java/util/Map::put with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_sillyNames(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/util/Map::put &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_139'>139</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_139'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noShortTypes(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/lang/Class::getName &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_141'>141</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_141'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noShortTypes(org.joda.beans.ser.TestSerTypeMapper)</span></span> replaced return value with &#34;&#34; for org/joda/beans/ser/SerTypeMapper::encodeType &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>encodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noShortTypes(org.joda.beans.ser.TestSerTypeMapper)</span></span> mutated return of Object value for org/joda/beans/ser/SerTypeMapper::encodeType to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_164'>164</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_164'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_emptyClassName(org.joda.beans.ser.TestSerTypeMapper)</span></span> replaced call to org/joda/beans/ser/SerTypeMapper::decodeType0 with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_emptyClassName(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to org/joda/beans/ser/SerTypeMapper::decodeType0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>decodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper)</span></span> replaced return value with null for org/joda/beans/ser/SerTypeMapper::decodeType &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>decodeType<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper)</span></span> mutated return of Object value for org/joda/beans/ser/SerTypeMapper::decodeType to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_189'>189</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_189'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType<br/><b>Killed by : </b>none</span></span> replaced call to org/joda/beans/ser/SerTypeMapper::decodeType0 with argument &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType<br/><b>Killed by : </b>none</span></span> removed call to org/joda/beans/ser/SerTypeMapper::decodeType0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>decodeType<br/><b>Killed by : </b>none</span></span> replaced return value with null for org/joda/beans/ser/SerTypeMapper::decodeType &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>decodeType<br/><b>Killed by : </b>none</span></span> mutated return of Object value for org/joda/beans/ser/SerTypeMapper::decodeType to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_201'>201</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_201'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_emptyClassName(org.joda.beans.ser.TestSerTypeMapper)</span></span> replaced call to java/util/Map::get with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/util/Map::get &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_202'>202</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_202'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_emptyClassName(org.joda.beans.ser.TestSerTypeMapper)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_emptyClassName(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_203'>203</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_203'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper)</span></span> replaced return value with null for org/joda/beans/ser/SerTypeMapper::decodeType0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper)</span></span> mutated return of Object value for org/joda/beans/ser/SerTypeMapper::decodeType0 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_206'>206</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_206'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_207'>207</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_207'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_emptyClassName(org.joda.beans.ser.TestSerTypeMapper)</span></span> replaced call to java/util/Map::get with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/util/Map::get &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_208'>208</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_208'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_emptyClassName(org.joda.beans.ser.TestSerTypeMapper)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_emptyClassName(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_209'>209</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_209'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> replaced return value with null for org/joda/beans/ser/SerTypeMapper::decodeType0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> mutated return of Object value for org/joda/beans/ser/SerTypeMapper::decodeType0 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_214'>214</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_214'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> Substituted 0 with 1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_215'>215</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_215'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_emptyClassName(org.joda.beans.ser.TestSerTypeMapper)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_emptyClassName(org.joda.beans.ser.TestSerTypeMapper)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/lang/String::length &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/lang/String::charAt &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/lang/Character::isUpperCase &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_emptyClassName(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_216'>216</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_216'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/lang/StringBuilder::append &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/lang/StringBuilder::append &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/lang/StringBuilder::toString &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_217'>217</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_217'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_220'>220</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_220'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_emptyClassName(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to org/joda/convert/RenameHandler::lookupType &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_221'>221</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_221'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noCache(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_223'>223</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_223'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> replaced call to java/util/Map::put with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/util/Map::put &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_224'>224</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_224'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_226'>226</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_226'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> replaced call to java/util/Map::put with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/util/Map::put &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_229'>229</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_229'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/lang/Class::getSimpleName &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_231'>231</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_231'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Class::getName &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed call to java/lang/String::equals &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_232'>232</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_232'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed call to org/joda/convert/RenameHandler::getTypeRenames &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed call to java/util/Map::containsKey &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_233'>233</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_233'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Class::getEnclosingClass &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/Class::getEnclosingClass with receiver &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_234'>234</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_234'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> Replaced integer addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed call to java/lang/String::lastIndexOf &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed call to java/lang/String::substring &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/String::substring with receiver &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_236'>236</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_236'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/lang/String::charAt &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/lang/Character::isUpperCase &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_237'>237</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_237'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed call to java/util/Map::containsKey &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_238'>238</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_238'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed call to java/util/Map::containsKey &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_239'>239</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_239'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> replaced call to java/util/Map::put with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed call to java/util/Map::put &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_243'>243</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_243'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper)</span></span> replaced return value with null for org/joda/beans/ser/SerTypeMapper::decodeType0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper)</span></span> mutated return of Object value for org/joda/beans/ser/SerTypeMapper::decodeType0 to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_246'>246</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_246'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed call to java/lang/String::equals &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_248'>248</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_248'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed call to org/joda/convert/RenameHandler::lookupType &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_249'>249</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_249'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_250'>250</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_250'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> replaced call to java/util/Map::put with argument &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed call to java/util/Map::put &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_252'>252</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_252'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> replaced return value with null for org/joda/beans/ser/SerTypeMapper::decodeType0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> mutated return of Object value for org/joda/beans/ser/SerTypeMapper::decodeType0 to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_256'>256</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_256'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_emptyClassName(org.joda.beans.ser.TestSerTypeMapper)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_emptyClassName(org.joda.beans.ser.TestSerTypeMapper)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_259'>259</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_259'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> replaced return value with null for org/joda/beans/ser/SerTypeMapper::decodeType0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decodeType0<br/><b>Killed by : </b>none</span></span> mutated return of Object value for org/joda/beans/ser/SerTypeMapper::decodeType0 to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5d152bcd_266'>266</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5d152bcd_266'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> replaced return value with &#34;&#34; for org/joda/beans/ser/SerTypeMapper::toString &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Object::getClass &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Class::getSimpleName &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>toString<br/><b>Killed by : </b>none</span></span> mutated return of Object value for org/joda/beans/ser/SerTypeMapper::toString to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_61</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_60</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_56</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_55</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_58</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_57</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_52</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_51</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_54</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_53</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_59</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_50</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_45</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_44</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_47</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_46</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_41</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_40</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_43</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_42</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_49</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_48</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_34</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_33</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_36</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_35</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_30</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_32</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_31</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_38</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_37</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_39</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_3</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_2</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_1</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_0</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_23</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_22</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_25</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_9</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_24</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_8</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_7</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_6</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_21</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_5</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_20</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_4</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_27</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_26</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_29</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_28</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_12</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_11</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_99</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_14</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_13</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_96</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_95</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_10</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_98</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_97</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_19</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_16</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_15</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_18</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_17</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_92</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_91</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_94</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_93</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_90</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_89</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_88</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_85</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_84</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_87</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_86</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_81</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_80</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_83</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_82</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_78</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_77</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_79</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_74</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_73</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_76</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_75</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_70</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_72</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_71</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_67</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_66</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_69</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_68</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_63</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_62</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_65</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_64</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noCache(org.joda.beans.ser.TestSerTypeMapper) (2 ms)</li><li>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper) (2 ms)</li><li>org.joda.beans.ser.TestSerTypeMapper.test_decodeType(org.joda.beans.ser.TestSerTypeMapper) (116 ms)</li><li>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_sillyNames(org.joda.beans.ser.TestSerTypeMapper) (1 ms)</li><li>org.joda.beans.ser.TestSerTypeMapper.test_decodeType_emptyClassName(org.joda.beans.ser.TestSerTypeMapper) (2 ms)</li><li>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noBasePackage(org.joda.beans.ser.TestSerTypeMapper) (2 ms)</li><li>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noShortTypes(org.joda.beans.ser.TestSerTypeMapper) (1 ms)</li><li>org.joda.beans.ser.TestSerTypeMapper.test_encodeType(org.joda.beans.ser.TestSerTypeMapper) (3 ms)</li><li>org.joda.beans.ser.TestSerTypeMapper.test_encodeType_noCache(org.joda.beans.ser.TestSerTypeMapper) (2 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

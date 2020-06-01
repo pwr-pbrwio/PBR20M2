@@ -1,0 +1,4288 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>StandardUnionFind.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2008 The Closure Compiler Authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.google.javascript.jscomp.graph;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.google.common.base.Preconditions.checkArgument;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.google.common.collect.ImmutableSet.toImmutableSet;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.google.common.collect.Iterators.filter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.google.common.collect.Multimaps.asMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.annotations.GwtCompatible;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.base.Objects;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.base.Predicate;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.collect.ImmutableList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.collect.ImmutableSet;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.collect.MultimapBuilder;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.collect.SetMultimap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.errorprone.annotations.CanIgnoreReturnValue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.Serializable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.AbstractSet;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Collections;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Iterator;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.LinkedHashMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Map;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Set;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import javax.annotation.Nullable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * A Union-Find implementation.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;This class implements Union-Find algorithm with rank and path</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * compression.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;See &#60;a</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * href=&#34;http://www.algorithmist.com/index.php?title=Union_Find&#38;oldid=7575&#34;&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * algorithmist&#60;/a&#62; for more detail.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;E&#62; element type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>@GwtCompatible</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_53'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public class StandardUnionFind&#60;E&#62; implements Serializable, UnionFind&#60;E&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /** All values with the same root node are in the same equivalence set. */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_56'/>
+56
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_56'>4</a>
+<span>
+1. <init> : removed call to java/util/LinkedHashMap::&#60;init&#62; &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable elmap &rarr; KILLED<br/>
+3. <init> : removed call to java/util/LinkedHashMap::&#60;init&#62; &rarr; KILLED<br/>
+4. <init> : Removed assignment to member variable elmap &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>  private final Map&#60;E, Node&#60;E&#62;&#62; elmap = new LinkedHashMap&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /** Creates an empty UnionFind structure. */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_59'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  public StandardUnionFind() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_60'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Creates an UnionFind structure being a copy of other structure.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * The created structure is optimal in a sense that the paths to</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * the root from any element will have a length of at most 1.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @param other structure to be copied</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_69'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  public StandardUnionFind(UnionFind&#60;E&#62; other) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_70'/>
+70
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_70'>1</a>
+<span>
+1. <init> : removed call to com/google/javascript/jscomp/graph/UnionFind::elements &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    for (E elem : other.elements()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_71'/>
+71
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_71'>4</a>
+<span>
+1. <init> : replaced call to com/google/javascript/jscomp/graph/UnionFind::find with argument &rarr; KILLED<br/>
+2. <init> : replaced call to com/google/javascript/jscomp/graph/StandardUnionFind::union with argument &rarr; KILLED<br/>
+3. <init> : removed call to com/google/javascript/jscomp/graph/UnionFind::find &rarr; KILLED<br/>
+4. <init> : removed call to com/google/javascript/jscomp/graph/StandardUnionFind::union &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      union(other.find(elem), elem);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_72'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_73'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void add(@Nullable E e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_77'/>
+77
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_77'>2</a>
+<span>
+1. add : replaced call to com/google/javascript/jscomp/graph/StandardUnionFind::union with argument &rarr; KILLED<br/>
+2. add : removed call to com/google/javascript/jscomp/graph/StandardUnionFind::union &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    union(e, e);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_78'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void addAll(Iterable&#60;E&#62; es) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_81'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    for (E e : es) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_82'/>
+82
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_82'>1</a>
+<span>
+1. addAll : removed call to com/google/javascript/jscomp/graph/StandardUnionFind::add &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      this.add(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_83'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_84'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @CanIgnoreReturnValue</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public E union(@Nullable E a, @Nullable E b) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_89'/>
+89
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_89'>1</a>
+<span>
+1. union : removed call to com/google/javascript/jscomp/graph/StandardUnionFind::findRootOrCreateNode &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    Node&#60;E&#62; nodeA = findRootOrCreateNode(a);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_90'/>
+90
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_90'>1</a>
+<span>
+1. union : removed call to com/google/javascript/jscomp/graph/StandardUnionFind::findRootOrCreateNode &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    Node&#60;E&#62; nodeB = findRootOrCreateNode(b);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_92'/>
+92
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_92'>3</a>
+<span>
+1. union : negated conditional &rarr; KILLED<br/>
+2. union : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. union : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (nodeA == nodeB) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_93'/>
+93
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_93'>2</a>
+<span>
+1. union : replaced return value with null for com/google/javascript/jscomp/graph/StandardUnionFind::union &rarr; SURVIVED<br/>
+2. union : mutated return of Object value for com/google/javascript/jscomp/graph/StandardUnionFind::union to ( if (x != null) null else throw new RuntimeException ) &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      return nodeA.element;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // If possible, prefer nodeA over nodeB, to preserve insertion order.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_96'/>
+96
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_96'>4</a>
+<span>
+1. union : changed conditional boundary &rarr; SURVIVED<br/>
+2. union : negated conditional &rarr; SURVIVED<br/>
+3. union : removed conditional - replaced comparison check with false &rarr; SURVIVED<br/>
+4. union : removed conditional - replaced comparison check with true &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (nodeA.rank &#62;= nodeB.rank) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_97'/>
+97
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_97'>1</a>
+<span>
+1. union : Removed assignment to member variable parent &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      nodeB.parent = nodeA;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_98'/>
+98
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_98'>2</a>
+<span>
+1. union : Replaced integer addition with subtraction &rarr; KILLED<br/>
+2. union : Removed assignment to member variable size &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      nodeA.size += nodeB.size;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_99'/>
+99
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_99'>3</a>
+<span>
+1. union : negated conditional &rarr; SURVIVED<br/>
+2. union : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+3. union : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      if (nodeA.rank == nodeB.rank) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_100'/>
+100
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_100'>3</a>
+<span>
+1. union : Substituted 1 with 0 &rarr; SURVIVED<br/>
+2. union : Replaced integer addition with subtraction &rarr; SURVIVED<br/>
+3. union : Removed assignment to member variable rank &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        nodeA.rank++;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_102'/>
+102
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_102'>2</a>
+<span>
+1. union : replaced return value with null for com/google/javascript/jscomp/graph/StandardUnionFind::union &rarr; SURVIVED<br/>
+2. union : mutated return of Object value for com/google/javascript/jscomp/graph/StandardUnionFind::union to ( if (x != null) null else throw new RuntimeException ) &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      return nodeA.element;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_104'/>
+104
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_104'>1</a>
+<span>
+1. union : Removed assignment to member variable parent &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    nodeA.parent = nodeB;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_105'/>
+105
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_105'>2</a>
+<span>
+1. union : Replaced integer addition with subtraction &rarr; NO_COVERAGE<br/>
+2. union : Removed assignment to member variable size &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    nodeB.size += nodeA.size;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_106'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    E temp = nodeB.element;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_107'/>
+107
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_107'>1</a>
+<span>
+1. union : Removed assignment to member variable element &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    nodeB.element = nodeA.element;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_108'/>
+108
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_108'>1</a>
+<span>
+1. union : Removed assignment to member variable element &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    nodeA.element = temp;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_109'/>
+109
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_109'>2</a>
+<span>
+1. union : replaced return value with null for com/google/javascript/jscomp/graph/StandardUnionFind::union &rarr; NO_COVERAGE<br/>
+2. union : mutated return of Object value for com/google/javascript/jscomp/graph/StandardUnionFind::union to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    return nodeB.element;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public E find(@Nullable E e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_114'/>
+114
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_114'>2</a>
+<span>
+1. find : removed call to java/util/Map::containsKey &rarr; KILLED<br/>
+2. find : removed call to com/google/common/base/Preconditions::checkArgument &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    checkArgument(elmap.containsKey(e), &#34;Element does not exist: %s&#34;, e);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_115'/>
+115
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_115'>6</a>
+<span>
+1. find : replaced call to java/util/Map::get with argument &rarr; KILLED<br/>
+2. find : replaced call to com/google/javascript/jscomp/graph/StandardUnionFind::findRoot with argument &rarr; KILLED<br/>
+3. find : removed call to java/util/Map::get &rarr; KILLED<br/>
+4. find : removed call to com/google/javascript/jscomp/graph/StandardUnionFind::findRoot &rarr; KILLED<br/>
+5. find : replaced return value with null for com/google/javascript/jscomp/graph/StandardUnionFind::find &rarr; KILLED<br/>
+6. find : mutated return of Object value for com/google/javascript/jscomp/graph/StandardUnionFind::find to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return findRoot(elmap.get(e)).element;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_118'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public boolean areEquivalent(@Nullable E a, @Nullable E b) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_120'/>
+120
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_120'>2</a>
+<span>
+1. areEquivalent : replaced call to com/google/javascript/jscomp/graph/StandardUnionFind::find with argument &rarr; SURVIVED<br/>
+2. areEquivalent : removed call to com/google/javascript/jscomp/graph/StandardUnionFind::find &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    E aRep = find(a);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_121'/>
+121
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_121'>2</a>
+<span>
+1. areEquivalent : replaced call to com/google/javascript/jscomp/graph/StandardUnionFind::find with argument &rarr; KILLED<br/>
+2. areEquivalent : removed call to com/google/javascript/jscomp/graph/StandardUnionFind::find &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    E bRep = find(b);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_122'/>
+122
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_122'>8</a>
+<span>
+1. areEquivalent : replaced boolean return with false for com/google/javascript/jscomp/graph/StandardUnionFind::areEquivalent &rarr; KILLED<br/>
+2. areEquivalent : replaced boolean return with true for com/google/javascript/jscomp/graph/StandardUnionFind::areEquivalent &rarr; KILLED<br/>
+3. areEquivalent : Substituted 1 with 0 &rarr; KILLED<br/>
+4. areEquivalent : Substituted 0 with 1 &rarr; KILLED<br/>
+5. areEquivalent : negated conditional &rarr; KILLED<br/>
+6. areEquivalent : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+7. areEquivalent : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+8. areEquivalent : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return aRep == bRep;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public Set&#60;E&#62; elements() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_127'/>
+127
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_127'>5</a>
+<span>
+1. elements : replaced call to java/util/Collections::unmodifiableSet with argument &rarr; SURVIVED<br/>
+2. elements : replaced return value with Collections.emptyList for com/google/javascript/jscomp/graph/StandardUnionFind::elements &rarr; KILLED<br/>
+3. elements : removed call to java/util/Map::keySet &rarr; KILLED<br/>
+4. elements : removed call to java/util/Collections::unmodifiableSet &rarr; KILLED<br/>
+5. elements : mutated return of Object value for com/google/javascript/jscomp/graph/StandardUnionFind::elements to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    return Collections.unmodifiableSet(elmap.keySet());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_130'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_131'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public ImmutableList&#60;ImmutableSet&#60;E&#62;&#62; allEquivalenceClasses() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    SetMultimap&#60;Node&#60;E&#62;, E&#62; groupsTmp =</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_133'/>
+133
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_133'>3</a>
+<span>
+1. allEquivalenceClasses : removed call to com/google/common/collect/MultimapBuilder::linkedHashKeys &rarr; KILLED<br/>
+2. allEquivalenceClasses : removed call to com/google/common/collect/MultimapBuilder$MultimapBuilderWithKeys::linkedHashSetValues &rarr; KILLED<br/>
+3. allEquivalenceClasses : removed call to com/google/common/collect/MultimapBuilder$SetMultimapBuilder::build &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        MultimapBuilder.linkedHashKeys().linkedHashSetValues().build();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_134'/>
+134
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_134'>1</a>
+<span>
+1. allEquivalenceClasses : removed call to java/util/Map::values &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    for (Node&#60;E&#62; elem : elmap.values()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_135'/>
+135
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_135'>3</a>
+<span>
+1. allEquivalenceClasses : replaced call to com/google/javascript/jscomp/graph/StandardUnionFind::findRoot with argument &rarr; KILLED<br/>
+2. allEquivalenceClasses : removed call to com/google/javascript/jscomp/graph/StandardUnionFind::findRoot &rarr; KILLED<br/>
+3. allEquivalenceClasses : removed call to com/google/common/collect/SetMultimap::put &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      groupsTmp.put(findRoot(elem), elem.element);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_136'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_137'/>
+137
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_137'>1</a>
+<span>
+1. allEquivalenceClasses : removed call to com/google/common/collect/ImmutableList::builder &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    ImmutableList.Builder&#60;ImmutableSet&#60;E&#62;&#62; result = ImmutableList.builder();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_138'/>
+138
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_138'>2</a>
+<span>
+1. allEquivalenceClasses : removed call to com/google/common/collect/Multimaps::asMap &rarr; KILLED<br/>
+2. allEquivalenceClasses : removed call to java/util/Map::values &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    for (Set&#60;E&#62; group : asMap(groupsTmp).values()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_139'/>
+139
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_139'>3</a>
+<span>
+1. allEquivalenceClasses : removed call to com/google/common/collect/ImmutableSet::copyOf &rarr; KILLED<br/>
+2. allEquivalenceClasses : removed call to com/google/common/collect/ImmutableList$Builder::add &rarr; KILLED<br/>
+3. allEquivalenceClasses : replaced call to com/google/common/collect/ImmutableList$Builder::add with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      result.add(ImmutableSet.copyOf(group));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_140'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_141'/>
+141
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_141'>3</a>
+<span>
+1. allEquivalenceClasses : removed call to com/google/common/collect/ImmutableList$Builder::build &rarr; KILLED<br/>
+2. allEquivalenceClasses : replaced return value with null for com/google/javascript/jscomp/graph/StandardUnionFind::allEquivalenceClasses &rarr; KILLED<br/>
+3. allEquivalenceClasses : mutated return of Object value for com/google/javascript/jscomp/graph/StandardUnionFind::allEquivalenceClasses to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return result.build();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Return the reprsentative elements of all the equivalence classes.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_147'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * &#60;p&#62;This is a &#34;snapshot&#34; view of the representatives at the time the method was called.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public ImmutableSet&#60;E&#62; allRepresentatives() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_150'/>
+150
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_150'>4</a>
+<span>
+1. allRepresentatives : removed call to java/util/Map::values &rarr; NO_COVERAGE<br/>
+2. allRepresentatives : removed call to java/util/Collection::stream &rarr; NO_COVERAGE<br/>
+3. allRepresentatives : replaced return value with null for com/google/javascript/jscomp/graph/StandardUnionFind::allRepresentatives &rarr; NO_COVERAGE<br/>
+4. allRepresentatives : mutated return of Object value for com/google/javascript/jscomp/graph/StandardUnionFind::allRepresentatives to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    return this.elmap.values().stream()</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_151'/>
+151
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_151'>10</a>
+<span>
+1. allRepresentatives : removed call to java/util/stream/Stream::filter &rarr; NO_COVERAGE<br/>
+2. allRepresentatives : replaced call to java/util/stream/Stream::filter with receiver &rarr; NO_COVERAGE<br/>
+3. lambda$allRepresentatives$0 : replaced boolean return with false for com/google/javascript/jscomp/graph/StandardUnionFind::lambda$allRepresentatives$0 &rarr; NO_COVERAGE<br/>
+4. lambda$allRepresentatives$0 : replaced boolean return with true for com/google/javascript/jscomp/graph/StandardUnionFind::lambda$allRepresentatives$0 &rarr; NO_COVERAGE<br/>
+5. lambda$allRepresentatives$0 : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+6. lambda$allRepresentatives$0 : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+7. lambda$allRepresentatives$0 : negated conditional &rarr; NO_COVERAGE<br/>
+8. lambda$allRepresentatives$0 : removed conditional - replaced equality check with false &rarr; NO_COVERAGE<br/>
+9. lambda$allRepresentatives$0 : removed conditional - replaced equality check with true &rarr; NO_COVERAGE<br/>
+10. lambda$allRepresentatives$0 : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        .filter((n) -&#62; n == n.parent)</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_152'/>
+152
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_152'>4</a>
+<span>
+1. allRepresentatives : removed call to java/util/stream/Stream::map &rarr; NO_COVERAGE<br/>
+2. allRepresentatives : replaced call to java/util/stream/Stream::map with receiver &rarr; NO_COVERAGE<br/>
+3. lambda$allRepresentatives$1 : replaced return value with null for com/google/javascript/jscomp/graph/StandardUnionFind::lambda$allRepresentatives$1 &rarr; NO_COVERAGE<br/>
+4. lambda$allRepresentatives$1 : mutated return of Object value for com/google/javascript/jscomp/graph/StandardUnionFind::lambda$allRepresentatives$1 to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        .map((n) -&#62; n.element)</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_153'/>
+153
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_153'>2</a>
+<span>
+1. allRepresentatives : removed call to com/google/common/collect/ImmutableSet::toImmutableSet &rarr; NO_COVERAGE<br/>
+2. allRepresentatives : removed call to java/util/stream/Stream::collect &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        .collect(toImmutableSet());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_157'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * If e is already in a non-trivial equivalence class, that is, a class with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_158'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * more than two elements, then return the {@link Node} corresponding to the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * representative element. Otherwise, if e sits in an equivalence class by</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * itself, then create a {@link Node}, put it into elmap and return it.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private Node&#60;E&#62; findRootOrCreateNode(E e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_163'/>
+163
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_163'>2</a>
+<span>
+1. findRootOrCreateNode : replaced call to java/util/Map::get with argument &rarr; KILLED<br/>
+2. findRootOrCreateNode : removed call to java/util/Map::get &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    Node&#60;E&#62; node = elmap.get(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_164'/>
+164
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_164'>3</a>
+<span>
+1. findRootOrCreateNode : negated conditional &rarr; KILLED<br/>
+2. findRootOrCreateNode : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. findRootOrCreateNode : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (node != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_165'/>
+165
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_165'>4</a>
+<span>
+1. findRootOrCreateNode : replaced call to com/google/javascript/jscomp/graph/StandardUnionFind::findRoot with argument &rarr; KILLED<br/>
+2. findRootOrCreateNode : removed call to com/google/javascript/jscomp/graph/StandardUnionFind::findRoot &rarr; KILLED<br/>
+3. findRootOrCreateNode : replaced return value with null for com/google/javascript/jscomp/graph/StandardUnionFind::findRootOrCreateNode &rarr; KILLED<br/>
+4. findRootOrCreateNode : mutated return of Object value for com/google/javascript/jscomp/graph/StandardUnionFind::findRootOrCreateNode to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return findRoot(node);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_166'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_167'/>
+167
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_167'>1</a>
+<span>
+1. findRootOrCreateNode : removed call to com/google/javascript/jscomp/graph/StandardUnionFind$Node::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    node = new Node&#60;E&#62;(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_168'/>
+168
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_168'>2</a>
+<span>
+1. findRootOrCreateNode : replaced call to java/util/Map::put with argument &rarr; KILLED<br/>
+2. findRootOrCreateNode : removed call to java/util/Map::put &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    elmap.put(e, node);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_169'/>
+169
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_169'>2</a>
+<span>
+1. findRootOrCreateNode : replaced return value with null for com/google/javascript/jscomp/graph/StandardUnionFind::findRootOrCreateNode &rarr; KILLED<br/>
+2. findRootOrCreateNode : mutated return of Object value for com/google/javascript/jscomp/graph/StandardUnionFind::findRootOrCreateNode to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return node;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_171'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_172'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_173'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Given a {@link Node}, walk the parent field as far as possible, until</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_174'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * reaching the root, which is the {@link Node} for the current</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_175'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * representative of this equivalence class. To achieve low runtime</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_176'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * complexity, also compress the path, by making each node a direct child of</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_177'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * the root.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_178'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_179'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private Node&#60;E&#62; findRoot(Node&#60;E&#62; node) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_180'/>
+180
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_180'>3</a>
+<span>
+1. findRoot : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. findRoot : negated conditional &rarr; KILLED<br/>
+3. findRoot : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (node.parent != node) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_181'/>
+181
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_181'>3</a>
+<span>
+1. findRoot : replaced call to com/google/javascript/jscomp/graph/StandardUnionFind::findRoot with argument &rarr; SURVIVED<br/>
+2. findRoot : Removed assignment to member variable parent &rarr; SURVIVED<br/>
+3. findRoot : removed call to com/google/javascript/jscomp/graph/StandardUnionFind::findRoot &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      node.parent = findRoot(node.parent);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_182'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_183'/>
+183
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_183'>2</a>
+<span>
+1. findRoot : replaced return value with null for com/google/javascript/jscomp/graph/StandardUnionFind::findRoot &rarr; KILLED<br/>
+2. findRoot : mutated return of Object value for com/google/javascript/jscomp/graph/StandardUnionFind::findRoot to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return node.parent;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_184'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_185'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_186'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_187'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public Set&#60;E&#62; findAll(@Nullable final E value) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_188'/>
+188
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_188'>2</a>
+<span>
+1. findAll : removed call to java/util/Map::containsKey &rarr; KILLED<br/>
+2. findAll : removed call to com/google/common/base/Preconditions::checkArgument &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    checkArgument(elmap.containsKey(value), &#34;Element does not exist: %s&#34;, value);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_189'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_190'/>
+190
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_190'>1</a>
+<span>
+1. findAll : removed call to com/google/javascript/jscomp/graph/StandardUnionFind$1::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    final Predicate&#60;Object&#62; isSameRoot = new Predicate&#60;Object&#62;() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_191'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_192'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      /** some node that&#39;s close to the root, or null */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_193'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      Node&#60;E&#62; nodeForValue = elmap.get(value);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_194'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_195'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_196'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      public boolean apply(@Nullable Object b) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_197'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        if (Objects.equal(value, b)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_198'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_199'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_200'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        Node&#60;E&#62; nodeForB = elmap.get(b);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_201'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        if (nodeForB == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_202'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_203'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_204'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        nodeForValue = findRoot(nodeForValue);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_205'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        return findRoot(nodeForB) == nodeForValue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_206'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_207'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    };</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_208'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_209'/>
+209
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_209'>3</a>
+<span>
+1. findAll : removed call to com/google/javascript/jscomp/graph/StandardUnionFind$2::&#60;init&#62; &rarr; KILLED<br/>
+2. findAll : replaced return value with Collections.emptyList for com/google/javascript/jscomp/graph/StandardUnionFind::findAll &rarr; KILLED<br/>
+3. findAll : mutated return of Object value for com/google/javascript/jscomp/graph/StandardUnionFind::findAll to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return new AbstractSet&#60;E&#62;() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_210'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_211'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      @Override public boolean contains(Object o) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_212'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        return isSameRoot.apply(o);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_213'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_214'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_215'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      @Override public Iterator&#60;E&#62; iterator() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_216'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        return filter(elmap.keySet().iterator(), isSameRoot);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_217'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_218'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_219'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      @Override public int size() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_220'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        return findRoot(elmap.get(value)).size;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_221'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_222'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    };</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_223'/>
+223
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_223'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_224'/>
+224
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_224'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_225'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /** The internal node representation. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_226'/>
+226
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_226'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private static class Node&#60;E&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_227'/>
+227
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_227'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** The parent node of this element. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_228'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    Node&#60;E&#62; parent;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_229'/>
+229
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_229'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_230'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** The element represented by this node. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_231'/>
+231
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_231'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    E element;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_232'/>
+232
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_232'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_233'/>
+233
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_233'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** A bound on the depth of the subtree rooted to this node. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_234'/>
+234
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_234'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    int rank = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_235'/>
+235
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_235'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_236'/>
+236
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_236'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_237'/>
+237
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_237'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * If this node is the root of a tree, this is the number of elements in the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_238'/>
+238
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_238'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * tree. Otherwise, it&#39;s undefined.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_239'/>
+239
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_239'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_240'/>
+240
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_240'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    int size = 1;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_241'/>
+241
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_241'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_242'/>
+242
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_242'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    Node(E element) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_243'/>
+243
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_243'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      this.parent = this;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_244'/>
+244
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_244'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      this.element = element;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_245'/>
+245
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_245'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_246'/>
+246
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_246'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_247'/>
+247
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_247'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_56'>56</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_56'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testEmpty(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to java/util/LinkedHashMap::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testEmpty(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> Removed assignment to member variable elmap &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testCopy(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to java/util/LinkedHashMap::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testCopy(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> Removed assignment to member variable elmap &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_70'>70</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_70'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testCopy(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to com/google/javascript/jscomp/graph/UnionFind::elements &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_71'>71</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_71'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testCopy(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> replaced call to com/google/javascript/jscomp/graph/UnionFind::find with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testCopy(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> replaced call to com/google/javascript/jscomp/graph/StandardUnionFind::union with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testCopy(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to com/google/javascript/jscomp/graph/UnionFind::find &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testCopy(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to com/google/javascript/jscomp/graph/StandardUnionFind::union &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_77'>77</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_77'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>add<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFind(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> replaced call to com/google/javascript/jscomp/graph/StandardUnionFind::union with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>add<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFind(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to com/google/javascript/jscomp/graph/StandardUnionFind::union &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_82'>82</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_82'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/graph/StandardUnionFind::add &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_89'>89</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_89'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>union<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testElements(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to com/google/javascript/jscomp/graph/StandardUnionFind::findRootOrCreateNode &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_90'>90</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_90'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>union<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testElements(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to com/google/javascript/jscomp/graph/StandardUnionFind::findRootOrCreateNode &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_92'>92</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_92'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>union<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFind(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>union<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFindAll(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>union<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFind(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_93'>93</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_93'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>union<br/><b>Killed by : </b>none</span></span> replaced return value with null for com/google/javascript/jscomp/graph/StandardUnionFind::union &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>union<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/jscomp/graph/StandardUnionFind::union to ( if (x != null) null else throw new RuntimeException ) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_96'>96</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_96'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>union<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>union<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>union<br/><b>Killed by : </b>none</span></span> removed conditional - replaced comparison check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>union<br/><b>Killed by : </b>none</span></span> removed conditional - replaced comparison check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_97'>97</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_97'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>union<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFind(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> Removed assignment to member variable parent &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_98'>98</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_98'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>union<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFindAll(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>union<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFindAll(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> Removed assignment to member variable size &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_99'>99</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_99'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>union<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>union<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>union<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_100'>100</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_100'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>union<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>union<br/><b>Killed by : </b>none</span></span> Replaced integer addition with subtraction &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>union<br/><b>Killed by : </b>none</span></span> Removed assignment to member variable rank &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_102'>102</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_102'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>union<br/><b>Killed by : </b>none</span></span> replaced return value with null for com/google/javascript/jscomp/graph/StandardUnionFind::union &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>union<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/jscomp/graph/StandardUnionFind::union to ( if (x != null) null else throw new RuntimeException ) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_104'>104</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_104'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>union<br/><b>Killed by : </b>none</span></span> Removed assignment to member variable parent &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_105'>105</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_105'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>union<br/><b>Killed by : </b>none</span></span> Replaced integer addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>union<br/><b>Killed by : </b>none</span></span> Removed assignment to member variable size &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_107'>107</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_107'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>union<br/><b>Killed by : </b>none</span></span> Removed assignment to member variable element &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_108'>108</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_108'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>union<br/><b>Killed by : </b>none</span></span> Removed assignment to member variable element &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_109'>109</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_109'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>union<br/><b>Killed by : </b>none</span></span> replaced return value with null for com/google/javascript/jscomp/graph/StandardUnionFind::union &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>union<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/jscomp/graph/StandardUnionFind::union to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_114'>114</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_114'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>find<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFind(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to java/util/Map::containsKey &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>find<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFind(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to com/google/common/base/Preconditions::checkArgument &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_115'>115</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_115'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>find<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFind(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> replaced call to java/util/Map::get with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>find<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFind(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> replaced call to com/google/javascript/jscomp/graph/StandardUnionFind::findRoot with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>find<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFind(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to java/util/Map::get &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>find<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFind(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to com/google/javascript/jscomp/graph/StandardUnionFind::findRoot &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>find<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFind(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> replaced return value with null for com/google/javascript/jscomp/graph/StandardUnionFind::find &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>find<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFind(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/graph/StandardUnionFind::find to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_120'>120</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_120'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>areEquivalent<br/><b>Killed by : </b>none</span></span> replaced call to com/google/javascript/jscomp/graph/StandardUnionFind::find with argument &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>areEquivalent<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testCheckEquivalent(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to com/google/javascript/jscomp/graph/StandardUnionFind::find &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_121'>121</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_121'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>areEquivalent<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testCheckEquivalent(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> replaced call to com/google/javascript/jscomp/graph/StandardUnionFind::find with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>areEquivalent<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testCheckEquivalent(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to com/google/javascript/jscomp/graph/StandardUnionFind::find &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_122'>122</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_122'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>areEquivalent<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testCheckEquivalent(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> replaced boolean return with false for com/google/javascript/jscomp/graph/StandardUnionFind::areEquivalent &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>areEquivalent<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testCheckEquivalent(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> replaced boolean return with true for com/google/javascript/jscomp/graph/StandardUnionFind::areEquivalent &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>areEquivalent<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testCheckEquivalent(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>areEquivalent<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testCheckEquivalent(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>areEquivalent<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testCheckEquivalent(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>areEquivalent<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testCheckEquivalent(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>areEquivalent<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testCheckEquivalent(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>areEquivalent<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testCheckEquivalent(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_127'>127</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_127'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>elements<br/><b>Killed by : </b>none</span></span> replaced call to java/util/Collections::unmodifiableSet with argument &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>elements<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testElements(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> replaced return value with Collections.emptyList for com/google/javascript/jscomp/graph/StandardUnionFind::elements &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>elements<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testElements(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to java/util/Map::keySet &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>elements<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testElements(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to java/util/Collections::unmodifiableSet &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>elements<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testElements(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/graph/StandardUnionFind::elements to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_133'>133</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_133'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>allEquivalenceClasses<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testEmpty(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to com/google/common/collect/MultimapBuilder::linkedHashKeys &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>allEquivalenceClasses<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testEmpty(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to com/google/common/collect/MultimapBuilder$MultimapBuilderWithKeys::linkedHashSetValues &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>allEquivalenceClasses<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testEmpty(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to com/google/common/collect/MultimapBuilder$SetMultimapBuilder::build &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_134'>134</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_134'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>allEquivalenceClasses<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testEmpty(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to java/util/Map::values &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_135'>135</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_135'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>allEquivalenceClasses<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testAllEquivalenceClasses(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> replaced call to com/google/javascript/jscomp/graph/StandardUnionFind::findRoot with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>allEquivalenceClasses<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testAllEquivalenceClasses(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to com/google/javascript/jscomp/graph/StandardUnionFind::findRoot &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>allEquivalenceClasses<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testAllEquivalenceClasses(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to com/google/common/collect/SetMultimap::put &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_137'>137</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_137'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>allEquivalenceClasses<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testEmpty(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to com/google/common/collect/ImmutableList::builder &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_138'>138</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_138'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>allEquivalenceClasses<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testEmpty(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to com/google/common/collect/Multimaps::asMap &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>allEquivalenceClasses<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testEmpty(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to java/util/Map::values &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_139'>139</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_139'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>allEquivalenceClasses<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testAllEquivalenceClasses(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to com/google/common/collect/ImmutableSet::copyOf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>allEquivalenceClasses<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testAllEquivalenceClasses(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to com/google/common/collect/ImmutableList$Builder::add &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>allEquivalenceClasses<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testAllEquivalenceClasses(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> replaced call to com/google/common/collect/ImmutableList$Builder::add with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_141'>141</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_141'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>allEquivalenceClasses<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testEmpty(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to com/google/common/collect/ImmutableList$Builder::build &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>allEquivalenceClasses<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testEmpty(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> replaced return value with null for com/google/javascript/jscomp/graph/StandardUnionFind::allEquivalenceClasses &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>allEquivalenceClasses<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testEmpty(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/graph/StandardUnionFind::allEquivalenceClasses to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_150'>150</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_150'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>allRepresentatives<br/><b>Killed by : </b>none</span></span> removed call to java/util/Map::values &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>allRepresentatives<br/><b>Killed by : </b>none</span></span> removed call to java/util/Collection::stream &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>allRepresentatives<br/><b>Killed by : </b>none</span></span> replaced return value with null for com/google/javascript/jscomp/graph/StandardUnionFind::allRepresentatives &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>allRepresentatives<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/jscomp/graph/StandardUnionFind::allRepresentatives to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_151'>151</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_151'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>allRepresentatives<br/><b>Killed by : </b>none</span></span> removed call to java/util/stream/Stream::filter &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>allRepresentatives<br/><b>Killed by : </b>none</span></span> replaced call to java/util/stream/Stream::filter with receiver &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$allRepresentatives$0<br/><b>Killed by : </b>none</span></span> replaced boolean return with false for com/google/javascript/jscomp/graph/StandardUnionFind::lambda$allRepresentatives$0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$allRepresentatives$0<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for com/google/javascript/jscomp/graph/StandardUnionFind::lambda$allRepresentatives$0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$allRepresentatives$0<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lambda$allRepresentatives$0<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>lambda$allRepresentatives$0<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>lambda$allRepresentatives$0<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>lambda$allRepresentatives$0<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>lambda$allRepresentatives$0<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_152'>152</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_152'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>allRepresentatives<br/><b>Killed by : </b>none</span></span> removed call to java/util/stream/Stream::map &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>allRepresentatives<br/><b>Killed by : </b>none</span></span> replaced call to java/util/stream/Stream::map with receiver &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$allRepresentatives$1<br/><b>Killed by : </b>none</span></span> replaced return value with null for com/google/javascript/jscomp/graph/StandardUnionFind::lambda$allRepresentatives$1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$allRepresentatives$1<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/jscomp/graph/StandardUnionFind::lambda$allRepresentatives$1 to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_153'>153</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_153'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>allRepresentatives<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/collect/ImmutableSet::toImmutableSet &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>allRepresentatives<br/><b>Killed by : </b>none</span></span> removed call to java/util/stream/Stream::collect &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_163'>163</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_163'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findRootOrCreateNode<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testElements(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> replaced call to java/util/Map::get with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findRootOrCreateNode<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFindAll(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to java/util/Map::get &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_164'>164</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_164'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findRootOrCreateNode<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testElements(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findRootOrCreateNode<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFindAll(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>findRootOrCreateNode<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testElements(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_165'>165</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_165'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findRootOrCreateNode<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFindAll(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> replaced call to com/google/javascript/jscomp/graph/StandardUnionFind::findRoot with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findRootOrCreateNode<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testElements(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to com/google/javascript/jscomp/graph/StandardUnionFind::findRoot &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>findRootOrCreateNode<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testElements(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> replaced return value with null for com/google/javascript/jscomp/graph/StandardUnionFind::findRootOrCreateNode &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>findRootOrCreateNode<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testElements(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/graph/StandardUnionFind::findRootOrCreateNode to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_167'>167</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_167'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findRootOrCreateNode<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testElements(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to com/google/javascript/jscomp/graph/StandardUnionFind$Node::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_168'>168</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_168'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findRootOrCreateNode<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testElements(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> replaced call to java/util/Map::put with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findRootOrCreateNode<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testElements(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to java/util/Map::put &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_169'>169</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_169'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findRootOrCreateNode<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testElements(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> replaced return value with null for com/google/javascript/jscomp/graph/StandardUnionFind::findRootOrCreateNode &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findRootOrCreateNode<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testElements(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/graph/StandardUnionFind::findRootOrCreateNode to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_180'>180</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_180'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findRoot<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testElements(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findRoot<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>findRoot<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testElements(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_181'>181</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_181'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findRoot<br/><b>Killed by : </b>none</span></span> replaced call to com/google/javascript/jscomp/graph/StandardUnionFind::findRoot with argument &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findRoot<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testElements(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to com/google/javascript/jscomp/graph/StandardUnionFind::findRoot &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>findRoot<br/><b>Killed by : </b>none</span></span> Removed assignment to member variable parent &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_183'>183</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_183'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findRoot<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testElements(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> replaced return value with null for com/google/javascript/jscomp/graph/StandardUnionFind::findRoot &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findRoot<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testElements(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/graph/StandardUnionFind::findRoot to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_188'>188</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_188'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFindAll(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to java/util/Map::containsKey &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFindAll(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to com/google/common/base/Preconditions::checkArgument &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_190'>190</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_190'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFindAll(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to com/google/javascript/jscomp/graph/StandardUnionFind$1::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5dc9d25a_209'>209</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5dc9d25a_209'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFindAll(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> removed call to com/google/javascript/jscomp/graph/StandardUnionFind$2::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFindAll(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> replaced return value with Collections.emptyList for com/google/javascript/jscomp/graph/StandardUnionFind::findAll &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFindAll(com.google.javascript.jscomp.graph.StandardUnionFindTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/graph/StandardUnionFind::findAll to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_61</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_60</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_56</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_55</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_58</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_57</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_52</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_51</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_54</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_53</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_59</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_50</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_45</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_44</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_47</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_46</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_41</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_40</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_43</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_42</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_49</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_48</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_34</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_33</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_36</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_35</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_30</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_32</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_31</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_38</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_37</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_39</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_3</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_2</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_1</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_0</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_23</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_22</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_25</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_9</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_24</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_8</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_7</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_6</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_21</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_5</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_20</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_4</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_27</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_26</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_29</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_28</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_12</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_11</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_99</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_14</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_13</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_96</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_95</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_10</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_98</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_97</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_19</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_16</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_15</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_18</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_17</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_92</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_91</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_94</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_93</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_90</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_89</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_88</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_85</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_84</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_87</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_86</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_81</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_80</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_83</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_82</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_78</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_77</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_79</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_74</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_73</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_76</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_75</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_70</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_72</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_71</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_67</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_66</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_69</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_68</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_63</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_62</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_65</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_64</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFindAll(com.google.javascript.jscomp.graph.StandardUnionFindTest) (1 ms)</li><li>com.google.javascript.jscomp.graph.StandardUnionFindTest.testEmpty(com.google.javascript.jscomp.graph.StandardUnionFindTest) (1 ms)</li><li>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFindAllIterator(com.google.javascript.jscomp.graph.StandardUnionFindTest) (1 ms)</li><li>com.google.javascript.jscomp.graph.StandardUnionFindTest.testElements(com.google.javascript.jscomp.graph.StandardUnionFindTest) (1 ms)</li><li>com.google.javascript.jscomp.graph.StandardUnionFindTest.testSetSize(com.google.javascript.jscomp.graph.StandardUnionFindTest) (2 ms)</li><li>com.google.javascript.jscomp.graph.StandardUnionFindTest.testUnion(com.google.javascript.jscomp.graph.StandardUnionFindTest) (1 ms)</li><li>com.google.javascript.jscomp.graph.StandardUnionFindTest.testCopy(com.google.javascript.jscomp.graph.StandardUnionFindTest) (1 ms)</li><li>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFind(com.google.javascript.jscomp.graph.StandardUnionFindTest) (1 ms)</li><li>com.google.javascript.jscomp.graph.StandardUnionFindTest.testFindAllSize(com.google.javascript.jscomp.graph.StandardUnionFindTest) (1 ms)</li><li>com.google.javascript.jscomp.graph.StandardUnionFindTest.testChangesToCopyDontAffectOriginal(com.google.javascript.jscomp.graph.StandardUnionFindTest) (3 ms)</li><li>com.google.javascript.jscomp.graph.StandardUnionFindTest.testAllEquivalenceClasses(com.google.javascript.jscomp.graph.StandardUnionFindTest) (6 ms)</li><li>com.google.javascript.jscomp.graph.StandardUnionFindTest.testCheckEquivalent(com.google.javascript.jscomp.graph.StandardUnionFindTest) (3 ms)</li><li>com.google.javascript.jscomp.graph.StandardUnionFindTest.testAdd(com.google.javascript.jscomp.graph.StandardUnionFindTest) (48 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

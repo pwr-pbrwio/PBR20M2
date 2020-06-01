@@ -1,0 +1,3098 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>CheckNullableReturn.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2014 The Closure Compiler Authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.google.javascript.jscomp.lint;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.base.Predicate;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.base.Predicates;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.AbstractCompiler;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.CheckPathsBetweenNodes;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.ControlFlowGraph;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.DiagnosticType;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.HotSwapCompilerPass;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.JSError;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.NodeTraversal;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.NodeUtil;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.JSDocInfo;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.Node;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.jstype.FunctionType;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.jstype.JSType;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Checks when a function is annotated as returning {SomeType} (nullable)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * but actually always returns {!SomeType}, i.e. never returns null.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public final class CheckNullableReturn implements HotSwapCompilerPass, NodeTraversal.Callback {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  final AbstractCompiler compiler;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_40'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  public static final DiagnosticType NULLABLE_RETURN =</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_41'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      DiagnosticType.disabled(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          &#34;JSC_NULLABLE_RETURN&#34;,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          &#34;This function&#39;&#39;s return type is nullable, but it always returns a &#34;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          + &#34;non-null value. Consider making the return type non-nullable.&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_46'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  public static final DiagnosticType NULLABLE_RETURN_WITH_NAME =</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_47'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      DiagnosticType.disabled(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          &#34;JSC_NULLABLE_RETURN_WITH_NAME&#34;,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          &#34;The return type of the function \&#34;{0}\&#34; is nullable, but it always &#34;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          + &#34;returns a non-null value. Consider making the return type &#34;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          + &#34;non-nullable.&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_53'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private static final Predicate&#60;Node&#62; NULLABLE_RETURN_PREDICATE =</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      input -&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Check for null because the control flow graph&#39;s implicit return node is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // represented by null, so this value might be input.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_57'/>
+57
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_57'>7</a>
+<span>
+1. lambda$static$0 : negated conditional &rarr; KILLED<br/>
+2. lambda$static$0 : negated conditional &rarr; KILLED<br/>
+3. lambda$static$0 : removed call to com/google/javascript/rhino/Node::isReturn &rarr; KILLED<br/>
+4. lambda$static$0 : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+5. lambda$static$0 : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+6. lambda$static$0 : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+7. lambda$static$0 : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (input == null || !input.isReturn()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_58'/>
+58
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_58'>3</a>
+<span>
+1. lambda$static$0 : replaced boolean return with true for com/google/javascript/jscomp/lint/CheckNullableReturn::lambda$static$0 &rarr; KILLED<br/>
+2. lambda$static$0 : Substituted 0 with 1 &rarr; KILLED<br/>
+3. lambda$static$0 : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_60'/>
+60
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_60'>2</a>
+<span>
+1. lambda$static$0 : removed call to com/google/javascript/rhino/Node::getFirstChild &rarr; KILLED<br/>
+2. lambda$static$0 : replaced call to com/google/javascript/rhino/Node::getFirstChild with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        Node returnValue = input.getFirstChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_61'/>
+61
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_61'>12</a>
+<span>
+1. lambda$static$0 : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. lambda$static$0 : replaced boolean return with false for com/google/javascript/jscomp/lint/CheckNullableReturn::lambda$static$0 &rarr; KILLED<br/>
+3. lambda$static$0 : replaced boolean return with true for com/google/javascript/jscomp/lint/CheckNullableReturn::lambda$static$0 &rarr; KILLED<br/>
+4. lambda$static$0 : Substituted 1 with 0 &rarr; KILLED<br/>
+5. lambda$static$0 : Substituted 0 with 1 &rarr; KILLED<br/>
+6. lambda$static$0 : negated conditional &rarr; KILLED<br/>
+7. lambda$static$0 : negated conditional &rarr; KILLED<br/>
+8. lambda$static$0 : removed call to com/google/javascript/jscomp/lint/CheckNullableReturn::isNullable &rarr; KILLED<br/>
+9. lambda$static$0 : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+10. lambda$static$0 : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+11. lambda$static$0 : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+12. lambda$static$0 : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return returnValue != null &#38;&#38; isNullable(returnValue);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      };</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_64'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  public CheckNullableReturn(AbstractCompiler compiler) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_65'/>
+65
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_65'>1</a>
+<span>
+1. <init> : Removed assignment to member variable compiler &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    this.compiler = compiler;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_66'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public static boolean hasReturnDeclaredNullable(Node n) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_69'/>
+69
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_69'>7</a>
+<span>
+1. hasReturnDeclaredNullable : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. hasReturnDeclaredNullable : replaced boolean return with false for com/google/javascript/jscomp/lint/CheckNullableReturn::hasReturnDeclaredNullable &rarr; KILLED<br/>
+3. hasReturnDeclaredNullable : replaced boolean return with true for com/google/javascript/jscomp/lint/CheckNullableReturn::hasReturnDeclaredNullable &rarr; KILLED<br/>
+4. hasReturnDeclaredNullable : negated conditional &rarr; KILLED<br/>
+5. hasReturnDeclaredNullable : removed call to com/google/javascript/rhino/Node::isBlock &rarr; KILLED<br/>
+6. hasReturnDeclaredNullable : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+7. hasReturnDeclaredNullable : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    return n.isBlock()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_70'/>
+70
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_70'>4</a>
+<span>
+1. hasReturnDeclaredNullable : negated conditional &rarr; KILLED<br/>
+2. hasReturnDeclaredNullable : removed call to com/google/javascript/rhino/Node::hasChildren &rarr; KILLED<br/>
+3. hasReturnDeclaredNullable : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. hasReturnDeclaredNullable : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        &#38;&#38; n.hasChildren()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_71'/>
+71
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_71'>6</a>
+<span>
+1. hasReturnDeclaredNullable : negated conditional &rarr; KILLED<br/>
+2. hasReturnDeclaredNullable : removed call to com/google/javascript/rhino/Node::getParent &rarr; KILLED<br/>
+3. hasReturnDeclaredNullable : removed call to com/google/javascript/jscomp/lint/CheckNullableReturn::isReturnTypeNullable &rarr; KILLED<br/>
+4. hasReturnDeclaredNullable : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+5. hasReturnDeclaredNullable : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+6. hasReturnDeclaredNullable : replaced call to com/google/javascript/rhino/Node::getParent with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        &#38;&#38; isReturnTypeNullable(n.getParent())</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_72'/>
+72
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_72'>6</a>
+<span>
+1. hasReturnDeclaredNullable : Substituted 1 with 0 &rarr; KILLED<br/>
+2. hasReturnDeclaredNullable : Substituted 0 with 1 &rarr; KILLED<br/>
+3. hasReturnDeclaredNullable : negated conditional &rarr; KILLED<br/>
+4. hasReturnDeclaredNullable : removed call to com/google/javascript/jscomp/lint/CheckNullableReturn::hasSingleThrow &rarr; KILLED<br/>
+5. hasReturnDeclaredNullable : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+6. hasReturnDeclaredNullable : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        &#38;&#38; !hasSingleThrow(n);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void visit(NodeTraversal t, Node n, Node parent) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Do the checks when &#39;n&#39; is the block node and &#39;parent&#39; is the function</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // node, so that getControlFlowGraph will return the graph inside</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // the function, rather than the graph of the enclosing scope.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_80'/>
+80
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_80'>4</a>
+<span>
+1. visit : negated conditional &rarr; KILLED<br/>
+2. visit : removed call to com/google/javascript/jscomp/lint/CheckNullableReturn::hasReturnDeclaredNullable &rarr; KILLED<br/>
+3. visit : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. visit : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (hasReturnDeclaredNullable(n)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_81'/>
+81
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_81'>5</a>
+<span>
+1. visit : negated conditional &rarr; KILLED<br/>
+2. visit : removed call to com/google/javascript/jscomp/NodeTraversal::getControlFlowGraph &rarr; KILLED<br/>
+3. visit : removed call to com/google/javascript/jscomp/lint/CheckNullableReturn::canReturnNull &rarr; KILLED<br/>
+4. visit : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+5. visit : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        &#38;&#38; !canReturnNull(t.getControlFlowGraph())) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_82'/>
+82
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_82'>1</a>
+<span>
+1. visit : removed call to com/google/javascript/jscomp/NodeUtil::getNearestFunctionName &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      String fnName = NodeUtil.getNearestFunctionName(parent);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_83'/>
+83
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_83'>7</a>
+<span>
+1. visit : removed call to java/lang/String::isEmpty &rarr; SURVIVED<br/>
+2. visit : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+3. visit : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+4. visit : negated conditional &rarr; KILLED<br/>
+5. visit : negated conditional &rarr; KILLED<br/>
+6. visit : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+7. visit : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      if (fnName != null &#38;&#38; !fnName.isEmpty()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_84'/>
+84
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_84'>4</a>
+<span>
+1. visit : Substituted 1 with 0 &rarr; KILLED<br/>
+2. visit : Substituted 0 with 1 &rarr; KILLED<br/>
+3. visit : removed call to com/google/javascript/jscomp/JSError::make &rarr; KILLED<br/>
+4. visit : removed call to com/google/javascript/jscomp/AbstractCompiler::report &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        compiler.report(JSError.make(parent, NULLABLE_RETURN_WITH_NAME, fnName));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_86'/>
+86
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_86'>3</a>
+<span>
+1. visit : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+2. visit : removed call to com/google/javascript/jscomp/JSError::make &rarr; NO_COVERAGE<br/>
+3. visit : removed call to com/google/javascript/jscomp/AbstractCompiler::report &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        compiler.report(JSError.make(parent, NULLABLE_RETURN));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_89'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @return whether the blockNode contains only a single &#34;throw&#34; child node.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private static boolean hasSingleThrow(Node blockNode) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_95'/>
+95
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_95'>10</a>
+<span>
+1. hasSingleThrow : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. hasSingleThrow : negated conditional &rarr; KILLED<br/>
+3. hasSingleThrow : negated conditional &rarr; KILLED<br/>
+4. hasSingleThrow : removed call to com/google/javascript/rhino/Node::hasOneChild &rarr; KILLED<br/>
+5. hasSingleThrow : removed call to com/google/javascript/rhino/Node::getFirstChild &rarr; KILLED<br/>
+6. hasSingleThrow : removed call to com/google/javascript/rhino/Node::isThrow &rarr; KILLED<br/>
+7. hasSingleThrow : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+8. hasSingleThrow : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+9. hasSingleThrow : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+10. hasSingleThrow : replaced call to com/google/javascript/rhino/Node::getFirstChild with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (blockNode.hasOneChild() &#38;&#38; blockNode.getFirstChild().isThrow()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // Functions consisting of a single &#34;throw FOO&#34; can be actually abstract,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // so do not check their return type nullability.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_98'/>
+98
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_98'>3</a>
+<span>
+1. hasSingleThrow : replaced boolean return with false for com/google/javascript/jscomp/lint/CheckNullableReturn::hasSingleThrow &rarr; KILLED<br/>
+2. hasSingleThrow : Substituted 1 with 0 &rarr; KILLED<br/>
+3. hasSingleThrow : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_101'/>
+101
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_101'>3</a>
+<span>
+1. hasSingleThrow : replaced boolean return with true for com/google/javascript/jscomp/lint/CheckNullableReturn::hasSingleThrow &rarr; KILLED<br/>
+2. hasSingleThrow : Substituted 0 with 1 &rarr; KILLED<br/>
+3. hasSingleThrow : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @return True if n is a function node which is explicitly annotated</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * as returning a nullable type, other than {?}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private static boolean isReturnTypeNullable(Node n) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_109'/>
+109
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_109'>7</a>
+<span>
+1. isReturnTypeNullable : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. isReturnTypeNullable : negated conditional &rarr; KILLED<br/>
+3. isReturnTypeNullable : negated conditional &rarr; KILLED<br/>
+4. isReturnTypeNullable : removed call to com/google/javascript/rhino/Node::isFunction &rarr; KILLED<br/>
+5. isReturnTypeNullable : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+6. isReturnTypeNullable : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+7. isReturnTypeNullable : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (n == null || !n.isFunction()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_110'/>
+110
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_110'>3</a>
+<span>
+1. isReturnTypeNullable : replaced boolean return with true for com/google/javascript/jscomp/lint/CheckNullableReturn::isReturnTypeNullable &rarr; KILLED<br/>
+2. isReturnTypeNullable : Substituted 0 with 1 &rarr; KILLED<br/>
+3. isReturnTypeNullable : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_112'/>
+112
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_112'>2</a>
+<span>
+1. isReturnTypeNullable : removed call to com/google/javascript/rhino/Node::getJSType &rarr; KILLED<br/>
+2. isReturnTypeNullable : removed call to com/google/javascript/rhino/jstype/JSType::toMaybeFunctionType &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    FunctionType functionType = n.getJSType().toMaybeFunctionType();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_113'/>
+113
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_113'>3</a>
+<span>
+1. isReturnTypeNullable : negated conditional &rarr; KILLED<br/>
+2. isReturnTypeNullable : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. isReturnTypeNullable : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (functionType == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // If the JSDoc declares a non-function type on a function node, we still shouldn&#39;t crash.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_115'/>
+115
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_115'>3</a>
+<span>
+1. isReturnTypeNullable : replaced boolean return with true for com/google/javascript/jscomp/lint/CheckNullableReturn::isReturnTypeNullable &rarr; KILLED<br/>
+2. isReturnTypeNullable : Substituted 0 with 1 &rarr; KILLED<br/>
+3. isReturnTypeNullable : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_117'/>
+117
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_117'>1</a>
+<span>
+1. isReturnTypeNullable : removed call to com/google/javascript/rhino/jstype/FunctionType::getReturnType &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    JSType returnType = functionType.getReturnType();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_118'/>
+118
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_118'>3</a>
+<span>
+1. isReturnTypeNullable : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. isReturnTypeNullable : negated conditional &rarr; KILLED<br/>
+3. isReturnTypeNullable : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (returnType == null</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_119'/>
+119
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_119'>8</a>
+<span>
+1. isReturnTypeNullable : removed call to com/google/javascript/rhino/jstype/JSType::isUnknownType &rarr; SURVIVED<br/>
+2. isReturnTypeNullable : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+3. isReturnTypeNullable : negated conditional &rarr; KILLED<br/>
+4. isReturnTypeNullable : negated conditional &rarr; KILLED<br/>
+5. isReturnTypeNullable : removed call to com/google/javascript/rhino/jstype/JSType::isNullable &rarr; KILLED<br/>
+6. isReturnTypeNullable : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+7. isReturnTypeNullable : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+8. isReturnTypeNullable : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        || returnType.isUnknownType() || !returnType.isNullable()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_120'/>
+120
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_120'>3</a>
+<span>
+1. isReturnTypeNullable : replaced boolean return with true for com/google/javascript/jscomp/lint/CheckNullableReturn::isReturnTypeNullable &rarr; KILLED<br/>
+2. isReturnTypeNullable : Substituted 0 with 1 &rarr; KILLED<br/>
+3. isReturnTypeNullable : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_122'/>
+122
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_122'>1</a>
+<span>
+1. isReturnTypeNullable : removed call to com/google/javascript/jscomp/NodeUtil::getBestJSDocInfo &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    JSDocInfo info = NodeUtil.getBestJSDocInfo(n);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_123'/>
+123
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_123'>12</a>
+<span>
+1. isReturnTypeNullable : replaced boolean return with true for com/google/javascript/jscomp/lint/CheckNullableReturn::isReturnTypeNullable &rarr; SURVIVED<br/>
+2. isReturnTypeNullable : Substituted 0 with 1 &rarr; SURVIVED<br/>
+3. isReturnTypeNullable : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+4. isReturnTypeNullable : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+5. isReturnTypeNullable : replaced boolean return with false for com/google/javascript/jscomp/lint/CheckNullableReturn::isReturnTypeNullable &rarr; KILLED<br/>
+6. isReturnTypeNullable : Substituted 1 with 0 &rarr; KILLED<br/>
+7. isReturnTypeNullable : negated conditional &rarr; KILLED<br/>
+8. isReturnTypeNullable : negated conditional &rarr; KILLED<br/>
+9. isReturnTypeNullable : removed call to com/google/javascript/rhino/JSDocInfo::hasReturnType &rarr; KILLED<br/>
+10. isReturnTypeNullable : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+11. isReturnTypeNullable : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+12. isReturnTypeNullable : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    return info != null &#38;&#38; info.hasReturnType();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @return True if the given ControlFlowGraph could return null.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public static boolean canReturnNull(ControlFlowGraph&#60;Node&#62; graph) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_130'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    CheckPathsBetweenNodes&#60;Node, ControlFlowGraph.Branch&#62; test =</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_131'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        new CheckPathsBetweenNodes&#60;&#62;(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            graph,</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_133'/>
+133
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_133'>1</a>
+<span>
+1. canReturnNull : removed call to com/google/javascript/jscomp/ControlFlowGraph::getEntry &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            graph.getEntry(),</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_134'/>
+134
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_134'>1</a>
+<span>
+1. canReturnNull : removed call to com/google/javascript/jscomp/ControlFlowGraph::getImplicitReturn &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            graph.getImplicitReturn(),</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_135'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            NULLABLE_RETURN_PREDICATE,</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_136'/>
+136
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_136'>2</a>
+<span>
+1. canReturnNull : removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::&#60;init&#62; &rarr; KILLED<br/>
+2. canReturnNull : removed call to com/google/common/base/Predicates::alwaysTrue &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            Predicates.alwaysTrue());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_138'/>
+138
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_138'>4</a>
+<span>
+1. canReturnNull : replaced boolean return with false for com/google/javascript/jscomp/lint/CheckNullableReturn::canReturnNull &rarr; KILLED<br/>
+2. canReturnNull : replaced boolean return with true for com/google/javascript/jscomp/lint/CheckNullableReturn::canReturnNull &rarr; KILLED<br/>
+3. canReturnNull : removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::somePathsSatisfyPredicate &rarr; KILLED<br/>
+4. canReturnNull : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return test.somePathsSatisfyPredicate();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_139'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @return True if the node represents a nullable value. Essentially, this</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *     is just n.getJSType().isNullable(), but for purposes of this pass,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *     the expression {@code x || null} is considered nullable even if</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *     x is always truthy. This often happens with expressions like</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *     {@code arr[i] || null}: The compiler doesn&#39;t know that arr[i] can</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_147'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *     be undefined.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private static boolean isNullable(Node n) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_150'/>
+150
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_150'>8</a>
+<span>
+1. isNullable : replaced boolean return with false for com/google/javascript/jscomp/lint/CheckNullableReturn::isNullable &rarr; KILLED<br/>
+2. isNullable : replaced boolean return with true for com/google/javascript/jscomp/lint/CheckNullableReturn::isNullable &rarr; KILLED<br/>
+3. isNullable : negated conditional &rarr; KILLED<br/>
+4. isNullable : removed call to com/google/javascript/rhino/Node::getJSType &rarr; KILLED<br/>
+5. isNullable : removed call to com/google/javascript/rhino/jstype/JSType::isNullable &rarr; KILLED<br/>
+6. isNullable : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+7. isNullable : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+8. isNullable : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return n.getJSType().isNullable()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_151'/>
+151
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_151'>12</a>
+<span>
+1. isNullable : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. isNullable : Substituted 1 with 0 &rarr; KILLED<br/>
+3. isNullable : Substituted 0 with 1 &rarr; KILLED<br/>
+4. isNullable : negated conditional &rarr; KILLED<br/>
+5. isNullable : negated conditional &rarr; KILLED<br/>
+6. isNullable : removed call to com/google/javascript/rhino/Node::isOr &rarr; KILLED<br/>
+7. isNullable : removed call to com/google/javascript/rhino/Node::getLastChild &rarr; KILLED<br/>
+8. isNullable : removed call to com/google/javascript/rhino/Node::isNull &rarr; KILLED<br/>
+9. isNullable : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+10. isNullable : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+11. isNullable : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+12. isNullable : replaced call to com/google/javascript/rhino/Node::getLastChild with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        || (n.isOr() &#38;&#38; n.getLastChild().isNull());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public boolean shouldTraverse(NodeTraversal nodeTraversal, Node n, Node parent) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_156'/>
+156
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_156'>3</a>
+<span>
+1. shouldTraverse : replaced boolean return with false for com/google/javascript/jscomp/lint/CheckNullableReturn::shouldTraverse &rarr; KILLED<br/>
+2. shouldTraverse : Substituted 1 with 0 &rarr; KILLED<br/>
+3. shouldTraverse : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_157'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_158'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void process(Node externs, Node root) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_161'/>
+161
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_161'>1</a>
+<span>
+1. process : removed call to com/google/javascript/jscomp/NodeTraversal::traverse &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    NodeTraversal.traverse(compiler, root, this);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_162'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_164'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public void hotSwapScript(Node scriptRoot, Node originalRoot) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_166'/>
+166
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_166'>1</a>
+<span>
+1. hotSwapScript : removed call to com/google/javascript/jscomp/NodeTraversal::traverse &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    NodeTraversal.traverse(compiler, originalRoot, this);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_167'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@62794582_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@62794582_168'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_57'>57</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_57'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$static$0<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$static$0<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$static$0<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningIfCanReturnNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/rhino/Node::isReturn &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$static$0<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningIfCanReturnNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$static$0<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lambda$static$0<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>lambda$static$0<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningIfCanReturnNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_58'>58</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_58'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$static$0<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced boolean return with true for com/google/javascript/jscomp/lint/CheckNullableReturn::lambda$static$0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$static$0<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$static$0<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_60'>60</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_60'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$static$0<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningIfCanReturnNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/rhino/Node::getFirstChild &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$static$0<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced call to com/google/javascript/rhino/Node::getFirstChild with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_61'>61</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_61'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$static$0<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningIfCanReturnNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced boolean return with false for com/google/javascript/jscomp/lint/CheckNullableReturn::lambda$static$0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$static$0<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced boolean return with true for com/google/javascript/jscomp/lint/CheckNullableReturn::lambda$static$0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$static$0<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningIfCanReturnNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$static$0<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$static$0<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningIfCanReturnNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lambda$static$0<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>lambda$static$0<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningIfCanReturnNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/jscomp/lint/CheckNullableReturn::isNullable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>lambda$static$0<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningIfCanReturnNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>lambda$static$0<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningIfCanReturnNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>lambda$static$0<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>lambda$static$0<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>lambda$static$0<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_65'>65</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_65'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> Removed assignment to member variable compiler &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_69'>69</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_69'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hasReturnDeclaredNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced boolean return with false for com/google/javascript/jscomp/lint/CheckNullableReturn::hasReturnDeclaredNullable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hasReturnDeclaredNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced boolean return with true for com/google/javascript/jscomp/lint/CheckNullableReturn::hasReturnDeclaredNullable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hasReturnDeclaredNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hasReturnDeclaredNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/rhino/Node::isBlock &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hasReturnDeclaredNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hasReturnDeclaredNullable<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hasReturnDeclaredNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_70'>70</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_70'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hasReturnDeclaredNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hasReturnDeclaredNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/rhino/Node::hasChildren &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hasReturnDeclaredNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hasReturnDeclaredNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningOnEmptyFunction(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_71'>71</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_71'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hasReturnDeclaredNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hasReturnDeclaredNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/rhino/Node::getParent &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hasReturnDeclaredNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/jscomp/lint/CheckNullableReturn::isReturnTypeNullable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hasReturnDeclaredNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hasReturnDeclaredNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoExplicitReturn(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hasReturnDeclaredNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced call to com/google/javascript/rhino/Node::getParent with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_72'>72</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_72'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hasReturnDeclaredNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hasReturnDeclaredNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hasReturnDeclaredNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hasReturnDeclaredNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNotNullableReturn(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/jscomp/lint/CheckNullableReturn::hasSingleThrow &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hasReturnDeclaredNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hasReturnDeclaredNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNotNullableReturn(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_80'>80</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_80'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/jscomp/lint/CheckNullableReturn::hasReturnDeclaredNullable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_81'>81</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_81'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/jscomp/NodeTraversal::getControlFlowGraph &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningIfCanReturnNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/jscomp/lint/CheckNullableReturn::canReturnNull &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningIfCanReturnNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_82'>82</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_82'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/jscomp/NodeUtil::getNearestFunctionName &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_83'>83</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_83'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>none</span></span> removed call to java/lang/String::isEmpty &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_84'>84</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_84'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/jscomp/JSError::make &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/jscomp/AbstractCompiler::report &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_86'>86</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_86'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/JSError::make &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>visit<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/AbstractCompiler::report &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_95'>95</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_95'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hasSingleThrow<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNotNullableReturn(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hasSingleThrow<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hasSingleThrow<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNotNullableReturn(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/rhino/Node::hasOneChild &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>hasSingleThrow<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/rhino/Node::getFirstChild &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>hasSingleThrow<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNotNullableReturn(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/rhino/Node::isThrow &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>hasSingleThrow<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNotNullableReturn(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>hasSingleThrow<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNotNullableReturn(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>hasSingleThrow<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>hasSingleThrow<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>hasSingleThrow<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNotNullableReturn(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced call to com/google/javascript/rhino/Node::getFirstChild with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_98'>98</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_98'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hasSingleThrow<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNotNullableReturn(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced boolean return with false for com/google/javascript/jscomp/lint/CheckNullableReturn::hasSingleThrow &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hasSingleThrow<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNotNullableReturn(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hasSingleThrow<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNotNullableReturn(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_101'>101</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_101'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hasSingleThrow<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced boolean return with true for com/google/javascript/jscomp/lint/CheckNullableReturn::hasSingleThrow &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hasSingleThrow<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>hasSingleThrow<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_109'>109</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_109'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/rhino/Node::isFunction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoExplicitReturn(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_110'>110</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_110'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoExplicitReturn(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced boolean return with true for com/google/javascript/jscomp/lint/CheckNullableReturn::isReturnTypeNullable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoExplicitReturn(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoExplicitReturn(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_112'>112</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_112'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/rhino/Node::getJSType &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/rhino/jstype/JSType::toMaybeFunctionType &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_113'>113</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_113'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNonfunctionTypeDoesntCrash(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_115'>115</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_115'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNonfunctionTypeDoesntCrash(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced boolean return with true for com/google/javascript/jscomp/lint/CheckNullableReturn::isReturnTypeNullable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNonfunctionTypeDoesntCrash(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNonfunctionTypeDoesntCrash(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_117'>117</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_117'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/rhino/jstype/FunctionType::getReturnType &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_118'>118</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_118'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_119'>119</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_119'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/rhino/jstype/JSType::isUnknownType &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/rhino/jstype/JSType::isNullable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNullableReturn(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_120'>120</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_120'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNullableReturn(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced boolean return with true for com/google/javascript/jscomp/lint/CheckNullableReturn::isReturnTypeNullable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNullableReturn(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNullableReturn(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_122'>122</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_122'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/jscomp/NodeUtil::getBestJSDocInfo &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_123'>123</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_123'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced boolean return with false for com/google/javascript/jscomp/lint/CheckNullableReturn::isReturnTypeNullable &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for com/google/javascript/jscomp/lint/CheckNullableReturn::isReturnTypeNullable &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/rhino/JSDocInfo::hasReturnType &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>isReturnTypeNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_133'>133</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_133'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>canReturnNull<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/jscomp/ControlFlowGraph::getEntry &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_134'>134</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_134'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>canReturnNull<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/ControlFlowGraph::getImplicitReturn &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_136'>136</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_136'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>canReturnNull<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>canReturnNull<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/common/base/Predicates::alwaysTrue &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_138'>138</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_138'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>canReturnNull<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningIfCanReturnNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced boolean return with false for com/google/javascript/jscomp/lint/CheckNullableReturn::canReturnNull &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>canReturnNull<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced boolean return with true for com/google/javascript/jscomp/lint/CheckNullableReturn::canReturnNull &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>canReturnNull<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningIfCanReturnNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/jscomp/CheckPathsBetweenNodes::somePathsSatisfyPredicate &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>canReturnNull<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_150'>150</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_150'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningIfCanReturnNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced boolean return with false for com/google/javascript/jscomp/lint/CheckNullableReturn::isNullable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced boolean return with true for com/google/javascript/jscomp/lint/CheckNullableReturn::isNullable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/rhino/Node::getJSType &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningIfCanReturnNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/rhino/jstype/JSType::isNullable &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningIfCanReturnNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_151'>151</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_151'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningIfCanReturnNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningOnXOrNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningOnXOrNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningOnXOrNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/rhino/Node::isOr &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningOnXOrNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/rhino/Node::getLastChild &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningOnXOrNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/rhino/Node::isNull &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningOnXOrNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>isNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningOnXOrNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>isNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testKnownWhileLoop(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>isNullable<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>isNullable<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningOnXOrNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced call to com/google/javascript/rhino/Node::getLastChild with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_156'>156</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_156'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>shouldTraverse<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced boolean return with false for com/google/javascript/jscomp/lint/CheckNullableReturn::shouldTraverse &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>shouldTraverse<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>shouldTraverse<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_161'>161</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_161'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>process<br/><b>Killed by : </b>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest)</span></span> removed call to com/google/javascript/jscomp/NodeTraversal::traverse &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@62794582_166'>166</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@62794582_166'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hotSwapScript<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/NodeTraversal::traverse &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_61</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_60</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_56</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_55</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_58</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_57</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_52</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_51</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_54</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_53</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_59</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_50</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_45</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_44</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_47</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_46</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_41</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_40</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_43</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_42</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_49</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_48</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_34</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_33</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_36</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_35</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_30</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_32</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_31</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_38</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_37</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_39</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_3</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_2</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_1</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_0</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_23</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_22</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_25</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_9</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_24</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_8</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_7</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_6</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_21</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_5</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_20</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_4</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_27</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_26</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_29</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_28</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_12</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_11</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_99</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_14</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_13</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_96</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_95</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_10</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_98</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_97</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_19</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_16</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_15</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_18</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_17</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_92</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_91</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_94</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_93</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_90</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_89</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_88</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_85</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_84</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_87</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_86</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_81</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_80</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_83</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_82</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_78</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_77</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_79</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_74</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_73</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_76</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_75</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_70</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_72</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_71</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_67</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_66</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_69</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_68</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_63</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_62</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_65</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_64</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningOnEmptyFunction(com.google.javascript.jscomp.lint.CheckNullableReturnTest) (49 ms)</li><li>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testKnownConditions(com.google.javascript.jscomp.lint.CheckNullableReturnTest) (621 ms)</li><li>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testFinallyStatements(com.google.javascript.jscomp.lint.CheckNullableReturnTest) (1358 ms)</li><li>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNonfunctionTypeDoesntCrash(com.google.javascript.jscomp.lint.CheckNullableReturnTest) (28 ms)</li><li>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoExplicitReturn(com.google.javascript.jscomp.lint.CheckNullableReturnTest) (19 ms)</li><li>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testKnownWhileLoop(com.google.javascript.jscomp.lint.CheckNullableReturnTest) (174 ms)</li><li>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testTwoBranches(com.google.javascript.jscomp.lint.CheckNullableReturnTest) (31 ms)</li><li>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testSimpleWarning(com.google.javascript.jscomp.lint.CheckNullableReturnTest) (18 ms)</li><li>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNullableReturn(com.google.javascript.jscomp.lint.CheckNullableReturnTest) (153 ms)</li><li>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningOnXOrNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest) (45 ms)</li><li>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testTryCatch(com.google.javascript.jscomp.lint.CheckNullableReturnTest) (103 ms)</li><li>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNotNullableReturn(com.google.javascript.jscomp.lint.CheckNullableReturnTest) (229 ms)</li><li>com.google.javascript.jscomp.lint.CheckNullableReturnTest.testNoWarningIfCanReturnNull(com.google.javascript.jscomp.lint.CheckNullableReturnTest) (22 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

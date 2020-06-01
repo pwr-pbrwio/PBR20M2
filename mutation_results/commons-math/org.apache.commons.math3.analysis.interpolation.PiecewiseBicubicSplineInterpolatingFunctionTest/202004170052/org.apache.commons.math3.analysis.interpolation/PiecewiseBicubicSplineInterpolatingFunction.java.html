@@ -1,0 +1,3825 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>PiecewiseBicubicSplineInterpolatingFunction.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.math3.analysis.interpolation;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Arrays;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.analysis.BivariateFunction;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.exception.DimensionMismatchException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.exception.InsufficientDataException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.exception.NoDataException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.exception.NullArgumentException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.exception.OutOfRangeException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.exception.NonMonotonicSequenceException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.util.MathArrays;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Function that implements the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;a href=&#34;http://www.paulinternet.nl/?page=bicubic&#34;&#62;bicubic spline&#60;/a&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * interpolation.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * This implementation currently uses {@link AkimaSplineInterpolator} as the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * underlying one-dimensional interpolator, which requires 5 sample points;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * insufficient data will raise an exception when the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * {@link #value(double,double) value} method is called.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 3.4</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class PiecewiseBicubicSplineInterpolatingFunction</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    implements BivariateFunction {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** The minimum number of points that are needed to compute the function. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final int MIN_NUM_POINTS = 5;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Samples x-coordinates */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final double[] xval;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Samples y-coordinates */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final double[] yval;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Set of cubic splines patching the whole data grid */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final double[][] fval;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param x Sample values of the x-coordinate, in increasing order.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param y Sample values of the y-coordinate, in increasing order.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param f Values of the function on every grid point. the expected number</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *        of elements.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NonMonotonicSequenceException if {@code x} or {@code y} are not</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *         strictly increasing.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullArgumentException if any of the arguments are null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NoDataException if any of the arrays has zero length.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws DimensionMismatchException if the length of x and y don&#39;t match the row, column</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *         height of f</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public PiecewiseBicubicSplineInterpolatingFunction(double[] x,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                                                       double[] y,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                                                       double[][] f)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        throws DimensionMismatchException,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>               NullArgumentException,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>               NoDataException,</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_70'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>               NonMonotonicSequenceException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_71'/>
+71
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_71'>13</a>
+<span>
+1. <init> : Substituted 0 with 1 &rarr; SURVIVED<br/>
+2. <init> : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+3. <init> : negated conditional &rarr; KILLED<br/>
+4. <init> : negated conditional &rarr; KILLED<br/>
+5. <init> : negated conditional &rarr; KILLED<br/>
+6. <init> : negated conditional &rarr; KILLED<br/>
+7. <init> : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+8. <init> : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+9. <init> : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+10. <init> : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+11. <init> : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+12. <init> : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+13. <init> : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (x == null ||</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            y == null ||</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            f == null ||</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            f[0] == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_75'/>
+75
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_75'>1</a>
+<span>
+1. <init> : removed call to org/apache/commons/math3/exception/NullArgumentException::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            throw new NullArgumentException();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_78'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final int xLen = x.length;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_79'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        final int yLen = y.length;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_81'/>
+81
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_81'>13</a>
+<span>
+1. <init> : Substituted 0 with 1 &rarr; SURVIVED<br/>
+2. <init> : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+3. <init> : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+4. <init> : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+5. <init> : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+6. <init> : negated conditional &rarr; KILLED<br/>
+7. <init> : negated conditional &rarr; KILLED<br/>
+8. <init> : negated conditional &rarr; KILLED<br/>
+9. <init> : negated conditional &rarr; KILLED<br/>
+10. <init> : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+11. <init> : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+12. <init> : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+13. <init> : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (xLen == 0 ||</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            yLen == 0 ||</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            f.length == 0 ||</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            f[0].length == 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_85'/>
+85
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_85'>1</a>
+<span>
+1. <init> : removed call to org/apache/commons/math3/exception/NoDataException::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            throw new NoDataException();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_88'/>
+88
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_88'>21</a>
+<span>
+1. <init> : Substituted 0 with 1 &rarr; SURVIVED<br/>
+2. <init> : removed conditional - replaced comparison check with false &rarr; SURVIVED<br/>
+3. <init> : removed conditional - replaced comparison check with true &rarr; SURVIVED<br/>
+4. <init> : changed conditional boundary &rarr; KILLED<br/>
+5. <init> : changed conditional boundary &rarr; KILLED<br/>
+6. <init> : changed conditional boundary &rarr; KILLED<br/>
+7. <init> : changed conditional boundary &rarr; KILLED<br/>
+8. <init> : Substituted 5 with 6 &rarr; KILLED<br/>
+9. <init> : Substituted 5 with 6 &rarr; KILLED<br/>
+10. <init> : Substituted 5 with 6 &rarr; KILLED<br/>
+11. <init> : Substituted 5 with 6 &rarr; KILLED<br/>
+12. <init> : negated conditional &rarr; KILLED<br/>
+13. <init> : negated conditional &rarr; KILLED<br/>
+14. <init> : negated conditional &rarr; KILLED<br/>
+15. <init> : negated conditional &rarr; KILLED<br/>
+16. <init> : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+17. <init> : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+18. <init> : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+19. <init> : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+20. <init> : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+21. <init> : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (xLen &#60; MIN_NUM_POINTS ||</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            yLen &#60; MIN_NUM_POINTS ||</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            f.length &#60; MIN_NUM_POINTS ||</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            f[0].length &#60; MIN_NUM_POINTS) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_92'/>
+92
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_92'>1</a>
+<span>
+1. <init> : removed call to org/apache/commons/math3/exception/InsufficientDataException::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            throw new InsufficientDataException();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_95'/>
+95
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_95'>3</a>
+<span>
+1. <init> : negated conditional &rarr; KILLED<br/>
+2. <init> : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. <init> : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (xLen != f.length) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_96'/>
+96
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_96'>1</a>
+<span>
+1. <init> : removed call to org/apache/commons/math3/exception/DimensionMismatchException::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            throw new DimensionMismatchException(xLen, f.length);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_99'/>
+99
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_99'>4</a>
+<span>
+1. <init> : Substituted 0 with 1 &rarr; SURVIVED<br/>
+2. <init> : negated conditional &rarr; KILLED<br/>
+3. <init> : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. <init> : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (yLen != f[0].length) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_100'/>
+100
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_100'>2</a>
+<span>
+1. <init> : Substituted 0 with 1 &rarr; SURVIVED<br/>
+2. <init> : removed call to org/apache/commons/math3/exception/DimensionMismatchException::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            throw new DimensionMismatchException(yLen, f[0].length);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_103'/>
+103
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_103'>1</a>
+<span>
+1. <init> : removed call to org/apache/commons/math3/util/MathArrays::checkOrder &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        MathArrays.checkOrder(x);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_104'/>
+104
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_104'>1</a>
+<span>
+1. <init> : removed call to org/apache/commons/math3/util/MathArrays::checkOrder &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        MathArrays.checkOrder(y);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_106'/>
+106
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_106'>2</a>
+<span>
+1. <init> : removed call to [D::clone &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable xval &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        xval = x.clone();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_107'/>
+107
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_107'>2</a>
+<span>
+1. <init> : removed call to [D::clone &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable yval &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        yval = y.clone();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_108'/>
+108
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_108'>2</a>
+<span>
+1. <init> : removed call to [[D::clone &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable fval &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        fval = f.clone();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_109'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@inheritDoc}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public double value(double x,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        double y)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        throws OutOfRangeException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_117'/>
+117
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_117'>1</a>
+<span>
+1. value : removed call to org/apache/commons/math3/analysis/interpolation/AkimaSplineInterpolator::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        final AkimaSplineInterpolator interpolator = new AkimaSplineInterpolator();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_118'/>
+118
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_118'>1</a>
+<span>
+1. value : Substituted 2 with 3 &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        final int offset = 2;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_119'/>
+119
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_119'>1</a>
+<span>
+1. value : Substituted 5 with 6 &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        final int count = offset + 3;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_120'/>
+120
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_120'>4</a>
+<span>
+1. value : Substituted 2 with 3 &rarr; SURVIVED<br/>
+2. value : replaced call to org/apache/commons/math3/analysis/interpolation/PiecewiseBicubicSplineInterpolatingFunction::searchIndex with argument &rarr; KILLED<br/>
+3. value : Substituted 5 with 6 &rarr; KILLED<br/>
+4. value : removed call to org/apache/commons/math3/analysis/interpolation/PiecewiseBicubicSplineInterpolatingFunction::searchIndex &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        final int i = searchIndex(x, xval, offset, count);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_121'/>
+121
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_121'>4</a>
+<span>
+1. value : Substituted 2 with 3 &rarr; SURVIVED<br/>
+2. value : replaced call to org/apache/commons/math3/analysis/interpolation/PiecewiseBicubicSplineInterpolatingFunction::searchIndex with argument &rarr; KILLED<br/>
+3. value : Substituted 5 with 6 &rarr; KILLED<br/>
+4. value : removed call to org/apache/commons/math3/analysis/interpolation/PiecewiseBicubicSplineInterpolatingFunction::searchIndex &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        final int j = searchIndex(y, yval, offset, count);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_123'/>
+123
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_123'>1</a>
+<span>
+1. value : Substituted 5 with 6 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        final double xArray[] = new double[count];</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_124'/>
+124
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_124'>1</a>
+<span>
+1. value : Substituted 5 with 6 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        final double yArray[] = new double[count];</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_125'/>
+125
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_125'>1</a>
+<span>
+1. value : Substituted 5 with 6 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        final double zArray[] = new double[count];</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_126'/>
+126
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_126'>1</a>
+<span>
+1. value : Substituted 5 with 6 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        final double interpArray[] = new double[count];</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_128'/>
+128
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_128'>7</a>
+<span>
+1. value : changed conditional boundary &rarr; KILLED<br/>
+2. value : Changed increment from 1 to -1 &rarr; KILLED<br/>
+3. value : Substituted 0 with 1 &rarr; KILLED<br/>
+4. value : Substituted 5 with 6 &rarr; KILLED<br/>
+5. value : negated conditional &rarr; KILLED<br/>
+6. value : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+7. value : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        for (int index = 0; index &#60; count; index++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_129'/>
+129
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_129'>1</a>
+<span>
+1. value : Replaced integer addition with subtraction &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            xArray[index] = xval[i + index];</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_130'/>
+130
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_130'>1</a>
+<span>
+1. value : Replaced integer addition with subtraction &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            yArray[index] = yval[j + index];</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_131'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_133'/>
+133
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_133'>8</a>
+<span>
+1. value : Removed increment 1 &rarr; TIMED_OUT<br/>
+2. value : changed conditional boundary &rarr; KILLED<br/>
+3. value : Changed increment from 1 to -1 &rarr; KILLED<br/>
+4. value : Substituted 0 with 1 &rarr; KILLED<br/>
+5. value : Substituted 5 with 6 &rarr; KILLED<br/>
+6. value : negated conditional &rarr; KILLED<br/>
+7. value : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+8. value : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        for (int zIndex = 0; zIndex &#60; count; zIndex++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_134'/>
+134
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_134'>7</a>
+<span>
+1. value : changed conditional boundary &rarr; KILLED<br/>
+2. value : Changed increment from 1 to -1 &rarr; KILLED<br/>
+3. value : Substituted 0 with 1 &rarr; KILLED<br/>
+4. value : Substituted 5 with 6 &rarr; KILLED<br/>
+5. value : negated conditional &rarr; KILLED<br/>
+6. value : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+7. value : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            for (int index = 0; index &#60; count; index++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_135'/>
+135
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_135'>2</a>
+<span>
+1. value : Replaced integer addition with subtraction &rarr; KILLED<br/>
+2. value : Replaced integer addition with subtraction &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                zArray[index] = fval[i + index][j + zIndex];</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_137'/>
+137
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_137'>1</a>
+<span>
+1. value : removed call to org/apache/commons/math3/analysis/interpolation/AkimaSplineInterpolator::interpolate &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            final PolynomialSplineFunction spline = interpolator.interpolate(xArray, zArray);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_138'/>
+138
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_138'>2</a>
+<span>
+1. value : replaced call to org/apache/commons/math3/analysis/polynomials/PolynomialSplineFunction::value with argument &rarr; KILLED<br/>
+2. value : removed call to org/apache/commons/math3/analysis/polynomials/PolynomialSplineFunction::value &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            interpArray[zIndex] = spline.value(x);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_139'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_141'/>
+141
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_141'>1</a>
+<span>
+1. value : removed call to org/apache/commons/math3/analysis/interpolation/AkimaSplineInterpolator::interpolate &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        final PolynomialSplineFunction spline = interpolator.interpolate(yArray, interpArray);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_143'/>
+143
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_143'>2</a>
+<span>
+1. value : replaced call to org/apache/commons/math3/analysis/polynomials/PolynomialSplineFunction::value with argument &rarr; KILLED<br/>
+2. value : removed call to org/apache/commons/math3/analysis/polynomials/PolynomialSplineFunction::value &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        double returnValue = spline.value(y);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_145'/>
+145
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_145'>2</a>
+<span>
+1. value : replaced double return with 0.0d for org/apache/commons/math3/analysis/interpolation/PiecewiseBicubicSplineInterpolatingFunction::value &rarr; KILLED<br/>
+2. value : replaced return of double value with -(x + 1) for org/apache/commons/math3/analysis/interpolation/PiecewiseBicubicSplineInterpolatingFunction::value &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return returnValue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_147'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Indicates whether a point is within the interpolation range.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_150'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param x First coordinate.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param y Second coordinate.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return {@code true} if (x, y) is a valid point.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 3.3</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean isValidPoint(double x,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_157'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                                double y) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_158'/>
+158
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_158'>22</a>
+<span>
+1. isValidPoint : changed conditional boundary &rarr; NO_COVERAGE<br/>
+2. isValidPoint : changed conditional boundary &rarr; NO_COVERAGE<br/>
+3. isValidPoint : changed conditional boundary &rarr; NO_COVERAGE<br/>
+4. isValidPoint : changed conditional boundary &rarr; NO_COVERAGE<br/>
+5. isValidPoint : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+6. isValidPoint : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+7. isValidPoint : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+8. isValidPoint : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+9. isValidPoint : Replaced integer subtraction with addition &rarr; NO_COVERAGE<br/>
+10. isValidPoint : Replaced integer subtraction with addition &rarr; NO_COVERAGE<br/>
+11. isValidPoint : negated conditional &rarr; NO_COVERAGE<br/>
+12. isValidPoint : negated conditional &rarr; NO_COVERAGE<br/>
+13. isValidPoint : negated conditional &rarr; NO_COVERAGE<br/>
+14. isValidPoint : negated conditional &rarr; NO_COVERAGE<br/>
+15. isValidPoint : removed conditional - replaced comparison check with false &rarr; NO_COVERAGE<br/>
+16. isValidPoint : removed conditional - replaced comparison check with false &rarr; NO_COVERAGE<br/>
+17. isValidPoint : removed conditional - replaced comparison check with false &rarr; NO_COVERAGE<br/>
+18. isValidPoint : removed conditional - replaced comparison check with false &rarr; NO_COVERAGE<br/>
+19. isValidPoint : removed conditional - replaced comparison check with true &rarr; NO_COVERAGE<br/>
+20. isValidPoint : removed conditional - replaced comparison check with true &rarr; NO_COVERAGE<br/>
+21. isValidPoint : removed conditional - replaced comparison check with true &rarr; NO_COVERAGE<br/>
+22. isValidPoint : removed conditional - replaced comparison check with true &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        if (x &#60; xval[0] ||</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            x &#62; xval[xval.length - 1] ||</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            y &#60; yval[0] ||</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            y &#62; yval[yval.length - 1]) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_162'/>
+162
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_162'>3</a>
+<span>
+1. isValidPoint : replaced boolean return with true for org/apache/commons/math3/analysis/interpolation/PiecewiseBicubicSplineInterpolatingFunction::isValidPoint &rarr; NO_COVERAGE<br/>
+2. isValidPoint : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+3. isValidPoint : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_164'/>
+164
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_164'>3</a>
+<span>
+1. isValidPoint : replaced boolean return with false for org/apache/commons/math3/analysis/interpolation/PiecewiseBicubicSplineInterpolatingFunction::isValidPoint &rarr; NO_COVERAGE<br/>
+2. isValidPoint : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+3. isValidPoint : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_166'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_168'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param c Coordinate.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param val Coordinate samples.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_171'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param offset how far back from found value to offset for querying</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_172'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param count total number of elements forward from beginning that will be</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_173'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *        queried</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_174'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the index in {@code val} corresponding to the interval containing</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_175'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *         {@code c}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_176'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws OutOfRangeException if {@code c} is out of the range defined by</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_177'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *         the boundary values of {@code val}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_178'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_179'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private int searchIndex(double c,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_180'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                            double[] val,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_181'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                            int offset,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_182'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                            int count) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_183'/>
+183
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_183'>1</a>
+<span>
+1. searchIndex : removed call to java/util/Arrays::binarySearch &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        int r = Arrays.binarySearch(val, c);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_184'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_185'/>
+185
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_185'>10</a>
+<span>
+1. searchIndex : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. searchIndex : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+3. searchIndex : Substituted -1 with 0 &rarr; KILLED<br/>
+4. searchIndex : Substituted 1 with 0 &rarr; KILLED<br/>
+5. searchIndex : removed negation &rarr; KILLED<br/>
+6. searchIndex : Replaced integer subtraction with addition &rarr; KILLED<br/>
+7. searchIndex : negated conditional &rarr; KILLED<br/>
+8. searchIndex : negated conditional &rarr; KILLED<br/>
+9. searchIndex : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+10. searchIndex : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (r == -1 || r == -val.length - 1) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_186'/>
+186
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_186'>7</a>
+<span>
+1. searchIndex : removed call to org/apache/commons/math3/exception/OutOfRangeException::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+2. searchIndex : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+3. searchIndex : Substituted 1 with 0 &rarr; NO_COVERAGE<br/>
+4. searchIndex : Replaced integer subtraction with addition &rarr; NO_COVERAGE<br/>
+5. searchIndex : removed call to java/lang/Double::valueOf &rarr; NO_COVERAGE<br/>
+6. searchIndex : removed call to java/lang/Double::valueOf &rarr; NO_COVERAGE<br/>
+7. searchIndex : removed call to java/lang/Double::valueOf &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            throw new OutOfRangeException(c, val[0], val[val.length - 1]);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_187'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_188'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_189'/>
+189
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_189'>4</a>
+<span>
+1. searchIndex : changed conditional boundary &rarr; SURVIVED<br/>
+2. searchIndex : negated conditional &rarr; KILLED<br/>
+3. searchIndex : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+4. searchIndex : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (r &#60; 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_190'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // &#34;c&#34; in within an interpolation sub-interval, which returns</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_191'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // negative</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_192'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // need to remove the negative sign for consistency</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_193'/>
+193
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_193'>4</a>
+<span>
+1. searchIndex : Substituted 1 with 0 &rarr; SURVIVED<br/>
+2. searchIndex : removed negation &rarr; KILLED<br/>
+3. searchIndex : Replaced integer subtraction with addition &rarr; KILLED<br/>
+4. searchIndex : Replaced integer subtraction with addition &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            r = -r - offset - 1;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_194'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_195'/>
+195
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_195'>1</a>
+<span>
+1. searchIndex : Replaced integer subtraction with addition &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            r -= offset;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_196'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_197'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_198'/>
+198
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_198'>4</a>
+<span>
+1. searchIndex : changed conditional boundary &rarr; SURVIVED<br/>
+2. searchIndex : negated conditional &rarr; KILLED<br/>
+3. searchIndex : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+4. searchIndex : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (r &#60; 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_199'/>
+199
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_199'>1</a>
+<span>
+1. searchIndex : Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            r = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_200'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_201'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_202'/>
+202
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_202'>5</a>
+<span>
+1. searchIndex : changed conditional boundary &rarr; SURVIVED<br/>
+2. searchIndex : Replaced integer addition with subtraction &rarr; KILLED<br/>
+3. searchIndex : negated conditional &rarr; KILLED<br/>
+4. searchIndex : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+5. searchIndex : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if ((r + count) &#62;= val.length) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_203'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // &#34;c&#34; is the last sample of the range: Return the index</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_204'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // of the sample at the lower end of the last sub-interval.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_205'/>
+205
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_205'>1</a>
+<span>
+1. searchIndex : Replaced integer subtraction with addition &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            r = val.length - count;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_206'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_207'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_208'/>
+208
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_208'>2</a>
+<span>
+1. searchIndex : replaced int return with 0 for org/apache/commons/math3/analysis/interpolation/PiecewiseBicubicSplineInterpolatingFunction::searchIndex &rarr; KILLED<br/>
+2. searchIndex : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return r;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_209'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6003ad65_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_210'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_71'>71</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_71'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_75'>75</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_75'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed call to org/apache/commons/math3/exception/NullArgumentException::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_81'>81</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_81'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_85'>85</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_85'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/exception/NoDataException::&#60;init&#62; &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_88'>88</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_88'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Substituted 5 with 6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Substituted 5 with 6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Substituted 5 with 6 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Substituted 5 with 6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed conditional - replaced comparison check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed conditional - replaced comparison check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_92'>92</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_92'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed call to org/apache/commons/math3/exception/InsufficientDataException::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_95'>95</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_95'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_96'>96</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_96'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed call to org/apache/commons/math3/exception/DimensionMismatchException::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_99'>99</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_99'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_100'>100</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_100'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed call to org/apache/commons/math3/exception/DimensionMismatchException::&#60;init&#62; &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_103'>103</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_103'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed call to org/apache/commons/math3/util/MathArrays::checkOrder &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_104'>104</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_104'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed call to org/apache/commons/math3/util/MathArrays::checkOrder &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_106'>106</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_106'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed call to [D::clone &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Removed assignment to member variable xval &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_107'>107</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_107'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed call to [D::clone &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Removed assignment to member variable yval &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_108'>108</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_108'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed call to [[D::clone &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Removed assignment to member variable fval &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_117'>117</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_117'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed call to org/apache/commons/math3/analysis/interpolation/AkimaSplineInterpolator::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_118'>118</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_118'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>none</span></span> Substituted 2 with 3 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_119'>119</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_119'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>none</span></span> Substituted 5 with 6 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_120'>120</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_120'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> replaced call to org/apache/commons/math3/analysis/interpolation/PiecewiseBicubicSplineInterpolatingFunction::searchIndex with argument &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>value<br/><b>Killed by : </b>none</span></span> Substituted 2 with 3 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Substituted 5 with 6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed call to org/apache/commons/math3/analysis/interpolation/PiecewiseBicubicSplineInterpolatingFunction::searchIndex &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_121'>121</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_121'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> replaced call to org/apache/commons/math3/analysis/interpolation/PiecewiseBicubicSplineInterpolatingFunction::searchIndex with argument &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>value<br/><b>Killed by : </b>none</span></span> Substituted 2 with 3 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Substituted 5 with 6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed call to org/apache/commons/math3/analysis/interpolation/PiecewiseBicubicSplineInterpolatingFunction::searchIndex &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_123'>123</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_123'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Substituted 5 with 6 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_124'>124</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_124'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Substituted 5 with 6 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_125'>125</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_125'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Substituted 5 with 6 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_126'>126</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_126'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Substituted 5 with 6 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_128'>128</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_128'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Changed increment from 1 to -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Substituted 5 with 6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_129'>129</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_129'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_130'>130</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_130'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_133'>133</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_133'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Changed increment from 1 to -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Substituted 5 with 6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>value<br/><b>Killed by : </b>none</span></span> Removed increment 1 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_134'>134</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_134'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Changed increment from 1 to -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Substituted 5 with 6 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_135'>135</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_135'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_137'>137</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_137'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed call to org/apache/commons/math3/analysis/interpolation/AkimaSplineInterpolator::interpolate &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_138'>138</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_138'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> replaced call to org/apache/commons/math3/analysis/polynomials/PolynomialSplineFunction::value with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed call to org/apache/commons/math3/analysis/polynomials/PolynomialSplineFunction::value &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_141'>141</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_141'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed call to org/apache/commons/math3/analysis/interpolation/AkimaSplineInterpolator::interpolate &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_143'>143</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_143'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> replaced call to org/apache/commons/math3/analysis/polynomials/PolynomialSplineFunction::value with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed call to org/apache/commons/math3/analysis/polynomials/PolynomialSplineFunction::value &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_145'>145</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_145'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> replaced double return with 0.0d for org/apache/commons/math3/analysis/interpolation/PiecewiseBicubicSplineInterpolatingFunction::value &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>value<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> replaced return of double value with -(x + 1) for org/apache/commons/math3/analysis/interpolation/PiecewiseBicubicSplineInterpolatingFunction::value &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_158'>158</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_158'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> Replaced integer subtraction with addition &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> Replaced integer subtraction with addition &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> removed conditional - replaced comparison check with false &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> removed conditional - replaced comparison check with false &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> removed conditional - replaced comparison check with false &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> removed conditional - replaced comparison check with false &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> removed conditional - replaced comparison check with true &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>20.<span><b>20</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> removed conditional - replaced comparison check with true &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>21.<span><b>21</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> removed conditional - replaced comparison check with true &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>22.<span><b>22</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> removed conditional - replaced comparison check with true &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_162'>162</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_162'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for org/apache/commons/math3/analysis/interpolation/PiecewiseBicubicSplineInterpolatingFunction::isValidPoint &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_164'>164</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_164'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> replaced boolean return with false for org/apache/commons/math3/analysis/interpolation/PiecewiseBicubicSplineInterpolatingFunction::isValidPoint &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isValidPoint<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_183'>183</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_183'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed call to java/util/Arrays::binarySearch &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_185'>185</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_185'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Substituted -1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed negation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_186'>186</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_186'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/math3/exception/OutOfRangeException::&#60;init&#62; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>none</span></span> Replaced integer subtraction with addition &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Double::valueOf &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Double::valueOf &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Double::valueOf &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_189'>189</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_189'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_193'>193</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_193'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed negation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_195'>195</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_195'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_198'>198</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_198'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_199'>199</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_199'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_202'>202</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_202'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_205'>205</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_205'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6003ad65_208'>208</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6003ad65_208'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> replaced int return with 0 for org/apache/commons/math3/analysis/interpolation/PiecewiseBicubicSplineInterpolatingFunction::searchIndex &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>searchIndex<br/><b>Killed by : </b>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_61</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_60</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_56</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_55</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_58</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_57</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_52</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_51</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_54</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_53</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_59</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_50</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_45</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_44</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_47</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_46</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_41</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_40</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_43</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_42</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_49</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_48</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_34</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_33</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_36</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_35</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_30</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_32</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_31</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_38</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_37</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_39</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_3</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_2</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_1</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_0</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_23</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_22</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_25</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_9</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_24</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_8</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_7</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_6</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_21</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_5</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_20</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_4</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_27</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_26</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_29</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_28</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_12</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_11</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_99</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_14</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_13</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_96</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_95</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_10</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_98</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_97</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_19</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_16</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_15</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_18</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_17</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_92</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_91</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_94</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_93</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_90</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_89</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_88</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_85</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_84</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_87</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_86</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_81</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_80</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_83</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_82</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_78</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_77</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_79</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_74</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_73</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_76</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_75</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_70</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_72</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_71</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_67</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_66</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_69</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_68</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_63</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_62</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_65</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_64</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPlane(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest) (14 ms)</li><li>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testPreconditions(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest) (7 ms)</li><li>org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest.testParabaloid(org.apache.commons.math3.analysis.interpolation.PiecewiseBicubicSplineInterpolatingFunctionTest) (80 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

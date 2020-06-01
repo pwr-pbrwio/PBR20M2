@@ -1,0 +1,3721 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>LowestCommonAncestorFinder.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2008 The Closure Compiler Authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.google.javascript.jscomp.graph;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.google.common.base.Preconditions.checkArgument;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.google.common.base.Preconditions.checkNotNull;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.google.common.base.Preconditions.checkState;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.collect.ImmutableSet;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.errorprone.annotations.Immutable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.graph.DiGraph.DiGraphEdge;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.jscomp.graph.DiGraph.DiGraphNode;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.ArrayDeque;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Arrays;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.LinkedHashMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.List;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Set;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Implements a lowest common ancestor search algorithm.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;The LCA of a set of nodes is the node that is an ancestor to all of them but is not an</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * ancestor of any other common ancestor. In a non-tree, There may be multiple LCAs for a given set</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * of search nodes.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;In a cyclic graph, the LCAs may not be well defined. Within a cycle, all elements are both</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * above and below one another, so there is no uniquely lowest element. If the set of common</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * ancestors is rooted on a cycle, this implementation returns one or more elements of that cycle.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Those elements are chosen arbitrarily but deterministically (as long as the underlying graph has</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * deterministic iteration).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class LowestCommonAncestorFinder&#60;N, E&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * An abstraction for {@code LowestCommonAncestorFinder::new}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * &#60;p&#62;This interface allows injection in tests.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @FunctionalInterface</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public interface Factory&#60;N, E&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    LowestCommonAncestorFinder&#60;N, E&#62; create(DiGraph&#60;N, E&#62; graph);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /** A &#34;color&#34; for a node, encoded as a combination of other colors using a one-hot scheme. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Immutable</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private static final class Color {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * A set of commonly used colors to minimize allocations.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;An array is used to prevent bounds checking overhead.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final Color[] COMMON_COLOR_CACHE = new Color[2 &#60;&#60; 5];</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      Arrays.setAll(COMMON_COLOR_CACHE, Color::new);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * A color that when mixed with any other color {@code x} returns {@code x}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;Mixing this color is idempotent.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static final Color BLANK = checkNotNull(COMMON_COLOR_CACHE[0]);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * A color for common ancestors that indicates that there are lower common ancestors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;Because this color sets its MSB high, it can never equal any other color. Also notice that</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * mixing this {@link Color} with any other produces this {@link Color} again; mixing it is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * nullipotent.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static final Color NOT_LOWEST = new Color(-1);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static Color create(int bitset) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      if (bitset &#60; 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        checkArgument(bitset == -1);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        return NOT_LOWEST;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      } else if (bitset &#60; COMMON_COLOR_CACHE.length) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        return COMMON_COLOR_CACHE[bitset];</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      return new Color(bitset);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    final int bitset;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private Color(int bitset) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      this.bitset = bitset;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    Color mix(Color other) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      if (this.bitset == other.bitset) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        return this;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      return create(this.bitset | other.bitset);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean contains(Color other) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      return (this.bitset &#38; other.bitset) == other.bitset;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @SuppressWarnings({&#34;EqualsUnsafeCast&#34;})</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_118'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean equals(Object other) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      return this.bitset == ((Color) other).bitset;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int hashCode() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      return this.bitset;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private final DiGraph&#60;N, E&#62; graph;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_130'/>
+130
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_130'>2</a>
+<span>
+1. <init> : removed call to java/util/LinkedHashMap::&#60;init&#62; &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable searchColoring &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>  private final LinkedHashMap&#60;DiGraphNode&#60;N, E&#62;, Color&#62; searchColoring = new LinkedHashMap&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_131'/>
+131
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_131'>2</a>
+<span>
+1. <init> : removed call to java/util/ArrayDeque::&#60;init&#62; &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable searchQueue &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>  private final ArrayDeque&#60;DiGraphNode&#60;N, E&#62;&#62; searchQueue = new ArrayDeque&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_133'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  public LowestCommonAncestorFinder(DiGraph&#60;N, E&#62; graph) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_134'/>
+134
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_134'>1</a>
+<span>
+1. <init> : Removed assignment to member variable graph &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    this.graph = graph;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_135'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_138'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Execute a search on all the elements of {@code roots}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_139'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * &#60;p&#62;This is a general-purpose, bare-bones implementation. There are lots of special case</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * optimizations that could be applied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public ImmutableSet&#60;N&#62; findAll(Set&#60;N&#62; roots) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // We reserved the MSB of each Color for bookkeeping.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_145'/>
+145
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_145'>9</a>
+<span>
+1. findAll : changed conditional boundary &rarr; SURVIVED<br/>
+2. findAll : Substituted 31 with 32 &rarr; SURVIVED<br/>
+3. findAll : Substituted 0 with 1 &rarr; SURVIVED<br/>
+4. findAll : removed call to java/util/Set::size &rarr; SURVIVED<br/>
+5. findAll : removed conditional - replaced comparison check with true &rarr; SURVIVED<br/>
+6. findAll : removed call to com/google/common/base/Preconditions::checkArgument &rarr; SURVIVED<br/>
+7. findAll : Substituted 1 with 0 &rarr; KILLED<br/>
+8. findAll : negated conditional &rarr; KILLED<br/>
+9. findAll : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    checkArgument(roots.size() &#60;= Integer.SIZE - 1, &#34;Too many roots.&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_146'/>
+146
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_146'>2</a>
+<span>
+1. findAll : removed call to com/google/common/base/Preconditions::checkState &rarr; SURVIVED<br/>
+2. findAll : removed call to java/util/LinkedHashMap::isEmpty &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    checkState(this.searchColoring.isEmpty());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_147'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // In two&#39;s-complement, (2^n - 1) sets the lowest n bits high.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_149'/>
+149
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_149'>6</a>
+<span>
+1. findAll : Substituted 1 with 0 &rarr; KILLED<br/>
+2. findAll : Substituted 1 with 0 &rarr; KILLED<br/>
+3. findAll : Replaced Shift Left with Shift Right &rarr; KILLED<br/>
+4. findAll : Replaced integer subtraction with addition &rarr; KILLED<br/>
+5. findAll : removed call to java/util/Set::size &rarr; KILLED<br/>
+6. findAll : removed call to com/google/javascript/jscomp/graph/LowestCommonAncestorFinder$Color::create &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    Color allColor = Color.create((1 &#60;&#60; roots.size()) - 1);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_150'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Paint up from each root using the color associated with that root.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;When done, the set of common ancestors is the set of nodes painted `allColor`.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_156'/>
+156
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_156'>1</a>
+<span>
+1. findAll : Substituted 1 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    int bitForRoot = 1;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_157'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    for (N root : roots) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_158'/>
+158
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_158'>1</a>
+<span>
+1. findAll : removed call to com/google/javascript/jscomp/graph/DiGraph::getNode &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      DiGraphNode&#60;N, E&#62; rootNode = this.graph.getNode(root);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_159'/>
+159
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_159'>2</a>
+<span>
+1. findAll : replaced call to com/google/common/base/Preconditions::checkNotNull with argument &rarr; SURVIVED<br/>
+2. findAll : removed call to com/google/common/base/Preconditions::checkNotNull &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      checkNotNull(rootNode, &#34;Root not present in graph: %s&#34;, root);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_161'/>
+161
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_161'>1</a>
+<span>
+1. findAll : removed call to com/google/javascript/jscomp/graph/LowestCommonAncestorFinder$Color::create &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      Color color = Color.create(bitForRoot);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_163'/>
+163
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_163'>2</a>
+<span>
+1. findAll : replaced call to java/util/LinkedHashMap::merge with argument &rarr; SURVIVED<br/>
+2. findAll : removed call to java/util/LinkedHashMap::merge &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      this.searchColoring.merge(rootNode, color, Color::mix); // Preserve any existing colors.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_164'/>
+164
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_164'>1</a>
+<span>
+1. findAll : removed call to com/google/javascript/jscomp/graph/LowestCommonAncestorFinder::paintAncestors &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      this.paintAncestors(rootNode, color);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_165'/>
+165
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_165'>2</a>
+<span>
+1. findAll : Substituted 1 with 0 &rarr; KILLED<br/>
+2. findAll : Replaced Shift Left with Shift Right &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      bitForRoot &#60;&#60;= 1;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_166'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_168'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * For every common ancestor, paint all of its ancestors with a color indicating it is not the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * lowest.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_171'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_172'/>
+172
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_172'>1</a>
+<span>
+1. findAll : removed call to java/util/LinkedHashMap::forEach &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    this.searchColoring.forEach(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_173'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        (node, color) -&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_174'/>
+174
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_174'>4</a>
+<span>
+1. lambda$findAll$0 : negated conditional &rarr; KILLED<br/>
+2. lambda$findAll$0 : removed call to com/google/javascript/jscomp/graph/LowestCommonAncestorFinder$Color::equals &rarr; KILLED<br/>
+3. lambda$findAll$0 : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. lambda$findAll$0 : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          if (color.equals(allColor)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_175'/>
+175
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_175'>1</a>
+<span>
+1. lambda$findAll$0 : removed call to com/google/javascript/jscomp/graph/LowestCommonAncestorFinder::paintAncestors &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            this.paintAncestors(node, Color.NOT_LOWEST);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_176'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_177'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        });</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_178'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_179'/>
+179
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_179'>1</a>
+<span>
+1. findAll : removed call to com/google/common/collect/ImmutableSet::builder &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    ImmutableSet.Builder&#60;N&#62; results = ImmutableSet.builder();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_180'/>
+180
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_180'>1</a>
+<span>
+1. findAll : removed call to java/util/LinkedHashMap::forEach &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    this.searchColoring.forEach(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_181'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        (node, color) -&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_182'/>
+182
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_182'>4</a>
+<span>
+1. lambda$findAll$1 : negated conditional &rarr; KILLED<br/>
+2. lambda$findAll$1 : removed call to com/google/javascript/jscomp/graph/LowestCommonAncestorFinder$Color::equals &rarr; KILLED<br/>
+3. lambda$findAll$1 : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. lambda$findAll$1 : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          if (color.equals(allColor)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_183'/>
+183
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_183'>3</a>
+<span>
+1. lambda$findAll$1 : removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphNode::getValue &rarr; KILLED<br/>
+2. lambda$findAll$1 : removed call to com/google/common/collect/ImmutableSet$Builder::add &rarr; KILLED<br/>
+3. lambda$findAll$1 : replaced call to com/google/common/collect/ImmutableSet$Builder::add with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            results.add(node.getValue());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_184'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_185'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        });</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_186'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_187'/>
+187
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_187'>1</a>
+<span>
+1. findAll : removed call to java/util/LinkedHashMap::clear &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    this.searchColoring.clear();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_188'/>
+188
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_188'>1</a>
+<span>
+1. findAll : removed call to java/util/ArrayDeque::clear &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    this.searchQueue.clear();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_189'/>
+189
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_189'>3</a>
+<span>
+1. findAll : removed call to com/google/common/collect/ImmutableSet$Builder::build &rarr; KILLED<br/>
+2. findAll : replaced return value with null for com/google/javascript/jscomp/graph/LowestCommonAncestorFinder::findAll &rarr; KILLED<br/>
+3. findAll : mutated return of Object value for com/google/javascript/jscomp/graph/LowestCommonAncestorFinder::findAll to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return results.build();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_190'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_191'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_192'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_193'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Paint all nodes above {@code root} with {@code color}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_194'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_195'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * &#60;p&#62;{@code root} itself will not have its color changed. {@code color} will be mixed with all</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_196'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * existing colors on ancestor nodes.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_197'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_198'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private void paintAncestors(DiGraphNode&#60;N, E&#62; root, Color color) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_199'/>
+199
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_199'>2</a>
+<span>
+1. paintAncestors : removed call to com/google/common/base/Preconditions::checkState &rarr; SURVIVED<br/>
+2. paintAncestors : removed call to java/util/ArrayDeque::isEmpty &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    checkState(this.searchQueue.isEmpty());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_200'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_201'/>
+201
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_201'>1</a>
+<span>
+1. paintAncestors : removed call to java/util/ArrayDeque::addLast &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    this.searchQueue.addLast(root);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_202'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_203'/>
+203
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_203'>4</a>
+<span>
+1. paintAncestors : negated conditional &rarr; KILLED<br/>
+2. paintAncestors : removed call to java/util/ArrayDeque::isEmpty &rarr; KILLED<br/>
+3. paintAncestors : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. paintAncestors : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    while (!this.searchQueue.isEmpty()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_204'/>
+204
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_204'>1</a>
+<span>
+1. paintAncestors : removed call to java/util/ArrayDeque::removeFirst &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      DiGraphNode&#60;N, E&#62; curr = this.searchQueue.removeFirst();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_205'/>
+205
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_205'>1</a>
+<span>
+1. paintAncestors : removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphNode::getInEdges &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      List&#60;? extends DiGraphEdge&#60;N, E&#62;&#62; parentEdges = curr.getInEdges();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_206'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_207'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      for (DiGraphEdge&#60;N, E&#62; parentEdge : parentEdges) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_208'/>
+208
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_208'>1</a>
+<span>
+1. paintAncestors : removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphEdge::getSource &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        DiGraphNode&#60;N, E&#62; parent = parentEdge.getSource();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_209'/>
+209
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_209'>4</a>
+<span>
+1. paintAncestors : negated conditional &rarr; KILLED<br/>
+2. paintAncestors : removed call to java/lang/Object::equals &rarr; KILLED<br/>
+3. paintAncestors : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. paintAncestors : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (parent.equals(root)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_210'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>          continue; // Don&#39;t paint `root`.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_211'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_212'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_213'/>
+213
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_213'>2</a>
+<span>
+1. paintAncestors : replaced call to java/util/LinkedHashMap::getOrDefault with argument &rarr; KILLED<br/>
+2. paintAncestors : removed call to java/util/LinkedHashMap::getOrDefault &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        Color oldColor = this.searchColoring.getOrDefault(parent, Color.BLANK);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_214'/>
+214
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_214'>4</a>
+<span>
+1. paintAncestors : removed call to com/google/javascript/jscomp/graph/LowestCommonAncestorFinder$Color::contains &rarr; TIMED_OUT<br/>
+2. paintAncestors : removed conditional - replaced equality check with true &rarr; TIMED_OUT<br/>
+3. paintAncestors : negated conditional &rarr; KILLED<br/>
+4. paintAncestors : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        if (!oldColor.contains(color)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_215'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          // Only explore in directions that have not yet been painted.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_216'/>
+216
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_216'>1</a>
+<span>
+1. paintAncestors : removed call to java/util/ArrayDeque::addLast &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          this.searchQueue.addLast(parent);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_217'/>
+217
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_217'>5</a>
+<span>
+1. paintAncestors : replaced call to com/google/javascript/jscomp/graph/LowestCommonAncestorFinder$Color::mix with argument &rarr; KILLED<br/>
+2. paintAncestors : replaced call to java/util/LinkedHashMap::put with argument &rarr; KILLED<br/>
+3. paintAncestors : removed call to com/google/javascript/jscomp/graph/LowestCommonAncestorFinder$Color::mix &rarr; KILLED<br/>
+4. paintAncestors : removed call to java/util/LinkedHashMap::put &rarr; KILLED<br/>
+5. paintAncestors : replaced call to com/google/javascript/jscomp/graph/LowestCommonAncestorFinder$Color::mix with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          this.searchColoring.put(parent, oldColor.mix(color));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_218'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_219'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_220'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_221'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_222'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_130'>130</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_130'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to java/util/LinkedHashMap::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> Removed assignment to member variable searchColoring &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_131'>131</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_131'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to java/util/ArrayDeque::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> Removed assignment to member variable searchQueue &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_134'>134</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_134'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> Removed assignment to member variable graph &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_145'>145</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_145'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>none</span></span> Substituted 31 with 32 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>none</span></span> removed call to java/util/Set::size &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>none</span></span> removed conditional - replaced comparison check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/base/Preconditions::checkArgument &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_146'>146</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_146'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to java/util/LinkedHashMap::isEmpty &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/base/Preconditions::checkState &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_149'>149</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_149'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> Replaced Shift Left with Shift Right &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to java/util/Set::size &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to com/google/javascript/jscomp/graph/LowestCommonAncestorFinder$Color::create &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_156'>156</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_156'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_158'>158</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_158'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph::getNode &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_159'>159</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_159'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>none</span></span> replaced call to com/google/common/base/Preconditions::checkNotNull with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/base/Preconditions::checkNotNull &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_161'>161</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_161'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to com/google/javascript/jscomp/graph/LowestCommonAncestorFinder$Color::create &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_163'>163</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_163'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>none</span></span> replaced call to java/util/LinkedHashMap::merge with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>none</span></span> removed call to java/util/LinkedHashMap::merge &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_164'>164</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_164'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to com/google/javascript/jscomp/graph/LowestCommonAncestorFinder::paintAncestors &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_165'>165</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_165'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> Replaced Shift Left with Shift Right &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_172'>172</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_172'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to java/util/LinkedHashMap::forEach &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_174'>174</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_174'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$findAll$0<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$findAll$0<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to com/google/javascript/jscomp/graph/LowestCommonAncestorFinder$Color::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$findAll$0<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$findAll$0<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_175'>175</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_175'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$findAll$0<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to com/google/javascript/jscomp/graph/LowestCommonAncestorFinder::paintAncestors &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_179'>179</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_179'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to com/google/common/collect/ImmutableSet::builder &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_180'>180</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_180'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to java/util/LinkedHashMap::forEach &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_182'>182</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_182'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$findAll$1<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$findAll$1<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to com/google/javascript/jscomp/graph/LowestCommonAncestorFinder$Color::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$findAll$1<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$findAll$1<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_183'>183</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_183'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$findAll$1<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphNode::getValue &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$findAll$1<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to com/google/common/collect/ImmutableSet$Builder::add &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$findAll$1<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> replaced call to com/google/common/collect/ImmutableSet$Builder::add with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_187'>187</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_187'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>none</span></span> removed call to java/util/LinkedHashMap::clear &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_188'>188</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_188'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>none</span></span> removed call to java/util/ArrayDeque::clear &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_189'>189</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_189'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to com/google/common/collect/ImmutableSet$Builder::build &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> replaced return value with null for com/google/javascript/jscomp/graph/LowestCommonAncestorFinder::findAll &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>findAll<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> mutated return of Object value for com/google/javascript/jscomp/graph/LowestCommonAncestorFinder::findAll to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_199'>199</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_199'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>paintAncestors<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to java/util/ArrayDeque::isEmpty &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>paintAncestors<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/base/Preconditions::checkState &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_201'>201</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_201'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>paintAncestors<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to java/util/ArrayDeque::addLast &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_203'>203</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_203'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>paintAncestors<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>paintAncestors<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to java/util/ArrayDeque::isEmpty &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>paintAncestors<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>paintAncestors<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_204'>204</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_204'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>paintAncestors<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to java/util/ArrayDeque::removeFirst &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_205'>205</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_205'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>paintAncestors<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphNode::getInEdges &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_208'>208</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_208'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>paintAncestors<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to com/google/javascript/jscomp/graph/DiGraph$DiGraphEdge::getSource &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_209'>209</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_209'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>paintAncestors<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>paintAncestors<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onCyclic_whenLcaInsideCycle_appearsUnique_mayFindOtherMember(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to java/lang/Object::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>paintAncestors<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onCyclic_whenLcaInsideCycle_appearsUnique_mayFindOtherMember(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>paintAncestors<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_213'>213</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_213'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>paintAncestors<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> replaced call to java/util/LinkedHashMap::getOrDefault with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>paintAncestors<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to java/util/LinkedHashMap::getOrDefault &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_214'>214</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_214'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>paintAncestors<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> negated conditional &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>paintAncestors<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/graph/LowestCommonAncestorFinder$Color::contains &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>paintAncestors<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>paintAncestors<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_216'>216</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_216'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>paintAncestors<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onTree_withCommonGrandParent(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to java/util/ArrayDeque::addLast &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_217'>217</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7c0ff7a0_217'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>paintAncestors<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> replaced call to com/google/javascript/jscomp/graph/LowestCommonAncestorFinder$Color::mix with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>paintAncestors<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> replaced call to java/util/LinkedHashMap::put with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>paintAncestors<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to com/google/javascript/jscomp/graph/LowestCommonAncestorFinder$Color::mix &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>paintAncestors<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> removed call to java/util/LinkedHashMap::put &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>paintAncestors<br/><b>Killed by : </b>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest)</span></span> replaced call to com/google/javascript/jscomp/graph/LowestCommonAncestorFinder$Color::mix with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_61</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_60</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_56</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_55</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_58</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_57</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_52</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_51</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_54</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_53</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_59</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_50</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_45</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_44</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_47</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_46</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_41</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_40</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_43</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_42</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_49</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_48</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_34</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_33</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_36</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_35</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_30</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_32</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_31</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_38</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_37</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_39</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_3</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_2</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_1</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_0</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_23</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_22</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_25</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_9</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_24</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_8</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_7</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_6</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_21</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_5</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_20</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_4</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_27</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_26</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_29</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_28</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_12</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_11</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_99</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_14</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_13</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_96</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_95</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_10</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_98</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_97</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_19</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_16</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_15</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_18</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_17</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_92</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_91</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_94</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_93</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_90</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_89</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_88</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_85</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_84</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_87</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_86</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_81</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_80</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_83</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_82</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_78</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_77</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_79</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_74</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_73</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_76</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_75</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_70</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_72</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_71</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_67</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_66</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_69</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_68</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_63</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_62</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_65</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_64</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withNestedVs_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest) (1 ms)</li><li>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDigitLattice_withRelatedRoots_findsMultipleLcas(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest) (10 ms)</li><li>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDigitLattice_noLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest) (24 ms)</li><li>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_rejectsTooManyRoots(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest) (5 ms)</li><li>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_findsMultipleLcas(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest) (4 ms)</li><li>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onTree_whenLcaHasParent(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest) (2 ms)</li><li>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDigitLattice_withUnrelatedRoots_findsMultipleLcas(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest) (9 ms)</li><li>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onCyclic_whenLcaInsideCycle_findsSomeMember_deterministically(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest) (2 ms)</li><li>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onCyclic_whenLcaInsideCycle_appearsUnique_mayFindOtherMember(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest) (2 ms)</li><li>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onTree_withCommonParent(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest) (3 ms)</li><li>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_sidePathsIntoNonLowest(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest) (2 ms)</li><li>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withCommonParent_findsMultipleLcas_atDifferentDistances(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest) (2 ms)</li><li>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onCyclic_whenLcaBelowCycle_ignoresCycle(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest) (117 ms)</li><li>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDisjoint_noSolution(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest) (2 ms)</li><li>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDigitLattice_withOverlappingRoots_findsSingleLca(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest) (12 ms)</li><li>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onTree_withCommonGrandParent(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest) (1 ms)</li><li>com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest.findAll_onDag_withCommonParent_findsMultipleLcas(com.google.javascript.jscomp.graph.LowestCommonAncestorFinderTest) (5 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

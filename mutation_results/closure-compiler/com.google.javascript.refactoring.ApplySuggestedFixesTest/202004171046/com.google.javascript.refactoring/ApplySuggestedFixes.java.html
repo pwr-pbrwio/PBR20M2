@@ -1,0 +1,3999 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>ApplySuggestedFixes.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2014 The Closure Compiler Authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.google.javascript.refactoring;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static com.google.common.base.Preconditions.checkState;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static java.nio.charset.StandardCharsets.UTF_8;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.base.Joiner;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.base.Preconditions;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.collect.HashMultimap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.collect.ImmutableList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.collect.ImmutableMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.collect.Iterables;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.collect.Multimaps;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.collect.Ordering;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.collect.SetMultimap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.collect.Streams;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.common.io.Files;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.File;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.IOException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.ArrayList;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.HashMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.HashSet;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.List;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Map;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Map.Entry;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Set;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.function.Predicate;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.stream.IntStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Class that applies suggested fixes to code or files.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_48'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public final class ApplySuggestedFixes {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_50'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  private static final Ordering&#60;CodeReplacement&#62; ORDER_CODE_REPLACEMENTS =</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_51'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      Ordering.natural()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_52'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>          .onResultOf(CodeReplacement::getStartPosition)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_53'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>          .compound(Ordering.natural().onResultOf(CodeReplacement::getLength))</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_54'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>          .compound(Ordering.natural().onResultOf(CodeReplacement::getSortKey));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Applies the provided set of suggested fixes to the files listed in the suggested fixes.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * The fixes can be provided in any order, but they may not have any overlapping modifications</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * for the same file.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public static void applySuggestedFixesToFiles(Iterable&#60;SuggestedFix&#62; fixes)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_63'/>
+63
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_63'>1</a>
+<span>
+1. applySuggestedFixesToFiles : removed call to java/util/HashSet::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    Set&#60;String&#62; filenames = new HashSet&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_64'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    for (SuggestedFix fix : fixes) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_65'/>
+65
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_65'>3</a>
+<span>
+1. applySuggestedFixesToFiles : removed call to com/google/javascript/refactoring/SuggestedFix::getReplacements &rarr; NO_COVERAGE<br/>
+2. applySuggestedFixesToFiles : removed call to com/google/common/collect/SetMultimap::keySet &rarr; NO_COVERAGE<br/>
+3. applySuggestedFixesToFiles : removed call to java/util/Set::addAll &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      filenames.addAll(fix.getReplacements().keySet());</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_66'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_68'/>
+68
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_68'>1</a>
+<span>
+1. applySuggestedFixesToFiles : removed call to java/util/HashMap::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    Map&#60;String, String&#62; filenameToCodeMap = new HashMap&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_69'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    for (String filename : filenames) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_70'/>
+70
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_70'>5</a>
+<span>
+1. applySuggestedFixesToFiles : replaced call to java/util/Map::put with argument &rarr; NO_COVERAGE<br/>
+2. applySuggestedFixesToFiles : removed call to java/io/File::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+3. applySuggestedFixesToFiles : removed call to com/google/common/io/Files::asCharSource &rarr; NO_COVERAGE<br/>
+4. applySuggestedFixesToFiles : removed call to com/google/common/io/CharSource::read &rarr; NO_COVERAGE<br/>
+5. applySuggestedFixesToFiles : removed call to java/util/Map::put &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      filenameToCodeMap.put(filename, Files.asCharSource(new File(filename), UTF_8).read());</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_71'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_73'/>
+73
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_73'>1</a>
+<span>
+1. applySuggestedFixesToFiles : removed call to com/google/javascript/refactoring/ApplySuggestedFixes::applySuggestedFixesToCode &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    Map&#60;String, String&#62; newCode = applySuggestedFixesToCode(fixes, filenameToCodeMap);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_74'/>
+74
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_74'>1</a>
+<span>
+1. applySuggestedFixesToFiles : removed call to java/util/Map::entrySet &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    for (Map.Entry&#60;String, String&#62; entry : newCode.entrySet()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_75'/>
+75
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_75'>6</a>
+<span>
+1. applySuggestedFixesToFiles : removed call to java/io/File::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+2. applySuggestedFixesToFiles : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+3. applySuggestedFixesToFiles : removed call to java/util/Map$Entry::getKey &rarr; NO_COVERAGE<br/>
+4. applySuggestedFixesToFiles : removed call to com/google/common/io/Files::asCharSink &rarr; NO_COVERAGE<br/>
+5. applySuggestedFixesToFiles : removed call to java/util/Map$Entry::getValue &rarr; NO_COVERAGE<br/>
+6. applySuggestedFixesToFiles : removed call to com/google/common/io/CharSink::write &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      Files.asCharSink(new File(entry.getKey()), UTF_8).write(entry.getValue());</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_76'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_77'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Applies all possible options from each {@code SuggestedFixAlternative} to the provided code and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * returns the new code. This only makes sense if all the SuggestedFixAlternatives come from the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * same checker, i.e. they offer the same number of choices and the same index corresponds to</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * similar fixes. The {@code filenameToCodeMap} must contain all the files that the provided fixes</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * apply to. The fixes can be provided in any order, but they may not have any overlapping</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * modifications for the same file. This function will return new code only for the files that</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * have been modified.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public static ImmutableList&#60;ImmutableMap&#60;String, String&#62;&#62; applyAllSuggestedFixChoicesToCode(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      Iterable&#60;SuggestedFix&#62; fixChoices, Map&#60;String, String&#62; fileNameToCodeMap) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_90'/>
+90
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_90'>4</a>
+<span>
+1. applyAllSuggestedFixChoicesToCode : negated conditional &rarr; NO_COVERAGE<br/>
+2. applyAllSuggestedFixChoicesToCode : removed call to com/google/common/collect/Iterables::isEmpty &rarr; NO_COVERAGE<br/>
+3. applyAllSuggestedFixChoicesToCode : removed conditional - replaced equality check with false &rarr; NO_COVERAGE<br/>
+4. applyAllSuggestedFixChoicesToCode : removed conditional - replaced equality check with true &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    if (Iterables.isEmpty(fixChoices)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_91'/>
+91
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_91'>4</a>
+<span>
+1. applyAllSuggestedFixChoicesToCode : removed call to com/google/common/collect/ImmutableMap::of &rarr; NO_COVERAGE<br/>
+2. applyAllSuggestedFixChoicesToCode : removed call to com/google/common/collect/ImmutableList::of &rarr; NO_COVERAGE<br/>
+3. applyAllSuggestedFixChoicesToCode : replaced return value with null for com/google/javascript/refactoring/ApplySuggestedFixes::applyAllSuggestedFixChoicesToCode &rarr; NO_COVERAGE<br/>
+4. applyAllSuggestedFixChoicesToCode : mutated return of Object value for com/google/javascript/refactoring/ApplySuggestedFixes::applyAllSuggestedFixChoicesToCode to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>      return ImmutableList.of(ImmutableMap.of());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_93'/>
+93
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_93'>4</a>
+<span>
+1. applyAllSuggestedFixChoicesToCode : replaced call to com/google/common/collect/Iterables::getFirst with argument &rarr; NO_COVERAGE<br/>
+2. applyAllSuggestedFixChoicesToCode : removed call to com/google/common/collect/Iterables::getFirst &rarr; NO_COVERAGE<br/>
+3. applyAllSuggestedFixChoicesToCode : removed call to com/google/javascript/refactoring/SuggestedFix::getAlternatives &rarr; NO_COVERAGE<br/>
+4. applyAllSuggestedFixChoicesToCode : removed call to com/google/common/collect/ImmutableList::size &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    int alternativeCount = Iterables.getFirst(fixChoices, null).getAlternatives().size();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_94'/>
+94
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_94'>1</a>
+<span>
+1. applyAllSuggestedFixChoicesToCode : removed call to com/google/common/base/Preconditions::checkArgument &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    Preconditions.checkArgument(</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_95'/>
+95
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_95'>1</a>
+<span>
+1. applyAllSuggestedFixChoicesToCode : removed call to com/google/common/collect/Streams::stream &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        Streams.stream(fixChoices)</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_96'/>
+96
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_96'>7</a>
+<span>
+1. applyAllSuggestedFixChoicesToCode : removed call to java/util/stream/Stream::map &rarr; NO_COVERAGE<br/>
+2. applyAllSuggestedFixChoicesToCode : replaced call to java/util/stream/Stream::map with receiver &rarr; NO_COVERAGE<br/>
+3. lambda$applyAllSuggestedFixChoicesToCode$0 : replaced Integer return value with 0 for com/google/javascript/refactoring/ApplySuggestedFixes::lambda$applyAllSuggestedFixChoicesToCode$0 &rarr; NO_COVERAGE<br/>
+4. lambda$applyAllSuggestedFixChoicesToCode$0 : removed call to com/google/javascript/refactoring/SuggestedFix::getAlternatives &rarr; NO_COVERAGE<br/>
+5. lambda$applyAllSuggestedFixChoicesToCode$0 : removed call to com/google/common/collect/ImmutableList::size &rarr; NO_COVERAGE<br/>
+6. lambda$applyAllSuggestedFixChoicesToCode$0 : removed call to java/lang/Integer::valueOf &rarr; NO_COVERAGE<br/>
+7. lambda$applyAllSuggestedFixChoicesToCode$0 : mutated return of Object value for com/google/javascript/refactoring/ApplySuggestedFixes::lambda$applyAllSuggestedFixChoicesToCode$0 to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            .map(f -&#62; f.getAlternatives().size())</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_97'/>
+97
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_97'>3</a>
+<span>
+1. applyAllSuggestedFixChoicesToCode : removed call to java/lang/Integer::valueOf &rarr; NO_COVERAGE<br/>
+2. applyAllSuggestedFixChoicesToCode : removed call to java/util/function/Predicate::isEqual &rarr; NO_COVERAGE<br/>
+3. applyAllSuggestedFixChoicesToCode : removed call to java/util/stream/Stream::allMatch &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            .allMatch(Predicate.isEqual(alternativeCount)),</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        &#34;All SuggestedFixAlternatives must offer an equal number of choices for this &#34;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            + &#34;utility to make sense&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_100'/>
+100
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_100'>4</a>
+<span>
+1. applyAllSuggestedFixChoicesToCode : Substituted 0 with 1 &rarr; NO_COVERAGE<br/>
+2. applyAllSuggestedFixChoicesToCode : removed call to java/util/stream/IntStream::range &rarr; NO_COVERAGE<br/>
+3. applyAllSuggestedFixChoicesToCode : replaced return value with null for com/google/javascript/refactoring/ApplySuggestedFixes::applyAllSuggestedFixChoicesToCode &rarr; NO_COVERAGE<br/>
+4. applyAllSuggestedFixChoicesToCode : mutated return of Object value for com/google/javascript/refactoring/ApplySuggestedFixes::applyAllSuggestedFixChoicesToCode to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    return IntStream.range(0, alternativeCount)</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_101'/>
+101
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_101'>4</a>
+<span>
+1. applyAllSuggestedFixChoicesToCode : removed call to java/util/stream/IntStream::mapToObj &rarr; NO_COVERAGE<br/>
+2. lambda$applyAllSuggestedFixChoicesToCode$1 : removed call to com/google/javascript/refactoring/ApplySuggestedFixes::applySuggestedFixChoicesToCode &rarr; NO_COVERAGE<br/>
+3. lambda$applyAllSuggestedFixChoicesToCode$1 : replaced return value with null for com/google/javascript/refactoring/ApplySuggestedFixes::lambda$applyAllSuggestedFixChoicesToCode$1 &rarr; NO_COVERAGE<br/>
+4. lambda$applyAllSuggestedFixChoicesToCode$1 : mutated return of Object value for com/google/javascript/refactoring/ApplySuggestedFixes::lambda$applyAllSuggestedFixChoicesToCode$1 to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        .mapToObj(i -&#62; applySuggestedFixChoicesToCode(fixChoices, i, fileNameToCodeMap))</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_102'/>
+102
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_102'>2</a>
+<span>
+1. applyAllSuggestedFixChoicesToCode : removed call to com/google/common/collect/ImmutableList::toImmutableList &rarr; NO_COVERAGE<br/>
+2. applyAllSuggestedFixChoicesToCode : removed call to java/util/stream/Stream::collect &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        .collect(ImmutableList.toImmutableList());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private static ImmutableMap&#60;String, String&#62; applySuggestedFixChoicesToCode(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      Iterable&#60;SuggestedFix&#62; fixChoices,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      final int choiceIndex,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      Map&#60;String, String&#62; fileNameToCodeMap) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_109'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    ImmutableList&#60;SuggestedFix&#62; chosenFixes =</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_110'/>
+110
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_110'>1</a>
+<span>
+1. applySuggestedFixChoicesToCode : removed call to com/google/common/collect/Streams::stream &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        Streams.stream(fixChoices)</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_111'/>
+111
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_111'>6</a>
+<span>
+1. applySuggestedFixChoicesToCode : removed call to java/util/stream/Stream::map &rarr; NO_COVERAGE<br/>
+2. applySuggestedFixChoicesToCode : replaced call to java/util/stream/Stream::map with receiver &rarr; NO_COVERAGE<br/>
+3. lambda$applySuggestedFixChoicesToCode$2 : removed call to com/google/javascript/refactoring/SuggestedFix::getAlternatives &rarr; NO_COVERAGE<br/>
+4. lambda$applySuggestedFixChoicesToCode$2 : removed call to com/google/common/collect/ImmutableList::get &rarr; NO_COVERAGE<br/>
+5. lambda$applySuggestedFixChoicesToCode$2 : replaced return value with null for com/google/javascript/refactoring/ApplySuggestedFixes::lambda$applySuggestedFixChoicesToCode$2 &rarr; NO_COVERAGE<br/>
+6. lambda$applySuggestedFixChoicesToCode$2 : mutated return of Object value for com/google/javascript/refactoring/ApplySuggestedFixes::lambda$applySuggestedFixChoicesToCode$2 to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            .map(choices -&#62; choices.getAlternatives().get(choiceIndex))</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_112'/>
+112
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_112'>2</a>
+<span>
+1. applySuggestedFixChoicesToCode : removed call to com/google/common/collect/ImmutableList::toImmutableList &rarr; NO_COVERAGE<br/>
+2. applySuggestedFixChoicesToCode : removed call to java/util/stream/Stream::collect &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            .collect(ImmutableList.toImmutableList());</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_113'/>
+113
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_113'>3</a>
+<span>
+1. applySuggestedFixChoicesToCode : removed call to com/google/javascript/refactoring/ApplySuggestedFixes::applySuggestedFixesToCode &rarr; NO_COVERAGE<br/>
+2. applySuggestedFixChoicesToCode : replaced return value with null for com/google/javascript/refactoring/ApplySuggestedFixes::applySuggestedFixChoicesToCode &rarr; NO_COVERAGE<br/>
+3. applySuggestedFixChoicesToCode : mutated return of Object value for com/google/javascript/refactoring/ApplySuggestedFixes::applySuggestedFixChoicesToCode to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>    return applySuggestedFixesToCode(chosenFixes, fileNameToCodeMap);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Applies the provided set of suggested fixes to the provided code and returns the new code,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_118'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * ignoring alternative fixes. The {@code filenameToCodeMap} must contain all the files that the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * provided fixes apply to. The fixes can be provided in any order, but they may not have any</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * overlapping modifications for the same file. This function will return new code only for the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * files that have been modified.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public static ImmutableMap&#60;String, String&#62; applySuggestedFixesToCode(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      Iterable&#60;SuggestedFix&#62; fixes, Map&#60;String, String&#62; filenameToCodeMap) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_125'/>
+125
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_125'>1</a>
+<span>
+1. applySuggestedFixesToCode : removed call to com/google/javascript/refactoring/ApplySuggestedFixes$ReplacementMap::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    ReplacementMap map = new ReplacementMap();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_126'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    for (SuggestedFix fix : fixes) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_127'/>
+127
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_127'>1</a>
+<span>
+1. applySuggestedFixesToCode : removed call to com/google/javascript/refactoring/ApplySuggestedFixes$ReplacementMap::putIfNoOverlap &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      map.putIfNoOverlap(fix);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_128'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_129'/>
+129
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_129'>1</a>
+<span>
+1. applySuggestedFixesToCode : removed call to com/google/common/collect/ImmutableMap::builder &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    ImmutableMap.Builder&#60;String, String&#62; newCodeMap = ImmutableMap.builder();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_130'/>
+130
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_130'>1</a>
+<span>
+1. applySuggestedFixesToCode : removed call to com/google/javascript/refactoring/ApplySuggestedFixes$ReplacementMap::entrySet &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    for (Map.Entry&#60;String, Set&#60;CodeReplacement&#62;&#62; entry : map.entrySet()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_131'/>
+131
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_131'>1</a>
+<span>
+1. applySuggestedFixesToCode : removed call to java/util/Map$Entry::getKey &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      String filename = entry.getKey();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_132'/>
+132
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_132'>4</a>
+<span>
+1. applySuggestedFixesToCode : negated conditional &rarr; KILLED<br/>
+2. applySuggestedFixesToCode : removed call to java/util/Map::containsKey &rarr; KILLED<br/>
+3. applySuggestedFixesToCode : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. applySuggestedFixesToCode : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (!filenameToCodeMap.containsKey(filename)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_133'/>
+133
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_133'>7</a>
+<span>
+1. applySuggestedFixesToCode : removed call to java/lang/StringBuilder::toString &rarr; SURVIVED<br/>
+2. applySuggestedFixesToCode : replaced call to java/lang/StringBuilder::append with receiver &rarr; SURVIVED<br/>
+3. applySuggestedFixesToCode : replaced call to java/lang/StringBuilder::append with receiver &rarr; SURVIVED<br/>
+4. applySuggestedFixesToCode : removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; KILLED<br/>
+5. applySuggestedFixesToCode : removed call to java/lang/IllegalArgumentException::&#60;init&#62; &rarr; KILLED<br/>
+6. applySuggestedFixesToCode : removed call to java/lang/StringBuilder::append &rarr; KILLED<br/>
+7. applySuggestedFixesToCode : removed call to java/lang/StringBuilder::append &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        throw new IllegalArgumentException(&#34;filenameToCodeMap missing code for file: &#34; + filename);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_135'/>
+135
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_135'>1</a>
+<span>
+1. applySuggestedFixesToCode : removed call to java/util/Map$Entry::getValue &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      Set&#60;CodeReplacement&#62; replacements = entry.getValue();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_136'/>
+136
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_136'>4</a>
+<span>
+1. applySuggestedFixesToCode : replaced call to java/util/Map::get with argument &rarr; KILLED<br/>
+2. applySuggestedFixesToCode : replaced call to com/google/javascript/refactoring/ApplySuggestedFixes::applyCodeReplacements with argument &rarr; KILLED<br/>
+3. applySuggestedFixesToCode : removed call to java/util/Map::get &rarr; KILLED<br/>
+4. applySuggestedFixesToCode : removed call to com/google/javascript/refactoring/ApplySuggestedFixes::applyCodeReplacements &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      String newCode = applyCodeReplacements(replacements, filenameToCodeMap.get(filename));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_137'/>
+137
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_137'>2</a>
+<span>
+1. applySuggestedFixesToCode : removed call to com/google/common/collect/ImmutableMap$Builder::put &rarr; KILLED<br/>
+2. applySuggestedFixesToCode : replaced call to com/google/common/collect/ImmutableMap$Builder::put with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      newCodeMap.put(filename, newCode);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_138'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_139'/>
+139
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_139'>3</a>
+<span>
+1. applySuggestedFixesToCode : removed call to com/google/common/collect/ImmutableMap$Builder::build &rarr; KILLED<br/>
+2. applySuggestedFixesToCode : replaced return value with null for com/google/javascript/refactoring/ApplySuggestedFixes::applySuggestedFixesToCode &rarr; KILLED<br/>
+3. applySuggestedFixesToCode : mutated return of Object value for com/google/javascript/refactoring/ApplySuggestedFixes::applySuggestedFixesToCode to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return newCodeMap.build();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Applies the provided set of code replacements to the code and returns the transformed code.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * The code replacements may not have any overlap.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public static String applyCodeReplacements(Iterable&#60;CodeReplacement&#62; replacements, String code) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_147'/>
+147
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_147'>1</a>
+<span>
+1. applyCodeReplacements : removed call to com/google/common/collect/Ordering::sortedCopy &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    List&#60;CodeReplacement&#62; sortedReplacements = ORDER_CODE_REPLACEMENTS.sortedCopy(replacements);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_148'/>
+148
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_148'>1</a>
+<span>
+1. applyCodeReplacements : removed call to com/google/javascript/refactoring/ApplySuggestedFixes::validateNoOverlaps &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    validateNoOverlaps(sortedReplacements);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_150'/>
+150
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_150'>1</a>
+<span>
+1. applyCodeReplacements : removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    StringBuilder sb = new StringBuilder();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_151'/>
+151
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_151'>1</a>
+<span>
+1. applyCodeReplacements : Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    int lastIndex = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_152'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    for (CodeReplacement replacement : sortedReplacements) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_153'/>
+153
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_153'>3</a>
+<span>
+1. applyCodeReplacements : removed call to com/google/javascript/refactoring/CodeReplacement::getStartPosition &rarr; KILLED<br/>
+2. applyCodeReplacements : removed call to java/lang/StringBuilder::append &rarr; KILLED<br/>
+3. applyCodeReplacements : replaced call to java/lang/StringBuilder::append with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      sb.append(code, lastIndex, replacement.getStartPosition());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_154'/>
+154
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_154'>3</a>
+<span>
+1. applyCodeReplacements : removed call to com/google/javascript/refactoring/CodeReplacement::getNewContent &rarr; KILLED<br/>
+2. applyCodeReplacements : removed call to java/lang/StringBuilder::append &rarr; KILLED<br/>
+3. applyCodeReplacements : replaced call to java/lang/StringBuilder::append with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      sb.append(replacement.getNewContent());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_155'/>
+155
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_155'>1</a>
+<span>
+1. applyCodeReplacements : removed call to com/google/javascript/refactoring/CodeReplacement::getEndPosition &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      lastIndex = replacement.getEndPosition();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_156'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_157'/>
+157
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_157'>5</a>
+<span>
+1. applyCodeReplacements : changed conditional boundary &rarr; SURVIVED<br/>
+2. applyCodeReplacements : negated conditional &rarr; KILLED<br/>
+3. applyCodeReplacements : removed call to java/lang/String::length &rarr; KILLED<br/>
+4. applyCodeReplacements : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+5. applyCodeReplacements : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    if (lastIndex &#60;= code.length()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_158'/>
+158
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_158'>3</a>
+<span>
+1. applyCodeReplacements : removed call to java/lang/String::length &rarr; KILLED<br/>
+2. applyCodeReplacements : removed call to java/lang/StringBuilder::append &rarr; KILLED<br/>
+3. applyCodeReplacements : replaced call to java/lang/StringBuilder::append with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      sb.append(code, lastIndex, code.length());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_160'/>
+160
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_160'>3</a>
+<span>
+1. applyCodeReplacements : replaced return value with &#34;&#34; for com/google/javascript/refactoring/ApplySuggestedFixes::applyCodeReplacements &rarr; KILLED<br/>
+2. applyCodeReplacements : removed call to java/lang/StringBuilder::toString &rarr; KILLED<br/>
+3. applyCodeReplacements : mutated return of Object value for com/google/javascript/refactoring/ApplySuggestedFixes::applyCodeReplacements to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return sb.toString();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_164'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Validates that none of the CodeReplacements have any overlap, since applying</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * changes that have overlap will produce malformed results.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_166'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * The replacements must be provided in order sorted by start position, as sorted</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * by ORDER_CODE_REPLACEMENTS.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_168'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private static void validateNoOverlaps(List&#60;CodeReplacement&#62; replacements) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_170'/>
+170
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_170'>2</a>
+<span>
+1. validateNoOverlaps : removed call to com/google/common/base/Preconditions::checkState &rarr; SURVIVED<br/>
+2. validateNoOverlaps : removed call to com/google/common/collect/Ordering::isOrdered &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    checkState(ORDER_CODE_REPLACEMENTS.isOrdered(replacements));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_171'/>
+171
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_171'>4</a>
+<span>
+1. validateNoOverlaps : negated conditional &rarr; KILLED<br/>
+2. validateNoOverlaps : removed call to com/google/javascript/refactoring/ApplySuggestedFixes::containsOverlaps &rarr; KILLED<br/>
+3. validateNoOverlaps : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. validateNoOverlaps : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (containsOverlaps(replacements)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_172'/>
+172
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_172'>3</a>
+<span>
+1. validateNoOverlaps : replaced call to java/lang/StringBuilder::append with receiver &rarr; SURVIVED<br/>
+2. validateNoOverlaps : removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; KILLED<br/>
+3. validateNoOverlaps : removed call to java/lang/StringBuilder::append &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      throw new IllegalArgumentException(</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_173'/>
+173
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_173'>6</a>
+<span>
+1. validateNoOverlaps : removed call to com/google/common/base/Joiner::join &rarr; SURVIVED<br/>
+2. validateNoOverlaps : removed call to java/lang/StringBuilder::toString &rarr; SURVIVED<br/>
+3. validateNoOverlaps : replaced call to java/lang/StringBuilder::append with receiver &rarr; SURVIVED<br/>
+4. validateNoOverlaps : removed call to java/lang/IllegalArgumentException::&#60;init&#62; &rarr; KILLED<br/>
+5. validateNoOverlaps : removed call to com/google/common/base/Joiner::on &rarr; KILLED<br/>
+6. validateNoOverlaps : removed call to java/lang/StringBuilder::append &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>          &#34;Found overlap between code replacements!\n&#34; + Joiner.on(&#34;\n\n&#34;).join(replacements));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_174'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_175'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_176'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_177'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_178'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Checks whether the CodeReplacements have any overlap. The replacements must be provided in</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_179'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * order sorted by start position, as sorted by ORDER_CODE_REPLACEMENTS.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_180'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_181'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private static boolean containsOverlaps(List&#60;CodeReplacement&#62; replacements) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_182'/>
+182
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_182'>2</a>
+<span>
+1. containsOverlaps : removed call to com/google/common/base/Preconditions::checkState &rarr; SURVIVED<br/>
+2. containsOverlaps : removed call to com/google/common/collect/Ordering::isOrdered &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    checkState(ORDER_CODE_REPLACEMENTS.isOrdered(replacements));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_183'/>
+183
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_183'>1</a>
+<span>
+1. containsOverlaps : Substituted -1 with 0 &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    int start = -1;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_184'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    for (CodeReplacement replacement : replacements) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_185'/>
+185
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_185'>5</a>
+<span>
+1. containsOverlaps : changed conditional boundary &rarr; KILLED<br/>
+2. containsOverlaps : negated conditional &rarr; KILLED<br/>
+3. containsOverlaps : removed call to com/google/javascript/refactoring/CodeReplacement::getStartPosition &rarr; KILLED<br/>
+4. containsOverlaps : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+5. containsOverlaps : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (replacement.getStartPosition() &#60; start) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_186'/>
+186
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_186'>3</a>
+<span>
+1. containsOverlaps : replaced boolean return with false for com/google/javascript/refactoring/ApplySuggestedFixes::containsOverlaps &rarr; KILLED<br/>
+2. containsOverlaps : Substituted 1 with 0 &rarr; KILLED<br/>
+3. containsOverlaps : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_187'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_188'/>
+188
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_188'>3</a>
+<span>
+1. containsOverlaps : replaced call to java/lang/Math::max with argument &rarr; SURVIVED<br/>
+2. containsOverlaps : removed call to com/google/javascript/refactoring/CodeReplacement::getEndPosition &rarr; KILLED<br/>
+3. containsOverlaps : removed call to java/lang/Math::max &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>      start = Math.max(start, replacement.getEndPosition());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_189'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_190'/>
+190
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_190'>3</a>
+<span>
+1. containsOverlaps : replaced boolean return with true for com/google/javascript/refactoring/ApplySuggestedFixes::containsOverlaps &rarr; KILLED<br/>
+2. containsOverlaps : Substituted 0 with 1 &rarr; KILLED<br/>
+3. containsOverlaps : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_191'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_192'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_193'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private static class ReplacementMap {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_194'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final SetMultimap&#60;String, CodeReplacement&#62; map;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_195'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_196'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    ReplacementMap() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_197'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      this.map = HashMultimap.create();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_198'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_199'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_200'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    void putIfNoOverlap(SuggestedFix fix) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_201'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      if (canPut(fix)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_202'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        map.putAll(fix.getReplacements());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_203'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_204'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_205'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_206'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private boolean canPut(SuggestedFix fix) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_207'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      for (String filename : fix.getReplacements().keySet()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_208'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        List&#60;CodeReplacement&#62; replacements = new ArrayList&#60;&#62;(map.get(filename));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_209'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        replacements.addAll(fix.getReplacements().get(filename));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_210'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        replacements = ORDER_CODE_REPLACEMENTS.sortedCopy(replacements);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_211'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        if (containsOverlaps(replacements)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_212'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>          return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_213'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_214'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_215'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_216'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_217'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_218'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    Set&#60;Entry&#60;String, Set&#60;CodeReplacement&#62;&#62;&#62; entrySet() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_219'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      return Multimaps.asMap(map).entrySet();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_220'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_221'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_222'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>  private ApplySuggestedFixes() {}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7bebad0d_223'/>
+223
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_223'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_63'>63</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_63'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applySuggestedFixesToFiles<br/><b>Killed by : </b>none</span></span> removed call to java/util/HashSet::&#60;init&#62; &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_65'>65</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_65'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applySuggestedFixesToFiles<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/refactoring/SuggestedFix::getReplacements &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>applySuggestedFixesToFiles<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/collect/SetMultimap::keySet &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>applySuggestedFixesToFiles<br/><b>Killed by : </b>none</span></span> removed call to java/util/Set::addAll &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_68'>68</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_68'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applySuggestedFixesToFiles<br/><b>Killed by : </b>none</span></span> removed call to java/util/HashMap::&#60;init&#62; &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_70'>70</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_70'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applySuggestedFixesToFiles<br/><b>Killed by : </b>none</span></span> replaced call to java/util/Map::put with argument &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>applySuggestedFixesToFiles<br/><b>Killed by : </b>none</span></span> removed call to java/io/File::&#60;init&#62; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>applySuggestedFixesToFiles<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/io/Files::asCharSource &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>applySuggestedFixesToFiles<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/io/CharSource::read &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>applySuggestedFixesToFiles<br/><b>Killed by : </b>none</span></span> removed call to java/util/Map::put &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_73'>73</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_73'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applySuggestedFixesToFiles<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/refactoring/ApplySuggestedFixes::applySuggestedFixesToCode &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_74'>74</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_74'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applySuggestedFixesToFiles<br/><b>Killed by : </b>none</span></span> removed call to java/util/Map::entrySet &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_75'>75</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_75'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applySuggestedFixesToFiles<br/><b>Killed by : </b>none</span></span> removed call to java/io/File::&#60;init&#62; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>applySuggestedFixesToFiles<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>applySuggestedFixesToFiles<br/><b>Killed by : </b>none</span></span> removed call to java/util/Map$Entry::getKey &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>applySuggestedFixesToFiles<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/io/Files::asCharSink &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>applySuggestedFixesToFiles<br/><b>Killed by : </b>none</span></span> removed call to java/util/Map$Entry::getValue &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>applySuggestedFixesToFiles<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/io/CharSink::write &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_90'>90</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_90'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applyAllSuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>applyAllSuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/collect/Iterables::isEmpty &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>applyAllSuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>applyAllSuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_91'>91</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_91'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applyAllSuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/collect/ImmutableMap::of &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>applyAllSuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/collect/ImmutableList::of &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>applyAllSuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> replaced return value with null for com/google/javascript/refactoring/ApplySuggestedFixes::applyAllSuggestedFixChoicesToCode &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>applyAllSuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/refactoring/ApplySuggestedFixes::applyAllSuggestedFixChoicesToCode to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_93'>93</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_93'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applyAllSuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> replaced call to com/google/common/collect/Iterables::getFirst with argument &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>applyAllSuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/collect/Iterables::getFirst &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>applyAllSuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/refactoring/SuggestedFix::getAlternatives &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>applyAllSuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/collect/ImmutableList::size &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_94'>94</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_94'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applyAllSuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/base/Preconditions::checkArgument &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_95'>95</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_95'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applyAllSuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/collect/Streams::stream &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_96'>96</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_96'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applyAllSuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> removed call to java/util/stream/Stream::map &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>applyAllSuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> replaced call to java/util/stream/Stream::map with receiver &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$applyAllSuggestedFixChoicesToCode$0<br/><b>Killed by : </b>none</span></span> replaced Integer return value with 0 for com/google/javascript/refactoring/ApplySuggestedFixes::lambda$applyAllSuggestedFixChoicesToCode$0 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$applyAllSuggestedFixChoicesToCode$0<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/refactoring/SuggestedFix::getAlternatives &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$applyAllSuggestedFixChoicesToCode$0<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/collect/ImmutableList::size &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lambda$applyAllSuggestedFixChoicesToCode$0<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Integer::valueOf &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>lambda$applyAllSuggestedFixChoicesToCode$0<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/refactoring/ApplySuggestedFixes::lambda$applyAllSuggestedFixChoicesToCode$0 to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_97'>97</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_97'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applyAllSuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> removed call to java/lang/Integer::valueOf &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>applyAllSuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> removed call to java/util/function/Predicate::isEqual &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>applyAllSuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> removed call to java/util/stream/Stream::allMatch &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_100'>100</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_100'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applyAllSuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>applyAllSuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> removed call to java/util/stream/IntStream::range &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>applyAllSuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> replaced return value with null for com/google/javascript/refactoring/ApplySuggestedFixes::applyAllSuggestedFixChoicesToCode &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>applyAllSuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/refactoring/ApplySuggestedFixes::applyAllSuggestedFixChoicesToCode to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_101'>101</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_101'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applyAllSuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> removed call to java/util/stream/IntStream::mapToObj &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lambda$applyAllSuggestedFixChoicesToCode$1<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/refactoring/ApplySuggestedFixes::applySuggestedFixChoicesToCode &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$applyAllSuggestedFixChoicesToCode$1<br/><b>Killed by : </b>none</span></span> replaced return value with null for com/google/javascript/refactoring/ApplySuggestedFixes::lambda$applyAllSuggestedFixChoicesToCode$1 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$applyAllSuggestedFixChoicesToCode$1<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/refactoring/ApplySuggestedFixes::lambda$applyAllSuggestedFixChoicesToCode$1 to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_102'>102</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_102'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applyAllSuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/collect/ImmutableList::toImmutableList &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>applyAllSuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> removed call to java/util/stream/Stream::collect &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_110'>110</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_110'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applySuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/collect/Streams::stream &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_111'>111</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_111'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applySuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> removed call to java/util/stream/Stream::map &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>applySuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> replaced call to java/util/stream/Stream::map with receiver &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>lambda$applySuggestedFixChoicesToCode$2<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/refactoring/SuggestedFix::getAlternatives &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>lambda$applySuggestedFixChoicesToCode$2<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/collect/ImmutableList::get &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>lambda$applySuggestedFixChoicesToCode$2<br/><b>Killed by : </b>none</span></span> replaced return value with null for com/google/javascript/refactoring/ApplySuggestedFixes::lambda$applySuggestedFixChoicesToCode$2 &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>lambda$applySuggestedFixChoicesToCode$2<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/refactoring/ApplySuggestedFixes::lambda$applySuggestedFixChoicesToCode$2 to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_112'>112</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_112'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applySuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/collect/ImmutableList::toImmutableList &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>applySuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> removed call to java/util/stream/Stream::collect &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_113'>113</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_113'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applySuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/refactoring/ApplySuggestedFixes::applySuggestedFixesToCode &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>applySuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> replaced return value with null for com/google/javascript/refactoring/ApplySuggestedFixes::applySuggestedFixChoicesToCode &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>applySuggestedFixChoicesToCode<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/refactoring/ApplySuggestedFixes::applySuggestedFixChoicesToCode to ( if (x != null) null else throw new RuntimeException ) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_125'>125</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_125'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applySuggestedFixesToCode<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_noFixes(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to com/google/javascript/refactoring/ApplySuggestedFixes$ReplacementMap::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_127'>127</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_127'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applySuggestedFixesToCode<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_missingCodeForFile(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to com/google/javascript/refactoring/ApplySuggestedFixes$ReplacementMap::putIfNoOverlap &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_129'>129</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_129'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applySuggestedFixesToCode<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_noFixes(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to com/google/common/collect/ImmutableMap::builder &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_130'>130</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_130'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applySuggestedFixesToCode<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_noFixes(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to com/google/javascript/refactoring/ApplySuggestedFixes$ReplacementMap::entrySet &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_131'>131</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_131'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applySuggestedFixesToCode<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_multipleFixesInJsdoc(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to java/util/Map$Entry::getKey &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_132'>132</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_132'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applySuggestedFixesToCode<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_missingCodeForFile(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>applySuggestedFixesToCode<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_multipleFixesInJsdoc(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to java/util/Map::containsKey &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>applySuggestedFixesToCode<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_missingCodeForFile(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>applySuggestedFixesToCode<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_multipleFixesInJsdoc(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_133'>133</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_133'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applySuggestedFixesToCode<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_missingCodeForFile(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>applySuggestedFixesToCode<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_missingCodeForFile(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to java/lang/IllegalArgumentException::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>applySuggestedFixesToCode<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_missingCodeForFile(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to java/lang/StringBuilder::append &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>applySuggestedFixesToCode<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_missingCodeForFile(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to java/lang/StringBuilder::append &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>applySuggestedFixesToCode<br/><b>Killed by : </b>none</span></span> removed call to java/lang/StringBuilder::toString &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>applySuggestedFixesToCode<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>applySuggestedFixesToCode<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_135'>135</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_135'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applySuggestedFixesToCode<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_multipleFixesInJsdoc(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to java/util/Map$Entry::getValue &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_136'>136</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_136'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applySuggestedFixesToCode<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_multipleFixesInJsdoc(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> replaced call to java/util/Map::get with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>applySuggestedFixesToCode<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_multipleFixesInJsdoc(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> replaced call to com/google/javascript/refactoring/ApplySuggestedFixes::applyCodeReplacements with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>applySuggestedFixesToCode<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_multipleFixesInJsdoc(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to java/util/Map::get &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>applySuggestedFixesToCode<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_multipleFixesInJsdoc(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to com/google/javascript/refactoring/ApplySuggestedFixes::applyCodeReplacements &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_137'>137</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_137'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applySuggestedFixesToCode<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_multipleFixesInJsdoc(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to com/google/common/collect/ImmutableMap$Builder::put &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>applySuggestedFixesToCode<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_multipleFixesInJsdoc(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> replaced call to com/google/common/collect/ImmutableMap$Builder::put with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_139'>139</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_139'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applySuggestedFixesToCode<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_noFixes(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to com/google/common/collect/ImmutableMap$Builder::build &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>applySuggestedFixesToCode<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_noFixes(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> replaced return value with null for com/google/javascript/refactoring/ApplySuggestedFixes::applySuggestedFixesToCode &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>applySuggestedFixesToCode<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_noFixes(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> mutated return of Object value for com/google/javascript/refactoring/ApplySuggestedFixes::applySuggestedFixesToCode to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_147'>147</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_147'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applyCodeReplacements<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_multipleReplacements(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to com/google/common/collect/Ordering::sortedCopy &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_148'>148</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_148'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applyCodeReplacements<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_overlapsAreErrors(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to com/google/javascript/refactoring/ApplySuggestedFixes::validateNoOverlaps &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_150'>150</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_150'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applyCodeReplacements<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_multipleReplacements(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_151'>151</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_151'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applyCodeReplacements<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_multipleReplacements(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_153'>153</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_153'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applyCodeReplacements<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_multipleReplacements(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to com/google/javascript/refactoring/CodeReplacement::getStartPosition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>applyCodeReplacements<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_boundaryCases(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to java/lang/StringBuilder::append &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>applyCodeReplacements<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_boundaryCases(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_154'>154</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_154'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applyCodeReplacements<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_multipleReplacements(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to com/google/javascript/refactoring/CodeReplacement::getNewContent &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>applyCodeReplacements<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_multipleReplacements(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to java/lang/StringBuilder::append &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>applyCodeReplacements<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_multipleReplacements(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_155'>155</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_155'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applyCodeReplacements<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_multipleReplacements(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to com/google/javascript/refactoring/CodeReplacement::getEndPosition &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_157'>157</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_157'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applyCodeReplacements<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>applyCodeReplacements<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_noOverlapsSucceed(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>applyCodeReplacements<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_multipleFixesInJsdoc(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to java/lang/String::length &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>applyCodeReplacements<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_insertion(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>applyCodeReplacements<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_noOverlapsSucceed(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_158'>158</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_158'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applyCodeReplacements<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_multipleReplacements(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to java/lang/String::length &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>applyCodeReplacements<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_insertion(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to java/lang/StringBuilder::append &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>applyCodeReplacements<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_insertion(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_160'>160</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_160'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>applyCodeReplacements<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_multipleReplacements(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> replaced return value with &#34;&#34; for com/google/javascript/refactoring/ApplySuggestedFixes::applyCodeReplacements &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>applyCodeReplacements<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_multipleReplacements(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to java/lang/StringBuilder::toString &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>applyCodeReplacements<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_multipleReplacements(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> mutated return of Object value for com/google/javascript/refactoring/ApplySuggestedFixes::applyCodeReplacements to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_170'>170</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_170'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>validateNoOverlaps<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_multipleReplacements(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to com/google/common/collect/Ordering::isOrdered &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>validateNoOverlaps<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/base/Preconditions::checkState &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_171'>171</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_171'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>validateNoOverlaps<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_multipleReplacements(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>validateNoOverlaps<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_overlapsAreErrors(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to com/google/javascript/refactoring/ApplySuggestedFixes::containsOverlaps &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>validateNoOverlaps<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_overlapsAreErrors(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>validateNoOverlaps<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_multipleReplacements(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_172'>172</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_172'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>validateNoOverlaps<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_overlapsAreErrors(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to java/lang/StringBuilder::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>validateNoOverlaps<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_overlapsAreErrors(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to java/lang/StringBuilder::append &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>validateNoOverlaps<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_173'>173</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_173'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>validateNoOverlaps<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_overlapsAreErrors(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to java/lang/IllegalArgumentException::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>validateNoOverlaps<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_overlapsAreErrors(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to com/google/common/base/Joiner::on &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>validateNoOverlaps<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/base/Joiner::join &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>validateNoOverlaps<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_overlapsAreErrors(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to java/lang/StringBuilder::append &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>validateNoOverlaps<br/><b>Killed by : </b>none</span></span> removed call to java/lang/StringBuilder::toString &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>validateNoOverlaps<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/StringBuilder::append with receiver &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_182'>182</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_182'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>containsOverlaps<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_multipleReplacements(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to com/google/common/collect/Ordering::isOrdered &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>containsOverlaps<br/><b>Killed by : </b>none</span></span> removed call to com/google/common/base/Preconditions::checkState &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_183'>183</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_183'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>containsOverlaps<br/><b>Killed by : </b>none</span></span> Substituted -1 with 0 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_185'>185</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_185'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>containsOverlaps<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_multipleReplacements(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>containsOverlaps<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_multipleReplacements(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>containsOverlaps<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_multipleReplacements(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to com/google/javascript/refactoring/CodeReplacement::getStartPosition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>containsOverlaps<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_overlapsAreErrors(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>containsOverlaps<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_multipleReplacements(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_186'>186</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_186'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>containsOverlaps<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_overlapsAreErrors(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> replaced boolean return with false for com/google/javascript/refactoring/ApplySuggestedFixes::containsOverlaps &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>containsOverlaps<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_overlapsAreErrors(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>containsOverlaps<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_overlapsAreErrors(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_188'>188</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_188'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>containsOverlaps<br/><b>Killed by : </b>none</span></span> replaced call to java/lang/Math::max with argument &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>containsOverlaps<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_overlapsAreErrors(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to com/google/javascript/refactoring/CodeReplacement::getEndPosition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>containsOverlaps<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_overlapsAreErrors(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> removed call to java/lang/Math::max &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7bebad0d_190'>190</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7bebad0d_190'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>containsOverlaps<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_multipleReplacements(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> replaced boolean return with true for com/google/javascript/refactoring/ApplySuggestedFixes::containsOverlaps &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>containsOverlaps<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_multipleReplacements(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>containsOverlaps<br/><b>Killed by : </b>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_multipleReplacements(com.google.javascript.refactoring.ApplySuggestedFixesTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_61</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_60</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_56</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_55</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_58</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_57</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_52</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_51</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_54</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_53</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_59</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_50</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_45</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_44</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_47</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_46</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_41</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_40</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_43</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_42</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_49</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_48</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_34</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_33</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_36</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_35</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_30</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_32</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_31</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_38</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_37</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_39</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_3</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_2</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_1</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_0</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_23</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_22</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_25</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_9</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_24</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_8</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_7</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_6</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_21</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_5</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_20</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_4</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_27</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_26</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_29</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_28</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_12</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_11</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_99</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_14</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_13</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_96</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_95</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_10</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_98</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_97</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_19</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_16</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_15</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_18</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_17</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_92</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_91</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_94</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_93</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_90</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_89</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_88</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_85</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_84</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_87</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_86</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_81</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_80</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_83</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_82</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_78</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_77</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_79</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_74</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_73</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_76</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_75</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_70</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_72</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_71</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_67</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_66</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_69</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_68</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_63</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_62</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_65</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_64</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_multipleFixesInJsdoc(com.google.javascript.refactoring.ApplySuggestedFixesTest) (5 ms)</li><li>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_noFixes(com.google.javascript.refactoring.ApplySuggestedFixesTest) (1 ms)</li><li>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements(com.google.javascript.refactoring.ApplySuggestedFixesTest) (82 ms)</li><li>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_overlapsAreErrors(com.google.javascript.refactoring.ApplySuggestedFixesTest) (2 ms)</li><li>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_insertion(com.google.javascript.refactoring.ApplySuggestedFixesTest) (2 ms)</li><li>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_missingCodeForFile(com.google.javascript.refactoring.ApplySuggestedFixesTest) (5 ms)</li><li>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_multipleReplacements(com.google.javascript.refactoring.ApplySuggestedFixesTest) (1 ms)</li><li>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes(com.google.javascript.refactoring.ApplySuggestedFixesTest) (327 ms)</li><li>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_noOverlapsSucceed(com.google.javascript.refactoring.ApplySuggestedFixesTest) (1 ms)</li><li>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_deletion(com.google.javascript.refactoring.ApplySuggestedFixesTest) (9 ms)</li><li>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplySuggestedFixes_insideJSDoc(com.google.javascript.refactoring.ApplySuggestedFixesTest) (12 ms)</li><li>com.google.javascript.refactoring.ApplySuggestedFixesTest.testApplyCodeReplacements_boundaryCases(com.google.javascript.refactoring.ApplySuggestedFixesTest) (2 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

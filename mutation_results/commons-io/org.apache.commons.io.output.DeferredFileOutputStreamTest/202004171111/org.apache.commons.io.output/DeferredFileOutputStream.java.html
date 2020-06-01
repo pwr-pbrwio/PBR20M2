@@ -1,0 +1,5229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>DeferredFileOutputStream.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.io.output;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.File;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.FileInputStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.FileOutputStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.IOException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.OutputStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.io.FileUtils;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.io.IOUtils;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * An output stream which will retain data in memory until a specified</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * threshold is reached, and only then commit it to disk. If the stream is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * closed before the threshold is reached, the data will not be written to</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * disk at all.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * This class originated in FileUpload processing. In this use case, you do</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * not know in advance the size of the file being uploaded. If the file is small</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you want to store it in memory (for speed), but if the file is large you want</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * to store it to file (to avoid memory issues).</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class DeferredFileOutputStream</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    extends ThresholdingOutputStream</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>{</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // ----------------------------------------------------------- Data members</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The output stream to which data will be written prior to the threshold</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * being reached.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private ByteArrayOutputStream memoryOutputStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The output stream to which data will be written at any given time. This</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * will always be one of &#60;code&#62;memoryOutputStream&#60;/code&#62; or</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;code&#62;diskOutputStream&#60;/code&#62;.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private OutputStream currentOutputStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The file to which output will be directed if the threshold is exceeded.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private File outputFile;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The temporary file prefix.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final String prefix;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The temporary file suffix.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final String suffix;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The directory to use for temporary files.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final File directory;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * True when close() has been called successfully.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_86'/>
+86
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_86'>2</a>
+<span>
+1. <init> : Removed assignment to member variable closed &rarr; SURVIVED<br/>
+2. <init> : Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    private boolean closed = false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // ----------------------------------------------------------- Constructors</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs an instance of this class which will trigger an event at the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * specified threshold, and save data to a file beyond that point.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The initial buffer size will default to 1024 bytes which is ByteArrayOutputStream&#39;s default buffer size.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param threshold  The number of bytes at which to trigger an event.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param outputFile The file to which data is saved beyond the threshold.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public DeferredFileOutputStream(final int threshold, final File outputFile)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_101'/>
+101
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_101'>1</a>
+<span>
+1. <init> : Substituted 1024 with 1025 &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        this(threshold,  outputFile, null, null, null, ByteArrayOutputStream.DEFAULT_SIZE);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_102'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs an instance of this class which will trigger an event at the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * specified threshold, and save data to a file beyond that point.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param threshold  The number of bytes at which to trigger an event.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param initialBufferSize The initial size of the in memory buffer.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param outputFile The file to which data is saved beyond the threshold.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.5</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public DeferredFileOutputStream(final int threshold, final int initialBufferSize, final File outputFile)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_116'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this(threshold, outputFile, null, null, null, initialBufferSize);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_117'/>
+117
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_117'>4</a>
+<span>
+1. <init> : changed conditional boundary &rarr; SURVIVED<br/>
+2. <init> : removed conditional - replaced comparison check with false &rarr; SURVIVED<br/>
+3. <init> : negated conditional &rarr; KILLED<br/>
+4. <init> : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (initialBufferSize &#60; 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_118'/>
+118
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_118'>1</a>
+<span>
+1. <init> : removed call to java/lang/IllegalArgumentException::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            throw new IllegalArgumentException(&#34;Initial buffer size must be atleast 0.&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_120'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs an instance of this class which will trigger an event at the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * specified threshold, and save data to a temporary file beyond that point.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The initial buffer size will default to 32 bytes which is ByteArrayOutputStream&#39;s default buffer size.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param threshold  The number of bytes at which to trigger an event.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param prefix Prefix to use for the temporary file.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param suffix Suffix to use for the temporary file.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_130'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param directory Temporary file directory.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_131'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 1.4</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_133'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public DeferredFileOutputStream(final int threshold, final String prefix, final String suffix, final File directory)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_135'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_136'/>
+136
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_136'>1</a>
+<span>
+1. <init> : Substituted 1024 with 1025 &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        this(threshold, null, prefix, suffix, directory, ByteArrayOutputStream.DEFAULT_SIZE);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_137'/>
+137
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_137'>3</a>
+<span>
+1. <init> : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. <init> : negated conditional &rarr; KILLED<br/>
+3. <init> : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (prefix == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_138'/>
+138
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_138'>1</a>
+<span>
+1. <init> : removed call to java/lang/IllegalArgumentException::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            throw new IllegalArgumentException(&#34;Temporary file prefix is missing&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_139'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_140'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs an instance of this class which will trigger an event at the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * specified threshold, and save data to a temporary file beyond that point.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param threshold  The number of bytes at which to trigger an event.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_147'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param initialBufferSize The initial size of the in memory buffer.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param prefix Prefix to use for the temporary file.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param suffix Suffix to use for the temporary file.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_150'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param directory Temporary file directory.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.5</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public DeferredFileOutputStream(final int threshold, final int initialBufferSize, final String prefix,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                                    final String suffix, final File directory)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_157'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this(threshold, null, prefix, suffix, directory, initialBufferSize);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_158'/>
+158
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_158'>3</a>
+<span>
+1. <init> : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. <init> : negated conditional &rarr; KILLED<br/>
+3. <init> : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (prefix == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_159'/>
+159
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_159'>1</a>
+<span>
+1. <init> : removed call to java/lang/IllegalArgumentException::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            throw new IllegalArgumentException(&#34;Temporary file prefix is missing&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_161'/>
+161
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_161'>4</a>
+<span>
+1. <init> : changed conditional boundary &rarr; SURVIVED<br/>
+2. <init> : removed conditional - replaced comparison check with false &rarr; SURVIVED<br/>
+3. <init> : negated conditional &rarr; KILLED<br/>
+4. <init> : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (initialBufferSize &#60; 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_162'/>
+162
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_162'>1</a>
+<span>
+1. <init> : removed call to java/lang/IllegalArgumentException::&#60;init&#62; &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            throw new IllegalArgumentException(&#34;Initial buffer size must be atleast 0.&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_164'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_166'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs an instance of this class which will trigger an event at the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_168'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * specified threshold, and save data either to a file beyond that point.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param threshold  The number of bytes at which to trigger an event.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_171'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param outputFile The file to which data is saved beyond the threshold.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_172'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param prefix Prefix to use for the temporary file.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_173'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param suffix Suffix to use for the temporary file.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_174'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param directory Temporary file directory.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_175'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param initialBufferSize The initial size of the in memory buffer.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_176'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_177'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private DeferredFileOutputStream(final int threshold, final File outputFile, final String prefix,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_178'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                                     final String suffix, final File directory, final int initialBufferSize) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_179'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        super(threshold);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_180'/>
+180
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_180'>1</a>
+<span>
+1. <init> : Removed assignment to member variable outputFile &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.outputFile = outputFile;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_181'/>
+181
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_181'>1</a>
+<span>
+1. <init> : Removed assignment to member variable prefix &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.prefix = prefix;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_182'/>
+182
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_182'>1</a>
+<span>
+1. <init> : Removed assignment to member variable suffix &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.suffix = suffix;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_183'/>
+183
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_183'>1</a>
+<span>
+1. <init> : Removed assignment to member variable directory &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.directory = directory;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_184'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_185'/>
+185
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_185'>2</a>
+<span>
+1. <init> : removed call to org/apache/commons/io/output/ByteArrayOutputStream::&#60;init&#62; &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable memoryOutputStream &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        memoryOutputStream = new ByteArrayOutputStream(initialBufferSize);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_186'/>
+186
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_186'>1</a>
+<span>
+1. <init> : Removed assignment to member variable currentOutputStream &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        currentOutputStream = memoryOutputStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_187'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_188'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_189'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_190'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // --------------------------------------- ThresholdingOutputStream methods</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_191'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_192'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_193'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_194'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns the current output stream. This may be memory based or disk</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_195'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * based, depending on the current state with respect to the threshold.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_196'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_197'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return The underlying output stream.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_198'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_199'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException if an error occurs.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_200'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_201'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_202'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected OutputStream getStream() throws IOException</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_203'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_204'/>
+204
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_204'>2</a>
+<span>
+1. getStream : replaced return value with null for org/apache/commons/io/output/DeferredFileOutputStream::getStream &rarr; KILLED<br/>
+2. getStream : mutated return of Object value for org/apache/commons/io/output/DeferredFileOutputStream::getStream to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return currentOutputStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_205'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_206'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_207'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_208'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_209'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Switches the underlying output stream from a memory based stream to one</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_210'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * that is backed by disk. This is the point at which we realise that too</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_211'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * much data is being written to keep in memory, so we elect to switch to</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_212'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * disk-based storage.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_213'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_214'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException if an error occurs.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_215'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_216'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_217'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected void thresholdReached() throws IOException</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_218'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_219'/>
+219
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_219'>3</a>
+<span>
+1. thresholdReached : negated conditional &rarr; KILLED<br/>
+2. thresholdReached : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. thresholdReached : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (prefix != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_220'/>
+220
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_220'>3</a>
+<span>
+1. thresholdReached : replaced call to java/io/File::createTempFile with argument &rarr; KILLED<br/>
+2. thresholdReached : removed call to java/io/File::createTempFile &rarr; KILLED<br/>
+3. thresholdReached : Removed assignment to member variable outputFile &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            outputFile = File.createTempFile(prefix, suffix, directory);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_221'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_222'/>
+222
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_222'>1</a>
+<span>
+1. thresholdReached : removed call to org/apache/commons/io/FileUtils::forceMkdirParent &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        FileUtils.forceMkdirParent(outputFile);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_223'/>
+223
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_223'>1</a>
+<span>
+1. thresholdReached : removed call to java/io/FileOutputStream::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        final FileOutputStream fos = new FileOutputStream(outputFile);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_224'/>
+224
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_224'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_225'/>
+225
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_225'>1</a>
+<span>
+1. thresholdReached : removed call to org/apache/commons/io/output/ByteArrayOutputStream::writeTo &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            memoryOutputStream.writeTo(fos);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_226'/>
+226
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_226'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        } catch (final IOException e){</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_227'/>
+227
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_227'>1</a>
+<span>
+1. thresholdReached : removed call to java/io/FileOutputStream::close &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            fos.close();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_228'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            throw e;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_229'/>
+229
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_229'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_230'/>
+230
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_230'>1</a>
+<span>
+1. thresholdReached : Removed assignment to member variable currentOutputStream &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        currentOutputStream = fos;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_231'/>
+231
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_231'>1</a>
+<span>
+1. thresholdReached : Removed assignment to member variable memoryOutputStream &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        memoryOutputStream = null;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_232'/>
+232
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_232'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_233'/>
+233
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_233'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_234'/>
+234
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_234'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_235'/>
+235
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_235'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // --------------------------------------------------------- Public methods</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_236'/>
+236
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_236'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_237'/>
+237
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_237'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_238'/>
+238
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_238'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_239'/>
+239
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_239'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Determines whether or not the data for this output stream has been</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_240'/>
+240
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_240'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * retained in memory.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_241'/>
+241
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_241'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_242'/>
+242
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_242'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return {@code true} if the data is available in memory;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_243'/>
+243
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_243'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *         {@code false} otherwise.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_244'/>
+244
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_244'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_245'/>
+245
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_245'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean isInMemory()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_246'/>
+246
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_246'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_247'/>
+247
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_247'>9</a>
+<span>
+1. isInMemory : replaced boolean return with false for org/apache/commons/io/output/DeferredFileOutputStream::isInMemory &rarr; KILLED<br/>
+2. isInMemory : replaced boolean return with true for org/apache/commons/io/output/DeferredFileOutputStream::isInMemory &rarr; KILLED<br/>
+3. isInMemory : Substituted 1 with 0 &rarr; KILLED<br/>
+4. isInMemory : Substituted 0 with 1 &rarr; KILLED<br/>
+5. isInMemory : negated conditional &rarr; KILLED<br/>
+6. isInMemory : removed call to org/apache/commons/io/output/DeferredFileOutputStream::isThresholdExceeded &rarr; KILLED<br/>
+7. isInMemory : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+8. isInMemory : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+9. isInMemory : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return !isThresholdExceeded();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_248'/>
+248
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_248'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_249'/>
+249
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_249'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_250'/>
+250
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_250'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_251'/>
+251
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_251'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_252'/>
+252
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_252'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns the data for this output stream as an array of bytes, assuming</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_253'/>
+253
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_253'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * that the data has been retained in memory. If the data was written to</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_254'/>
+254
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_254'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * disk, this method returns {@code null}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_255'/>
+255
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_255'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_256'/>
+256
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_256'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return The data for this output stream, or {@code null} if no such</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_257'/>
+257
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_257'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *         data is available.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_258'/>
+258
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_258'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_259'/>
+259
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_259'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public byte[] getData()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_260'/>
+260
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_260'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_261'/>
+261
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_261'>3</a>
+<span>
+1. getData : negated conditional &rarr; KILLED<br/>
+2. getData : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. getData : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (memoryOutputStream != null)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_262'/>
+262
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_262'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_263'/>
+263
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_263'>3</a>
+<span>
+1. getData : removed call to org/apache/commons/io/output/ByteArrayOutputStream::toByteArray &rarr; KILLED<br/>
+2. getData : replaced return value with null for org/apache/commons/io/output/DeferredFileOutputStream::getData &rarr; KILLED<br/>
+3. getData : mutated return of Object value for org/apache/commons/io/output/DeferredFileOutputStream::getData to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return memoryOutputStream.toByteArray();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_264'/>
+264
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_264'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_265'/>
+265
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_265'>1</a>
+<span>
+1. getData : mutated return of Object value for org/apache/commons/io/output/DeferredFileOutputStream::getData to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_266'/>
+266
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_266'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_267'/>
+267
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_267'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_268'/>
+268
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_268'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_269'/>
+269
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_269'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_270'/>
+270
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_270'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns either the output file specified in the constructor or</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_271'/>
+271
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_271'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * the temporary file created or null.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_272'/>
+272
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_272'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_273'/>
+273
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_273'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * If the constructor specifying the file is used then it returns that</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_274'/>
+274
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_274'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * same output file, even when threshold has not been reached.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_275'/>
+275
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_275'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_276'/>
+276
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_276'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * If constructor specifying a temporary file prefix/suffix is used</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_277'/>
+277
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_277'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * then the temporary file created once the threshold is reached is returned</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_278'/>
+278
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_278'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * If the threshold was not reached then {@code null} is returned.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_279'/>
+279
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_279'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_280'/>
+280
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_280'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return The file for this output stream, or {@code null} if no such</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_281'/>
+281
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_281'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *         file exists.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_282'/>
+282
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_282'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_283'/>
+283
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_283'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public File getFile()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_284'/>
+284
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_284'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_285'/>
+285
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_285'>2</a>
+<span>
+1. getFile : replaced return value with null for org/apache/commons/io/output/DeferredFileOutputStream::getFile &rarr; KILLED<br/>
+2. getFile : mutated return of Object value for org/apache/commons/io/output/DeferredFileOutputStream::getFile to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return outputFile;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_286'/>
+286
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_286'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_287'/>
+287
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_287'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_288'/>
+288
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_288'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_289'/>
+289
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_289'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_290'/>
+290
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_290'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Closes underlying output stream, and mark this as closed</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_291'/>
+291
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_291'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_292'/>
+292
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_292'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException if an error occurs.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_293'/>
+293
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_293'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_294'/>
+294
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_294'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_295'/>
+295
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_295'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void close() throws IOException</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_296'/>
+296
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_296'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_297'/>
+297
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_297'>1</a>
+<span>
+1. close : removed call to org/apache/commons/io/output/ThresholdingOutputStream::close &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        super.close();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_298'/>
+298
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_298'>2</a>
+<span>
+1. close : Substituted 1 with 0 &rarr; KILLED<br/>
+2. close : Removed assignment to member variable closed &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        closed = true;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_299'/>
+299
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_299'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_300'/>
+300
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_300'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_301'/>
+301
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_301'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_302'/>
+302
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_302'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_303'/>
+303
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_303'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Writes the data from this output stream to the specified output stream,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_304'/>
+304
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_304'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * after it has been closed.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_305'/>
+305
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_305'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_306'/>
+306
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_306'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param out output stream to write to.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_307'/>
+307
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_307'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IOException if this stream is not yet closed or an error occurs.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_308'/>
+308
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_308'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_309'/>
+309
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_309'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void writeTo(final OutputStream out) throws IOException</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_310'/>
+310
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_310'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_311'/>
+311
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_311'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // we may only need to check if this is closed if we are working with a file</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_312'/>
+312
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_312'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // but we should force the habit of closing wether we are working with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_313'/>
+313
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_313'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // a file or memory.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_314'/>
+314
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_314'>3</a>
+<span>
+1. writeTo : negated conditional &rarr; KILLED<br/>
+2. writeTo : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. writeTo : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (!closed) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_315'/>
+315
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_315'>1</a>
+<span>
+1. writeTo : removed call to java/io/IOException::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            throw new IOException(&#34;Stream not closed&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_316'/>
+316
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_316'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_317'/>
+317
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_317'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_318'/>
+318
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_318'>4</a>
+<span>
+1. writeTo : negated conditional &rarr; KILLED<br/>
+2. writeTo : removed call to org/apache/commons/io/output/DeferredFileOutputStream::isInMemory &rarr; KILLED<br/>
+3. writeTo : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. writeTo : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (isInMemory()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_319'/>
+319
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_319'>1</a>
+<span>
+1. writeTo : removed call to org/apache/commons/io/output/ByteArrayOutputStream::writeTo &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            memoryOutputStream.writeTo(out);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_320'/>
+320
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_320'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_321'/>
+321
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_321'>1</a>
+<span>
+1. writeTo : removed call to java/io/FileInputStream::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            try (FileInputStream fis = new FileInputStream(outputFile)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_322'/>
+322
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_322'>1</a>
+<span>
+1. writeTo : removed call to org/apache/commons/io/IOUtils::copy &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                IOUtils.copy(fis, out);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_323'/>
+323
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_323'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_324'/>
+324
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_324'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_325'/>
+325
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_325'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@5f34907b_326'/>
+326
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_326'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_86'>86</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_86'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToLarge[initialBufferSize = 16](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Removed assignment to member variable closed &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_101'>101</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_101'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 1024 with 1025 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_117'>117</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_117'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed conditional - replaced comparison check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_118'>118</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_118'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to java/lang/IllegalArgumentException::&#60;init&#62; &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_136'>136</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_136'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 1024 with 1025 &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_137'>137</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_137'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileError[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileError[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_138'>138</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_138'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileError[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> removed call to java/lang/IllegalArgumentException::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_158'>158</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_158'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 32](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 32](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_159'>159</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_159'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to java/lang/IllegalArgumentException::&#60;init&#62; &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_161'>161</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_161'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 32](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed conditional - replaced comparison check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 32](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_162'>162</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_162'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to java/lang/IllegalArgumentException::&#60;init&#62; &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_180'>180</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_180'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> Removed assignment to member variable outputFile &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_181'>181</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_181'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThreshold[initialBufferSize = 1](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> Removed assignment to member variable prefix &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_182'>182</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_182'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThreshold[initialBufferSize = 1](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> Removed assignment to member variable suffix &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_183'>183</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_183'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThreshold[initialBufferSize = 1](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> Removed assignment to member variable directory &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_185'>185</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_185'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 32](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> removed call to org/apache/commons/io/output/ByteArrayOutputStream::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 32](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> Removed assignment to member variable memoryOutputStream &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_186'>186</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_186'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 32](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> Removed assignment to member variable currentOutputStream &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_204'>204</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_204'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getStream<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 32](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> replaced return value with null for org/apache/commons/io/output/DeferredFileOutputStream::getStream &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getStream<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 32](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> mutated return of Object value for org/apache/commons/io/output/DeferredFileOutputStream::getStream to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_219'>219</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_219'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>thresholdReached<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>thresholdReached<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThreshold[initialBufferSize = 1](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>thresholdReached<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_220'>220</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_220'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>thresholdReached<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThreshold[initialBufferSize = 1](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> replaced call to java/io/File::createTempFile with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>thresholdReached<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThreshold[initialBufferSize = 1](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> removed call to java/io/File::createTempFile &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>thresholdReached<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThreshold[initialBufferSize = 1](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> Removed assignment to member variable outputFile &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_222'>222</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_222'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>thresholdReached<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/io/FileUtils::forceMkdirParent &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_223'>223</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_223'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>thresholdReached<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> removed call to java/io/FileOutputStream::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_225'>225</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_225'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>thresholdReached<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> removed call to org/apache/commons/io/output/ByteArrayOutputStream::writeTo &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_227'>227</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_227'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>thresholdReached<br/><b>Killed by : </b>none</span></span> removed call to java/io/FileOutputStream::close &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_230'>230</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_230'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>thresholdReached<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> Removed assignment to member variable currentOutputStream &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_231'>231</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_231'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>thresholdReached<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> Removed assignment to member variable memoryOutputStream &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_247'>247</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_247'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isInMemory<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 32](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> replaced boolean return with false for org/apache/commons/io/output/DeferredFileOutputStream::isInMemory &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isInMemory<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> replaced boolean return with true for org/apache/commons/io/output/DeferredFileOutputStream::isInMemory &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isInMemory<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 32](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>isInMemory<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>isInMemory<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 32](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>isInMemory<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> removed call to org/apache/commons/io/output/DeferredFileOutputStream::isThresholdExceeded &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>isInMemory<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 32](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>isInMemory<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>isInMemory<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 32](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_261'>261</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_261'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getData<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getData<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAtThreshold[initialBufferSize = 2,048](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getData<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_263'>263</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_263'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getData<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAtThreshold[initialBufferSize = 2,048](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> removed call to org/apache/commons/io/output/ByteArrayOutputStream::toByteArray &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getData<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAtThreshold[initialBufferSize = 2,048](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> replaced return value with null for org/apache/commons/io/output/DeferredFileOutputStream::getData &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getData<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAtThreshold[initialBufferSize = 2,048](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> mutated return of Object value for org/apache/commons/io/output/DeferredFileOutputStream::getData to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_265'>265</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_265'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getData<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> mutated return of Object value for org/apache/commons/io/output/DeferredFileOutputStream::getData to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_285'>285</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_285'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getFile<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThreshold[initialBufferSize = 1](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> replaced return value with null for org/apache/commons/io/output/DeferredFileOutputStream::getFile &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getFile<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 32](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> mutated return of Object value for org/apache/commons/io/output/DeferredFileOutputStream::getFile to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_297'>297</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_297'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>close<br/><b>Killed by : </b>none</span></span> removed call to org/apache/commons/io/output/ThresholdingOutputStream::close &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_298'>298</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_298'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>close<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToLarge[initialBufferSize = 16](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>close<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToLarge[initialBufferSize = 16](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> Removed assignment to member variable closed &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_314'>314</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_314'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>writeTo<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToLarge[initialBufferSize = 16](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>writeTo<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToLarge[initialBufferSize = 16](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>writeTo<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToLarge[initialBufferSize = 16](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_315'>315</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_315'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>writeTo<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToLarge[initialBufferSize = 16](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> removed call to java/io/IOException::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_318'>318</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_318'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>writeTo<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToLarge[initialBufferSize = 16](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>writeTo<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToSmall[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> removed call to org/apache/commons/io/output/DeferredFileOutputStream::isInMemory &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>writeTo<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToSmall[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>writeTo<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToLarge[initialBufferSize = 16](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_319'>319</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_319'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>writeTo<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToSmall[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> removed call to org/apache/commons/io/output/ByteArrayOutputStream::writeTo &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_321'>321</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_321'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>writeTo<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToLarge[initialBufferSize = 16](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> removed call to java/io/FileInputStream::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@5f34907b_322'>322</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@5f34907b_322'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>writeTo<br/><b>Killed by : </b>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToLarge[initialBufferSize = 16](org.apache.commons.io.output.DeferredFileOutputStreamTest)</span></span> removed call to org/apache/commons/io/IOUtils::copy &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_61</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_60</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_56</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_55</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_58</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_57</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_52</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_51</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_54</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_53</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_59</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_50</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_45</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_44</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_47</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_46</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_41</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_40</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_43</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_42</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_49</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_48</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_34</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_33</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_36</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_35</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_30</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_32</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_31</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_38</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_37</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_39</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_3</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_2</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_1</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_0</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_23</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_22</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_25</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_9</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_24</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_8</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_7</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_6</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_21</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_5</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_20</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_4</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_27</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_26</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_29</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_28</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_12</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_11</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_99</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_14</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_13</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_96</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_95</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_10</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_98</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_97</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_19</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_16</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_15</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_18</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_17</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_92</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_91</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_94</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_93</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_90</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_89</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_88</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_85</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_84</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_87</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_86</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_81</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_80</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_83</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_82</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_78</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_77</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_79</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_74</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_73</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_76</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_75</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_70</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_72</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_71</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_67</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_66</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_69</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_68</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_63</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_62</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_65</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_64</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToSmall[initialBufferSize = 128](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToSmall[initialBufferSize = 4](org.apache.commons.io.output.DeferredFileOutputStreamTest) (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThresholdPrefixOnly[initialBufferSize = 8](org.apache.commons.io.output.DeferredFileOutputStreamTest) (3 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToLarge[initialBufferSize = 1](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 1](org.apache.commons.io.output.DeferredFileOutputStreamTest) (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testBelowThreshold[initialBufferSize = 64](org.apache.commons.io.output.DeferredFileOutputStreamTest) (5 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 2](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThreshold[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest) (3 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileError[initialBufferSize = 4,096](org.apache.commons.io.output.DeferredFileOutputStreamTest) (6 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAboveThreshold[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest) (72 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThresholdPrefixOnly[initialBufferSize = 32](org.apache.commons.io.output.DeferredFileOutputStreamTest) (3 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAboveThreshold[initialBufferSize = 512](org.apache.commons.io.output.DeferredFileOutputStreamTest) (5 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThresholdPrefixOnly[initialBufferSize = 2,048](org.apache.commons.io.output.DeferredFileOutputStreamTest) (7 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileError[initialBufferSize = 512](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToSmall[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest) (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 128](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testBelowThreshold[initialBufferSize = 1](org.apache.commons.io.output.DeferredFileOutputStreamTest) (5 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThreshold[initialBufferSize = 2,048](org.apache.commons.io.output.DeferredFileOutputStreamTest) (3 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 512](org.apache.commons.io.output.DeferredFileOutputStreamTest) (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToLarge[initialBufferSize = 4](org.apache.commons.io.output.DeferredFileOutputStreamTest) (3 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 4](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testBelowThreshold[initialBufferSize = 2,048](org.apache.commons.io.output.DeferredFileOutputStreamTest) (5 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 32](org.apache.commons.io.output.DeferredFileOutputStreamTest) (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testBelowThreshold[initialBufferSize = 2](org.apache.commons.io.output.DeferredFileOutputStreamTest) (4 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAtThreshold[initialBufferSize = 1](org.apache.commons.io.output.DeferredFileOutputStreamTest) (7 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAtThreshold[initialBufferSize = 4,096](org.apache.commons.io.output.DeferredFileOutputStreamTest) (15 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 4,096](org.apache.commons.io.output.DeferredFileOutputStreamTest) (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThreshold[initialBufferSize = 32](org.apache.commons.io.output.DeferredFileOutputStreamTest) (3 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToLarge[initialBufferSize = 32](org.apache.commons.io.output.DeferredFileOutputStreamTest) (3 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 256](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAtThreshold[initialBufferSize = 2](org.apache.commons.io.output.DeferredFileOutputStreamTest) (5 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAboveThreshold[initialBufferSize = 128](org.apache.commons.io.output.DeferredFileOutputStreamTest) (9 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 128](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThresholdPrefixOnly[initialBufferSize = 256](org.apache.commons.io.output.DeferredFileOutputStreamTest) (5 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToLarge[initialBufferSize = 2](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToSmall[initialBufferSize = 8](org.apache.commons.io.output.DeferredFileOutputStreamTest) (3 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 2,048](org.apache.commons.io.output.DeferredFileOutputStreamTest) (3 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 512](org.apache.commons.io.output.DeferredFileOutputStreamTest) (3 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 256](org.apache.commons.io.output.DeferredFileOutputStreamTest) (4 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThresholdPrefixOnly[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest) (13 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThreshold[initialBufferSize = 64](org.apache.commons.io.output.DeferredFileOutputStreamTest) (3 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testBelowThreshold[initialBufferSize = 4](org.apache.commons.io.output.DeferredFileOutputStreamTest) (4 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThreshold[initialBufferSize = 256](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToSmall[initialBufferSize = 32](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAtThreshold[initialBufferSize = 512](org.apache.commons.io.output.DeferredFileOutputStreamTest) (5 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToSmall[initialBufferSize = 256](org.apache.commons.io.output.DeferredFileOutputStreamTest) (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileError[initialBufferSize = 1](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToLarge[initialBufferSize = 16](org.apache.commons.io.output.DeferredFileOutputStreamTest) (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 4,096](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAboveThreshold[initialBufferSize = 8](org.apache.commons.io.output.DeferredFileOutputStreamTest) (6 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToSmall[initialBufferSize = 512](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThreshold[initialBufferSize = 512](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToSmall[initialBufferSize = 2](org.apache.commons.io.output.DeferredFileOutputStreamTest) (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileError[initialBufferSize = 2](org.apache.commons.io.output.DeferredFileOutputStreamTest) (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 2,048](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileError[initialBufferSize = 32](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileError[initialBufferSize = 256](org.apache.commons.io.output.DeferredFileOutputStreamTest) (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToLarge[initialBufferSize = 256](org.apache.commons.io.output.DeferredFileOutputStreamTest) (6 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileError[initialBufferSize = 4](org.apache.commons.io.output.DeferredFileOutputStreamTest) (3 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToLarge[initialBufferSize = 8](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAtThreshold[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest) (6 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThresholdPrefixOnly[initialBufferSize = 16](org.apache.commons.io.output.DeferredFileOutputStreamTest) (6 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToSmall[initialBufferSize = 1](org.apache.commons.io.output.DeferredFileOutputStreamTest) (3 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAboveThreshold[initialBufferSize = 64](org.apache.commons.io.output.DeferredFileOutputStreamTest) (6 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 64](org.apache.commons.io.output.DeferredFileOutputStreamTest) (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThresholdPrefixOnly[initialBufferSize = 128](org.apache.commons.io.output.DeferredFileOutputStreamTest) (3 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 16](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThreshold[initialBufferSize = 16](org.apache.commons.io.output.DeferredFileOutputStreamTest) (3 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThreshold[initialBufferSize = 128](org.apache.commons.io.output.DeferredFileOutputStreamTest) (3 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testBelowThreshold[initialBufferSize = 512](org.apache.commons.io.output.DeferredFileOutputStreamTest) (5 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileError[initialBufferSize = 16](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testBelowThreshold[initialBufferSize = 8](org.apache.commons.io.output.DeferredFileOutputStreamTest) (8 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThreshold[initialBufferSize = 4,096](org.apache.commons.io.output.DeferredFileOutputStreamTest) (3 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThreshold[initialBufferSize = 4](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testBelowThreshold[initialBufferSize = 128](org.apache.commons.io.output.DeferredFileOutputStreamTest) (5 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToLarge[initialBufferSize = 512](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAboveThreshold[initialBufferSize = 4,096](org.apache.commons.io.output.DeferredFileOutputStreamTest) (5 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileError[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest) (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToSmall[initialBufferSize = 4,096](org.apache.commons.io.output.DeferredFileOutputStreamTest) (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileError[initialBufferSize = 8](org.apache.commons.io.output.DeferredFileOutputStreamTest) (3 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAtThreshold[initialBufferSize = 2,048](org.apache.commons.io.output.DeferredFileOutputStreamTest) (4 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToLarge[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest) (4 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest) (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToSmall[initialBufferSize = 16](org.apache.commons.io.output.DeferredFileOutputStreamTest) (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThreshold[initialBufferSize = 8](org.apache.commons.io.output.DeferredFileOutputStreamTest) (5 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAtThreshold[initialBufferSize = 32](org.apache.commons.io.output.DeferredFileOutputStreamTest) (4 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAboveThreshold[initialBufferSize = 4](org.apache.commons.io.output.DeferredFileOutputStreamTest) (5 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAboveThreshold[initialBufferSize = 1](org.apache.commons.io.output.DeferredFileOutputStreamTest) (7 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAtThreshold[initialBufferSize = 256](org.apache.commons.io.output.DeferredFileOutputStreamTest) (4 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToLarge[initialBufferSize = 64](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 8](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToSmall[initialBufferSize = 64](org.apache.commons.io.output.DeferredFileOutputStreamTest) (3 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAtThreshold[initialBufferSize = 128](org.apache.commons.io.output.DeferredFileOutputStreamTest) (5 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAtThreshold[initialBufferSize = 64](org.apache.commons.io.output.DeferredFileOutputStreamTest) (4 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAboveThreshold[initialBufferSize = 2](org.apache.commons.io.output.DeferredFileOutputStreamTest) (6 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAboveThreshold[initialBufferSize = 256](org.apache.commons.io.output.DeferredFileOutputStreamTest) (6 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileError[initialBufferSize = 2,048](org.apache.commons.io.output.DeferredFileOutputStreamTest) (3 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAtThreshold[initialBufferSize = 4](org.apache.commons.io.output.DeferredFileOutputStreamTest) (11 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 4](org.apache.commons.io.output.DeferredFileOutputStreamTest) (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThresholdPrefixOnly[initialBufferSize = 4,096](org.apache.commons.io.output.DeferredFileOutputStreamTest) (4 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testBelowThreshold[initialBufferSize = 32](org.apache.commons.io.output.DeferredFileOutputStreamTest) (7 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToSmall[initialBufferSize = 2,048](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 8](org.apache.commons.io.output.DeferredFileOutputStreamTest) (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThreshold[initialBufferSize = 1](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAboveThreshold[initialBufferSize = 2,048](org.apache.commons.io.output.DeferredFileOutputStreamTest) (6 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThresholdPrefixOnly[initialBufferSize = 4](org.apache.commons.io.output.DeferredFileOutputStreamTest) (4 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAboveThreshold[initialBufferSize = 16](org.apache.commons.io.output.DeferredFileOutputStreamTest) (7 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testThresholdReached[initialBufferSize = 64](org.apache.commons.io.output.DeferredFileOutputStreamTest) (3 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testBelowThreshold[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest) (4 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testBelowThreshold[initialBufferSize = 16](org.apache.commons.io.output.DeferredFileOutputStreamTest) (4 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThreshold[initialBufferSize = 2](org.apache.commons.io.output.DeferredFileOutputStreamTest) (3 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 16](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAtThreshold[initialBufferSize = 16](org.apache.commons.io.output.DeferredFileOutputStreamTest) (5 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThresholdPrefixOnly[initialBufferSize = 64](org.apache.commons.io.output.DeferredFileOutputStreamTest) (3 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThresholdPrefixOnly[initialBufferSize = 512](org.apache.commons.io.output.DeferredFileOutputStreamTest) (4 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 1](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToLarge[initialBufferSize = 4,096](org.apache.commons.io.output.DeferredFileOutputStreamTest) (3 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 2](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileError[initialBufferSize = 64](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAtThreshold[initialBufferSize = 8](org.apache.commons.io.output.DeferredFileOutputStreamTest) (5 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testBelowThreshold[initialBufferSize = 256](org.apache.commons.io.output.DeferredFileOutputStreamTest) (4 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testBelowThreshold[initialBufferSize = 4,096](org.apache.commons.io.output.DeferredFileOutputStreamTest) (4 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 1,024](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThresholdPrefixOnly[initialBufferSize = 1](org.apache.commons.io.output.DeferredFileOutputStreamTest) (4 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileError[initialBufferSize = 128](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToLarge[initialBufferSize = 128](org.apache.commons.io.output.DeferredFileOutputStreamTest) (2 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileAboveThresholdPrefixOnly[initialBufferSize = 2](org.apache.commons.io.output.DeferredFileOutputStreamTest) (3 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testWriteToLarge[initialBufferSize = 2,048](org.apache.commons.io.output.DeferredFileOutputStreamTest) (3 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testTempFileBelowThreshold[initialBufferSize = 32](org.apache.commons.io.output.DeferredFileOutputStreamTest) (1 ms)</li><li>org.apache.commons.io.output.DeferredFileOutputStreamTest.testAboveThreshold[initialBufferSize = 32](org.apache.commons.io.output.DeferredFileOutputStreamTest) (5 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

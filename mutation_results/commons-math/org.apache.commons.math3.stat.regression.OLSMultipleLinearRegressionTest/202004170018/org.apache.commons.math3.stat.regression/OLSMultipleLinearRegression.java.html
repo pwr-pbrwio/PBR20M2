@@ -1,0 +1,4695 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>OLSMultipleLinearRegression.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.math3.stat.regression;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.exception.MathIllegalArgumentException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.linear.Array2DRowRealMatrix;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.linear.LUDecomposition;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.linear.QRDecomposition;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.linear.RealMatrix;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.linear.RealVector;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.stat.StatUtils;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.stat.descriptive.moment.SecondMoment;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;Implements ordinary least squares (OLS) to estimate the parameters of a</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * multiple linear regression model.&#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;The regression coefficients, &#60;code&#62;b&#60;/code&#62;, satisfy the normal equations:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;pre&#62;&#60;code&#62; X&#60;sup&#62;T&#60;/sup&#62; X b = X&#60;sup&#62;T&#60;/sup&#62; y &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;To solve the normal equations, this implementation uses QR decomposition</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * of the &#60;code&#62;X&#60;/code&#62; matrix. (See {@link QRDecomposition} for details on the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * decomposition algorithm.) The &#60;code&#62;X&#60;/code&#62; matrix, also known as the &#60;i&#62;design matrix,&#60;/i&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * has rows corresponding to sample observations and columns corresponding to independent</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * variables.  When the model is estimated using an intercept term (i.e. when</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * {@link #isNoIntercept() isNoIntercept} is false as it is by default), the &#60;code&#62;X&#60;/code&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * matrix includes an initial column identically equal to 1.  We solve the normal equations</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * as follows:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;pre&#62;&#60;code&#62; X&#60;sup&#62;T&#60;/sup&#62;X b = X&#60;sup&#62;T&#60;/sup&#62; y</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (QR)&#60;sup&#62;T&#60;/sup&#62; (QR) b = (QR)&#60;sup&#62;T&#60;/sup&#62;y</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * R&#60;sup&#62;T&#60;/sup&#62; (Q&#60;sup&#62;T&#60;/sup&#62;Q) R b = R&#60;sup&#62;T&#60;/sup&#62; Q&#60;sup&#62;T&#60;/sup&#62; y</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * R&#60;sup&#62;T&#60;/sup&#62; R b = R&#60;sup&#62;T&#60;/sup&#62; Q&#60;sup&#62;T&#60;/sup&#62; y</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (R&#60;sup&#62;T&#60;/sup&#62;)&#60;sup&#62;-1&#60;/sup&#62; R&#60;sup&#62;T&#60;/sup&#62; R b = (R&#60;sup&#62;T&#60;/sup&#62;)&#60;sup&#62;-1&#60;/sup&#62; R&#60;sup&#62;T&#60;/sup&#62; Q&#60;sup&#62;T&#60;/sup&#62; y</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * R b = Q&#60;sup&#62;T&#60;/sup&#62; y &#60;/code&#62;&#60;/pre&#62;&#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;Given &#60;code&#62;Q&#60;/code&#62; and &#60;code&#62;R&#60;/code&#62;, the last equation is solved by back-substitution.&#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class OLSMultipleLinearRegression extends AbstractMultipleLinearRegression {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Cached QR decomposition of X matrix */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_57'/>
+57
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_57'>1</a>
+<span>
+1. <init> : Removed assignment to member variable qr &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    private QRDecomposition qr = null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Singularity threshold for QR decomposition */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final double threshold;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Create an empty OLSMultipleLinearRegression instance.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public OLSMultipleLinearRegression() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_66'/>
+66
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_66'>1</a>
+<span>
+1. <init> : Substituted 0.0 with 1.0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this(0d);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_67'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Create an empty OLSMultipleLinearRegression instance, using the given</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * singularity threshold for the QR decomposition.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param threshold the singularity threshold</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 3.3</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_76'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public OLSMultipleLinearRegression(final double threshold) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_77'/>
+77
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_77'>1</a>
+<span>
+1. <init> : Removed assignment to member variable threshold &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        this.threshold = threshold;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_78'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Loads model x and y sample data, overriding any previous sample.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Computes and caches QR decomposition of the X matrix.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param y the [n,1] array representing the y sample</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param x the [n,k] array representing the x sample</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws MathIllegalArgumentException if the x and y array data are not</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *             compatible for the regression</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void newSampleData(double[] y, double[][] x) throws MathIllegalArgumentException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_90'/>
+90
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_90'>1</a>
+<span>
+1. newSampleData : removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::validateSampleData &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        validateSampleData(x, y);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_91'/>
+91
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_91'>1</a>
+<span>
+1. newSampleData : removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::newYSampleData &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        newYSampleData(y);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_92'/>
+92
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_92'>1</a>
+<span>
+1. newSampleData : removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::newXSampleData &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        newXSampleData(x);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_93'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@inheritDoc}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;This implementation computes and caches the QR decomposition of the X matrix.&#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void newSampleData(double[] data, int nobs, int nvars) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_101'/>
+101
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_101'>1</a>
+<span>
+1. newSampleData : removed call to org/apache/commons/math3/stat/regression/AbstractMultipleLinearRegression::newSampleData &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        super.newSampleData(data, nobs, nvars);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_102'/>
+102
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_102'>3</a>
+<span>
+1. newSampleData : removed call to org/apache/commons/math3/linear/QRDecomposition::&#60;init&#62; &rarr; KILLED<br/>
+2. newSampleData : removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::getX &rarr; KILLED<br/>
+3. newSampleData : Removed assignment to member variable qr &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        qr = new QRDecomposition(getX(), threshold);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_103'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;Compute the &#34;hat&#34; matrix.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;The hat matrix is defined in terms of the design matrix X</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *  by X(X&#60;sup&#62;T&#60;/sup&#62;X)&#60;sup&#62;-1&#60;/sup&#62;X&#60;sup&#62;T&#60;/sup&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;The implementation here uses the QR decomposition to compute the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * hat matrix as Q I&#60;sub&#62;p&#60;/sub&#62;Q&#60;sup&#62;T&#60;/sup&#62; where I&#60;sub&#62;p&#60;/sub&#62; is the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * p-dimensional identity matrix augmented by 0&#39;s.  This computational</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * formula is from &#34;The Hat Matrix in Regression and ANOVA&#34;,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * David C. Hoaglin and Roy E. Welsch,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;i&#62;The American Statistician&#60;/i&#62;, Vol. 32, No. 1 (Feb., 1978), pp. 17-22.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_118'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;Data for the model must have been successfully loaded using one of</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * the {@code newSampleData} methods before invoking this method; otherwise</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * a {@code NullPointerException} will be thrown.&#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the hat matrix</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException unless method {@code newSampleData} has been</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * called beforehand.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public RealMatrix calculateHat() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Create augmented identity matrix</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_128'/>
+128
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_128'>1</a>
+<span>
+1. calculateHat : removed call to org/apache/commons/math3/linear/QRDecomposition::getQ &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        RealMatrix Q = qr.getQ();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_129'/>
+129
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_129'>2</a>
+<span>
+1. calculateHat : removed call to org/apache/commons/math3/linear/QRDecomposition::getR &rarr; KILLED<br/>
+2. calculateHat : removed call to org/apache/commons/math3/linear/RealMatrix::getColumnDimension &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        final int p = qr.getR().getColumnDimension();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_130'/>
+130
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_130'>1</a>
+<span>
+1. calculateHat : removed call to org/apache/commons/math3/linear/RealMatrix::getColumnDimension &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        final int n = Q.getColumnDimension();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_131'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // No try-catch or advertised NotStrictlyPositiveException - NPE above if n &#60; 3</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_132'/>
+132
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_132'>1</a>
+<span>
+1. calculateHat : removed call to org/apache/commons/math3/linear/Array2DRowRealMatrix::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        Array2DRowRealMatrix augI = new Array2DRowRealMatrix(n, n);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_133'/>
+133
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_133'>1</a>
+<span>
+1. calculateHat : removed call to org/apache/commons/math3/linear/Array2DRowRealMatrix::getDataRef &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        double[][] augIData = augI.getDataRef();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_134'/>
+134
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_134'>7</a>
+<span>
+1. calculateHat : Removed increment 1 &rarr; TIMED_OUT<br/>
+2. calculateHat : changed conditional boundary &rarr; KILLED<br/>
+3. calculateHat : Changed increment from 1 to -1 &rarr; KILLED<br/>
+4. calculateHat : Substituted 0 with 1 &rarr; KILLED<br/>
+5. calculateHat : negated conditional &rarr; KILLED<br/>
+6. calculateHat : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+7. calculateHat : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        for (int i = 0; i &#60; n; i++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_135'/>
+135
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_135'>6</a>
+<span>
+1. calculateHat : changed conditional boundary &rarr; KILLED<br/>
+2. calculateHat : Changed increment from 1 to -1 &rarr; KILLED<br/>
+3. calculateHat : Substituted 0 with 1 &rarr; KILLED<br/>
+4. calculateHat : negated conditional &rarr; KILLED<br/>
+5. calculateHat : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+6. calculateHat : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            for (int j =0; j &#60; n; j++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_136'/>
+136
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_136'>7</a>
+<span>
+1. calculateHat : changed conditional boundary &rarr; KILLED<br/>
+2. calculateHat : negated conditional &rarr; KILLED<br/>
+3. calculateHat : negated conditional &rarr; KILLED<br/>
+4. calculateHat : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+5. calculateHat : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+6. calculateHat : removed conditional - replaced comparison check with false &rarr; KILLED<br/>
+7. calculateHat : removed conditional - replaced comparison check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                if (i == j &#38;&#38; i &#60; p) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_137'/>
+137
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_137'>1</a>
+<span>
+1. calculateHat : Substituted 1.0 with 2.0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    augIData[i][j] = 1d;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_138'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_139'/>
+139
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_139'>1</a>
+<span>
+1. calculateHat : Substituted 0.0 with 1.0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    augIData[i][j] = 0d;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Compute and return Hat matrix</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // No DME advertised - args valid if we get here</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_146'/>
+146
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_146'>10</a>
+<span>
+1. calculateHat : replaced call to org/apache/commons/math3/linear/RealMatrix::multiply with argument &rarr; KILLED<br/>
+2. calculateHat : replaced call to org/apache/commons/math3/linear/RealMatrix::multiply with argument &rarr; KILLED<br/>
+3. calculateHat : removed call to org/apache/commons/math3/linear/RealMatrix::multiply &rarr; KILLED<br/>
+4. calculateHat : removed call to org/apache/commons/math3/linear/RealMatrix::transpose &rarr; KILLED<br/>
+5. calculateHat : removed call to org/apache/commons/math3/linear/RealMatrix::multiply &rarr; KILLED<br/>
+6. calculateHat : replaced return value with null for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateHat &rarr; KILLED<br/>
+7. calculateHat : mutated return of Object value for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateHat to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+8. calculateHat : replaced call to org/apache/commons/math3/linear/RealMatrix::multiply with receiver &rarr; KILLED<br/>
+9. calculateHat : replaced call to org/apache/commons/math3/linear/RealMatrix::transpose with receiver &rarr; KILLED<br/>
+10. calculateHat : replaced call to org/apache/commons/math3/linear/RealMatrix::multiply with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return Q.multiply(augI).multiply(Q.transpose());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_147'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_150'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;Returns the sum of squared deviations of Y from its mean.&#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;If the model has no intercept term, &#60;code&#62;0&#60;/code&#62; is used for the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * mean of Y - i.e., what is returned is the sum of the squared Y values.&#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;The value returned by this method is the SSTO value used in</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * the {@link #calculateRSquared() R-squared} computation.&#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_157'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_158'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return SSTO - the total sum of squares</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if the sample has not been set</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @see #isNoIntercept()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.2</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public double calculateTotalSumOfSquares() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_164'/>
+164
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_164'>4</a>
+<span>
+1. calculateTotalSumOfSquares : negated conditional &rarr; KILLED<br/>
+2. calculateTotalSumOfSquares : removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::isNoIntercept &rarr; KILLED<br/>
+3. calculateTotalSumOfSquares : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. calculateTotalSumOfSquares : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (isNoIntercept()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_165'/>
+165
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_165'>5</a>
+<span>
+1. calculateTotalSumOfSquares : removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::getY &rarr; KILLED<br/>
+2. calculateTotalSumOfSquares : removed call to org/apache/commons/math3/linear/RealVector::toArray &rarr; KILLED<br/>
+3. calculateTotalSumOfSquares : removed call to org/apache/commons/math3/stat/StatUtils::sumSq &rarr; KILLED<br/>
+4. calculateTotalSumOfSquares : replaced double return with 0.0d for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateTotalSumOfSquares &rarr; KILLED<br/>
+5. calculateTotalSumOfSquares : replaced return of double value with -(x + 1) for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateTotalSumOfSquares &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return StatUtils.sumSq(getY().toArray());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_166'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_167'/>
+167
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_167'>6</a>
+<span>
+1. calculateTotalSumOfSquares : removed call to org/apache/commons/math3/stat/descriptive/moment/SecondMoment::&#60;init&#62; &rarr; KILLED<br/>
+2. calculateTotalSumOfSquares : removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::getY &rarr; KILLED<br/>
+3. calculateTotalSumOfSquares : removed call to org/apache/commons/math3/linear/RealVector::toArray &rarr; KILLED<br/>
+4. calculateTotalSumOfSquares : removed call to org/apache/commons/math3/stat/descriptive/moment/SecondMoment::evaluate &rarr; KILLED<br/>
+5. calculateTotalSumOfSquares : replaced double return with 0.0d for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateTotalSumOfSquares &rarr; KILLED<br/>
+6. calculateTotalSumOfSquares : replaced return of double value with -(x + 1) for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateTotalSumOfSquares &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return new SecondMoment().evaluate(getY().toArray());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_168'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_171'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_172'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns the sum of squared residuals.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_173'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_174'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return residual sum of squares</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_175'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.2</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_176'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws org.apache.commons.math3.linear.SingularMatrixException if the design matrix is singular</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_177'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if the data for the model have not been loaded</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_178'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_179'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public double calculateResidualSumOfSquares() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_180'/>
+180
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_180'>1</a>
+<span>
+1. calculateResidualSumOfSquares : removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateResiduals &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        final RealVector residuals = calculateResiduals();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_181'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // No advertised DME, args are valid</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_182'/>
+182
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_182'>3</a>
+<span>
+1. calculateResidualSumOfSquares : removed call to org/apache/commons/math3/linear/RealVector::dotProduct &rarr; KILLED<br/>
+2. calculateResidualSumOfSquares : replaced double return with 0.0d for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateResidualSumOfSquares &rarr; KILLED<br/>
+3. calculateResidualSumOfSquares : replaced return of double value with -(x + 1) for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateResidualSumOfSquares &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return residuals.dotProduct(residuals);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_183'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_184'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_185'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_186'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns the R-Squared statistic, defined by the formula &#60;pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_187'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * R&#60;sup&#62;2&#60;/sup&#62; = 1 - SSR / SSTO</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_188'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_189'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * where SSR is the {@link #calculateResidualSumOfSquares() sum of squared residuals}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_190'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * and SSTO is the {@link #calculateTotalSumOfSquares() total sum of squares}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_191'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_192'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;If there is no variance in y, i.e., SSTO = 0, NaN is returned.&#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_193'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_194'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return R-square statistic</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_195'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if the sample has not been set</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_196'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws org.apache.commons.math3.linear.SingularMatrixException if the design matrix is singular</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_197'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.2</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_198'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_199'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public double calculateRSquared() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_200'/>
+200
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_200'>7</a>
+<span>
+1. calculateRSquared : Substituted 1.0 with 2.0 &rarr; KILLED<br/>
+2. calculateRSquared : Replaced double division with multiplication &rarr; KILLED<br/>
+3. calculateRSquared : Replaced double subtraction with addition &rarr; KILLED<br/>
+4. calculateRSquared : removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateResidualSumOfSquares &rarr; KILLED<br/>
+5. calculateRSquared : removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateTotalSumOfSquares &rarr; KILLED<br/>
+6. calculateRSquared : replaced double return with 0.0d for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateRSquared &rarr; KILLED<br/>
+7. calculateRSquared : replaced return of double value with -(x + 1) for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateRSquared &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return 1 - calculateResidualSumOfSquares() / calculateTotalSumOfSquares();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_201'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_202'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_203'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_204'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;Returns the adjusted R-squared statistic, defined by the formula &#60;pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_205'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * R&#60;sup&#62;2&#60;/sup&#62;&#60;sub&#62;adj&#60;/sub&#62; = 1 - [SSR (n - 1)] / [SSTO (n - p)]</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_206'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_207'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * where SSR is the {@link #calculateResidualSumOfSquares() sum of squared residuals},</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_208'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * SSTO is the {@link #calculateTotalSumOfSquares() total sum of squares}, n is the number</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_209'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * of observations and p is the number of parameters estimated (including the intercept).&#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_210'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_211'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;If the regression is estimated without an intercept term, what is returned is &#60;pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_212'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;code&#62; 1 - (1 - {@link #calculateRSquared()}) * (n / (n - p)) &#60;/code&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_213'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/pre&#62;&#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_214'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_215'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;If there is no variance in y, i.e., SSTO = 0, NaN is returned.&#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_216'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_217'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return adjusted R-Squared statistic</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_218'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if the sample has not been set</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_219'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws org.apache.commons.math3.linear.SingularMatrixException if the design matrix is singular</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_220'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @see #isNoIntercept()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_221'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.2</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_222'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_223'/>
+223
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_223'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public double calculateAdjustedRSquared() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_224'/>
+224
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_224'>2</a>
+<span>
+1. calculateAdjustedRSquared : removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::getX &rarr; KILLED<br/>
+2. calculateAdjustedRSquared : removed call to org/apache/commons/math3/linear/RealMatrix::getRowDimension &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        final double n = getX().getRowDimension();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_225'/>
+225
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_225'>4</a>
+<span>
+1. calculateAdjustedRSquared : negated conditional &rarr; KILLED<br/>
+2. calculateAdjustedRSquared : removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::isNoIntercept &rarr; KILLED<br/>
+3. calculateAdjustedRSquared : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. calculateAdjustedRSquared : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (isNoIntercept()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_226'/>
+226
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_226'>12</a>
+<span>
+1. calculateAdjustedRSquared : Substituted 1.0 with 2.0 &rarr; KILLED<br/>
+2. calculateAdjustedRSquared : Substituted 1.0 with 2.0 &rarr; KILLED<br/>
+3. calculateAdjustedRSquared : Replaced double subtraction with addition &rarr; KILLED<br/>
+4. calculateAdjustedRSquared : Replaced double subtraction with addition &rarr; KILLED<br/>
+5. calculateAdjustedRSquared : Replaced double division with multiplication &rarr; KILLED<br/>
+6. calculateAdjustedRSquared : Replaced double multiplication with division &rarr; KILLED<br/>
+7. calculateAdjustedRSquared : Replaced double subtraction with addition &rarr; KILLED<br/>
+8. calculateAdjustedRSquared : removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateRSquared &rarr; KILLED<br/>
+9. calculateAdjustedRSquared : removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::getX &rarr; KILLED<br/>
+10. calculateAdjustedRSquared : removed call to org/apache/commons/math3/linear/RealMatrix::getColumnDimension &rarr; KILLED<br/>
+11. calculateAdjustedRSquared : replaced double return with 0.0d for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateAdjustedRSquared &rarr; KILLED<br/>
+12. calculateAdjustedRSquared : replaced return of double value with -(x + 1) for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateAdjustedRSquared &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return 1 - (1 - calculateRSquared()) * (n / (n - getX().getColumnDimension()));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_227'/>
+227
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_227'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_228'/>
+228
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_228'>7</a>
+<span>
+1. calculateAdjustedRSquared : Substituted 1.0 with 2.0 &rarr; KILLED<br/>
+2. calculateAdjustedRSquared : Substituted 1.0 with 2.0 &rarr; KILLED<br/>
+3. calculateAdjustedRSquared : Replaced double subtraction with addition &rarr; KILLED<br/>
+4. calculateAdjustedRSquared : Replaced double multiplication with division &rarr; KILLED<br/>
+5. calculateAdjustedRSquared : removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateResidualSumOfSquares &rarr; KILLED<br/>
+6. calculateAdjustedRSquared : replaced double return with 0.0d for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateAdjustedRSquared &rarr; KILLED<br/>
+7. calculateAdjustedRSquared : replaced return of double value with -(x + 1) for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateAdjustedRSquared &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return 1 - (calculateResidualSumOfSquares() * (n - 1)) /</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_229'/>
+229
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_229'>7</a>
+<span>
+1. calculateAdjustedRSquared : Replaced double subtraction with addition &rarr; KILLED<br/>
+2. calculateAdjustedRSquared : Replaced double multiplication with division &rarr; KILLED<br/>
+3. calculateAdjustedRSquared : Replaced double division with multiplication &rarr; KILLED<br/>
+4. calculateAdjustedRSquared : Replaced double subtraction with addition &rarr; KILLED<br/>
+5. calculateAdjustedRSquared : removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateTotalSumOfSquares &rarr; KILLED<br/>
+6. calculateAdjustedRSquared : removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::getX &rarr; KILLED<br/>
+7. calculateAdjustedRSquared : removed call to org/apache/commons/math3/linear/RealMatrix::getColumnDimension &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                (calculateTotalSumOfSquares() * (n - getX().getColumnDimension()));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_230'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_231'/>
+231
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_231'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_232'/>
+232
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_232'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_233'/>
+233
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_233'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_234'/>
+234
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_234'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@inheritDoc}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_235'/>
+235
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_235'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;This implementation computes and caches the QR decomposition of the X matrix</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_236'/>
+236
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_236'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * once it is successfully loaded.&#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_237'/>
+237
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_237'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_238'/>
+238
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_238'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_239'/>
+239
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_239'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected void newXSampleData(double[][] x) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_240'/>
+240
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_240'>1</a>
+<span>
+1. newXSampleData : removed call to org/apache/commons/math3/stat/regression/AbstractMultipleLinearRegression::newXSampleData &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        super.newXSampleData(x);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_241'/>
+241
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_241'>3</a>
+<span>
+1. newXSampleData : removed call to org/apache/commons/math3/linear/QRDecomposition::&#60;init&#62; &rarr; KILLED<br/>
+2. newXSampleData : removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::getX &rarr; KILLED<br/>
+3. newXSampleData : Removed assignment to member variable qr &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        qr = new QRDecomposition(getX(), threshold);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_242'/>
+242
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_242'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_243'/>
+243
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_243'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_244'/>
+244
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_244'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_245'/>
+245
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_245'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Calculates the regression coefficients using OLS.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_246'/>
+246
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_246'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_247'/>
+247
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_247'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;Data for the model must have been successfully loaded using one of</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_248'/>
+248
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_248'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * the {@code newSampleData} methods before invoking this method; otherwise</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_249'/>
+249
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_249'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * a {@code NullPointerException} will be thrown.&#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_250'/>
+250
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_250'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_251'/>
+251
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_251'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return beta</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_252'/>
+252
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_252'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws org.apache.commons.math3.linear.SingularMatrixException if the design matrix is singular</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_253'/>
+253
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_253'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if the data for the model have not been loaded</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_254'/>
+254
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_254'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_255'/>
+255
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_255'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_256'/>
+256
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_256'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected RealVector calculateBeta() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_257'/>
+257
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_257'>6</a>
+<span>
+1. calculateBeta : replaced call to org/apache/commons/math3/linear/DecompositionSolver::solve with argument &rarr; KILLED<br/>
+2. calculateBeta : removed call to org/apache/commons/math3/linear/QRDecomposition::getSolver &rarr; KILLED<br/>
+3. calculateBeta : removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::getY &rarr; KILLED<br/>
+4. calculateBeta : removed call to org/apache/commons/math3/linear/DecompositionSolver::solve &rarr; KILLED<br/>
+5. calculateBeta : replaced return value with null for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateBeta &rarr; KILLED<br/>
+6. calculateBeta : mutated return of Object value for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateBeta to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return qr.getSolver().solve(getY());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_258'/>
+258
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_258'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_259'/>
+259
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_259'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_260'/>
+260
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_260'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_261'/>
+261
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_261'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;Calculates the variance-covariance matrix of the regression parameters.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_262'/>
+262
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_262'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_263'/>
+263
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_263'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;Var(b) = (X&#60;sup&#62;T&#60;/sup&#62;X)&#60;sup&#62;-1&#60;/sup&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_264'/>
+264
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_264'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_265'/>
+265
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_265'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;Uses QR decomposition to reduce (X&#60;sup&#62;T&#60;/sup&#62;X)&#60;sup&#62;-1&#60;/sup&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_266'/>
+266
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_266'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * to (R&#60;sup&#62;T&#60;/sup&#62;R)&#60;sup&#62;-1&#60;/sup&#62;, with only the top p rows of</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_267'/>
+267
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_267'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * R included, where p = the length of the beta vector.&#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_268'/>
+268
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_268'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_269'/>
+269
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_269'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;Data for the model must have been successfully loaded using one of</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_270'/>
+270
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_270'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * the {@code newSampleData} methods before invoking this method; otherwise</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_271'/>
+271
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_271'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * a {@code NullPointerException} will be thrown.&#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_272'/>
+272
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_272'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_273'/>
+273
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_273'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return The beta variance-covariance matrix</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_274'/>
+274
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_274'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws org.apache.commons.math3.linear.SingularMatrixException if the design matrix is singular</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_275'/>
+275
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_275'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if the data for the model have not been loaded</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_276'/>
+276
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_276'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_277'/>
+277
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_277'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_278'/>
+278
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_278'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected RealMatrix calculateBetaVariance() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_279'/>
+279
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_279'>2</a>
+<span>
+1. calculateBetaVariance : removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::getX &rarr; KILLED<br/>
+2. calculateBetaVariance : removed call to org/apache/commons/math3/linear/RealMatrix::getColumnDimension &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        int p = getX().getColumnDimension();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_280'/>
+280
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_280'>9</a>
+<span>
+1. calculateBetaVariance : Substituted 0 with 1 &rarr; KILLED<br/>
+2. calculateBetaVariance : Substituted 1 with 0 &rarr; KILLED<br/>
+3. calculateBetaVariance : Substituted 0 with 1 &rarr; KILLED<br/>
+4. calculateBetaVariance : Substituted 1 with 0 &rarr; KILLED<br/>
+5. calculateBetaVariance : Replaced integer subtraction with addition &rarr; KILLED<br/>
+6. calculateBetaVariance : Replaced integer subtraction with addition &rarr; KILLED<br/>
+7. calculateBetaVariance : removed call to org/apache/commons/math3/linear/QRDecomposition::getR &rarr; KILLED<br/>
+8. calculateBetaVariance : removed call to org/apache/commons/math3/linear/RealMatrix::getSubMatrix &rarr; KILLED<br/>
+9. calculateBetaVariance : replaced call to org/apache/commons/math3/linear/RealMatrix::getSubMatrix with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        RealMatrix Raug = qr.getR().getSubMatrix(0, p - 1 , 0, p - 1);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_281'/>
+281
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_281'>3</a>
+<span>
+1. calculateBetaVariance : removed call to org/apache/commons/math3/linear/LUDecomposition::&#60;init&#62; &rarr; KILLED<br/>
+2. calculateBetaVariance : removed call to org/apache/commons/math3/linear/LUDecomposition::getSolver &rarr; KILLED<br/>
+3. calculateBetaVariance : removed call to org/apache/commons/math3/linear/DecompositionSolver::getInverse &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        RealMatrix Rinv = new LUDecomposition(Raug).getSolver().getInverse();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_282'/>
+282
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_282'>7</a>
+<span>
+1. calculateBetaVariance : replaced call to org/apache/commons/math3/linear/RealMatrix::multiply with argument &rarr; KILLED<br/>
+2. calculateBetaVariance : removed call to org/apache/commons/math3/linear/RealMatrix::transpose &rarr; KILLED<br/>
+3. calculateBetaVariance : removed call to org/apache/commons/math3/linear/RealMatrix::multiply &rarr; KILLED<br/>
+4. calculateBetaVariance : replaced return value with null for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateBetaVariance &rarr; KILLED<br/>
+5. calculateBetaVariance : mutated return of Object value for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateBetaVariance to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+6. calculateBetaVariance : replaced call to org/apache/commons/math3/linear/RealMatrix::transpose with receiver &rarr; KILLED<br/>
+7. calculateBetaVariance : replaced call to org/apache/commons/math3/linear/RealMatrix::multiply with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return Rinv.multiply(Rinv.transpose());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_283'/>
+283
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_283'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_284'/>
+284
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_284'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2091833_285'/>
+285
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2091833_285'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_57'>57</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_57'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Removed assignment to member variable qr &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_66'>66</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_66'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNoSSTOCalculateRsquare(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Substituted 0.0 with 1.0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_77'>77</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_77'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Removed assignment to member variable threshold &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_90'>90</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_90'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>newSampleData<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.cannotAddSampleDataWithSizeMismatch(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::validateSampleData &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_91'>91</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_91'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>newSampleData<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testYVariance(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::newYSampleData &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_92'>92</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_92'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>newSampleData<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.canEstimateRegressionParameters(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::newXSampleData &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_101'>101</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_101'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>newSampleData<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNewSampleNullData(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/stat/regression/AbstractMultipleLinearRegression::newSampleData &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_102'>102</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_102'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>newSampleData<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNoSSTOCalculateRsquare(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/QRDecomposition::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>newSampleData<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNewSample(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::getX &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>newSampleData<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNoSSTOCalculateRsquare(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Removed assignment to member variable qr &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_128'>128</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_128'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/QRDecomposition::getQ &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_129'>129</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_129'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/QRDecomposition::getR &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/RealMatrix::getColumnDimension &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_130'>130</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_130'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/RealMatrix::getColumnDimension &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_132'>132</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_132'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/Array2DRowRealMatrix::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_133'>133</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_133'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/Array2DRowRealMatrix::getDataRef &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_134'>134</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_134'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Changed increment from 1 to -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>none</span></span> Removed increment 1 &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_135'>135</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_135'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Changed increment from 1 to -1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_136'>136</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_136'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed conditional - replaced comparison check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed conditional - replaced comparison check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_137'>137</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_137'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Substituted 1.0 with 2.0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_139'>139</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_139'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Substituted 0.0 with 1.0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_146'>146</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_146'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> replaced call to org/apache/commons/math3/linear/RealMatrix::multiply with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> replaced call to org/apache/commons/math3/linear/RealMatrix::multiply with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/RealMatrix::multiply &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/RealMatrix::transpose &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/RealMatrix::multiply &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> replaced return value with null for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateHat &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> mutated return of Object value for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateHat to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> replaced call to org/apache/commons/math3/linear/RealMatrix::multiply with receiver &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> replaced call to org/apache/commons/math3/linear/RealMatrix::transpose with receiver &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>calculateHat<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> replaced call to org/apache/commons/math3/linear/RealMatrix::multiply with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_164'>164</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_164'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateTotalSumOfSquares<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNoSSTOCalculateRsquare(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>calculateTotalSumOfSquares<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::isNoIntercept &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>calculateTotalSumOfSquares<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>calculateTotalSumOfSquares<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNoSSTOCalculateRsquare(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_165'>165</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_165'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateTotalSumOfSquares<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::getY &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>calculateTotalSumOfSquares<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/RealVector::toArray &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>calculateTotalSumOfSquares<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/stat/StatUtils::sumSq &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>calculateTotalSumOfSquares<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> replaced double return with 0.0d for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateTotalSumOfSquares &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>calculateTotalSumOfSquares<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> replaced return of double value with -(x + 1) for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateTotalSumOfSquares &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_167'>167</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_167'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateTotalSumOfSquares<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNoSSTOCalculateRsquare(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/stat/descriptive/moment/SecondMoment::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>calculateTotalSumOfSquares<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNoSSTOCalculateRsquare(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::getY &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>calculateTotalSumOfSquares<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNoDataNPESSTO(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/RealVector::toArray &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>calculateTotalSumOfSquares<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler2(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/stat/descriptive/moment/SecondMoment::evaluate &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>calculateTotalSumOfSquares<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler2(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> replaced double return with 0.0d for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateTotalSumOfSquares &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>calculateTotalSumOfSquares<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNoSSTOCalculateRsquare(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> replaced return of double value with -(x + 1) for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateTotalSumOfSquares &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_180'>180</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_180'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateResidualSumOfSquares<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNoSSTOCalculateRsquare(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateResiduals &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_182'>182</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_182'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateResidualSumOfSquares<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler4(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/RealVector::dotProduct &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>calculateResidualSumOfSquares<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler4(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> replaced double return with 0.0d for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateResidualSumOfSquares &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>calculateResidualSumOfSquares<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNoSSTOCalculateRsquare(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> replaced return of double value with -(x + 1) for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateResidualSumOfSquares &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_200'>200</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_200'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler2(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Substituted 1.0 with 2.0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>calculateRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNoSSTOCalculateRsquare(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Replaced double division with multiplication &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>calculateRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler4(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Replaced double subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>calculateRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler4(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateResidualSumOfSquares &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>calculateRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler2(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateTotalSumOfSquares &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>calculateRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNoSSTOCalculateRsquare(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> replaced double return with 0.0d for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateRSquared &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>calculateRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNoSSTOCalculateRsquare(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> replaced return of double value with -(x + 1) for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateRSquared &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_224'>224</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_224'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::getX &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/RealMatrix::getRowDimension &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_225'>225</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_225'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::isNoIntercept &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_226'>226</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_226'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Substituted 1.0 with 2.0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Substituted 1.0 with 2.0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Replaced double subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Replaced double subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Replaced double division with multiplication &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Replaced double multiplication with division &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Replaced double subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateRSquared &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::getX &rarr; KILLED</p> <p class='KILLED'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/RealMatrix::getColumnDimension &rarr; KILLED</p> <p class='KILLED'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> replaced double return with 0.0d for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateAdjustedRSquared &rarr; KILLED</p> <p class='KILLED'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> replaced return of double value with -(x + 1) for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateAdjustedRSquared &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_228'>228</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_228'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Substituted 1.0 with 2.0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Substituted 1.0 with 2.0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Replaced double subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Replaced double multiplication with division &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateResidualSumOfSquares &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> replaced double return with 0.0d for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateAdjustedRSquared &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> replaced return of double value with -(x + 1) for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateAdjustedRSquared &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_229'>229</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_229'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Replaced double subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Replaced double multiplication with division &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Replaced double division with multiplication &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Replaced double subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateTotalSumOfSquares &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::getX &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>calculateAdjustedRSquared<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/RealMatrix::getColumnDimension &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_240'>240</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_240'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>newXSampleData<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNewSampleDataXNull(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/stat/regression/AbstractMultipleLinearRegression::newXSampleData &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_241'>241</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_241'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>newXSampleData<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.canEstimateRegressionParameters(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/QRDecomposition::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>newXSampleData<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNewSampleDataXNull(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::getX &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>newXSampleData<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.canEstimateRegressionParameters(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Removed assignment to member variable qr &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_257'>257</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_257'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateBeta<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNoSSTOCalculateRsquare(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> replaced call to org/apache/commons/math3/linear/DecompositionSolver::solve with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>calculateBeta<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.canEstimateRegressionParameters(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/QRDecomposition::getSolver &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>calculateBeta<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.canEstimateRegressionParameters(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::getY &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>calculateBeta<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.canEstimateRegressionParameters(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/DecompositionSolver::solve &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>calculateBeta<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.canEstimateRegressionParameters(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> replaced return value with null for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateBeta &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>calculateBeta<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.canEstimateRegressionParameters(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> mutated return of Object value for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateBeta to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_279'>279</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_279'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateBetaVariance<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler2(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::getX &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>calculateBetaVariance<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler2(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/RealMatrix::getColumnDimension &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_280'>280</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_280'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateBetaVariance<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler2(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>calculateBetaVariance<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler2(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>calculateBetaVariance<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler2(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>calculateBetaVariance<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler2(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>calculateBetaVariance<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler2(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>calculateBetaVariance<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler2(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>calculateBetaVariance<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler2(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/QRDecomposition::getR &rarr; KILLED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>calculateBetaVariance<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler2(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/RealMatrix::getSubMatrix &rarr; KILLED</p> <p class='KILLED'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>calculateBetaVariance<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler2(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> replaced call to org/apache/commons/math3/linear/RealMatrix::getSubMatrix with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_281'>281</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_281'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateBetaVariance<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler2(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/LUDecomposition::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>calculateBetaVariance<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler2(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/LUDecomposition::getSolver &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>calculateBetaVariance<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler2(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/DecompositionSolver::getInverse &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2091833_282'>282</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2091833_282'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateBetaVariance<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler2(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> replaced call to org/apache/commons/math3/linear/RealMatrix::multiply with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>calculateBetaVariance<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler2(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/RealMatrix::transpose &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>calculateBetaVariance<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler2(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> removed call to org/apache/commons/math3/linear/RealMatrix::multiply &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>calculateBetaVariance<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler2(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> replaced return value with null for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateBetaVariance &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>calculateBetaVariance<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler2(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> mutated return of Object value for org/apache/commons/math3/stat/regression/OLSMultipleLinearRegression::calculateBetaVariance to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>calculateBetaVariance<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler4(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> replaced call to org/apache/commons/math3/linear/RealMatrix::transpose with receiver &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>calculateBetaVariance<br/><b>Killed by : </b>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler2(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest)</span></span> replaced call to org/apache/commons/math3/linear/RealMatrix::multiply with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_61</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_60</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_56</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_55</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_58</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_57</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_52</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_51</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_54</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_53</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_59</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_50</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_45</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_44</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_47</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_46</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_41</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_40</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_43</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_42</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_49</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_48</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_34</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_33</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_36</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_35</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_30</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_32</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_31</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_38</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_37</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_39</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_3</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_2</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_1</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_0</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_23</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_22</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_25</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_9</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_24</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_8</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_7</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_6</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_21</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_5</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_20</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_4</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_27</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_26</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_29</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_28</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_12</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_11</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_99</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_14</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_13</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_96</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_95</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_10</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_98</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_97</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_19</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_16</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_15</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_18</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_17</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_92</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_91</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_94</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_93</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_90</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_89</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_88</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_85</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_84</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_87</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_86</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_81</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_80</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_83</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_82</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_78</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_77</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_79</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_74</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_73</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_76</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_75</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_70</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_72</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_71</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_67</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_66</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_69</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_68</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_63</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_62</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_65</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_64</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSingularCalculateBeta(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (2 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNoDataNPECalculateBeta(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (2 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler1(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (2 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.cannotAddSampleDataWithSizeMismatch(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (11 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testLongly(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (21 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNewSampleInvalidData(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (2 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNoDataNPECalculateHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (2 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler4(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (1 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNewSample(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (2 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.canEstimateRegressionParametersVariance(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (4 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNewSampleNullData(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (1 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNewSampleInsufficientData(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (2 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testSwissFertility(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (2 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler3(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (2 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNewSampleDataXNull(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (1 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNewSample2(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (2 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testXSampleDataNull(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (2 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.canEstimateRegressionParameters(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (2 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testYSampleDataNull(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (1 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testWampler2(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (1 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.canEstimateResiduals(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (2 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNoSSTOCalculateRsquare(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (1 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNewSampleDataYNull(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (1 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testNoDataNPESSTO(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (1 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testYVariance(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (1 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testHat(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (5 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.testPerfectFit(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (3 ms)</li><li>org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest.canEstimateRegressandVariance(org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest) (26 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

@@ -1,0 +1,4124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>ObservableRefCount.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright (c) 2016-present, RxJava Contributors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;); you may not use this file except in</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * compliance with the License. You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software distributed under the License is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed on an &#34;AS IS&#34; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License for the specific language governing permissions and limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package io.reactivex.rxjava3.internal.operators.observable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.concurrent.TimeUnit;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.concurrent.atomic.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import io.reactivex.rxjava3.core.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import io.reactivex.rxjava3.disposables.Disposable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import io.reactivex.rxjava3.functions.Consumer;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import io.reactivex.rxjava3.internal.disposables.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import io.reactivex.rxjava3.observables.ConnectableObservable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import io.reactivex.rxjava3.plugins.RxJavaPlugins;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Returns an observable sequence that stays connected to the source as long as</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * there is at least one subscription to the observable sequence.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @param &#60;T&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *            the value type</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public final class ObservableRefCount&#60;T&#62; extends Observable&#60;T&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    final ConnectableObservable&#60;T&#62; source;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    final int n;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    final long timeout;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    final TimeUnit unit;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    final Scheduler scheduler;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    RefConnection connection;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public ObservableRefCount(ConnectableObservable&#60;T&#62; source) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_48'/>
+48
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_48'>2</a>
+<span>
+1. <init> : Substituted 1 with 0 &rarr; KILLED<br/>
+2. <init> : Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this(source, 1, 0L, TimeUnit.NANOSECONDS, null);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_49'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public ObservableRefCount(ConnectableObservable&#60;T&#62; source, int n, long timeout, TimeUnit unit,</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_52'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            Scheduler scheduler) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_53'/>
+53
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_53'>1</a>
+<span>
+1. <init> : Removed assignment to member variable source &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.source = source;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_54'/>
+54
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_54'>1</a>
+<span>
+1. <init> : Removed assignment to member variable n &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.n = n;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_55'/>
+55
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_55'>1</a>
+<span>
+1. <init> : Removed assignment to member variable timeout &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.timeout = timeout;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_56'/>
+56
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_56'>1</a>
+<span>
+1. <init> : Removed assignment to member variable unit &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.unit = unit;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_57'/>
+57
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_57'>1</a>
+<span>
+1. <init> : Removed assignment to member variable scheduler &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.scheduler = scheduler;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_58'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected void subscribeActual(Observer&#60;? super T&#62; observer) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        RefConnection conn;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_65'/>
+65
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_65'>1</a>
+<span>
+1. subscribeActual : Substituted 0 with 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        boolean connect = false;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_66'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        synchronized (this) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_67'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            conn = connection;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_68'/>
+68
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_68'>3</a>
+<span>
+1. subscribeActual : negated conditional &rarr; KILLED<br/>
+2. subscribeActual : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. subscribeActual : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (conn == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_69'/>
+69
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_69'>1</a>
+<span>
+1. subscribeActual : removed call to io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount$RefConnection::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                conn = new RefConnection(this);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_70'/>
+70
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_70'>1</a>
+<span>
+1. subscribeActual : Removed assignment to member variable connection &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                connection = conn;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_73'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            long c = conn.subscriberCount;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_74'/>
+74
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_74'>7</a>
+<span>
+1. subscribeActual : Substituted 0 with 1 &rarr; SURVIVED<br/>
+2. subscribeActual : negated conditional &rarr; SURVIVED<br/>
+3. subscribeActual : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+4. subscribeActual : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+5. subscribeActual : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+6. subscribeActual : negated conditional &rarr; KILLED<br/>
+7. subscribeActual : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (c == 0L &#38;&#38; conn.timer != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_75'/>
+75
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_75'>1</a>
+<span>
+1. subscribeActual : removed call to io/reactivex/rxjava3/disposables/Disposable::dispose &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                conn.timer.dispose();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_77'/>
+77
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_77'>3</a>
+<span>
+1. subscribeActual : Substituted 1 with 2 &rarr; KILLED<br/>
+2. subscribeActual : Replaced long addition with subtraction &rarr; KILLED<br/>
+3. subscribeActual : Removed assignment to member variable subscriberCount &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            conn.subscriberCount = c + 1;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_78'/>
+78
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_78'>8</a>
+<span>
+1. subscribeActual : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. subscribeActual : Substituted 1 with 2 &rarr; KILLED<br/>
+3. subscribeActual : Replaced long addition with subtraction &rarr; KILLED<br/>
+4. subscribeActual : negated conditional &rarr; KILLED<br/>
+5. subscribeActual : negated conditional &rarr; KILLED<br/>
+6. subscribeActual : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+7. subscribeActual : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+8. subscribeActual : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (!conn.connected &#38;&#38; c + 1 == n) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_79'/>
+79
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_79'>1</a>
+<span>
+1. subscribeActual : Substituted 1 with 0 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                connect = true;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_80'/>
+80
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_80'>2</a>
+<span>
+1. subscribeActual : Substituted 1 with 0 &rarr; KILLED<br/>
+2. subscribeActual : Removed assignment to member variable connected &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                conn.connected = true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_82'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_84'/>
+84
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_84'>2</a>
+<span>
+1. subscribeActual : removed call to io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount$RefCountObserver::&#60;init&#62; &rarr; KILLED<br/>
+2. subscribeActual : removed call to io/reactivex/rxjava3/observables/ConnectableObservable::subscribe &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        source.subscribe(new RefCountObserver&#60;&#62;(observer, this, conn));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_86'/>
+86
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_86'>3</a>
+<span>
+1. subscribeActual : negated conditional &rarr; KILLED<br/>
+2. subscribeActual : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. subscribeActual : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (connect) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_87'/>
+87
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_87'>1</a>
+<span>
+1. subscribeActual : removed call to io/reactivex/rxjava3/observables/ConnectableObservable::connect &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            source.connect(conn);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_89'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    void cancel(RefConnection rc) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        SequentialDisposable sd;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_93'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        synchronized (this) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_94'/>
+94
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_94'>6</a>
+<span>
+1. cancel : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. cancel : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+3. cancel : negated conditional &rarr; KILLED<br/>
+4. cancel : negated conditional &rarr; KILLED<br/>
+5. cancel : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+6. cancel : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (connection == null || connection != rc) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_95'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_97'/>
+97
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_97'>2</a>
+<span>
+1. cancel : Substituted 1 with 2 &rarr; KILLED<br/>
+2. cancel : Replaced long subtraction with addition &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            long c = rc.subscriberCount - 1;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_98'/>
+98
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_98'>1</a>
+<span>
+1. cancel : Removed assignment to member variable subscriberCount &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            rc.subscriberCount = c;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_99'/>
+99
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_99'>7</a>
+<span>
+1. cancel : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. cancel : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+3. cancel : Substituted 0 with 1 &rarr; KILLED<br/>
+4. cancel : negated conditional &rarr; KILLED<br/>
+5. cancel : negated conditional &rarr; KILLED<br/>
+6. cancel : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+7. cancel : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (c != 0L || !rc.connected) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_100'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_102'/>
+102
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_102'>4</a>
+<span>
+1. cancel : Substituted 0 with 1 &rarr; KILLED<br/>
+2. cancel : negated conditional &rarr; KILLED<br/>
+3. cancel : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. cancel : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (timeout == 0L) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_103'/>
+103
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_103'>1</a>
+<span>
+1. cancel : removed call to io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount::timeout &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                timeout(rc);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_104'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_106'/>
+106
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_106'>1</a>
+<span>
+1. cancel : removed call to io/reactivex/rxjava3/internal/disposables/SequentialDisposable::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            sd = new SequentialDisposable();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_107'/>
+107
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_107'>1</a>
+<span>
+1. cancel : Removed assignment to member variable timer &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            rc.timer = sd;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_108'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_110'/>
+110
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_110'>2</a>
+<span>
+1. cancel : removed call to io/reactivex/rxjava3/internal/disposables/SequentialDisposable::replace &rarr; SURVIVED<br/>
+2. cancel : removed call to io/reactivex/rxjava3/core/Scheduler::scheduleDirect &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        sd.replace(scheduler.scheduleDirect(rc, timeout, unit));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_111'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    void terminated(RefConnection rc) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_114'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        synchronized (this) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_115'/>
+115
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_115'>3</a>
+<span>
+1. terminated : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. terminated : negated conditional &rarr; KILLED<br/>
+3. terminated : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (connection == rc) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_116'/>
+116
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_116'>3</a>
+<span>
+1. terminated : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. terminated : negated conditional &rarr; KILLED<br/>
+3. terminated : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                if (rc.timer != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_117'/>
+117
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_117'>1</a>
+<span>
+1. terminated : removed call to io/reactivex/rxjava3/disposables/Disposable::dispose &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                    rc.timer.dispose();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_118'/>
+118
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_118'>1</a>
+<span>
+1. terminated : Removed assignment to member variable timer &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                    rc.timer = null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_120'/>
+120
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_120'>7</a>
+<span>
+1. terminated : removed conditional - replaced equality check with true &rarr; TIMED_OUT<br/>
+2. terminated : Substituted 1 with 2 &rarr; KILLED<br/>
+3. terminated : Substituted 0 with 1 &rarr; KILLED<br/>
+4. terminated : Replaced long subtraction with addition &rarr; KILLED<br/>
+5. terminated : negated conditional &rarr; KILLED<br/>
+6. terminated : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+7. terminated : Removed assignment to member variable subscriberCount &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>                if (--rc.subscriberCount == 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_121'/>
+121
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_121'>1</a>
+<span>
+1. terminated : Removed assignment to member variable connection &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    connection = null;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_122'/>
+122
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_122'>1</a>
+<span>
+1. terminated : removed call to io/reactivex/rxjava3/observables/ConnectableObservable::reset &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    source.reset();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_125'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_126'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    void timeout(RefConnection rc) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_129'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        synchronized (this) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_130'/>
+130
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_130'>7</a>
+<span>
+1. timeout : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. timeout : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+3. timeout : Substituted 0 with 1 &rarr; KILLED<br/>
+4. timeout : negated conditional &rarr; KILLED<br/>
+5. timeout : negated conditional &rarr; KILLED<br/>
+6. timeout : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+7. timeout : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (rc.subscriberCount == 0 &#38;&#38; rc == connection) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_131'/>
+131
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_131'>1</a>
+<span>
+1. timeout : Removed assignment to member variable connection &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                connection = null;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_132'/>
+132
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_132'>1</a>
+<span>
+1. timeout : removed call to io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount$RefConnection::get &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                Disposable connectionObject = rc.get();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_133'/>
+133
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_133'>1</a>
+<span>
+1. timeout : removed call to io/reactivex/rxjava3/internal/disposables/DisposableHelper::dispose &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                DisposableHelper.dispose(rc);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_135'/>
+135
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_135'>3</a>
+<span>
+1. timeout : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. timeout : negated conditional &rarr; KILLED<br/>
+3. timeout : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                if (connectionObject == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_136'/>
+136
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_136'>2</a>
+<span>
+1. timeout : Substituted 1 with 0 &rarr; SURVIVED<br/>
+2. timeout : Removed assignment to member variable disconnectedEarly &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                    rc.disconnectedEarly = true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_138'/>
+138
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_138'>1</a>
+<span>
+1. timeout : removed call to io/reactivex/rxjava3/observables/ConnectableObservable::reset &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    source.reset();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_139'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_141'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_142'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static final class RefConnection extends AtomicReference&#60;Disposable&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    implements Runnable, Consumer&#60;Disposable&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_147'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        private static final long serialVersionUID = -4552101107598366241L;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        final ObservableRefCount&#60;?&#62; parent;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_150'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        Disposable timer;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        long subscriberCount;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        boolean connected;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_157'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        boolean disconnectedEarly;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_158'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        RefConnection(ObservableRefCount&#60;?&#62; parent) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            this.parent = parent;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_164'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public void run() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            parent.timeout(this);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_166'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_168'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public void accept(Disposable t) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            DisposableHelper.replace(this, t);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_171'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            synchronized (parent) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_172'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                if (disconnectedEarly) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_173'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    parent.source.reset();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_174'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_175'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_176'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_177'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_178'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_179'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static final class RefCountObserver&#60;T&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_180'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    extends AtomicBoolean implements Observer&#60;T&#62;, Disposable {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_181'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_182'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        private static final long serialVersionUID = -7419642935409022375L;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_183'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_184'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        final Observer&#60;? super T&#62; downstream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_185'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_186'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        final ObservableRefCount&#60;T&#62; parent;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_187'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_188'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        final RefConnection connection;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_189'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_190'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        Disposable upstream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_191'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_192'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        RefCountObserver(Observer&#60;? super T&#62; downstream, ObservableRefCount&#60;T&#62; parent, RefConnection connection) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_193'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            this.downstream = downstream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_194'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            this.parent = parent;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_195'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            this.connection = connection;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_196'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_197'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_198'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_199'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public void onNext(T t) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_200'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            downstream.onNext(t);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_201'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_202'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_203'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_204'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public void onError(Throwable t) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_205'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            if (compareAndSet(false, true)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_206'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                parent.terminated(connection);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_207'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                downstream.onError(t);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_208'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_209'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                RxJavaPlugins.onError(t);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_210'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_211'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_212'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_213'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_214'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public void onComplete() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_215'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            if (compareAndSet(false, true)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_216'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                parent.terminated(connection);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_217'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                downstream.onComplete();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_218'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_219'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_220'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_221'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_222'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public void dispose() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_223'/>
+223
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_223'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            upstream.dispose();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_224'/>
+224
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_224'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            if (compareAndSet(false, true)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_225'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                parent.cancel(connection);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_226'/>
+226
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_226'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_227'/>
+227
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_227'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_228'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_229'/>
+229
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_229'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_230'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public boolean isDisposed() {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_231'/>
+231
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_231'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            return upstream.isDisposed();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_232'/>
+232
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_232'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_233'/>
+233
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_233'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_234'/>
+234
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_234'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_235'/>
+235
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_235'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public void onSubscribe(Disposable d) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_236'/>
+236
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_236'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            if (DisposableHelper.validate(upstream, d)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_237'/>
+237
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_237'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                this.upstream = d;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_238'/>
+238
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_238'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_239'/>
+239
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_239'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                downstream.onSubscribe(this);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_240'/>
+240
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_240'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_241'/>
+241
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_241'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_242'/>
+242
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_242'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52226e57_243'/>
+243
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_243'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_48'>48</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_48'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_53'>53</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_53'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.doubleOnXTime(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Removed assignment to member variable source &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_54'>54</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_54'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Removed assignment to member variable n &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_55'>55</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_55'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.letitTimeout(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Removed assignment to member variable timeout &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_56'>56</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_56'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.letitTimeout(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Removed assignment to member variable unit &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_57'>57</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_57'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.letitTimeout(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Removed assignment to member variable scheduler &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_65'>65</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_65'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.noOpConnect(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_68'>68</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_68'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.doubleOnXTime(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.doubleOnXTime(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.noOpConnect(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_69'>69</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_69'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.doubleOnXTime(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed call to io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount$RefConnection::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_70'>70</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_70'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Removed assignment to member variable connection &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_74'>74</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_74'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.doubleOnXTime(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.doubleOnXTime(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_75'>75</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_75'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>none</span></span> removed call to io/reactivex/rxjava3/disposables/Disposable::dispose &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_77'>77</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_77'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Replaced long addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Removed assignment to member variable subscriberCount &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_78'>78</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_78'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Replaced long addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.byCount(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_79'>79</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_79'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_80'>80</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_80'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Removed assignment to member variable connected &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_84'>84</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_84'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.doubleOnXTime(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed call to io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount$RefCountObserver::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.doubleOnXTime(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed call to io/reactivex/rxjava3/observables/ConnectableObservable::subscribe &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_86'>86</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_86'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.noOpConnect(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_87'>87</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_87'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>subscribeActual<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed call to io/reactivex/rxjava3/observables/ConnectableObservable::connect &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_94'>94</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_94'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>cancel<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>cancel<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>cancel<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>cancel<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>cancel<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>cancel<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_97'>97</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_97'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>cancel<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>cancel<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Replaced long subtraction with addition &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_98'>98</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_98'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>cancel<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Removed assignment to member variable subscriberCount &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_99'>99</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_99'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>cancel<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>cancel<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>cancel<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>cancel<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>cancel<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>cancel<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>cancel<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_102'>102</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_102'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>cancel<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>cancel<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>cancel<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>cancel<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.letitTimeout(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_103'>103</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_103'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>cancel<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed call to io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount::timeout &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_106'>106</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_106'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>cancel<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.letitTimeout(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed call to io/reactivex/rxjava3/internal/disposables/SequentialDisposable::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_107'>107</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_107'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>cancel<br/><b>Killed by : </b>none</span></span> Removed assignment to member variable timer &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_110'>110</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_110'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>cancel<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.letitTimeout(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed call to io/reactivex/rxjava3/core/Scheduler::scheduleDirect &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>cancel<br/><b>Killed by : </b>none</span></span> removed call to io/reactivex/rxjava3/internal/disposables/SequentialDisposable::replace &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_115'>115</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_115'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>terminated<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceCompleteDisconnect(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>terminated<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceCompleteDisconnect(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>terminated<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_116'>116</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_116'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>terminated<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.doubleOnXTime(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>terminated<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>terminated<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.doubleOnXTime(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_117'>117</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_117'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>terminated<br/><b>Killed by : </b>none</span></span> removed call to io/reactivex/rxjava3/disposables/Disposable::dispose &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_118'>118</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_118'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>terminated<br/><b>Killed by : </b>none</span></span> Removed assignment to member variable timer &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_120'>120</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_120'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>terminated<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceCompleteDisconnect(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Substituted 1 with 2 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>terminated<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceCompleteDisconnect(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>terminated<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceCompleteDisconnect(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Replaced long subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>terminated<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceCompleteDisconnect(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>terminated<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceCompleteDisconnect(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>terminated<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>terminated<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.upstreamTerminationTriggersAnotherCancel(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Removed assignment to member variable subscriberCount &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_121'>121</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_121'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>terminated<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.connectDisconnectConnectAndSubjectState(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Removed assignment to member variable connection &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_122'>122</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_122'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>terminated<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceCompleteDisconnect(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed call to io/reactivex/rxjava3/observables/ConnectableObservable::reset &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_130'>130</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_130'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>timeout<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>timeout<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>timeout<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>timeout<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>timeout<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>timeout<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>timeout<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_131'>131</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_131'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>timeout<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.disconnectBeforeConnect(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> Removed assignment to member variable connection &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_132'>132</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_132'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>timeout<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed call to io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount$RefConnection::get &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_133'>133</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_133'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>timeout<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.comeAndGo(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed call to io/reactivex/rxjava3/internal/disposables/DisposableHelper::dispose &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_135'>135</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_135'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>timeout<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>timeout<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>timeout<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_136'>136</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_136'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>timeout<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>timeout<br/><b>Killed by : </b>none</span></span> Removed assignment to member variable disconnectedEarly &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52226e57_138'>138</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52226e57_138'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>timeout<br/><b>Killed by : </b>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest)</span></span> removed call to io/reactivex/rxjava3/observables/ConnectableObservable::reset &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_61</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_60</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_56</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_55</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_58</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_57</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_52</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_51</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_54</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_53</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_59</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_50</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_45</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_44</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_47</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_46</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_41</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_40</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_43</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_42</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_49</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_48</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_34</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_33</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_36</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_35</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_30</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_32</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_31</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_38</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_37</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_39</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_3</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_2</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_1</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_0</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_23</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_22</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_25</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_9</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_24</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_8</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_7</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_6</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_21</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_5</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_20</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_4</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_27</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_26</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_29</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_28</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_12</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_11</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_99</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_14</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_13</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_96</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_95</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_10</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_98</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_97</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_19</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_16</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_15</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_18</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_17</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_92</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_91</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_94</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_93</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_90</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_89</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_88</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_85</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_84</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_87</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_86</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_81</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_80</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_83</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_82</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_78</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_77</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_79</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_74</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_73</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_76</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_75</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_70</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_72</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_71</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_67</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_66</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_69</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_68</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_63</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_62</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_65</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_64</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.noOpConnect(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (7 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.connectUnsubscribeRaceConditionLoop(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (1078 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.doubleOnX(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (27 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.refCountAsync(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (267 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.connectUnsubscribeRaceCondition(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (21 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.connectUnsubscribe(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (19 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.refCountSynchronous(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (60 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.doubleOnXTime(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (4 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceConnect(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (10 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.upstreamErrorAllowsRetry(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (1414 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.cancelTerminateStateExclusion(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (9 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.disconnectBeforeConnect(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (9 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.repeat(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (518 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.replayRefCountShallBeThreadSafe(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (362 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.publishNoLeak2(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (390 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.alreadyUnsubscribedInterleavesWithClient(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (11 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.error(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (12 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceDispose(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (5 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.comeAndGo(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (8 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceSubscribe2(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (7 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.doubleOnXCount(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (28 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.refCount(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (15 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceSubscribe(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (7 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.timeoutResetsSource(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (8 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.blockingSourceAsnycCancel(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (550 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.disposed(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (8 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.byCount(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (37 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.replayNoLeak2(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (234 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.refCountSynchronousTake(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (10 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.unsubscribeSubscribeRace(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (152 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.connectDisconnectConnectAndSubjectState(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (17 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.resubscribeBeforeTimeout(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (610 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.badSourceCompleteDisconnect(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (12 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.upstreamTerminationTriggersAnotherCancel(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (33 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.replayNoLeak(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (296 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.publishRefCountShallBeThreadSafe(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (443 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.onlyFirstShouldSubscribeAndLastUnsubscribe(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (9 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.alreadyUnsubscribedClient(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (600 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.letitTimeout(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (204 ms)</li><li>io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest.publishNoLeak(io.reactivex.rxjava3.internal.operators.observable.ObservableRefCountTest) (474 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

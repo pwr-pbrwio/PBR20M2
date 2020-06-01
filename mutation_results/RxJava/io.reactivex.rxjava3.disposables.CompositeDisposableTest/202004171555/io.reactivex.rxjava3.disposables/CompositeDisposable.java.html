@@ -1,0 +1,4676 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>CompositeDisposable.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright (c) 2016-present, RxJava Contributors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;); you may not use this file except in</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * compliance with the License. You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software distributed under the License is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed on an &#34;AS IS&#34; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License for the specific language governing permissions and limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package io.reactivex.rxjava3.disposables;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import io.reactivex.rxjava3.annotations.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import io.reactivex.rxjava3.exceptions.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import io.reactivex.rxjava3.internal.util.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * A disposable container that can hold onto multiple other {@link Disposable}s and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * offers &#60;em&#62;O(1)&#60;/em&#62; time complexity for {@link #add(Disposable)}, {@link #remove(Disposable)} and {@link #delete(Disposable)}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * operations.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public final class CompositeDisposable implements Disposable, DisposableContainer {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    OpenHashSet&#60;Disposable&#62; resources;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    volatile boolean disposed;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Creates an empty {@code CompositeDisposable}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_35'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public CompositeDisposable() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_36'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Creates a {@code CompositeDisposable} with the given array of initial {@link Disposable} elements.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param disposables the array of {@code Disposable}s to start with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if {@code disposables} or any of its array items is {@code null}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_43'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public CompositeDisposable(@NonNull Disposable... disposables) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_44'/>
+44
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_44'>2</a>
+<span>
+1. <init> : replaced call to java/util/Objects::requireNonNull with argument &rarr; SURVIVED<br/>
+2. <init> : removed call to java/util/Objects::requireNonNull &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        Objects.requireNonNull(disposables, &#34;disposables is null&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_45'/>
+45
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_45'>4</a>
+<span>
+1. <init> : Substituted 1 with 0 &rarr; SURVIVED<br/>
+2. <init> : Replaced integer addition with subtraction &rarr; SURVIVED<br/>
+3. <init> : removed call to io/reactivex/rxjava3/internal/util/OpenHashSet::&#60;init&#62; &rarr; KILLED<br/>
+4. <init> : Removed assignment to member variable resources &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        this.resources = new OpenHashSet&#60;&#62;(disposables.length + 1);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_46'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        for (Disposable d : disposables) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_47'/>
+47
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_47'>2</a>
+<span>
+1. <init> : replaced call to java/util/Objects::requireNonNull with argument &rarr; SURVIVED<br/>
+2. <init> : removed call to java/util/Objects::requireNonNull &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            Objects.requireNonNull(d, &#34;A Disposable in the disposables array is null&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_48'/>
+48
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_48'>1</a>
+<span>
+1. <init> : removed call to io/reactivex/rxjava3/internal/util/OpenHashSet::add &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            this.resources.add(d);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_50'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Creates a {@code CompositeDisposable} with the given {@link Iterable} sequence of initial {@link Disposable} elements.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param disposables the {@code Iterable} sequence of {@code Disposable} to start with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if {@code disposables} or any of its items is {@code null}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_57'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public CompositeDisposable(@NonNull Iterable&#60;? extends Disposable&#62; disposables) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_58'/>
+58
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_58'>2</a>
+<span>
+1. <init> : replaced call to java/util/Objects::requireNonNull with argument &rarr; SURVIVED<br/>
+2. <init> : removed call to java/util/Objects::requireNonNull &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        Objects.requireNonNull(disposables, &#34;disposables is null&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_59'/>
+59
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_59'>2</a>
+<span>
+1. <init> : removed call to io/reactivex/rxjava3/internal/util/OpenHashSet::&#60;init&#62; &rarr; KILLED<br/>
+2. <init> : Removed assignment to member variable resources &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        this.resources = new OpenHashSet&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_60'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        for (Disposable d : disposables) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_61'/>
+61
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_61'>2</a>
+<span>
+1. <init> : replaced call to java/util/Objects::requireNonNull with argument &rarr; SURVIVED<br/>
+2. <init> : removed call to java/util/Objects::requireNonNull &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            Objects.requireNonNull(d, &#34;A Disposable item in the disposables sequence is null&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_62'/>
+62
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_62'>1</a>
+<span>
+1. <init> : removed call to io/reactivex/rxjava3/internal/util/OpenHashSet::add &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            this.resources.add(d);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_63'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_64'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void dispose() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_68'/>
+68
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_68'>3</a>
+<span>
+1. dispose : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. dispose : negated conditional &rarr; KILLED<br/>
+3. dispose : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (disposed) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_69'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        OpenHashSet&#60;Disposable&#62; set;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_72'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        synchronized (this) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_73'/>
+73
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_73'>3</a>
+<span>
+1. dispose : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. dispose : negated conditional &rarr; KILLED<br/>
+3. dispose : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (disposed) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_74'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_76'/>
+76
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_76'>2</a>
+<span>
+1. dispose : Substituted 1 with 0 &rarr; KILLED<br/>
+2. dispose : Removed assignment to member variable disposed &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            disposed = true;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_77'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            set = resources;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_78'/>
+78
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_78'>1</a>
+<span>
+1. dispose : Removed assignment to member variable resources &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            resources = null;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_79'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_81'/>
+81
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_81'>1</a>
+<span>
+1. dispose : removed call to io/reactivex/rxjava3/disposables/CompositeDisposable::dispose &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        dispose(set);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_82'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean isDisposed() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_86'/>
+86
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_86'>3</a>
+<span>
+1. isDisposed : replaced boolean return with false for io/reactivex/rxjava3/disposables/CompositeDisposable::isDisposed &rarr; KILLED<br/>
+2. isDisposed : replaced boolean return with true for io/reactivex/rxjava3/disposables/CompositeDisposable::isDisposed &rarr; KILLED<br/>
+3. isDisposed : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return disposed;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Adds a {@link Disposable} to this container or disposes it if the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * container has been disposed.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param disposable the {@code Disposable} to add, not {@code null}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return {@code true} if successful, {@code false} if this container has been disposed</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if {@code disposable} is {@code null}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean add(@NonNull Disposable disposable) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_98'/>
+98
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_98'>2</a>
+<span>
+1. add : replaced call to java/util/Objects::requireNonNull with argument &rarr; SURVIVED<br/>
+2. add : removed call to java/util/Objects::requireNonNull &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        Objects.requireNonNull(disposable, &#34;disposable is null&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_99'/>
+99
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_99'>3</a>
+<span>
+1. add : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. add : negated conditional &rarr; KILLED<br/>
+3. add : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (!disposed) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_100'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            synchronized (this) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_101'/>
+101
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_101'>3</a>
+<span>
+1. add : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. add : negated conditional &rarr; KILLED<br/>
+3. add : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                if (!disposed) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_102'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                    OpenHashSet&#60;Disposable&#62; set = resources;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_103'/>
+103
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_103'>3</a>
+<span>
+1. add : negated conditional &rarr; KILLED<br/>
+2. add : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. add : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    if (set == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_104'/>
+104
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_104'>1</a>
+<span>
+1. add : removed call to io/reactivex/rxjava3/internal/util/OpenHashSet::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                        set = new OpenHashSet&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_105'/>
+105
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_105'>1</a>
+<span>
+1. add : Removed assignment to member variable resources &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                        resources = set;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_107'/>
+107
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_107'>1</a>
+<span>
+1. add : removed call to io/reactivex/rxjava3/internal/util/OpenHashSet::add &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    set.add(disposable);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_108'/>
+108
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_108'>4</a>
+<span>
+1. add : replaced boolean return with false for io/reactivex/rxjava3/disposables/CompositeDisposable::add &rarr; SURVIVED<br/>
+2. add : replaced boolean return with true for io/reactivex/rxjava3/disposables/CompositeDisposable::add &rarr; SURVIVED<br/>
+3. add : Substituted 1 with 0 &rarr; SURVIVED<br/>
+4. add : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                    return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_110'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_112'/>
+112
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_112'>1</a>
+<span>
+1. add : removed call to io/reactivex/rxjava3/disposables/Disposable::dispose &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        disposable.dispose();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_113'/>
+113
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_113'>3</a>
+<span>
+1. add : replaced boolean return with true for io/reactivex/rxjava3/disposables/CompositeDisposable::add &rarr; KILLED<br/>
+2. add : Substituted 0 with 1 &rarr; KILLED<br/>
+3. add : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Atomically adds the given array of {@link Disposable}s to the container or</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_118'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * disposes them all if the container has been disposed.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param disposables the array of {@code Disposable}s</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return {@code true} if the operation was successful, {@code false} if the container has been disposed</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if {@code disposables} or any of its array items is {@code null}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean addAll(@NonNull Disposable... disposables) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_124'/>
+124
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_124'>2</a>
+<span>
+1. addAll : replaced call to java/util/Objects::requireNonNull with argument &rarr; SURVIVED<br/>
+2. addAll : removed call to java/util/Objects::requireNonNull &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        Objects.requireNonNull(disposables, &#34;disposables is null&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_125'/>
+125
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_125'>3</a>
+<span>
+1. addAll : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. addAll : negated conditional &rarr; KILLED<br/>
+3. addAll : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (!disposed) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_126'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            synchronized (this) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_127'/>
+127
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_127'>3</a>
+<span>
+1. addAll : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. addAll : negated conditional &rarr; KILLED<br/>
+3. addAll : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                if (!disposed) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_128'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                    OpenHashSet&#60;Disposable&#62; set = resources;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_129'/>
+129
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_129'>3</a>
+<span>
+1. addAll : negated conditional &rarr; KILLED<br/>
+2. addAll : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. addAll : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    if (set == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_130'/>
+130
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_130'>3</a>
+<span>
+1. addAll : Substituted 1 with 0 &rarr; SURVIVED<br/>
+2. addAll : Replaced integer addition with subtraction &rarr; SURVIVED<br/>
+3. addAll : removed call to io/reactivex/rxjava3/internal/util/OpenHashSet::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                        set = new OpenHashSet&#60;&#62;(disposables.length + 1);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_131'/>
+131
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_131'>1</a>
+<span>
+1. addAll : Removed assignment to member variable resources &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                        resources = set;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_133'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                    for (Disposable d : disposables) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_134'/>
+134
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_134'>2</a>
+<span>
+1. addAll : replaced call to java/util/Objects::requireNonNull with argument &rarr; SURVIVED<br/>
+2. addAll : removed call to java/util/Objects::requireNonNull &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                        Objects.requireNonNull(d, &#34;A Disposable in the disposables array is null&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_135'/>
+135
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_135'>1</a>
+<span>
+1. addAll : removed call to io/reactivex/rxjava3/internal/util/OpenHashSet::add &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                        set.add(d);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_137'/>
+137
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_137'>4</a>
+<span>
+1. addAll : replaced boolean return with false for io/reactivex/rxjava3/disposables/CompositeDisposable::addAll &rarr; SURVIVED<br/>
+2. addAll : replaced boolean return with true for io/reactivex/rxjava3/disposables/CompositeDisposable::addAll &rarr; SURVIVED<br/>
+3. addAll : Substituted 1 with 0 &rarr; SURVIVED<br/>
+4. addAll : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                    return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_138'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_139'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_141'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        for (Disposable d : disposables) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_142'/>
+142
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_142'>1</a>
+<span>
+1. addAll : removed call to io/reactivex/rxjava3/disposables/Disposable::dispose &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            d.dispose();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_144'/>
+144
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_144'>3</a>
+<span>
+1. addAll : replaced boolean return with true for io/reactivex/rxjava3/disposables/CompositeDisposable::addAll &rarr; KILLED<br/>
+2. addAll : Substituted 0 with 1 &rarr; KILLED<br/>
+3. addAll : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_147'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Removes and disposes the given {@link Disposable} if it is part of this</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * container.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_150'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param disposable the disposable to remove and dispose, not {@code null}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return {@code true} if the operation was successful</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if {@code disposable} is {@code null}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean remove(@NonNull Disposable disposable) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_156'/>
+156
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_156'>4</a>
+<span>
+1. remove : removed conditional - replaced equality check with true &rarr; SURVIVED<br/>
+2. remove : negated conditional &rarr; KILLED<br/>
+3. remove : removed call to io/reactivex/rxjava3/disposables/CompositeDisposable::delete &rarr; KILLED<br/>
+4. remove : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (delete(disposable)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_157'/>
+157
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_157'>1</a>
+<span>
+1. remove : removed call to io/reactivex/rxjava3/disposables/Disposable::dispose &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            disposable.dispose();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_158'/>
+158
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_158'>3</a>
+<span>
+1. remove : replaced boolean return with false for io/reactivex/rxjava3/disposables/CompositeDisposable::remove &rarr; SURVIVED<br/>
+2. remove : Substituted 1 with 0 &rarr; SURVIVED<br/>
+3. remove : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_160'/>
+160
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_160'>3</a>
+<span>
+1. remove : replaced boolean return with true for io/reactivex/rxjava3/disposables/CompositeDisposable::remove &rarr; SURVIVED<br/>
+2. remove : Substituted 0 with 1 &rarr; SURVIVED<br/>
+3. remove : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_164'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Removes (but does not dispose) the given {@link Disposable} if it is part of this</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * container.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_166'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param disposable the disposable to remove, not {@code null}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return {@code true} if the operation was successful</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_168'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws NullPointerException if {@code disposable} is {@code null}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_171'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean delete(@NonNull Disposable disposable) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_172'/>
+172
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_172'>2</a>
+<span>
+1. delete : replaced call to java/util/Objects::requireNonNull with argument &rarr; SURVIVED<br/>
+2. delete : removed call to java/util/Objects::requireNonNull &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        Objects.requireNonNull(disposable, &#34;disposable is null&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_173'/>
+173
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_173'>3</a>
+<span>
+1. delete : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. delete : negated conditional &rarr; KILLED<br/>
+3. delete : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (disposed) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_174'/>
+174
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_174'>3</a>
+<span>
+1. delete : replaced boolean return with true for io/reactivex/rxjava3/disposables/CompositeDisposable::delete &rarr; KILLED<br/>
+2. delete : Substituted 0 with 1 &rarr; KILLED<br/>
+3. delete : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_175'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_176'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        synchronized (this) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_177'/>
+177
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_177'>3</a>
+<span>
+1. delete : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. delete : negated conditional &rarr; KILLED<br/>
+3. delete : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (disposed) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_178'/>
+178
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_178'>4</a>
+<span>
+1. delete : replaced boolean return with false for io/reactivex/rxjava3/disposables/CompositeDisposable::delete &rarr; SURVIVED<br/>
+2. delete : replaced boolean return with true for io/reactivex/rxjava3/disposables/CompositeDisposable::delete &rarr; SURVIVED<br/>
+3. delete : Substituted 0 with 1 &rarr; SURVIVED<br/>
+4. delete : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_179'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_180'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_181'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            OpenHashSet&#60;Disposable&#62; set = resources;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_182'/>
+182
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_182'>7</a>
+<span>
+1. delete : negated conditional &rarr; KILLED<br/>
+2. delete : negated conditional &rarr; KILLED<br/>
+3. delete : removed call to io/reactivex/rxjava3/internal/util/OpenHashSet::remove &rarr; KILLED<br/>
+4. delete : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+5. delete : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+6. delete : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+7. delete : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (set == null || !set.remove(disposable)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_183'/>
+183
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_183'>4</a>
+<span>
+1. delete : replaced boolean return with false for io/reactivex/rxjava3/disposables/CompositeDisposable::delete &rarr; SURVIVED<br/>
+2. delete : replaced boolean return with true for io/reactivex/rxjava3/disposables/CompositeDisposable::delete &rarr; KILLED<br/>
+3. delete : Substituted 0 with 1 &rarr; KILLED<br/>
+4. delete : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_184'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_185'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_186'/>
+186
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_186'>3</a>
+<span>
+1. delete : replaced boolean return with false for io/reactivex/rxjava3/disposables/CompositeDisposable::delete &rarr; KILLED<br/>
+2. delete : Substituted 1 with 0 &rarr; KILLED<br/>
+3. delete : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_187'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_188'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_189'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_190'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Atomically clears the container, then disposes all the previously contained {@link Disposable}s.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_191'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_192'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void clear() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_193'/>
+193
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_193'>3</a>
+<span>
+1. clear : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. clear : negated conditional &rarr; KILLED<br/>
+3. clear : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (disposed) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_194'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_195'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_196'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        OpenHashSet&#60;Disposable&#62; set;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_197'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        synchronized (this) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_198'/>
+198
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_198'>3</a>
+<span>
+1. clear : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. clear : negated conditional &rarr; KILLED<br/>
+3. clear : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (disposed) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_199'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_200'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_201'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_202'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            set = resources;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_203'/>
+203
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_203'>1</a>
+<span>
+1. clear : Removed assignment to member variable resources &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            resources = null;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_204'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_205'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_206'/>
+206
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_206'>1</a>
+<span>
+1. clear : removed call to io/reactivex/rxjava3/disposables/CompositeDisposable::dispose &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        dispose(set);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_207'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_208'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_209'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_210'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns the number of currently held {@link Disposable}s.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_211'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the number of currently held {@code Disposable}s</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_212'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_213'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int size() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_214'/>
+214
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_214'>3</a>
+<span>
+1. size : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. size : negated conditional &rarr; KILLED<br/>
+3. size : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (disposed) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_215'/>
+215
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_215'>2</a>
+<span>
+1. size : Substituted 0 with 1 &rarr; KILLED<br/>
+2. size : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_216'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_217'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        synchronized (this) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_218'/>
+218
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_218'>3</a>
+<span>
+1. size : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+2. size : negated conditional &rarr; KILLED<br/>
+3. size : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            if (disposed) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_219'/>
+219
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_219'>3</a>
+<span>
+1. size : Substituted 0 with 1 &rarr; SURVIVED<br/>
+2. size : replaced int return with 0 for io/reactivex/rxjava3/disposables/CompositeDisposable::size &rarr; SURVIVED<br/>
+3. size : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                return 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_220'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_221'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            OpenHashSet&#60;Disposable&#62; set = resources;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_222'/>
+222
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_222'>7</a>
+<span>
+1. size : Substituted 0 with 1 &rarr; KILLED<br/>
+2. size : negated conditional &rarr; KILLED<br/>
+3. size : removed call to io/reactivex/rxjava3/internal/util/OpenHashSet::size &rarr; KILLED<br/>
+4. size : replaced int return with 0 for io/reactivex/rxjava3/disposables/CompositeDisposable::size &rarr; KILLED<br/>
+5. size : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+6. size : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+7. size : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return set != null ? set.size() : 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_223'/>
+223
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_223'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_224'/>
+224
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_224'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_225'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_226'/>
+226
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_226'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_227'/>
+227
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_227'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Dispose the contents of the {@link OpenHashSet} by suppressing non-fatal</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_228'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@link Throwable}s till the end.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_229'/>
+229
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_229'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param set the {@code OpenHashSet} to dispose elements of</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_230'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_231'/>
+231
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_231'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    void dispose(@Nullable OpenHashSet&#60;Disposable&#62; set) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_232'/>
+232
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_232'>3</a>
+<span>
+1. dispose : negated conditional &rarr; KILLED<br/>
+2. dispose : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. dispose : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (set == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_233'/>
+233
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_233'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_234'/>
+234
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_234'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_235'/>
+235
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_235'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        List&#60;Throwable&#62; errors = null;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_236'/>
+236
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_236'>1</a>
+<span>
+1. dispose : removed call to io/reactivex/rxjava3/internal/util/OpenHashSet::keys &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        Object[] array = set.keys();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_237'/>
+237
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_237'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        for (Object o : array) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_238'/>
+238
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_238'>3</a>
+<span>
+1. dispose : negated conditional &rarr; KILLED<br/>
+2. dispose : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. dispose : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (o instanceof Disposable) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_239'/>
+239
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_239'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_240'/>
+240
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_240'>1</a>
+<span>
+1. dispose : removed call to io/reactivex/rxjava3/disposables/Disposable::dispose &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    ((Disposable) o).dispose();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_241'/>
+241
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_241'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                } catch (Throwable ex) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_242'/>
+242
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_242'>1</a>
+<span>
+1. dispose : removed call to io/reactivex/rxjava3/exceptions/Exceptions::throwIfFatal &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                    Exceptions.throwIfFatal(ex);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_243'/>
+243
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_243'>3</a>
+<span>
+1. dispose : negated conditional &rarr; KILLED<br/>
+2. dispose : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. dispose : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    if (errors == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_244'/>
+244
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_244'>1</a>
+<span>
+1. dispose : removed call to java/util/ArrayList::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                        errors = new ArrayList&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_245'/>
+245
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_245'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_246'/>
+246
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_246'>1</a>
+<span>
+1. dispose : removed call to java/util/List::add &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    errors.add(ex);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_247'/>
+247
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_247'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_248'/>
+248
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_248'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_249'/>
+249
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_249'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_250'/>
+250
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_250'>3</a>
+<span>
+1. dispose : negated conditional &rarr; KILLED<br/>
+2. dispose : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+3. dispose : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (errors != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_251'/>
+251
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_251'>5</a>
+<span>
+1. dispose : Substituted 1 with 0 &rarr; KILLED<br/>
+2. dispose : negated conditional &rarr; KILLED<br/>
+3. dispose : removed call to java/util/List::size &rarr; KILLED<br/>
+4. dispose : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+5. dispose : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (errors.size() == 1) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_252'/>
+252
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_252'>3</a>
+<span>
+1. dispose : Substituted 0 with 1 &rarr; KILLED<br/>
+2. dispose : removed call to java/util/List::get &rarr; KILLED<br/>
+3. dispose : removed call to io/reactivex/rxjava3/internal/util/ExceptionHelper::wrapOrThrow &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                throw ExceptionHelper.wrapOrThrow(errors.get(0));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_253'/>
+253
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_253'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_254'/>
+254
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_254'>1</a>
+<span>
+1. dispose : removed call to io/reactivex/rxjava3/exceptions/CompositeException::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            throw new CompositeException(errors);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_255'/>
+255
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_255'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_256'/>
+256
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_256'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@603cabc4_257'/>
+257
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_257'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_44'>44</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_44'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> replaced call to java/util/Objects::requireNonNull with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to java/util/Objects::requireNonNull &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_45'>45</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_45'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.initializeVarargs(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed call to io/reactivex/rxjava3/internal/util/OpenHashSet::&#60;init&#62; &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> Replaced integer addition with subtraction &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b><init><br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.initializeVarargs(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> Removed assignment to member variable resources &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_47'>47</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_47'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> replaced call to java/util/Objects::requireNonNull with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to java/util/Objects::requireNonNull &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_48'>48</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_48'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.initializeVarargs(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed call to io/reactivex/rxjava3/internal/util/OpenHashSet::add &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_58'>58</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_58'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> replaced call to java/util/Objects::requireNonNull with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to java/util/Objects::requireNonNull &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_59'>59</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_59'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.initializeIterable(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed call to io/reactivex/rxjava3/internal/util/OpenHashSet::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.initializeIterable(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> Removed assignment to member variable resources &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_61'>61</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_61'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> replaced call to java/util/Objects::requireNonNull with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>none</span></span> removed call to java/util/Objects::requireNonNull &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_62'>62</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_62'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.initializeIterable(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed call to io/reactivex/rxjava3/internal/util/OpenHashSet::add &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_68'>68</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_68'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.unsubscribeIdempotence(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.unsubscribeIdempotence(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_73'>73</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_73'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.unsubscribeIdempotence(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.unsubscribeIdempotence(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_76'>76</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_76'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.clear(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.clear(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> Removed assignment to member variable disposed &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_78'>78</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_78'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>none</span></span> Removed assignment to member variable resources &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_81'>81</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_81'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.unsubscribeIdempotence(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed call to io/reactivex/rxjava3/disposables/CompositeDisposable::dispose &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_86'>86</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_86'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isDisposed<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.clear(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> replaced boolean return with false for io/reactivex/rxjava3/disposables/CompositeDisposable::isDisposed &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isDisposed<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.clear(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> replaced boolean return with true for io/reactivex/rxjava3/disposables/CompositeDisposable::isDisposed &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isDisposed<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.clear(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_98'>98</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_98'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>add<br/><b>Killed by : </b>none</span></span> replaced call to java/util/Objects::requireNonNull with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>add<br/><b>Killed by : </b>none</span></span> removed call to java/util/Objects::requireNonNull &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_99'>99</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_99'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>add<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.disposeThrowsError(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>add<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.disposeThrowsError(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>add<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_101'>101</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_101'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>add<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.disposeThrowsError(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>add<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.disposeThrowsError(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>add<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_103'>103</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_103'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>add<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.unsubscribeIdempotence(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>add<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.unsubscribeIdempotence(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>add<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.removeUnsubscribes(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_104'>104</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_104'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>add<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.unsubscribeIdempotence(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed call to io/reactivex/rxjava3/internal/util/OpenHashSet::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_105'>105</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_105'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>add<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.unsubscribeIdempotence(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> Removed assignment to member variable resources &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_107'>107</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_107'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>add<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.unsubscribeIdempotence(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed call to io/reactivex/rxjava3/internal/util/OpenHashSet::add &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_108'>108</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_108'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>add<br/><b>Killed by : </b>none</span></span> replaced boolean return with false for io/reactivex/rxjava3/disposables/CompositeDisposable::add &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>add<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for io/reactivex/rxjava3/disposables/CompositeDisposable::add &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>add<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>add<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_112'>112</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_112'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>add<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addAfterDisposed(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed call to io/reactivex/rxjava3/disposables/Disposable::dispose &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_113'>113</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_113'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>add<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addAfterDisposed(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> replaced boolean return with true for io/reactivex/rxjava3/disposables/CompositeDisposable::add &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>add<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addAfterDisposed(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>add<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addAfterDisposed(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_124'>124</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_124'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>none</span></span> replaced call to java/util/Objects::requireNonNull with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>none</span></span> removed call to java/util/Objects::requireNonNull &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_125'>125</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_125'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addAll(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addAll(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_127'>127</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_127'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addAll(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addAll(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_129'>129</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_129'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addAll(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addAll(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addAll(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_130'>130</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_130'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addAll(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed call to io/reactivex/rxjava3/internal/util/OpenHashSet::&#60;init&#62; &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>none</span></span> Replaced integer addition with subtraction &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_131'>131</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_131'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addAll(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> Removed assignment to member variable resources &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_134'>134</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_134'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>none</span></span> replaced call to java/util/Objects::requireNonNull with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>none</span></span> removed call to java/util/Objects::requireNonNull &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_135'>135</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_135'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addAll(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed call to io/reactivex/rxjava3/internal/util/OpenHashSet::add &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_137'>137</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_137'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>none</span></span> replaced boolean return with false for io/reactivex/rxjava3/disposables/CompositeDisposable::addAll &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for io/reactivex/rxjava3/disposables/CompositeDisposable::addAll &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_142'>142</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_142'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addAfterDisposed(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed call to io/reactivex/rxjava3/disposables/Disposable::dispose &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_144'>144</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_144'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addAfterDisposed(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> replaced boolean return with true for io/reactivex/rxjava3/disposables/CompositeDisposable::addAll &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addAfterDisposed(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>addAll<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addAfterDisposed(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_156'>156</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_156'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>remove<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.removeUnsubscribes(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>remove<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.removeUnsubscribes(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed call to io/reactivex/rxjava3/disposables/CompositeDisposable::delete &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>remove<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.removeUnsubscribes(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>remove<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_157'>157</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_157'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>remove<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.removeUnsubscribes(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed call to io/reactivex/rxjava3/disposables/Disposable::dispose &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_158'>158</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_158'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>remove<br/><b>Killed by : </b>none</span></span> replaced boolean return with false for io/reactivex/rxjava3/disposables/CompositeDisposable::remove &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>remove<br/><b>Killed by : </b>none</span></span> Substituted 1 with 0 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>remove<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_160'>160</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_160'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>remove<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for io/reactivex/rxjava3/disposables/CompositeDisposable::remove &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>remove<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>remove<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_172'>172</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_172'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>none</span></span> replaced call to java/util/Objects::requireNonNull with argument &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>none</span></span> removed call to java/util/Objects::requireNonNull &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_173'>173</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_173'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.removeUnsubscribes(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.removeUnsubscribes(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_174'>174</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_174'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.delete(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> replaced boolean return with true for io/reactivex/rxjava3/disposables/CompositeDisposable::delete &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.delete(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.delete(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_177'>177</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_177'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.removeUnsubscribes(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.removeUnsubscribes(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_178'>178</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_178'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>none</span></span> replaced boolean return with false for io/reactivex/rxjava3/disposables/CompositeDisposable::delete &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>none</span></span> replaced boolean return with true for io/reactivex/rxjava3/disposables/CompositeDisposable::delete &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_182'>182</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_182'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.removeUnsubscribes(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.removeUnsubscribes(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.removeUnsubscribes(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed call to io/reactivex/rxjava3/internal/util/OpenHashSet::remove &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.removeUnsubscribes(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.delete(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.delete(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.removeUnsubscribes(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_183'>183</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_183'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>none</span></span> replaced boolean return with false for io/reactivex/rxjava3/disposables/CompositeDisposable::delete &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.delete(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> replaced boolean return with true for io/reactivex/rxjava3/disposables/CompositeDisposable::delete &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.delete(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.delete(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_186'>186</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_186'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.removeUnsubscribes(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> replaced boolean return with false for io/reactivex/rxjava3/disposables/CompositeDisposable::delete &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.removeUnsubscribes(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>delete<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.removeUnsubscribes(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_193'>193</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_193'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>clear<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.clear(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>clear<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>clear<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.clear(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_198'>198</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_198'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>clear<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.clear(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>clear<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>clear<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.clear(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_203'>203</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_203'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>clear<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.initializeIterable(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> Removed assignment to member variable resources &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_206'>206</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_206'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>clear<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.clear(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed call to io/reactivex/rxjava3/disposables/CompositeDisposable::dispose &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_214'>214</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_214'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>size<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.initializeIterable(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>size<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>size<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.initializeIterable(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_215'>215</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_215'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>size<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addAll(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>size<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addAll(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_218'>218</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_218'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>size<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.initializeIterable(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> negated conditional &rarr; KILLED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>size<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>size<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.initializeIterable(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_219'>219</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_219'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>size<br/><b>Killed by : </b>none</span></span> Substituted 0 with 1 &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>size<br/><b>Killed by : </b>none</span></span> replaced int return with 0 for io/reactivex/rxjava3/disposables/CompositeDisposable::size &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>size<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_222'>222</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_222'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>size<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.initializeIterable(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>size<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.initializeIterable(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>size<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.initializeIterable(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed call to io/reactivex/rxjava3/internal/util/OpenHashSet::size &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>size<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.initializeIterable(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> replaced int return with 0 for io/reactivex/rxjava3/disposables/CompositeDisposable::size &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>size<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.initializeIterable(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>size<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.initializeIterable(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>size<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.initializeIterable(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_232'>232</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_232'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.unsubscribeIdempotence(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.tryRemoveIfNotIn(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.unsubscribeIdempotence(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_236'>236</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_236'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.unsubscribeIdempotence(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed call to io/reactivex/rxjava3/internal/util/OpenHashSet::keys &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_238'>238</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_238'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.unsubscribeIdempotence(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.unsubscribeIdempotence(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.unsubscribeIdempotence(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_240'>240</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_240'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.unsubscribeIdempotence(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed call to io/reactivex/rxjava3/disposables/Disposable::dispose &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_242'>242</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_242'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>none</span></span> removed call to io/reactivex/rxjava3/exceptions/Exceptions::throwIfFatal &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_243'>243</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_243'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.disposeThrowsError(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.disposeThrowsError(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.compositeException(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_244'>244</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_244'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.disposeThrowsError(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed call to java/util/ArrayList::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_246'>246</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_246'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.disposeThrowsError(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed call to java/util/List::add &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_250'>250</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_250'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.unsubscribeIdempotence(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.disposeThrowsIAE(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.unsubscribeIdempotence(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_251'>251</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_251'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.disposeThrowsError(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> Substituted 1 with 0 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.disposeThrowsError(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.disposeThrowsError(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed call to java/util/List::size &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.disposeThrowsError(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.compositeException(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_252'>252</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_252'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.disposeThrowsError(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> Substituted 0 with 1 &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.disposeThrowsError(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed call to java/util/List::get &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.disposeThrowsError(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed call to io/reactivex/rxjava3/internal/util/ExceptionHelper::wrapOrThrow &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@603cabc4_254'>254</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@603cabc4_254'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>dispose<br/><b>Killed by : </b>io.reactivex.rxjava3.disposables.CompositeDisposableTest.compositeException(io.reactivex.rxjava3.disposables.CompositeDisposableTest)</span></span> removed call to io/reactivex/rxjava3/exceptions/CompositeException::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_61</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_60</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_56</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_55</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_58</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_57</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_52</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_51</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_54</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_53</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_59</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_50</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_45</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_44</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_47</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_46</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_41</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_40</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_43</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_42</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_49</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_48</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_34</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_33</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_36</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_35</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_30</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_32</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_31</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_38</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_37</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_39</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_3</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_2</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_1</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_0</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_23</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_22</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_25</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_9</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_24</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_8</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_7</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_6</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_21</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_5</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_20</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_4</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_27</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_26</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_29</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_28</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_12</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_11</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_99</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_14</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_13</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_96</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_95</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_10</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_98</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_97</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_19</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_16</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_15</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_18</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_17</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_92</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_91</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_94</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_93</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_90</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_89</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_88</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_85</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_84</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_87</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_86</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_81</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_80</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_83</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_82</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_78</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_77</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_79</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_74</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_73</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_76</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_75</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_70</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_72</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_71</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_67</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_66</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_69</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_68</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_63</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_62</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_65</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_64</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.clear(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (3 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.clearRace(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (45 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.disposeThrowsError(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (2 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.removeDisposeRace(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (62 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.removeUnsubscribes(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (3 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.disposeRace(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (27 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addRace(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (38 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addAllDisposeRace(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (106 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.disposeThrowsIAE(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (3 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.deleteDisposeRace(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (30 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.sizeDisposeRace(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (70 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.disposeThrowsCheckedException(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (13 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.delete(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (4 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addingNullDisposableIllegal(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (7 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addDisposeRace(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (44 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.initializeIterable(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (8 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addAfterDisposed(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (84 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.success(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (4 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.compositeException(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (16 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.exception(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (16 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addAll(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (4 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.tryRemoveIfNotIn(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (9 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.unsubscribeIdempotenceConcurrently(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (17 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.disposeThrowsCheckedExceptionSneaky(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (4 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.shouldUnsubscribeAll(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (9 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.removeRace(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (28 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.clearDisposeRace(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (69 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.addAllRace(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (51 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.unsubscribeIdempotence(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (2 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.initializeVarargs(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (9 ms)</li><li>io.reactivex.rxjava3.disposables.CompositeDisposableTest.deleteRace(io.reactivex.rxjava3.disposables.CompositeDisposableTest) (37 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>

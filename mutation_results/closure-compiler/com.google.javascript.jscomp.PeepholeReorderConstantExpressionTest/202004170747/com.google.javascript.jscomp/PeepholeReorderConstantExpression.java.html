@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>PeepholeReorderConstantExpression.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2011 The Closure Compiler Authors.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.google.javascript.jscomp;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.Node;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.javascript.rhino.Token;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Reorder constant expression hoping for a better compression.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * ex. x === 0 -&#62; 0 === x</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * After reordering, expressions like 0 === x and 0 === y may have higher</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * compression together than their original counterparts.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_28'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>class PeepholeReorderConstantExpression extends AbstractPeepholeOptimization {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  Node optimizeSubtree(Node subtree) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // if the operator is symmetric</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_33'/>
+33
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_33'>4</a>
+<span>
+1. optimizeSubtree : negated conditional &rarr; KILLED<br/>
+2. optimizeSubtree : removed call to com/google/javascript/jscomp/NodeUtil::isSymmetricOperation &rarr; KILLED<br/>
+3. optimizeSubtree : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. optimizeSubtree : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    if (NodeUtil.isSymmetricOperation(subtree)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_34'/>
+34
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_34'>4</a>
+<span>
+1. optimizeSubtree : negated conditional &rarr; KILLED<br/>
+2. optimizeSubtree : removed call to com/google/javascript/jscomp/NodeUtil::isRelationalOperation &rarr; KILLED<br/>
+3. optimizeSubtree : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. optimizeSubtree : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        || NodeUtil.isRelationalOperation(subtree)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_35'/>
+35
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_35'>2</a>
+<span>
+1. optimizeSubtree : removed call to com/google/javascript/rhino/Node::getToken &rarr; KILLED<br/>
+2. optimizeSubtree : removed call to com/google/javascript/jscomp/NodeUtil::precedence &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>      if (NodeUtil.precedence(subtree.getToken())</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_36'/>
+36
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_36'>7</a>
+<span>
+1. optimizeSubtree : negated conditional &rarr; KILLED<br/>
+2. optimizeSubtree : removed call to com/google/javascript/rhino/Node::getFirstChild &rarr; KILLED<br/>
+3. optimizeSubtree : removed call to com/google/javascript/rhino/Node::getToken &rarr; KILLED<br/>
+4. optimizeSubtree : removed call to com/google/javascript/jscomp/NodeUtil::precedence &rarr; KILLED<br/>
+5. optimizeSubtree : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+6. optimizeSubtree : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+7. optimizeSubtree : replaced call to com/google/javascript/rhino/Node::getFirstChild with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          == NodeUtil.precedence(subtree.getFirstChild().getToken())) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // then flipping would add parens</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_38'/>
+38
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_38'>2</a>
+<span>
+1. optimizeSubtree : replaced return value with null for com/google/javascript/jscomp/PeepholeReorderConstantExpression::optimizeSubtree &rarr; SURVIVED<br/>
+2. optimizeSubtree : mutated return of Object value for com/google/javascript/jscomp/PeepholeReorderConstantExpression::optimizeSubtree to ( if (x != null) null else throw new RuntimeException ) &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return subtree;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      // right value is immutable and left is not</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_41'/>
+41
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_41'>6</a>
+<span>
+1. optimizeSubtree : negated conditional &rarr; TIMED_OUT<br/>
+2. optimizeSubtree : removed conditional - replaced equality check with true &rarr; TIMED_OUT<br/>
+3. optimizeSubtree : removed call to com/google/javascript/rhino/Node::getLastChild &rarr; KILLED<br/>
+4. optimizeSubtree : removed call to com/google/javascript/jscomp/NodeUtil::isImmutableValue &rarr; KILLED<br/>
+5. optimizeSubtree : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+6. optimizeSubtree : replaced call to com/google/javascript/rhino/Node::getLastChild with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>      if (NodeUtil.isImmutableValue(subtree.getLastChild())</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_42'/>
+42
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_42'>6</a>
+<span>
+1. optimizeSubtree : removed call to com/google/javascript/jscomp/NodeUtil::isImmutableValue &rarr; TIMED_OUT<br/>
+2. optimizeSubtree : removed conditional - replaced equality check with true &rarr; TIMED_OUT<br/>
+3. optimizeSubtree : replaced call to com/google/javascript/rhino/Node::getFirstChild with receiver &rarr; TIMED_OUT<br/>
+4. optimizeSubtree : negated conditional &rarr; KILLED<br/>
+5. optimizeSubtree : removed call to com/google/javascript/rhino/Node::getFirstChild &rarr; KILLED<br/>
+6. optimizeSubtree : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>          &#38;&#38; !NodeUtil.isImmutableValue(subtree.getFirstChild())) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // if relational, get the inverse operator.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_45'/>
+45
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_45'>4</a>
+<span>
+1. optimizeSubtree : negated conditional &rarr; KILLED<br/>
+2. optimizeSubtree : removed call to com/google/javascript/jscomp/NodeUtil::isRelationalOperation &rarr; KILLED<br/>
+3. optimizeSubtree : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+4. optimizeSubtree : removed conditional - replaced equality check with true &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (NodeUtil.isRelationalOperation(subtree)){</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_46'/>
+46
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_46'>3</a>
+<span>
+1. optimizeSubtree : replaced call to com/google/javascript/jscomp/NodeUtil::getInverseOperator with argument &rarr; KILLED<br/>
+2. optimizeSubtree : removed call to com/google/javascript/rhino/Node::getToken &rarr; KILLED<br/>
+3. optimizeSubtree : removed call to com/google/javascript/jscomp/NodeUtil::getInverseOperator &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          Token inverseOperator = NodeUtil.getInverseOperator(subtree.getToken());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_47'/>
+47
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_47'>1</a>
+<span>
+1. optimizeSubtree : removed call to com/google/javascript/rhino/Node::setToken &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>          subtree.setToken(inverseOperator);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // swap them</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_51'/>
+51
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_51'>2</a>
+<span>
+1. optimizeSubtree : removed call to com/google/javascript/rhino/Node::removeFirstChild &rarr; KILLED<br/>
+2. optimizeSubtree : replaced call to com/google/javascript/rhino/Node::removeFirstChild with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        Node firstNode = subtree.removeFirstChild();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_52'/>
+52
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_52'>4</a>
+<span>
+1. optimizeSubtree : replaced call to com/google/javascript/rhino/Node::getLastChild with receiver &rarr; TIMED_OUT<br/>
+2. optimizeSubtree : removed call to com/google/javascript/rhino/Node::getLastChild &rarr; KILLED<br/>
+3. optimizeSubtree : removed call to com/google/javascript/rhino/Node::detach &rarr; KILLED<br/>
+4. optimizeSubtree : replaced call to com/google/javascript/rhino/Node::detach with receiver &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        Node lastNode = subtree.getLastChild().detach();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_54'/>
+54
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_54'>1</a>
+<span>
+1. optimizeSubtree : removed call to com/google/javascript/rhino/Node::addChildToFront &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        subtree.addChildToFront(lastNode);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_55'/>
+55
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_55'>1</a>
+<span>
+1. optimizeSubtree : removed call to com/google/javascript/rhino/Node::addChildToBack &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        subtree.addChildToBack(firstNode);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_56'/>
+56
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_56'>1</a>
+<span>
+1. optimizeSubtree : removed call to com/google/javascript/jscomp/PeepholeReorderConstantExpression::reportChangeToEnclosingScope &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        reportChangeToEnclosingScope(subtree);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>      }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_59'/>
+59
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_59'>2</a>
+<span>
+1. optimizeSubtree : replaced return value with null for com/google/javascript/jscomp/PeepholeReorderConstantExpression::optimizeSubtree &rarr; SURVIVED<br/>
+2. optimizeSubtree : mutated return of Object value for com/google/javascript/jscomp/PeepholeReorderConstantExpression::optimizeSubtree to ( if (x != null) null else throw new RuntimeException ) &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>    return subtree;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@70f5f59d_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70f5f59d_33'>33</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_33'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testReorderConstantDoesntAddParens(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testSymmetricOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed call to com/google/javascript/jscomp/NodeUtil::isSymmetricOperation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testReorderConstantDoesntAddParens(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testSymmetricOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70f5f59d_34'>34</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_34'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testReorderConstantDoesntAddParens(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testRelationalOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed call to com/google/javascript/jscomp/NodeUtil::isRelationalOperation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testRelationalOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testReorderConstantDoesntAddParens(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70f5f59d_35'>35</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_35'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testReorderConstantDoesntAddParens(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed call to com/google/javascript/rhino/Node::getToken &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testReorderConstantDoesntAddParens(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed call to com/google/javascript/jscomp/NodeUtil::precedence &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70f5f59d_36'>36</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_36'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testReorderConstantDoesntAddParens(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testReorderConstantDoesntAddParens(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed call to com/google/javascript/rhino/Node::getFirstChild &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testReorderConstantDoesntAddParens(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed call to com/google/javascript/rhino/Node::getToken &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testReorderConstantDoesntAddParens(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed call to com/google/javascript/jscomp/NodeUtil::precedence &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testReorderConstantDoesntAddParens(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testSymmetricOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> <p class='KILLED'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testSymmetricOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> replaced call to com/google/javascript/rhino/Node::getFirstChild with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70f5f59d_38'>38</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_38'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>none</span></span> replaced return value with null for com/google/javascript/jscomp/PeepholeReorderConstantExpression::optimizeSubtree &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/jscomp/PeepholeReorderConstantExpression::optimizeSubtree to ( if (x != null) null else throw new RuntimeException ) &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70f5f59d_41'>41</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_41'/> 
+
+<p class='TIMED_OUT'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testReorderConstantDoesntAddParens(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed call to com/google/javascript/rhino/Node::getLastChild &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testSymmetricOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed call to com/google/javascript/jscomp/NodeUtil::isImmutableValue &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testSymmetricOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testSymmetricOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> replaced call to com/google/javascript/rhino/Node::getLastChild with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70f5f59d_42'>42</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_42'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testSymmetricOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testSymmetricOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed call to com/google/javascript/rhino/Node::getFirstChild &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>none</span></span> removed call to com/google/javascript/jscomp/NodeUtil::isImmutableValue &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testSymmetricOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with true &rarr; TIMED_OUT</p> <p class='TIMED_OUT'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>none</span></span> replaced call to com/google/javascript/rhino/Node::getFirstChild with receiver &rarr; TIMED_OUT</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70f5f59d_45'>45</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_45'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testSymmetricOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testRelationalOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed call to com/google/javascript/jscomp/NodeUtil::isRelationalOperation &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testRelationalOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testSymmetricOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed conditional - replaced equality check with true &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70f5f59d_46'>46</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_46'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testRelationalOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> replaced call to com/google/javascript/jscomp/NodeUtil::getInverseOperator with argument &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testRelationalOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed call to com/google/javascript/rhino/Node::getToken &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testRelationalOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed call to com/google/javascript/jscomp/NodeUtil::getInverseOperator &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70f5f59d_47'>47</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_47'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testRelationalOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed call to com/google/javascript/rhino/Node::setToken &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70f5f59d_51'>51</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_51'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testSymmetricOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed call to com/google/javascript/rhino/Node::removeFirstChild &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testSymmetricOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> replaced call to com/google/javascript/rhino/Node::removeFirstChild with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70f5f59d_52'>52</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_52'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testSymmetricOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed call to com/google/javascript/rhino/Node::getLastChild &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testSymmetricOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed call to com/google/javascript/rhino/Node::detach &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>none</span></span> replaced call to com/google/javascript/rhino/Node::getLastChild with receiver &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testSymmetricOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> replaced call to com/google/javascript/rhino/Node::detach with receiver &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70f5f59d_54'>54</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_54'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testSymmetricOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed call to com/google/javascript/rhino/Node::addChildToFront &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70f5f59d_55'>55</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_55'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testSymmetricOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed call to com/google/javascript/rhino/Node::addChildToBack &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70f5f59d_56'>56</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_56'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testSymmetricOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest)</span></span> removed call to com/google/javascript/jscomp/PeepholeReorderConstantExpression::reportChangeToEnclosingScope &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@70f5f59d_59'>59</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@70f5f59d_59'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>none</span></span> replaced return value with null for com/google/javascript/jscomp/PeepholeReorderConstantExpression::optimizeSubtree &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>optimizeSubtree<br/><b>Killed by : </b>none</span></span> mutated return of Object value for com/google/javascript/jscomp/PeepholeReorderConstantExpression::optimizeSubtree to ( if (x != null) null else throw new RuntimeException ) &rarr; SURVIVED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_61</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_60</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_56</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_55</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_58</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_57</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_52</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_51</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_54</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_53</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_59</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_50</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_45</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_44</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_47</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_46</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_41</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_40</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_43</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_42</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_49</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_48</li>
+<li class='mutator'>INLINE_CONSTANT_MUTATOR</li>
+<li class='mutator'>CONSTRUCTOR_CALL_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_34</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_33</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_36</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_35</li>
+<li class='mutator'>EXPERIMENTAL_MEMBER_VARIABLE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_30</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_32</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_31</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_38</li>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_37</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_39</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_3</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_2</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_1</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_0</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_23</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_22</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_25</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_9</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_24</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_8</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_7</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_6</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_21</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_5</li>
+<li class='mutator'>NAKED_RECEIVER</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_20</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_4</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_27</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_26</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_29</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_28</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>REMOVE_INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_12</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_11</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_99</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_14</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_13</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_96</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_95</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_10</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_98</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_97</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_19</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_16</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_15</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_18</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_17</li>
+<li class='mutator'>EXPERIMENTAL_SWITCH_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_92</li>
+<li class='mutator'>ARGUMENT_PROPAGATION_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_91</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_94</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_93</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_90</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_89</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_88</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_85</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_84</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_87</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_86</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NON_VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_81</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_80</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_83</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_82</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_78</li>
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_77</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_79</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_74</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_73</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_76</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_75</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_70</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_72</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_71</li>
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_IF_MUTATOR</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_67</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_66</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_69</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_68</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_63</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_62</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_65</li>
+<li class='mutator'>EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_64</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testSymmetricOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest) (278 ms)</li><li>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testReorderConstantDoesntAddParens(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest) (8 ms)</li><li>com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest.testRelationalOperations(com.google.javascript.jscomp.PeepholeReorderConstantExpressionTest) (622 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.3.2
+
+</body>
+</html>
