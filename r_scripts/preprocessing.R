@@ -81,7 +81,7 @@ for (file in rawDataFiles) {
 calculatedQuantiles <- quantile(totalData$MutationScore, probs = c(0.25, 0.75), na.rm = TRUE)
 totalData$MutationScore[totalData$MutationScore >= calculatedQuantiles[2]] <- 1
 totalData$MutationScore[totalData$MutationScore <= calculatedQuantiles[1]] <- 0
-totalData <- totalData[(totalData$MutationScore < calculatedQuantiles[2] & totalData$MutationScore > calculatedQuantiles[1]),]
+totalData <- totalData[(totalData$MutationScore == 0 | totalData$MutationScore == 1),]
 
 write.csv(totalData, "cleanData.csv", row.names = FALSE, append = TRUE)
 
