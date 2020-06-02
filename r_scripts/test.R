@@ -12,8 +12,8 @@ cleanData <- cleanData[!row.has.na, ]
 cleanData$ALU.x <- as.integer(as.logical(cleanData$ALU.x))
 cleanData$ALU.y <- as.integer(as.logical(cleanData$ALU.y))
 
-cleanData <- sapply(cleanData, as.numeric)
-#cleanData$MutationScore <- as.factor(cleanData$MutationScore)
+cleanData <- as.data.frame(sapply(cleanData, as.numeric))
+cleanData$MutationScore <- as.factor(cleanData$MutationScore)
 
 
 
