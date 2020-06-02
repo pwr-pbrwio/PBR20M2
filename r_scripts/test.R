@@ -21,8 +21,7 @@ learner = lrn("classif.randomForest")
 resampling = rsmp("holdout")
 measures = msr("classif.ce")
 tune_ps = ParamSet$new(list(
-  ParamDbl$new("cp", lower = 0.001, upper = 0.1),
-  ParamInt$new("minsplit", lower = 1, upper = 10)
+  ParamLgl$new(id = "replace", default = TRUE)
 ))
 terminator = term("evals", n_evals = 10)
 tuner = tnr("random_search")
@@ -35,13 +34,10 @@ at = AutoTuner$new(
   terminator = terminator,
   tuner = tuner
 )
-at
+print(at)
 
-grid = benchmark_grid(
-  task = tsk("pima"),
-  learner = list(at, lrn("classif.rpart")),
-  resampling = rsmp("cv", folds = 3)
-)
-bmr = benchmark(grid)
-bmr$aggregate(measures)
+resampling_outer = rsmp("cv", folds = 3)
+rr = resample(task = TaskClassif$new(id = "tests", backend = cleanData, target = "MutationScore"), learner = at, resampling = resampling_outer)
+
+print(rr$aggregate())
 
