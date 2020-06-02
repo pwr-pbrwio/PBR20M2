@@ -16,7 +16,6 @@ cleanData <- as.data.frame(sapply(cleanData, as.numeric))
 cleanData$MutationScore <- as.factor(cleanData$MutationScore)
 
 
-
 learner = lrn("classif.randomForest")
 resampling = rsmp("holdout")
 measures = msr("classif.ce")
@@ -35,9 +34,12 @@ at = AutoTuner$new(
   tuner = tuner
 )
 print(at)
+at$store_tuning_instance = TRUE
 
-resampling_outer = rsmp("cv", folds = 3)
-rr = resample(task = TaskClassif$new(id = "tests", backend = cleanData, target = "MutationScore"), learner = at, resampling = resampling_outer)
+resampling_outer = rsmp("cv", folds = 10)
+rr = resample(task = TaskClassif$new(id = "tests", backend = cleanData, target = "MutationScore"), learner = at, resampling = resampling_outer, store_models = TRUE)
+
+model = rr$data$learner[[1]]
 
 print(rr$aggregate())
 
