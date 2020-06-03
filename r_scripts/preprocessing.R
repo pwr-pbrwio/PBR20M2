@@ -1,7 +1,7 @@
 library(here)
 library(dplyr)
-mutationScores <- read.csv(here("python_scripts", "mutationScoresGathered.csv"))
-projects <- readLines(here("projects.csv"))
+mutationScores <- read.csv(here("mutationScoresGathered.csv"))
+projects <- read.csv(here("projects.csv"))
 totalData <- data.frame()
 
 rawDataFiles <- c()
@@ -38,7 +38,7 @@ for (file in rawDataFiles) {
     
     # Compute MIN_CYCLO
     rawData[rawData$MethodSignature == "" & rawData$Class == i, "MIN_CYCLO"] <- min(cyclo_column_non_empty)
-  
+    
     # Compute MEAN_CYCLO
     rawData[rawData$MethodSignature == "" & rawData$Class == i, "MEAN_CYCLO"] <- mean(cyclo_column_non_empty)
   }
@@ -52,16 +52,16 @@ for (file in rawDataFiles) {
   classMetrics$Project <- as.character(classMetrics$Project) # cast Project column to character
   
   # change project absolute path to project name
-  for (project in projects) {
+  for (project in projects$project) {
     classMetrics$Project[grepl(project, classMetrics$Project)] <- project
   }
   
   # add column with full package name, needed when merging
   classMetrics <- transform(classMetrics, ProjectClass=paste(Project, Class, sep="."))
   classMetrics <- classMetrics[ , -which(names(classMetrics) %in% c("Project", "Package", 
-                                                                          "Class", "MethodSignature",
-                                                                          "OuterClass", "AccessModifier",
-                                                                          "IsStatic", "IsFinal"))]
+                                                                    "Class", "MethodSignature",
+                                                                    "OuterClass", "AccessModifier",
+                                                                    "IsStatic", "IsFinal"))]
   
   # Combine metrics for production class and test class into one row
   testMetric <- subset(classMetrics, grepl("Test", classMetrics$ProjectClass))
