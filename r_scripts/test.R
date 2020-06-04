@@ -23,7 +23,6 @@ for(learnerType in learnerTypeList) {
   set.seed(1337)
   learner <- lrn(learnerType)
   resampling <- rsmp("holdout")
-#  measures <- msr("classif.ce")
   measures <- msrs(c("classif.ce", "classif.acc", "classif.precision", "classif.fbeta"))
   tune_ps <- NA
   if(learnerType == "classif.randomForest") {
