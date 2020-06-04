@@ -5,7 +5,7 @@ library(mlr3tuning)
 library(mlr3learners.randomforest)
 library(here)
 
-learnerTypeList = c("classif.kknn", "classif.svm", "classif.randomForest")
+learnerTypeList = c("classif.randomForest", "classif.kknn", "classif.svm")
 
 
 cleanData <- read.csv(here("cleanData.csv"))
@@ -20,26 +20,28 @@ cleanData$MutationScore <- as.factor(cleanData$MutationScore)
 
 
 for(learnerType in learnerTypeList) {
-  learner = lrn(learnerType)
-  resampling = rsmp("holdout")
-  measures = msr("classif.ce")
-  tune_ps = NA
+  set.seed(1337)
+  learner <- lrn(learnerType)
+  resampling <- rsmp("holdout")
+#  measures <- msr("classif.ce")
+  measures <- msrs(c("classif.ce", "classif.acc", "classif.precision", "classif.fbeta"))
+  tune_ps <- NA
   if(learnerType == "classif.randomForest") {
-    tune_ps = ParamSet$new(list(
+    tune_ps <- ParamSet$new(list(
       ParamLgl$new(id = "replace", default = TRUE)
     ))
   } else if(learnerType == "classif.kknn") {
-    tune_ps = ParamSet$new(list(
+    tune_ps <- ParamSet$new(list(
       ParamLgl$new(id = "scale", default = TRUE)
     ))
   } else if(learnerType == "classif.svm") {
-    tune_ps = ParamSet$new(list(
+    tune_ps <- ParamSet$new(list(
       ParamLgl$new(id = "fitted", default = TRUE)
     ))
   }
 
-  terminator = term("evals", n_evals = 10)
-  tuner = tnr("random_search")
+  terminator <- term("evals", n_evals = 10)
+  tuner <- tnr("random_search")
   
   at = AutoTuner$new(
     learner = learner,
@@ -53,7 +55,7 @@ for(learnerType in learnerTypeList) {
   at$store_tuning_instance = TRUE
   
   resampling_outer = rsmp("cv", folds = 10)
-  rr = resample(task = TaskClassif$new(id = "tests", backend = cleanData, target = "MutationScore"), learner = at, resampling = resampling_outer, store_models = TRUE)
+  rr <- resample(task = TaskClassif$new(id = "tests", backend = cleanData, target = "MutationScore"), learner = at, resampling = resampling_outer, store_models = TRUE)
   
   print(rr$aggregate())
   
