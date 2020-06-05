@@ -1,5 +1,7 @@
-library(here)
-library(dplyr)
+library(pacman)
+p_load(here)
+p_load(dplyr)
+
 mutationScores <- read.csv(here("mutationScoresGathered.csv"))
 projects <- read.csv(here("projects.csv"))
 totalData <- data.frame()
