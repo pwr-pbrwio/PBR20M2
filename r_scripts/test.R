@@ -23,7 +23,7 @@ for(learnerType in learnerTypeList) {
   set.seed(1337)
   learner <- lrn(learnerType)
   resampling <- rsmp("holdout")
-  measures <- msrs(c("classif.ce", "classif.acc", "classif.precision", "classif.fbeta"))
+  measures <- msrs(c("classif.mcc", "classif.ce", "classif.precision", "classif.fbeta"))
   tune_ps <- NA
   if(learnerType == "classif.randomForest") {
     tune_ps <- ParamSet$new(list(
@@ -58,7 +58,7 @@ for(learnerType in learnerTypeList) {
   
   print(rr$aggregate())
   
-  save(rr, file=paste("saved_models/", learnerType, ".RData")) 
+  save(rr, file=paste("saved_models/", learnerType, ".RData"))
 }
 
 
