@@ -16,7 +16,7 @@ cleanData$ALU.x <- as.integer(as.logical(cleanData$ALU.x))
 cleanData$ALU.y <- as.integer(as.logical(cleanData$ALU.y))
 
 cleanData <- as.data.frame(sapply(cleanData, as.numeric))
-cleanData$MutationScore <- as.factor(cleanData$MutationScore)
+cleanData$goodTest <- as.factor(cleanData$goodTest)
 
 
 for(learnerType in learnerTypeList) {
@@ -54,7 +54,7 @@ for(learnerType in learnerTypeList) {
   at$store_tuning_instance = TRUE
   
   resampling_outer = rsmp("cv", folds = 10)
-  rr <- resample(task = TaskClassif$new(id = "tests", backend = cleanData, target = "MutationScore"), learner = at, resampling = resampling_outer, store_models = TRUE)
+  rr <- resample(task = TaskClassif$new(id = "tests", backend = cleanData, target = "goodTest"), learner = at, resampling = resampling_outer, store_models = TRUE)
   
   print(rr$aggregate())
   
