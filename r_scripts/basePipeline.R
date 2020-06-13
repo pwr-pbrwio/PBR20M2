@@ -9,7 +9,8 @@ if(!require(mlr3learners.randomforest)){
 }
 library(mlr3learners.randomforest)
 
-learnerTypeList = c("classif.randomForest", "classif.kknn", "classif.svm")
+# learnerTypeList = c("classif.randomForest", "classif.kknn", "classif.svm")
+learnerTypeList = c("classif.svm")
 
 
 cleanData <- read.csv(here("cleanData.csv"))
@@ -31,21 +32,27 @@ for(learnerType in learnerTypeList) {
   measures <- msrs(c("classif.mcc", "classif.ce", "classif.precision", "classif.fbeta"))
   tune_ps <- NA
   if(learnerType == "classif.randomForest") {
+    rfLearner <- learner
     tune_ps <- ParamSet$new(list(
-      ParamLgl$new(id = "replace", default = TRUE)
+      ParamInt$new(id = "ntree", lower = 50, upper = 500),
+      ParamInt$new(id = "mtry", lower = 3, upper = 30),
+      ParamInt$new(id = "nodesize", lower = 10, upper = 50)
     ))
   } else if(learnerType == "classif.kknn") {
+    knnLearner <- learner
     tune_ps <- ParamSet$new(list(
-      ParamLgl$new(id = "scale", default = TRUE)
+      ParamInt$new(id = "k", lower = 1, upper = 10),
+      ParamDbl$new(id = "distance", lower = .001, upper = 2)
     ))
   } else if(learnerType == "classif.svm") {
+    svmLearner <- learner
     tune_ps <- ParamSet$new(list(
-      ParamLgl$new(id = "fitted", default = TRUE)
+      ParamDbl$new(id = "cachesize", lower = 20, upper = 150)
     ))
   }
   
   terminator <- term("evals", n_evals = 10)
-  tuner <- tnr("random_search")
+  tuner <- tnr("grid_search")
   
   at = AutoTuner$new(
     learner = learner,
