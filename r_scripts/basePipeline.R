@@ -10,7 +10,7 @@ if(!require(mlr3learners.randomforest)){
 library(mlr3learners.randomforest)
 
 # learnerTypeList = c("classif.randomForest", "classif.kknn", "classif.svm")
-learnerTypeList = c("classif.svm")
+learnerTypeList = c("classif.randomForest")
 
 
 cleanData <- read.csv(here("cleanData.csv"))
@@ -34,9 +34,9 @@ for(learnerType in learnerTypeList) {
   if(learnerType == "classif.randomForest") {
     rfLearner <- learner
     tune_ps <- ParamSet$new(list(
-      ParamInt$new(id = "ntree", lower = 50, upper = 500),
-      ParamInt$new(id = "mtry", lower = 3, upper = 30),
-      ParamInt$new(id = "nodesize", lower = 10, upper = 50)
+      ParamInt$new(id = "ntree", lower = 300, upper = 500),
+      ParamInt$new(id = "mtry", lower = 40, upper = 80),
+      ParamInt$new(id = "nodesize", lower = 10, upper = 20)
     ))
   } else if(learnerType == "classif.kknn") {
     knnLearner <- learner
@@ -45,9 +45,12 @@ for(learnerType in learnerTypeList) {
       ParamDbl$new(id = "distance", lower = .001, upper = 2)
     ))
   } else if(learnerType == "classif.svm") {
+    learner$param_set$values = list(type = "C-classification", kernel = "radial")
     svmLearner <- learner
     tune_ps <- ParamSet$new(list(
-      ParamDbl$new(id = "cachesize", lower = 20, upper = 150)
+      ParamDbl$new(id = "cachesize", lower = 20, upper = 150),
+      ParamDbl$new(id = "cost", lower = 30, upper = 80),
+      ParamDbl$new(id = "gamma", lower = 0.00001, upper = 0.001)
     ))
   }
   
