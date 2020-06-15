@@ -73,6 +73,16 @@ for(learnerType in learnerTypeList) {
   
   print(rr$aggregate())
   
+  # Find best of created models
+  best_mcc <- 0
+  for (i in 1:10) {
+    if (rr$data$learner[[i]]$tuning_result$perf["classif.mcc"] > best_mcc) {
+      best_classif <- rr$data$learner[[i]]
+      best_mcc <- rr$data$learner[[i]]$tuning_result$perf["classif.mcc"]
+    }
+  }
+  write.csv(best_classif$tuning_result$perf, paste(here("performance"), "/", learnerType, ".csv", sep = ""))
+  
   save(rr, file=paste("saved_models/", learnerType, ".RData"))
 }
 
