@@ -4,13 +4,13 @@ p_load(mlr3)
 p_load(mlr3learners)
 p_load(mlr3tuning)
 p_load(here)
+p_load(mlr3filters)
 if(!require(mlr3learners.randomforest)){
   install.packages("mlr3learners.randomforest", repos = "https://mlr3learners.github.io/mlr3learners.drat")
 }
 library(mlr3learners.randomforest)
 
-# learnerTypeList = c("classif.randomForest", "classif.kknn", "classif.svm")
-learnerTypeList = c("classif.randomForest")
+learnerTypeList = c("classif.randomForest", "classif.kknn", "classif.svm")
 
 
 cleanData <- read.csv(here("cleanData.csv"))
@@ -33,15 +33,16 @@ for(learnerType in learnerTypeList) {
   tune_ps <- NA
   if(learnerType == "classif.randomForest") {
     rfLearner <- learner
+    learner$param_set$values = list(importance = "accuracy")
     tune_ps <- ParamSet$new(list(
-      ParamInt$new(id = "ntree", lower = 300, upper = 500),
-      ParamInt$new(id = "mtry", lower = 40, upper = 80),
-      ParamInt$new(id = "nodesize", lower = 10, upper = 20)
+      ParamInt$new(id = "ntree", lower = 300, upper = 800),
+      ParamInt$new(id = "mtry", lower = 10, upper = 40),
+      ParamInt$new(id = "nodesize", lower = 5, upper = 20)
     ))
   } else if(learnerType == "classif.kknn") {
     knnLearner <- learner
     tune_ps <- ParamSet$new(list(
-      ParamInt$new(id = "k", lower = 1, upper = 10),
+      ParamInt$new(id = "k", lower = 1, upper = 20),
       ParamDbl$new(id = "distance", lower = .001, upper = 2)
     ))
   } else if(learnerType == "classif.svm") {
@@ -69,7 +70,8 @@ for(learnerType in learnerTypeList) {
   at$store_tuning_instance = TRUE
   
   resampling_outer = rsmp("cv", folds = 10)
-  rr <- resample(task = TaskClassif$new(id = "tests", backend = cleanData, target = "goodTest"), learner = at, resampling = resampling_outer, store_models = TRUE)
+  testTask = TaskClassif$new(id = "tests", backend = cleanData, target = "goodTest")
+  rr <- resample(task = testTask, learner = at, resampling = resampling_outer, store_models = TRUE)
   
   print(rr$aggregate())
   
@@ -84,6 +86,10 @@ for(learnerType in learnerTypeList) {
   write.csv(best_classif$tuning_result$perf, paste(here("performance"), "/", learnerType, ".csv", sep = ""))
   
   save(best_classif, file=paste("saved_models/", learnerType, ".RData"))
+  
+  if(learnerType == "classif.randomForest") {
+    print(best_classif$model$learner$importance())
+  }
 }
 
 
