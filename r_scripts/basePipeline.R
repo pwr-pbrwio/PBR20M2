@@ -85,7 +85,7 @@ for(learnerType in learnerTypeList) {
   }
   write.csv(best_classif$tuning_result$perf, paste(here("performance"), "/", learnerType, ".csv", sep = ""))
   
-  save(best_classif, file=paste("saved_models/", learnerType, ".RData"))
+  save(best_classif, file=paste("saved_models/", learnerType, ".RData", sep = ""))
   
   if(learnerType == "classif.randomForest") {
     print(best_classif$model$learner$importance())
