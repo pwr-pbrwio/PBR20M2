@@ -16,24 +16,89 @@ http://madeyski.e-informatyka.pl/download/GrodzickaEtAl20LNDECT.pdf
 
 2) Ideas collected in cooperation with Capgemini http://madeyski.e-informatyka.pl/download/project_ideas_PBRwIO.pdf
 
+# Reporduction
 
-Reproduction instructions:
+## Dependencies
++ Maven 3.6.0
++ Python 3.6 with pandas package 1.0.4
++ Java 1.8
++ R 3.5+ with pacman package
++ Additionally whole process has to be done on a unix system (created on ubuntu 18.04, as such it is the recommended one)
 
-As our attempt at reproduction of aforementioned package was unsuccessful, this meant that we could not improve on it either and created a separate one. Our package was created from ground up, but with some use of scripts from. All of used scripts still reference the original author. List of needed tools to recreate the process completely is as follows:
-- Ubuntu 18.04
-- Maven 3.6.0
-- Python 3.6 with 1.0.4 package installed
-- Java 1.8
-- R 3.4.4 with package installed
+## Steps to reproduce
 
-In order to reproduce our studies you need to clone our git repository. Then you need to clone git repositories of the projects used in our studies into the folder. The full list of used projects is listed in the in our repository. However, if you prefer you can use your own projects. In order for the package to work with external projects, their names have to be added to the projects.csv as well.
-In order to prepare the static code metrics, our fork of has to be used. It is available on this git repository. Instructions on how to build and use this tool are present on the repository page. After outputs from selected projects are computed, .csv files with metrics have to be put into javametrics_outputs directory.
-The next step is to build all the projects. To build the project you can open terminal in the project's root folder and use the command 'mvn clean install -DskipTests'. Keep in mind that all the projects must be build successfully. You need to resolve any issues Yourselves and try to build the project again if the building process ends with failure. Once the project is built successfully you should run unit tests with the command 'mvn test -Dmaven.test.failure.ignore=true', which will also ignore failed tests.
-\\
-In order to generate mutation tests and execute them, the same scripts were used, as in Lightweight-Effectiveness. All of them, are being executed through our runExternalScipts.R, to stay in single environment. It is important to note, that this script will take a considerable amount of time to complete. Outcome of this script is mutationScoresGathered.csv, which holds mutation scores of all executed tests. Alternatively, if any trouble would be met while executing this script, all of the external scripts could be called individually in the following order:
-- generate_script.py
-- run_experiment_ALL.sh
-- gatherMutations.py
+note: all steps should be executed from the root of our project
 
-In order to execute python scripts, the variable has to be set on the root of the project. Additionally the bash script has to have it's mode changed to 777, as advised previously in Lightweight-Effectiveness. Both python scripts reside in python_scripts and the bash script is an outcome of the generate_script.py.
-The final step is to create the model. In order to do that you need to run the preprocessing.R script in the r_scripts folder. The script will create the file cleanData.csv containing all the data prepared for machine learning. Finally you should run basePipeline.R, which will train 3 models each with different classification algorithm: K-Neighbours, Support Vector Machines and Random Forest. Created models are saved in the folder saved_models} and can be loaded into R environment.
+### Gathering projects
+
++ Clone our repository
++ Select a group of projects for the process and insert their names into projects.csv file (file is filled with projects used in the study)
++ Clone those projects and put them into /projects directory (projects used in the study are also provided)
+
+### Generate project metrics
+
++ Clone our fork of JavaMetrics, select our work branch for the correct build PBR20M2
+```
+https://github.com/michalpytka-pwr/JavaMetrics
+```
++ Follow build instructions for JavaMetrics on that repo
++ Compute using JavaMetrics metrics for all projects, names of the .csv output files are not importnat
++ Place all of the metric files into /javametrics_outputs directory (our metrics used in the study are provided in that folder initially)
+
+### Build all projects
+
++ Open each of the evaluated projects root directory and use command
+```
+mvn clean install -DskipTests
+```
++ If any issues with project building arise, they have to be repaired manually
++ Run tests for each of the projects by using
+```
+mvn test -Dmaven.test.failure.ignore=true
+```
+
+### Generate mutation tests
+
+note: if all projects used in the study are used, this step will take a significant amount of time
+
++ Open Your R on root of our project
++ Execute script responsible for generating mutation test '/r_scripts/runExternalScripts.R'
++ Check if after this step a file 'mutationScoresGathered.csv' was created and check, if data has generated correctly (if actual test cases are listed and if their mutation scores are non zero)
++ If any problems are met on this step use the alternate step instructions
+
+### Generate mutation tests (Alternate step)
+
++ Set the pythonpath for the root of our project with
+```
+export PYTHONPATH=$(pwd)
+```
++ Run script respoinslbe for generating the process of mutation testing
+```
+python3 python_scripts/generate_script.py
+```
++ Set mode of the generated bash script with
+```
+chmod 777 run_experiment_ALL.sh
+```
++ Run generated bash scripts to compute mutation tests
+```
+./run_experiment_ALL.sh
+```
++ Gather all of the outputs of mutation testing with
+```
+python3 python_scripts/gatherMutations.py
+```
+
+### Preprocess data and generate model
+
++ Open Your R on root of our project
++ Execute script responsible for preprocessing data '/r_scripts/preprocessing.R'
++ Execute script responsible for generating models '/r_scripts/basePipeline.R'
+
+### Outcome
+
++ After those steps, generated models should be present in the loaded R enviroment memory under 'best_classif' and in the /saved_models direcotry. If need be the can be reloaded into R with 'load("path to the model")' command
++ To check the results for a model use
+```
+best_classif$tuning_result$perf
+```
