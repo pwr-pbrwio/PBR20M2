@@ -10,8 +10,8 @@ if(!require(mlr3learners.randomforest)){
 }
 library(mlr3learners.randomforest)
 
-#learnerTypeList = c("regr.randomForest", "regr.kknn", "regr.svm")
-learnerTypeList = c("regr.svm")
+learnerTypeList = c("regr.randomForest", "regr.kknn", "regr.svm")
+#learnerTypeList = c("regr.randomForest")
 
 
 cleanData <- read.csv(here("cleanData.csv"))
@@ -23,6 +23,10 @@ cleanData$ALU.y <- as.integer(as.logical(cleanData$ALU.y))
 
 cleanData <- as.data.frame(sapply(cleanData, as.numeric))
 #``cleanData$MutationScore <- as.factor(cleanData$MutationScore)
+
+dt = sort(sample(nrow(cleanData), nrow(cleanData)*.8))
+trainData <- cleanData[dt,]
+testData <- cleanData[-dt,]
 
 
 set.seed(1337)
@@ -56,7 +60,7 @@ for(learnerType in learnerTypeList) {
     ))
   }
   
-  terminator <- term("evals", n_evals = 2)
+  terminator <- term("evals", n_evals = 10)
   tuner <- tnr("grid_search")
   
   at = AutoTuner$new(
@@ -71,7 +75,8 @@ for(learnerType in learnerTypeList) {
   at$store_tuning_instance = TRUE
   
   resampling_outer = rsmp("cv", folds = 10)
-  testTask = TaskRegr$new(id = "tests", backend = cleanData, target = "MutationScore")
+  #testTask = TaskRegr$new(id = "tests", backend = cleanData, target = "MutationScore")
+  testTask = TaskRegr$new(id = "tests", backend = trainData, target = "MutationScore")
   rr <- resample(task = testTask, learner = at, resampling = resampling_outer, store_models = TRUE)
   
   print(rr$aggregate())
@@ -90,7 +95,10 @@ for(learnerType in learnerTypeList) {
   
   if(learnerType == "regr.randomForest") {
     print(best_regr$model$learner$importance())
+    prediction = best_regr$predict(TaskRegr$new(id = "tests", backend = testData, target = "MutationScore"))
+    write.csv(prediction$data, "regressionPrediction.csv")
   }
+  
 }
 
 
