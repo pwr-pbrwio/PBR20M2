@@ -16,7 +16,7 @@ http://madeyski.e-informatyka.pl/download/GrodzickaEtAl20LNDECT.pdf
 
 2) Ideas collected in cooperation with Capgemini http://madeyski.e-informatyka.pl/download/project_ideas_PBRwIO.pdf
 
-# Reporduction
+# Reproduction
 
 ## Dependencies
 + Maven 3.6.0
