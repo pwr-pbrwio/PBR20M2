@@ -3,7 +3,6 @@ Research and Development Project in Software Engineering (Projekt badawczo-rozwo
 - Lech Madeyski
 - BartoszBoczar 238067
 - michalpytka 233146
-- kamil-zareba 257402
 
 As references to my own (LM) ideas presented during the first project meeting, see:
 1) Several project ideas related to code smells and/or software defects prediction, especially using and exending MLCQ data set. 
